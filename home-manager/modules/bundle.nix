@@ -1,0 +1,19 @@
+{
+  imports = [
+    ./git.nix
+    #./flameshot.nix
+    ./alacritty.nix
+    ./nixvim.nix
+    ./polybar.nix
+    ./bspwm.nix
+    #./picom.nix
+    ./sxhkd.nix
+    ./htop.nix
+    ./feh.nix
+    #./rofi.nix
+    ./firefox.nix
+    ./etc.nix
+    ./zsh.nix
+    ./tmux.nix
+  ];
+}
