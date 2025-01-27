@@ -11,7 +11,8 @@
     gcc
     ripgrep
     pylint
-    dmenu-rs
+    dmenu
+    networkmanager_dmenu
 
     #Global python pkgs
     python312

@@ -4,6 +4,7 @@
     startupPrograms = [
       "pgrep -x sxhkd > /dev/null || sxhkd"
       "pgrep -x polybar > /dev/null || polybar"
+      "pgrep -x polybar > /dev/null || clipmenu"
       #"picom"
       # "pgrep -x rofi > /dev/null || rofi"
       # "flameshot"

@@ -13,6 +13,8 @@
 
       "super + n" = "nemo";
 
+      "shift + alt + z" = "clipmenu";
+
       "super + o" = "obsidian";
 
       "super + w" = "firefox";
