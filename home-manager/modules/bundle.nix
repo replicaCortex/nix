@@ -1,6 +1,7 @@
 {
   imports = [
     ./git.nix
+    ./clipmenu.nix
     #./flameshot.nix
     ./alacritty.nix
     ./nixvim.nix

@@ -11,7 +11,7 @@
     gcc
     ripgrep
     pylint
-    dmenu-rs
+    dmenu
 
     #Global python pkgs
     python312
