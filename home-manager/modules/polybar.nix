@@ -37,7 +37,7 @@ in {
 
       modules-left = sep cpu sep memory sep temperature
       modules-center = xworkspaces
-      modules-right = ethernet sep xkeyboard date sep
+      modules-right = ethernet sepmini xkeyboard date sep
 
       dpi-x = 96
       dpi-y = 96
