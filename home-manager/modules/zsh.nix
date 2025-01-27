@@ -1,3 +1,4 @@
+# {pkgs, ...}:
 {
   programs.zsh = {
     enable = true;
@@ -22,7 +23,6 @@
       if [ -z "$TMUX" ] && [ -n "$DISPLAY" ]; then
         tmux attach-session -t default || tmux new-session -s default
       fi
-
     '';
 
     zplug = {
@@ -34,8 +34,10 @@
 
     oh-my-zsh = {
       enable = true;
-      plugins = ["git" "thefuck"];
+      plugins = ["git" "thefuck" "z"];
       theme = "agnoster";
     };
   };
+
+  # home.packages = with pkgs; [zsh-powerlevel10k];
 }
