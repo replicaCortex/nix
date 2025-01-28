@@ -93,6 +93,9 @@
           {
             name = "luasnip";
           }
+          {
+            name = "neorg";
+          }
           # Adds other completion capabilites.
           #  nvim-cmp does not ship with all sources by default. They are split
           #  into multiple repos for maintenance purposes.

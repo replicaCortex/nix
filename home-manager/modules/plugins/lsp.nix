@@ -12,9 +12,9 @@
 
     # Useful status updates for LSP.
     # https://nix-community.github.io/nixvim/plugins/fidget/index.html
-    # plugins.fidget = {
-    #   enable = true;
-    # };
+    plugins.fidget = {
+      enable = true;
+    };
 
     # https://nix-community.github.io/nixvim/NeovimOptions/autoGroups/index.html
     autoGroups = {

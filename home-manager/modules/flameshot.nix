@@ -4,7 +4,7 @@
 
     settings = {
       General = {
-        disabledTrayIcon = true;
+        disabledTrayIcon = false;
         showStartupLaunchMessage = false;
       };
     };

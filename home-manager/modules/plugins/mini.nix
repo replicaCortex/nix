@@ -32,6 +32,9 @@
           use_icons.__raw = "vim.g.have_nerd_font";
         };
 
+        pairs = {};
+        # notify = {};
+
         # ... and there is more!
         # Check out: https://github.com/echasnovski/mini.nvim
       };

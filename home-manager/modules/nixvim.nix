@@ -10,15 +10,20 @@
     ./plugins/conform.nix
     ./plugins/lsp.nix
     ./plugins/nvim-cmp.nix
+    # ./plugins/blink.nix
     ./plugins/mini.nix
     ./plugins/treesitter.nix
 
     ./plugins/kickstart/plugins/debug.nix
-    # ./plugins/kickstart/plugins/indent-blankline.nix
+    ./plugins/kickstart/plugins/indent-blankline.nix
     #./plugins/kickstart/plugins/lint.nix
-    ./plugins/kickstart/plugins/autopairs.nix
+    # ./plugins/kickstart/plugins/autopairs.nix
 
     ./plugins/custom/plugins/image.nix
+    # ./plugins/custom/plugins/multicursors.nix
+    # ./plugins/custom/plugins/fidget.nix
+    ./plugins/custom/plugins/leetcode.nix
+    # ./plugins/custom/plugins/norg-fmt.nix
     # ./plugins/custom/plugins/lualine.nix
     ./plugins/custom/plugins/oil.nix
     ./plugins/custom/plugins/undotree.nix
@@ -32,7 +37,7 @@
     ./plugins/custom/plugins/otter.nix
     ./plugins/custom/plugins/molten.nix
     # ./plugins/custom/plugins/lazygit.nix
-    ./plugins/custom/plugins/noice.nix
+    # ./plugins/custom/plugins/noice.nix
     # ./plugins/custom/plugins/firenvim.nix
     ./plugins/custom/plugins/harpoon.nix
 
@@ -235,6 +240,15 @@
           desc = "Move focus to the upper window";
         };
       }
+
+      {
+        mode = "n";
+        key = "<C-k>";
+        action = "<C-w><C-k>";
+        options = {
+          desc = "Move focus to the upper window";
+        };
+      }
     ];
 
     autoGroups = {
@@ -262,7 +276,7 @@
 
     extraPlugins = with pkgs.vimPlugins; [
       nvim-web-devicons
-      leetcode-nvim
+      # multiple-cursors
     ];
 
     extraConfigLuaPre = ''
@@ -270,7 +284,7 @@
         require('nvim-web-devicons').setup {}
       end
 
-      require('leetcode').setup {lang = 'python'}
+
 
     '';
 

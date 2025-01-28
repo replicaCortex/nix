@@ -13,7 +13,7 @@
 
       "super + n" = "nemo";
 
-      "shift + alt + z" = "clipmenu";
+      "shift + ctrl + z" = "clipmenu";
 
       "super + o" = "obsidian";
 
