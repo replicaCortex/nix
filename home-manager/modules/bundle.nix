@@ -1,13 +1,17 @@
 {
   imports = [
+    ./zotero.nix
     ./git.nix
+    ./ranger.nix
+    ./kitty.nix
+    ./redshift.nix
     ./clipmenu.nix
     #./flameshot.nix
     ./alacritty.nix
     ./nixvim.nix
     ./polybar.nix
     ./bspwm.nix
-    #./picom.nix
+    ./picom.nix
     ./sxhkd.nix
     ./htop.nix
     ./feh.nix

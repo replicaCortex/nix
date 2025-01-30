@@ -8,8 +8,8 @@
           "<C-l>" = false;
           "<C-r>" = false;
           "<C-n>" = "actions.close";
-          "w" = "actions.select";
-          "q" = "actions.parent";
+          "l" = "actions.select";
+          "h" = "actions.parent";
         };
       };
     };

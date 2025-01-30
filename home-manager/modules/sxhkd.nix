@@ -5,13 +5,13 @@
       #"super + d" = "rofi -show drun -config .config/rofi/menu_bottom.rasi -show-icons";
       "super + d" = "dmenu_run";
 
-      "super + {_,shift + }Return" = "{alacritty , bspc node -s biggest.local}";
+      "super + {_,shift + }Return" = "{kitty , bspc node -s biggest.local}";
 
       "@Print" = "scrot";
 
       "shift + @Print" = "scrot -d 5";
 
-      "super + n" = "nemo";
+      # "super + e" = "bemoji";
 
       "shift + ctrl + z" = "clipmenu";
 
@@ -19,20 +19,24 @@
 
       "super + w" = "firefox";
 
-      "super + p" = "xcolor -P 150 -s clipboard";
+      # "super + p" = "xcolor -P 150 -s clipboard";
+
       "Print" = "flameshot gui";
 
       # ПЕРЕЗАГРУЗИТЬ КОНФИГ SXHKD
-      "super + e" = "pkill -USR1 -x sxhkd";
+      "super + shift + e" = "pkill -USR1 -x sxhkd";
 
       # ВЫЙТИ/ПЕРЕЗАГРУЗИТЬ BSPWM
       "super + shift + {q,r}" = "bspc {quit,wm -r}";
 
       # ПЕРЕЗАГРУЗКА
-      "super + ctrl + r" = "reboot";
+      "super + alt+ ctrl + r" = "reboot";
+
+      # СПЯЩИЙ РЕЖИМ
+      "super + alt+ ctrl + s" = "systemctl suspend";
 
       # ВЫКЛЮЧЕНИЕ
-      "super + ctrl + p" = "poweroff";
+      "super + alt+ ctrl + p" = "poweroff";
 
       # ПОМЕНЯТЬ СТАТУС ОКНА
       "super + {t,shift + t,s,f}" = ''

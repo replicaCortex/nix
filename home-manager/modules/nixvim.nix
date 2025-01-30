@@ -17,7 +17,7 @@
     ./plugins/kickstart/plugins/debug.nix
     ./plugins/kickstart/plugins/indent-blankline.nix
     #./plugins/kickstart/plugins/lint.nix
-    # ./plugins/kickstart/plugins/autopairs.nix
+    ./plugins/kickstart/plugins/autopairs.nix
 
     ./plugins/custom/plugins/image.nix
     # ./plugins/custom/plugins/multicursors.nix
@@ -27,21 +27,27 @@
     # ./plugins/custom/plugins/lualine.nix
     ./plugins/custom/plugins/oil.nix
     ./plugins/custom/plugins/undotree.nix
-    ./plugins/custom/plugins/neorg.nix
+    # ./plugins/custom/plugins/neorg.nix
     ./plugins/custom/plugins/todo.nix
     ./plugins/custom/plugins/colorizer.nix
     # ./plugins/custom/plugins/volt.nix
     # ./plugins/custom/plugins/typr.nix
     ./plugins/custom/plugins/diagnostics.nix
     ./plugins/custom/plugins/leap.nix
-    ./plugins/custom/plugins/otter.nix
-    ./plugins/custom/plugins/molten.nix
+    ./plugins/custom/plugins/vimtex.nix
     # ./plugins/custom/plugins/lazygit.nix
     # ./plugins/custom/plugins/noice.nix
     # ./plugins/custom/plugins/firenvim.nix
     ./plugins/custom/plugins/harpoon.nix
+    ./plugins/custom/plugins/markdown.nix
 
     #./plugins/custom/plugins/nougat.nix
+
+    # jupyter
+    ./plugins/custom/plugins/jupyter/molten.nix
+    ./plugins/custom/plugins/jupyter/quarto.nix
+    ./plugins/custom/plugins/jupyter/otter.nix
+    ./plugins/custom/plugins/jupyter/jupytext.nix
 
     # frplugin
     ./plugins/ftpluginx.nix
@@ -167,6 +173,24 @@
         key = "<Esc>";
         action = "<cmd>nohlsearch<CR>";
       }
+
+      {
+        mode = "n";
+        key = "Q";
+        action = "<nop>";
+      }
+
+      {
+        mode = "n";
+        key = "q";
+        action = "<nop>";
+      }
+
+      # {
+      #   mode = "n";
+      #   key = "<Esc>";
+      #   action = "<C-c>";
+      # }
       {
         mode = "t";
         key = "<Esc><Esc>";

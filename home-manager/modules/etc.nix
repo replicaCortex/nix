@@ -3,8 +3,10 @@
     nerd-fonts.cousine
     nerd-fonts.jetbrains-mono
     flameshot
+    ntfs3g
+    wezterm
+    unzip
     fzf
-    nemo
     xclip
     wget
     lazygit
@@ -14,7 +16,6 @@
     dmenu
 
     #Global python pkgs
-    python312
     thefuck
   ];
 }

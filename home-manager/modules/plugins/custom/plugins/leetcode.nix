@@ -11,7 +11,7 @@
       {
         lang = 'python',
 
-        image_support = true,
+        -- image_support = true,
       }
 
     '';

@@ -23,24 +23,29 @@
           documentation = {
             auto_show = true;
           };
+          menu = {
+            scrollbar = false;
+            # bordet = true;
+          };
         };
         keymap = {
-          preset = "super-tab";
+          preset = "enter";
         };
         signature = {
           enabled = true;
-        };
-        sources = {
-          cmdline = [];
         };
         keymap = {
           "<C-b>" = [
             "scroll_documentation_up"
             "fallback"
           ];
-          "<C-e>" = [
-            "hide"
-          ];
+          # "<C-e>" = [
+          #   "hide"
+          # ];
+          # "<esc>" = [
+          #   "cancel"
+          #   "hide"
+          # ];
           "<C-f>" = [
             "scroll_documentation_down"
             "fallback"
@@ -58,7 +63,7 @@
             "show_documentation"
             "hide_documentation"
           ];
-          # "<A-CR>" = [
+          # "<CR>" = [
           #   "select_and_accept"
           # ];
           "<Down>" = [
@@ -71,18 +76,19 @@
           ];
         };
         sources = {
+          cmdline = null;
           default = [
             "lsp"
             "path"
             "snippets"
             "buffer"
-            "neorg"
+            # "neorg"
           ];
           providers = {
-            neorg = {
-              name = "neorg";
-              module = "blink.compat.source";
-            };
+            # neorg = {
+            #   name = "neorg";
+            #   module = "blink.compat.source";
+            # };
           };
         };
       };

@@ -2,7 +2,7 @@
   programs.nixvim = {
     plugins.image = {
       enable = true;
-      backend = "ueberzug";
+      backend = "kitty";
       maxHeight = 15;
       maxWidth = 100;
       # maxHeightWindowPercentage = 1;

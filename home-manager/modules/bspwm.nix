@@ -4,8 +4,13 @@
     startupPrograms = [
       "pgrep -x sxhkd > /dev/null || sxhkd"
       "pgrep -x polybar > /dev/null || polybar"
-      "pgrep -x polybar > /dev/null || clipmenud"
-      #"picom"
+      "pgrep -x clipmenud > /dev/null || clipmenud"
+      "pgrep -x alsa > /dev/null || alsa"
+      "pgrep -x redshift > /dev/null || redshift"
+      # "pgrep -x polybar > /dev/null || ~/nix/home-manager/modules/conf/polybar/sh.sh"
+
+      "pgrep -x picom > /dev/null || picom"
+
       # "pgrep -x rofi > /dev/null || rofi"
       # "flameshot"
       "pgrep -x feh > /dev/null || feh --bg-scale ~/nix/home-manager/modules/conf/background/2.jpg"
@@ -13,7 +18,7 @@
     ];
 
     monitors = {
-      Virtual-1 = [
+      HDMI-1 = [
         ""
         ""
         "󰈹"

@@ -35,7 +35,7 @@ in {
       font-2 = JetBrains Mono NerdFont:style=Regular:pixelsize=10;2
       font-3 = JetBrains Mono NerdFont:style=Regular:pixelsize=10;2
 
-      modules-left = sep cpu sep memory sep temperature
+      modules-left = sep cpu sep memory sep alsa
       modules-center = xworkspaces
       modules-right = ethernet sepmini xkeyboard date sep
 

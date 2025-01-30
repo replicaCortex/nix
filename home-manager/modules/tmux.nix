@@ -2,7 +2,8 @@
   programs.tmux = {
     enable = true;
     keyMode = "vi";
-    terminal = "screen-256color";
+    # terminal = "screen-256color";
+    terminal = "xterm-kitty";
 
     extraConfig = ''
 
@@ -10,7 +11,8 @@
       # set -g @plugin 'tmux-plugins/tpm'
 
       # Theme/color stuff
-      set -s default-terminal 'tmux-256color'
+      # set -s default-terminal 'tmux-256color'
+      # set -s default-terminal "xterm-kitty"
       # set -g @plugin 'jimeh/tmux-themepack'
       # set -g @themepack 'powerline/default/gray'
 

@@ -9,6 +9,7 @@
       ruff
       black
       alejandra
+      prettierd
     ];
 
     # Autoformat
@@ -35,6 +36,7 @@
           python = ["ruff" "black"];
           nix = ["alejandra"];
           latex = ["latexindent"];
+          markdown = ["prettierd"];
           # neorg = ["norg-fmt"];
           #
           # You can use a sublist to tell conform to run *until* a formatter

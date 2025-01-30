@@ -6,6 +6,8 @@
     #autosuggestions.enable = true;
     syntaxHighlighting.enable = true;
     shellAliases = {
+      "na" = "bluetoothctl connect E4:61:F4:31:88:26";
+      "r" = "ranger";
       ".." = "cd ..";
       "nixos" = "sudo nvim ~/nix/nixos/configuration.nix";
       "home" = "sudo nvim ~/nix/home-manager/modules";
