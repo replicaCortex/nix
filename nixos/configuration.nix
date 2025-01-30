@@ -1,14 +1,15 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  config,
+  pkgs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -47,18 +48,17 @@
     layout = "us,ru";
     #variant = "grp:caps_toggle";
     #options = "grp:caps_toggle";
-
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
 
-programs.zsh.enable = true;
-users.defaultUserShell = pkgs.zsh;
+  programs.zsh.enable = true;
+  users.defaultUserShell = pkgs.zsh;
 
   users.users.replica = {
     isNormalUser = true;
     description = "replica";
-    extraGroups = [ "networkmanager" "wheel" "vboxsf" ];
+    extraGroups = ["networkmanager" "wheel" "vboxsf"];
     packages = with pkgs; [];
   };
 
@@ -66,27 +66,73 @@ users.defaultUserShell = pkgs.zsh;
   services.getty.autologinUser = "replica";
 
   environment.systemPackages = with pkgs; [
-	home-manager
+    home-manager
   ];
 
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.package = pkgs.bluez;
+  hardware.pulseaudio.package = pkgs.pulseaudioFull;
+  # services.blueman.enable = true;
 
-environment.variables.EDITOR = "neovim";
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
+  # services.xserver.videoDrivers = ["nvidia"];
+  # hardware.graphics.enable32Bit = true;
 
+  environment.variables = {
+    EDITOR = "nvim";
+    BROWSE = "firefox";
+    TERMINAL = "kitty";
+  };
 
-services.xserver = { 
-enable = true;
-windowManager.bspwm.enable = true;
-displayManager.lightdm.enable = true;
-desktopManager.xterm.enable = false;
-};
+  services.xserver = {
+    enable = true;
+    windowManager.bspwm.enable = true;
+    displayManager.lightdm.enable = true;
+    desktopManager.xterm.enable = false;
+  };
 
   nix = {
     settings = {
       auto-optimise-store = true;
-      experimental-features = [ "nix-command" "flakes" ];
-   };
+      experimental-features = ["nix-command" "flakes"];
+    };
+  };
 
-};
+  fileSystems."/mnt/course" = {
+    device = "/dev/disk/by-uuid/963E4CE23E4CBD4D";
+    fsType = "ntfs-3g";
+    options = [
+      "users"
+      "nofail"
+    ];
+  };
+
+  fileSystems."/mnt/storage" = {
+    device = "/dev/disk/by-uuid/5AA0538EA0536F8D";
+    fsType = "ntfs-3g";
+    options = [
+      "users"
+      "nofail"
+    ];
+  };
+
+  fileSystems."/mnt/workspace" = {
+    device = "/dev/disk/by-uuid/8E5CD8B45CD89873";
+    fsType = "ntfs-3g";
+    options = [
+      "users"
+      "nofail"
+    ];
+  };
+
+  fileSystems."/mnt/game" = {
+    device = "/dev/disk/by-uuid/2ACE5DF0CE5DB4B3";
+    fsType = "ntfs-3g";
+    options = [
+      "users"
+      "nofail"
+    ];
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -114,5 +160,4 @@ desktopManager.xterm.enable = false;
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.11"; # Did you read the comment?
-
 }
