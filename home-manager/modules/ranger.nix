@@ -86,13 +86,29 @@
       set line_numbers relative
 
       # Save tabs on exit
-      set save_tabs_on_exit true
+      # set save_tabs_on_exit true
 
       # Enable scroll wrapping - moving down while on the last item will wrap around to
       # the top and vice versa.
       set wrap_scroll true
 
       default_linemode devicons
+
+      # set tmux_cwd_sync true
+      # set tmux_set_title true
+      # set tmux_open_in_window true
     '';
+    #  TODO: разобраться как установить через nix
+
+    # plugins = [
+    #   {
+    #     name = "ranger_tmux ";
+    #     src = builtins.fetchGit {
+    #       url = "https://github.com/joouha/ranger_tmux";
+    #       rev = "05ba5ddf2ce5659a90aa0ada70eb1078470d972a";
+    #       # tag = "v1.0.8";
+    #     };
+    #   }
+    # ];
   };
 }

@@ -15,8 +15,6 @@
 
       "shift + ctrl + z" = "clipmenu";
 
-      "super + o" = "obsidian";
-
       "super + w" = "firefox";
 
       # "super + p" = "xcolor -P 150 -s clipboard";
@@ -30,16 +28,16 @@
       "super + shift + {q,r}" = "bspc {quit,wm -r}";
 
       # ПЕРЕЗАГРУЗКА
-      "super + alt+ ctrl + r" = "reboot";
+      "super + alt + ctrl + r" = "reboot";
 
       # СПЯЩИЙ РЕЖИМ
-      "super + alt+ ctrl + s" = "systemctl suspend";
+      "super + alt + ctrl + s" = "systemctl suspend ";
 
       # ВЫКЛЮЧЕНИЕ
-      "super + alt+ ctrl + p" = "poweroff";
+      "super + alt + ctrl + p" = "poweroff";
 
       # ПОМЕНЯТЬ СТАТУС ОКНА
-      "super + {t,shift + t,s,f}" = ''
+      "super + {u,shift + u,o,i}" = ''
         bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
         bspc node -g {marked,locked,sticky,private}
       '';

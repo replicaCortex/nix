@@ -25,7 +25,9 @@
   }: {
     nixosConfigurations.nixos = nixpkgs-stable.lib.nixosSystem {
       system = "x86_64-linux";
-      modules = [./nixos/configuration.nix];
+      modules = [
+        ./nixos/configuration.nix
+      ];
     };
 
     homeConfigurations.replica = home-manager.lib.homeManagerConfiguration {

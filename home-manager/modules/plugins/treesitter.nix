@@ -6,8 +6,11 @@
       enable = true;
 
       settings = {
+        # auto_install = true;
         ensureInstalled = [
           "bash"
+          "norg"
+          "norg_meta"
           "diff"
           "lua"
           "markdown"
@@ -23,12 +26,12 @@
           additional_vim_regex_highlighting = true;
         };
 
-        indent = {
-          enable = true;
-          disable = [
-            "ruby"
-          ];
-        };
+        # indent = {
+        #   enable = true;
+        #   disable = [
+        #     "ruby"
+        #   ];
+        # };
 
         # There are additional nvim-treesitter modules that you can use to interact
         # with nvim-treesitter. You should go explore a few and see what interests you:

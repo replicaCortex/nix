@@ -43,6 +43,24 @@
       # Enable Telescope extensions
       extensions = {
         fzf-native.enable = true;
+        # media-files = {
+        #   enable = true;
+        #   settings = {
+        #     filetypes = [
+        #       "png"
+        #       "jpg"
+        #       "gif"
+        #       "mp4"
+        #       "webm"
+        #       "pdf"
+        #     ];
+        #     find_cmd = "rg";
+        #   };
+        #   dependencies = {
+        #     chafa.enable = true;
+        #     pdftoppm.enable = true;
+        #   };
+        # };
         ui-select.enable = false;
       };
 
@@ -66,17 +84,12 @@
         "<leader>ff" = {
           mode = "n";
           action = "find_files";
-          options = {
-            desc = "[S]earch [F]iles";
-          };
         };
 
-        "<leader>to" = {
+        # NOTE: не работает :)
+        "<leader>ft" = {
           mode = "n";
-          action = "<CMD>TodoTelesctope<CR>";
-          options = {
-            desc = "[S]earch [F]iles";
-          };
+          action = ":TodoTelescope<CR>";
         };
         # "<leader>ss" = {
         #   mode = "n";
@@ -95,16 +108,10 @@
         "<leader>fw" = {
           mode = "n";
           action = "live_grep";
-          options = {
-            desc = "[S]earch by [G]rep";
-          };
         };
         "<leader>fd" = {
           mode = "n";
           action = "diagnostics";
-          options = {
-            desc = "[S]earch [D]iagnostics";
-          };
         };
         # "<leader>sr" = {
         #   mode = "n";

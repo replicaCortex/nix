@@ -1,5 +1,8 @@
-# {pkgs, ...}:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -15,7 +18,7 @@
       "hms" = "home-manager switch --flake ~/nix/";
       "nrs" = "sudo nixos-rebuild switch --flake ~/nix/";
       "systemState" = "ls -l /nix/var/nix/gcroots/auto";
-      "n" = "nvim";
+      "n" = "nvim .";
     };
 
     initExtra = ''
@@ -27,6 +30,18 @@
       fi
     '';
 
+    # plugins = [
+    #   {
+    #     name = "powerlevel10k";
+    #     src = pkgs.zsh-powerlevel10k;
+    #     # file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+    #   }
+    #   {
+    #     name = "powerlevel10k-config";
+    #     src = lib.cleanSource ./config;
+    #     # file = "p10k.zsh";
+    #   }
+    # ];
     zplug = {
       enable = true;
       plugins = [

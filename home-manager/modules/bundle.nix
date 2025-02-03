@@ -1,5 +1,8 @@
 {
   imports = [
+    # ./tex.nix
+    ./obs.nix
+    ./zathura.nix
     ./zotero.nix
     ./git.nix
     ./ranger.nix
@@ -7,7 +10,7 @@
     ./redshift.nix
     ./clipmenu.nix
     #./flameshot.nix
-    ./alacritty.nix
+    # ./alacritty.nix
     ./nixvim.nix
     ./polybar.nix
     ./bspwm.nix
@@ -20,5 +23,8 @@
     ./etc.nix
     ./zsh.nix
     ./tmux.nix
+
+    # TSobject
+    ./plugins/custom/plugins/TSObjects/textobjects.nix
   ];
 }

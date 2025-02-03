@@ -44,7 +44,7 @@
           # Scroll the documentation window [b]ack / [f]orward
           "<C-b>" = "cmp.mapping.scroll_docs(-4)";
           "<C-f>" = "cmp.mapping.scroll_docs(4)";
-          "<esc>" = "cmp.mapping.abort()";
+          "<Esc>" = "cmp.mapping.abort()";
           # Accept ([y]es) the completion.
           #  This will auto-import if your LSP supports it.
           #  This will expand snippets if the LSP sent a snippet.
@@ -98,9 +98,12 @@
           {
             name = "luasnip";
           }
-          # {
-          #   name = "neorg";
-          # }
+          {
+            name = "obsidian";
+          }
+          {
+            name = "neorg";
+          }
           # Adds other completion capabilites.
           #  nvim-cmp does not ship with all sources by default. They are split
           #  into multiple repos for maintenance purposes.

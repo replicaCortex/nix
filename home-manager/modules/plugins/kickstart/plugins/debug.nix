@@ -6,43 +6,96 @@
     # be extended to other languages as well. That's why it's called
     # kickstart.nixvim and not kitchen-sink.nixvim ;)
     # https://nix-community.github.io/nixvim/plugins/dap/index.html
+    plugins.cmp-dap.enable = true;
+
+    plugins.dap-ui = {
+      enable = true;
+
+      # Set icons to characters that are more likely to work in every terminal.
+      # Feel free to remove or use ones that you like more! :)
+      # Don't feel like these are good choices.
+      # icons = {
+      #   expanded = "▾";
+      #   collapsed = "▸";
+      #   current_frame = "*";
+      # };
+
+      # controls = {
+      #   icons = {
+      #     pause = "⏸";
+      #     play = "▶";
+      #     step_into = "⏎";
+      #     step_over = "⏭";
+      #     step_out = "⏮";
+      #     step_back = "b";
+      #     run_last = "▶▶";
+      #     terminate = "⏹";
+      #     disconnect = "⏏";
+      #   };
+      # };
+      # settins = {
+      #   element_mappings = {};
+      # };
+      settings.layouts = [
+        {
+          elements = [
+            {
+              id = "scopes";
+              size = 0.33;
+            }
+            {
+              id = "breakpoints";
+              size = 0.33;
+            }
+            {
+              id = "stacks";
+              size = 0.33;
+            }
+            # {
+            #   id = "watches";
+            #   size = 0.25;
+            # }
+          ];
+          position = "left";
+          size = 38;
+        }
+        {
+          elements = [
+            {
+              id = "repl";
+              size = 0.5;
+            }
+            {
+              id = "console";
+              size = 0.5;
+            }
+          ];
+          position = "bottom";
+          size = 10;
+        }
+      ];
+      # };
+    };
+    plugins.dap-virtual-text = {enable = true;};
+    plugins.dap-python = {
+      enable = true;
+    };
+
     plugins.dap = {
       enable = true;
 
-      extensions = {
-        # Creates a beautiful debugger UI
-        dap-ui = {
-          enable = true;
-
-          # Set icons to characters that are more likely to work in every terminal.
-          # Feel free to remove or use ones that you like more! :)
-          # Don't feel like these are good choices.
-          icons = {
-            expanded = "▾";
-            collapsed = "▸";
-            current_frame = "*";
-          };
-
-          controls = {
-            icons = {
-              pause = "⏸";
-              play = "▶";
-              step_into = "⏎";
-              step_over = "⏭";
-              step_out = "⏮";
-              step_back = "b";
-              run_last = "▶▶";
-              terminate = "⏹";
-              disconnect = "⏏";
-            };
-          };
+      # extensions = {
+      # Creates a beautiful debugger UI
+      signs = {
+        dapBreakpoint = {
+          text = "";
+          texthl = "white";
         };
 
-        # Add your own debuggers here
-        dap-python = {
-          enable = true;
+        dapBreakpointCondition = {
+          text = "";
+          texthl = "white";
         };
-        dap-virtual-text = {enable = true;};
       };
     };
 

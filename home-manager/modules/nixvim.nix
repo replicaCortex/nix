@@ -4,8 +4,9 @@
   ...
 }: {
   imports = [
-    # Plugins
-    ./plugins/gitsigns.nix
+    # Core
+
+    # ./plugins/gitsigns.nix
     ./plugins/telescope.nix
     ./plugins/conform.nix
     ./plugins/lsp.nix
@@ -13,33 +14,42 @@
     # ./plugins/blink.nix
     ./plugins/mini.nix
     ./plugins/treesitter.nix
+    ./plugins/custom/plugins/TSObjects/treesitter-textobjects.nix
 
     ./plugins/kickstart/plugins/debug.nix
     ./plugins/kickstart/plugins/indent-blankline.nix
     #./plugins/kickstart/plugins/lint.nix
     ./plugins/kickstart/plugins/autopairs.nix
 
-    ./plugins/custom/plugins/image.nix
+    # Plug
+
     # ./plugins/custom/plugins/multicursors.nix
     # ./plugins/custom/plugins/fidget.nix
     ./plugins/custom/plugins/leetcode.nix
     # ./plugins/custom/plugins/norg-fmt.nix
     # ./plugins/custom/plugins/lualine.nix
     ./plugins/custom/plugins/oil.nix
+    ./plugins/custom/plugins/pencil.nix
     ./plugins/custom/plugins/undotree.nix
-    # ./plugins/custom/plugins/neorg.nix
+    ./plugins/custom/plugins/neorg.nix
     ./plugins/custom/plugins/todo.nix
+    ./plugins/custom/plugins/zen-mode.nix
+    ./plugins/custom/plugins/langmapper.nix
     ./plugins/custom/plugins/colorizer.nix
     # ./plugins/custom/plugins/volt.nix
+    # ./plugins/custom/plugins/lazy.nix
     # ./plugins/custom/plugins/typr.nix
     ./plugins/custom/plugins/diagnostics.nix
     ./plugins/custom/plugins/leap.nix
+    ./plugins/custom/plugins/obsidian.nix
+    ./plugins/custom/plugins/img-clip.nix
     ./plugins/custom/plugins/vimtex.nix
     # ./plugins/custom/plugins/lazygit.nix
     # ./plugins/custom/plugins/noice.nix
     # ./plugins/custom/plugins/firenvim.nix
     ./plugins/custom/plugins/harpoon.nix
     ./plugins/custom/plugins/markdown.nix
+    ./plugins/custom/plugins/hydra.nix
 
     #./plugins/custom/plugins/nougat.nix
 
@@ -48,6 +58,7 @@
     ./plugins/custom/plugins/jupyter/quarto.nix
     ./plugins/custom/plugins/jupyter/otter.nix
     ./plugins/custom/plugins/jupyter/jupytext.nix
+    ./plugins/custom/plugins/image.nix
 
     # frplugin
     ./plugins/ftpluginx.nix
@@ -59,6 +70,8 @@
 
     colorschemes = {
       catppuccin = {
+        # kanagawa = {
+        # tokyonight = {
         enable = true;
         # settings = {
         #   style = "moon";
@@ -151,6 +164,22 @@
         };
       }
       {
+        mode = "v";
+        key = "p";
+        action = "P";
+        options = {
+          silent = true;
+        };
+      }
+      {
+        mode = "n";
+        key = "U";
+        action = "<C-r>";
+        options = {
+          silent = true;
+        };
+      }
+      {
         mode = "n";
         key = "q:";
         action = "<nop>";
@@ -176,7 +205,24 @@
 
       {
         mode = "n";
+        key = "q";
+        action = "<cmd>nohlsearch<CR>";
+      }
+
+      {
+        mode = "n";
         key = "Q";
+        action = "<nop>";
+      }
+
+      {
+        mode = "n";
+        key = "й";
+        action = "<nop>";
+      }
+      {
+        mode = "n";
+        key = "Й";
         action = "<nop>";
       }
 
@@ -264,6 +310,66 @@
           desc = "Move focus to the upper window";
         };
       }
+      {
+        mode = "n";
+        key = "?";
+        action = "<nop>";
+      }
+      {
+        mode = "n";
+        key = "<leader>p";
+        action = "<cmd>PasteImage<cr>";
+      }
+
+      # {
+      #   mode = "n";
+      #   key = "<leader>oi";
+      #   action.__raw = ''
+      #
+      #     function()
+      #         local oil = require(" oil ")
+      #         local filename = oil.get_cursor_entry().name
+      #         local dir = oil.get_current_dir()
+      #         oil.close()
+      #
+      #         local img_clip = require(" img-clip ")
+      #         img_clip.paste_image({}, dir .. filename)
+      #       end
+      #
+      #   '';
+      # }
+
+      {
+        mode = "n";
+        key = "<leader>fi";
+        action.__raw = ''
+
+          function()
+            local telescope = require("telescope.builtin")
+            local actions = require("telescope.actions")
+            local action_state = require("telescope.actions.state")
+
+            telescope.find_files({
+              attach_mappings = function(_, map)
+                local function embed_image(prompt_bufnr)
+                  local entry = action_state.get_selected_entry()
+                  local filepath = entry[1]
+                  actions.close(prompt_bufnr)
+
+                  local img_clip = require("img-clip")
+                  img_clip.paste_image(nil, filepath)
+                end
+
+                map("i", "<CR>", embed_image)
+                map("n", "<CR>", embed_image)
+
+                return true
+              end,
+            })
+          end
+
+        '';
+      }
 
       {
         mode = "n";
@@ -300,7 +406,6 @@
 
     extraPlugins = with pkgs.vimPlugins; [
       nvim-web-devicons
-      # multiple-cursors
     ];
 
     extraConfigLuaPre = ''
@@ -308,8 +413,14 @@
         require('nvim-web-devicons').setup {}
       end
 
-
-
+      vim.api.nvim_create_autocmd({"FileType"}, {
+          pattern = {"tex"},
+          callback = function()
+              -- Вызов функции pencil#init() (предполагая, что она доступна в Lua)
+              -- Например:
+              vim.cmd('call pencil#init()')
+          end,
+      })
     '';
 
     extraConfigLuaPost = ''
