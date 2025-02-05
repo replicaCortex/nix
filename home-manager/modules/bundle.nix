@@ -1,20 +1,23 @@
 {
   imports = [
     # ./tex.nix
+    # ./urxvt.nix
     ./obs.nix
+    # ./lf.nix
     ./zathura.nix
+    ./nnn.nix
     ./zotero.nix
     ./git.nix
-    ./ranger.nix
-    ./kitty.nix
+    # ./ranger.nix
+    # ./kitty.nix
     ./redshift.nix
     ./clipmenu.nix
     #./flameshot.nix
-    # ./alacritty.nix
+    ./alacritty.nix
     ./nixvim.nix
     ./polybar.nix
     ./bspwm.nix
-    ./picom.nix
+    # ./picom.nix
     ./sxhkd.nix
     ./htop.nix
     ./feh.nix

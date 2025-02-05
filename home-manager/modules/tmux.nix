@@ -3,7 +3,11 @@
     enable = true;
     keyMode = "vi";
     # terminal = "screen-256color";
-    terminal = "xterm-kitty";
+    # terminal = "tmux-256color";
+    # terminal = "xterm-256color";
+    terminal = "alacritty";
+    # terminal = "xterm-kitty";
+    # terminal = "rxvt-unicode-256color";
 
     extraConfig = ''
 
@@ -12,6 +16,7 @@
 
       # Theme/color stuff
       # set -s default-terminal 'tmux-256color'
+      # set-option -ga terminal-overrides ",xterm-256color:Tc"
       # set -s default-terminal "xterm-kitty"
       # set -g @plugin 'jimeh/tmux-themepack'
       # set -g @themepack 'powerline/default/gray'

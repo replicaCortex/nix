@@ -207,6 +207,21 @@
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
           end, '[T]oggle Inlay [H]ints')
         end
+
+        require("lspconfig")["pyright"].setup({
+            on_attach = on_attach,
+            capabilities = capabilities,
+            settings = {
+                python = {
+                    analysis = {
+                        diagnosticSeverityOverrides = {
+                            reportUnusedExpression = "none",
+                        },
+                    },
+                },
+            },
+        })
+
       '';
     };
   };

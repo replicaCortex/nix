@@ -34,7 +34,7 @@
       };
 
       font = {
-        builtin_box_drawing = true;
+        builtin_box_drawing = false;
         size = 12.0;
         bold = {
           family = "Cousine NerdFont";
@@ -51,10 +51,10 @@
       };
 
       window = {
-        padding = {
-          x = 15;
-          y = 15;
-        };
+        # padding = {
+        #   x = 15;
+        #   y = 15;
+        # };
         dynamic_title = true;
         title = "Alacritty";
         class = {
@@ -64,7 +64,7 @@
       };
 
       env = {
-        TERM = "alacritty";
+        TERM = "xterm-256color";
       };
 
       selection = {

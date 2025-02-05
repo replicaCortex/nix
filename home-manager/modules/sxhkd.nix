@@ -5,7 +5,9 @@
       #"super + d" = "rofi -show drun -config .config/rofi/menu_bottom.rasi -show-icons";
       "super + d" = "dmenu_run";
 
-      "super + {_,shift + }Return" = "{kitty , bspc node -s biggest.local}";
+      # "super + {_,shift + }Return" = "{kitty , bspc node -s biggest.local}";
+
+      "super + {_,shift + }Return" = "{alacritty , bspc node -s biggest.local}";
 
       "@Print" = "scrot";
 

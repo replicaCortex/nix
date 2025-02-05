@@ -88,7 +88,7 @@
                            local hydra = require("hydra")
                            hydra({
                                name = "QuartoNavigator",
-                               hint = [[                        _j_/_k_: move 󰁅/󰁝 | _J_/_K_: cell 󰁅/󰁝 | _r_: run cell | _a_: run all | _s_: show output | _h_: hind output | O/o: create cell 󰁅/󰁝 | _R_: reset  | _<esc>_/_q_: 󰩈]],
+                               hint = [[_j_/_k_: move 󰁅/󰁝 | _J_/_K_: cell 󰁅/󰁝 | _r_: run cell | _a_: run all | _s_: show output | _h_: hind output | O/o: create cell 󰁅/󰁝 | _R_: reset  | _E_: export cell output | _q_: 󰩈]],
 
                                config = {
                                show_name = true;
@@ -114,11 +114,12 @@
                                    { "j",     keys("]b") },
                                    { "k",     keys("[b") },
                                    { "J",     keys("<leader>sbl") },
+                                   { "E",     keys(":MoltenExportOutput<CR>") },
                                    { "K",     keys("<leader>sbh") },
 
                                    { "r",     ":QuartoSend<CR>" },
-                                   { "<esc>", nil,              { exit = true } },
-                                   { "q",     nil,              { exit = true } },
+                                   { "q", nil,              { exit = true } },
+                                   -- { "q",     nil,              { exit = true } },
                                    -- { "o", keys("/```<CR>:nohl<CR>o<CR>`<c-j>"), { desc = "new cell ↓", exit = true } },
                                    -- { "O", keys("?```.<CR>:nohl<CR><leader>kO<CR>`<c-j>"), { desc = "new cell ↑", exit = true } },
                                    { "s", ":noautocmd MoltenEnterOutput<CR>", { desc = "show" } },
@@ -151,8 +152,9 @@
       _N_: Conditional Breakpoint
       ^
       ---------------------------
-      _<Esc>_: Quit
+      _q_: Quit
       ]],
+
       -- _e_: Open DAP REPL
 
                                config = {
@@ -203,6 +205,8 @@
                       end)
                     end },
                   { ".", function() require("dap").step_out() end },
+
+                                   { "q", nil,              { exit = true } },
                   { ",", function() require("dap").step_over() end },
                   { "m", function() require("dap").step_into() end },                 },
             {
@@ -221,7 +225,6 @@
                 end,
               },
               { "e", function() require("dap").repl.open() end },
-              { "<Esc>", nil, { exit = true } },
               -- { "q", nil, { exit = true } },
                            })
 

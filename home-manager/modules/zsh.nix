@@ -4,9 +4,9 @@
   ...
 }: {
   programs.zsh = {
-    enable = true;
-    enableCompletion = true;
-    #autosuggestions.enable = true;
+    enable = false;
+    # enableCompletion = true;
+    # autosuggestions.enable = true;
     syntaxHighlighting.enable = true;
     shellAliases = {
       "na" = "bluetoothctl connect E4:61:F4:31:88:26";
@@ -19,8 +19,19 @@
       "nrs" = "sudo nixos-rebuild switch --flake ~/nix/";
       "systemState" = "ls -l /nix/var/nix/gcroots/auto";
       "n" = "nvim .";
+      "nb" = "nix build ./";
+      "nd" = "nix develop ./";
+      "nr" = "nix run";
+      "jn" = "jupyter notebook";
     };
 
+    # plugins = [
+    #   {name = "zsh-users/zsh-autosuggestions";}
+    #   {
+    #     name = "powerlevel10k";
+    #     src = pkgs.zsh-powerlevel10k;
+    #   }
+    # ];
     initExtra = ''
       setxkbmap -option grp:caps_toggle -layout us,ru
 
@@ -30,30 +41,19 @@
       fi
     '';
 
-    # plugins = [
-    #   {
-    #     name = "powerlevel10k";
-    #     src = pkgs.zsh-powerlevel10k;
-    #     # file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-    #   }
-    #   {
-    #     name = "powerlevel10k-config";
-    #     src = lib.cleanSource ./config;
-    #     # file = "p10k.zsh";
-    #   }
-    # ];
-    zplug = {
-      enable = true;
-      plugins = [
-        {name = "zsh-users/zsh-autosuggestions";}
-      ];
-    };
+    # zplug = {
+    #   enable = true;
+    #   plugins = [
+    #     {name = "zsh-users/zsh-autosuggestions";}
+    #   ];
+    # };
 
-    oh-my-zsh = {
-      enable = true;
-      plugins = ["git" "thefuck" "z"];
-      theme = "agnoster";
-    };
+    # oh-my-zsh = {
+    #   enable = true;
+    #   plugins = ["git" "thefuck" "z" "sudo"];
+    #   theme = "agnoster";
+    #   extraConfig = '''';
+    # };
   };
 
   # home.packages = with pkgs; [zsh-powerlevel10k];

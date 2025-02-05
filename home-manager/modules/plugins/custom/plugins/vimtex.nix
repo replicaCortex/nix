@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   programs.nixvim = {
-    plugins.cmp-vimtex = {enable = true;};
+    # plugins.cmp-vimtex = {enable = true;};
     plugins.vimtex = {
       enable = true;
       zathuraPackage = null;

@@ -1,5 +1,8 @@
 {
   programs.kitty = {
+    extraConfig = ''
+      allow_remote_control yes
+    '';
     enable = true;
     font = {
       name = "Cousine NerdFont";

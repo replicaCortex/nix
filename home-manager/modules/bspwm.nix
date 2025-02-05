@@ -18,7 +18,7 @@
     ];
 
     monitors = {
-      HDMI-1 = [
+      HDMI-0 = [
         ""
         ""
         "󰈹"
@@ -43,10 +43,10 @@
       single_monocle = true;
       borderless_monocle = true;
     };
-    rules = {
-      "firefox" = {
-        desktop = "^3";
-      };
-    };
+    # rules = {
+    #   "firefox" = {
+    #     desktop = "^3";
+    #   };
+    # };
   };
 }

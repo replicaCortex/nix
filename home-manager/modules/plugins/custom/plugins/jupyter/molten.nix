@@ -4,8 +4,10 @@
       enable = true;
       settings = {
         auto_open_output = false;
+        save_path.__raw = "vim.fn.stdpath('data')..'/molten'";
+        output_win_border = ["" "━" "" ""];
         image_provider = "image.nvim";
-        image_location = "float";
+        image_location = "virt";
         output_win_max_height = 12;
         virt_lines_off_by_1 = true;
         virt_text_output = true;
@@ -18,6 +20,12 @@
         mode = "n";
         key = "<localleader>mi";
         action = ":MoltenInit<CR>";
+      }
+
+      {
+        mode = "n";
+        key = "<localleader>mdi";
+        action = ":MoltenDeinit<CR>";
       }
     ];
     extraConfigLuaPre = ''
@@ -63,15 +71,15 @@
           end,
       })
 
-      -- automatically export output chunks to a jupyter notebook on write
-      vim.api.nvim_create_autocmd("BufWritePost", {
-          pattern = { "*.ipynb" },
-          callback = function()
-              if require("molten.status").initialized() == "Molten" then
-                  vim.cmd("MoltenExportOutput!")
-              end
-          end,
-      })
+      -- -- automatically export output chunks to a jupyter notebook on write
+      -- vim.api.nvim_create_autocmd("BufWritePost", {
+      --     pattern = { "*.ipynb" },
+      --     callback = function()
+      --         if require("molten.status").initialized() == "Molten" then
+      --             vim.cmd("MoltenExportOutput!")
+      --         end
+      --     end,
+      -- })
 
       -- -- change the configuration when editing a python file
       vim.api.nvim_create_autocmd("BufEnter", {

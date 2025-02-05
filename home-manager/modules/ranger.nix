@@ -3,6 +3,7 @@
     enable = true;
     settings = {
       preview_images = true;
+      preview_images_method = "iterm2";
       # preview_images_method = "kitty";
     };
 

@@ -14,26 +14,33 @@
     # ./plugins/blink.nix
     ./plugins/mini.nix
     ./plugins/treesitter.nix
-    ./plugins/custom/plugins/TSObjects/treesitter-textobjects.nix
+    # ./plugins/custom/plugins/TSObjects/treesitter-textobjects.nix
 
-    ./plugins/kickstart/plugins/debug.nix
+    # ./plugins/kickstart/plugins/debug.nix
     ./plugins/kickstart/plugins/indent-blankline.nix
     #./plugins/kickstart/plugins/lint.nix
-    ./plugins/kickstart/plugins/autopairs.nix
+    # ./plugins/kickstart/plugins/autopairs.nix
 
     # Plug
 
+    # ./plugins/custom/plugins/leetcode.nix
+    ./plugins/custom/plugins/undotree.nix
+    # ./plugins/custom/plugins/neorg.nix
+    ./plugins/custom/plugins/todo.nix
+    ./plugins/custom/plugins/img-clip.nix
+    # ./plugins/custom/plugins/markdown.nix
+    # ./plugins/custom/plugins/hydra.nix
+
     # ./plugins/custom/plugins/multicursors.nix
     # ./plugins/custom/plugins/fidget.nix
-    ./plugins/custom/plugins/leetcode.nix
     # ./plugins/custom/plugins/norg-fmt.nix
     # ./plugins/custom/plugins/lualine.nix
     ./plugins/custom/plugins/oil.nix
-    ./plugins/custom/plugins/pencil.nix
-    ./plugins/custom/plugins/undotree.nix
-    ./plugins/custom/plugins/neorg.nix
-    ./plugins/custom/plugins/todo.nix
-    ./plugins/custom/plugins/zen-mode.nix
+    # ./plugins/custom/plugins/pencil.nix
+    # ./plugins/lazy.nix
+    # ./plugins/custom/plugins/cmp-zotcite.nix
+    # ./plugins/custom/plugins/zotcite.nix
+    # ./plugins/custom/plugins/zen-mode.nix
     ./plugins/custom/plugins/langmapper.nix
     ./plugins/custom/plugins/colorizer.nix
     # ./plugins/custom/plugins/volt.nix
@@ -41,24 +48,22 @@
     # ./plugins/custom/plugins/typr.nix
     ./plugins/custom/plugins/diagnostics.nix
     ./plugins/custom/plugins/leap.nix
-    ./plugins/custom/plugins/obsidian.nix
-    ./plugins/custom/plugins/img-clip.nix
+    # ./plugins/custom/plugins/obsidian.nix
     ./plugins/custom/plugins/vimtex.nix
     # ./plugins/custom/plugins/lazygit.nix
     # ./plugins/custom/plugins/noice.nix
     # ./plugins/custom/plugins/firenvim.nix
-    ./plugins/custom/plugins/harpoon.nix
-    ./plugins/custom/plugins/markdown.nix
-    ./plugins/custom/plugins/hydra.nix
+    # ./plugins/custom/plugins/harpoon.nix
+    # ./plugins/custom/plugins/telescope-zotero.nix
 
     #./plugins/custom/plugins/nougat.nix
 
     # jupyter
-    ./plugins/custom/plugins/jupyter/molten.nix
-    ./plugins/custom/plugins/jupyter/quarto.nix
-    ./plugins/custom/plugins/jupyter/otter.nix
-    ./plugins/custom/plugins/jupyter/jupytext.nix
-    ./plugins/custom/plugins/image.nix
+    # ./plugins/custom/plugins/jupyter/molten.nix
+    # ./plugins/custom/plugins/jupyter/quarto.nix
+    # ./plugins/custom/plugins/jupyter/otter.nix
+    # ./plugins/custom/plugins/jupyter/jupytext.nix
+    # ./plugins/custom/plugins/image.nix
 
     # frplugin
     ./plugins/ftpluginx.nix
@@ -404,6 +409,7 @@
       web-devicons.enable = true;
     };
 
+    # TODO: сделать ленивую загрузку
     extraPlugins = with pkgs.vimPlugins; [
       nvim-web-devicons
     ];
@@ -413,14 +419,15 @@
         require('nvim-web-devicons').setup {}
       end
 
-      vim.api.nvim_create_autocmd({"FileType"}, {
-          pattern = {"tex"},
-          callback = function()
-              -- Вызов функции pencil#init() (предполагая, что она доступна в Lua)
-              -- Например:
-              vim.cmd('call pencil#init()')
-          end,
-      })
+      -- vim.api.nvim_create_autocmd({"FileType"}, {
+      --     pattern = {"tex"},
+      --     callback = function()
+      --         -- Вызов функции pencil#init() (предполагая, что она доступна в Lua)
+      --         -- Например:
+      --         vim.cmd('call pencil#init()')
+      --         vim.cmd(':set conceallevel=0 <CR>')
+      --     end,
+      -- })
     '';
 
     extraConfigLuaPost = ''

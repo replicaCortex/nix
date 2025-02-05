@@ -32,7 +32,7 @@
           use_icons.__raw = "vim.g.have_nerd_font";
         };
 
-        # pairs = {};
+        pairs = {};
         # notify = {};
 
         # ... and there is more!
