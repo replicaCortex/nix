@@ -34,16 +34,64 @@
       };
 
       font = {
-        builtin_box_drawing = false;
-        size = 12.0;
+        builtin_box_drawing = true;
+        # size = 14.0;
+        size = 18.0;
+        # bold = {
+        #   family = "Cousine NerdFont";
+        #   style = "Bold";
+        # };
+        # normal = {
+        #   family = "Cousine Nerd Font";
+        #   style = "Regular";
+        # };
+
+        # bold = {
+        #   family = "JetBrains Mono NerdFont";
+        #   style = "Bold";
+        # };
+        # normal = {
+        #   family = "JetBrains Mono Nerd Font";
+        #   style = "Regular";
+        # };
+
+        # bold = {
+        #   family = "BigBlueTerm437NerdFont";
+        #   style = "Bold";
+        # };
+        # normal = {
+        #   family = "BigBlueTerm437NerdFont";
+        #   style = "Regular";
+        # };
+
         bold = {
-          family = "Cousine NerdFont";
+          family = "ProggyClean NerdFont";
           style = "Bold";
         };
         normal = {
-          family = "Cousine Nerd Font";
+          family = "ProggyClean Nerd Font";
           style = "Regular";
         };
+
+        # bold = {
+        #   family = "Departure Mono NerdFont";
+        #   style = "Bold";
+        # };
+        # normal = {
+        #   family = "Departure Mono Nerd Font";
+        #   style = "Regular";
+        # };
+
+        # bold = {
+        #   family = "GohuFont14 NerdFont";
+        #   style = "Bold";
+        # };
+        # normal = {
+        #   family = "GohuFont14 NerdFont";
+        #
+        #   # GohuFont14NerdFontMono
+        #   style = "Regular";
+        # };
       };
 
       scrolling = {
@@ -52,8 +100,8 @@
 
       window = {
         # padding = {
-        #   x = 15;
-        #   y = 15;
+        #   x = 0;
+        #   y = 0;
         # };
         dynamic_title = true;
         title = "Alacritty";

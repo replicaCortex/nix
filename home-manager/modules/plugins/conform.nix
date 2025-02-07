@@ -9,6 +9,7 @@
       ruff
       black
       alejandra
+      astyle
       prettierd
     ];
 
@@ -37,6 +38,8 @@
           nix = ["alejandra"];
           latex = ["latexindent"];
           markdown = ["prettierd"];
+          c = ["astyle"];
+          javascript = ["astyle"];
           # neorg = ["norg-fmt"];
           #
           # You can use a sublist to tell conform to run *until* a formatter

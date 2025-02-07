@@ -19,7 +19,7 @@
     ./bspwm.nix
     # ./picom.nix
     ./sxhkd.nix
-    ./htop.nix
+    # ./htop.nix
     ./feh.nix
     #./rofi.nix
     ./firefox.nix

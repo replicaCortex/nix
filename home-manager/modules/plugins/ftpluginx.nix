@@ -22,7 +22,19 @@
         vim.bo.comments = vim.bo.comments:gsub("n:>,?", "")
       '';
 
+      "ftplugin/lua.lua".text = ''
+        vim.opt.tabstop = 2
+        vim.opt.shiftwidth = 2
+        vim.opt.expandtab = true
+      '';
+
       "ftplugin/nix.lua".text = ''
+        vim.opt.tabstop = 2
+        vim.opt.shiftwidth = 2
+        vim.opt.expandtab = true
+      '';
+
+      "ftplugin/c.lua".text = ''
         vim.opt.tabstop = 2
         vim.opt.shiftwidth = 2
         vim.opt.expandtab = true

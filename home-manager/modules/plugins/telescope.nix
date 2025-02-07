@@ -1,15 +1,17 @@
 {
   programs.nixvim = {
-    # Fuzzy Finder (files, lsp, etc)
-    # https://nix-community.github.io/nixvim/plugins/telescope/index.html
     plugins.telescope = {
       settings = {
         defaults = {
           file_ignore_patterns = [
             "^.mypy_cache/"
+            "^.git/"
             "^__pycache__/"
+            "venv"
           ];
+          layout_strategy = "flex";
           layout_config = {
+            preview_cutoff = 0;
             prompt_position = "top";
           };
           selection_caret = " ";
@@ -17,30 +19,8 @@
         };
         sorting_strategy = "ascending";
       };
-      # Telescope is a fuzzy finder that comes with a lot of different things that
-      # it can fuzzy find! It's more than just a "file finder", it can search
-      # many different aspects of Neovim, your workspace, LSP, and more!
-      #
-      # The easiest way to use Telescope, is to start by doing something like:
-      #  :Telescope help_tags
-      #
-      # After running this command, a window will open up and you're able to
-      # type in the prompt window. You'll see a list of `help_tags` options and
-      # a corresponding preview of the help.
-      #
-      # Two important keymaps to use while in Telescope are:
-      #  - Insert mode: <c-/>
-      #  - Normal mode: ?
-      #
-      # This opens a window that shows you all of the keymaps for the current
-      # Telescope picker. This is really useful to discover what Telescope can
-      # do as well as how to actually do it!
-      #
-      # [[ Configure Telescope ]]
-      # See `:help telescope` and `:help telescope.setup()`
       enable = true;
 
-      # Enable Telescope extensions
       extensions = {
         fzf-native.enable = true;
         # media-files = {
@@ -64,8 +44,6 @@
         ui-select.enable = false;
       };
 
-      # You can put your default mappings / updates / etc. in here
-      #  See `:help telescope.builtin`
       keymaps = {
         # "<leader>sh" = {
         #   mode = "n";
@@ -87,10 +65,11 @@
         };
 
         # NOTE: не работает :)
-        "<leader>ft" = {
-          mode = "n";
-          action = ":TodoTelescope<CR>";
-        };
+
+        # "<leader>ft" = {
+        #   mode = "n";
+        #   action = ":TodoTelescope<CR>";
+        # };
         # "<leader>ss" = {
         #   mode = "n";
         #   action = "builtin";
@@ -140,27 +119,24 @@
       # };
     };
 
-    # https://nix-community.github.io/nixvim/keymaps/index.html
     keymaps = [
-      # Slightly advanced example of overriding default behavior and theme
-      {
-        mode = "n";
-        key = "/";
-        # You can pass additional configuration to Telescope to change the theme, layout, etc.
-        action.__raw = ''
-          function()
-            require('telescope.builtin').current_buffer_fuzzy_find(
-              require('telescope.themes').get_dropdown {
-                winblend = 0,
-                previewer = false
-              }
-            )
-          end
-        '';
-        options = {
-          desc = "[/] Fuzzily search in current buffer";
-        };
-      }
+      # {
+      #   mode = "n";
+      #   key = "/";
+      #   action.__raw = ''
+      #     function()
+      #       require('telescope.builtin').current_buffer_fuzzy_find(
+      #         require('telescope.themes').get_dropdown {
+      #           winblend = 0,
+      #           previewer = false
+      #         }
+      #       )
+      #     end
+      #   '';
+      #   options = {
+      #     desc = "[/] Fuzzily search in current buffer";
+      #   };
+      # }
       # {
       #   mode = "n";
       #   key = "<leader>s/";

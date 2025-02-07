@@ -5,8 +5,9 @@
     '';
     enable = true;
     font = {
-      name = "Cousine NerdFont";
-      size = 12;
+      name = "ProggyClean NerdFont";
+      size = 17;
+      package = null;
     };
     shellIntegration.enableZshIntegration = true;
     environment = {

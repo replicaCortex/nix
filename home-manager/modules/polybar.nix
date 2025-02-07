@@ -30,10 +30,10 @@ in {
       border-size = 4pt
       border-color = ${fuck}{colors.bg}
 
-      font-0 = JetBrains Mono NerdFont:style=Regular:pixelsize=10;2
-      font-1 = JetBrains Mono NerdFont:style=Regular:pixelsize=10;2
-      font-2 = JetBrains Mono NerdFont:style=Regular:pixelsize=10;2
-      font-3 = JetBrains Mono NerdFont:style=Regular:pixelsize=10;2
+      font-0 = ProggyClean NerdFont:style=Regular:pixelsize=14;2
+      font-1 = ProggyClean NerdFont:style=Regular:pixelsize=14;2
+      font-2 = ProggyClean NerdFont:style=Regular:pixelsize=14;2
+      font-3 = ProggyClean NerdFont:style=Regular:pixelsize=14;2
 
       modules-left = sep cpu sep memory sep alsa
       modules-center = xworkspaces

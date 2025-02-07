@@ -94,22 +94,23 @@
                                show_name = true;
                                    color = "pink",
                                    invoke_on_body = true,
+                          -- position = "top",
                          silent = true,
                                    -- hint = {
                                    --     border = "rounded", -- you can change the border if you want
                                    -- },
 
-                               hint = {
-                    type = "cmdline",
-                     -- position = "",
-                                --  float_opts = {
-                                --        border = "rounded", -- you can change the border if you want
-                                -- },
-                               },
+                    --            hint = {
+                    -- type = "cmdline",
+                    --  -- position = "",
+                    --             --  float_opts = {
+                    --             --        border = "rounded", -- you can change the border if you want
+                    --             -- },
+                               -- },
 
                                },
                                mode = { "n" },
-                               body = "<localleader>q", -- this is the key that triggers the hydra
+                    body = "<localleader>j",
                                heads = {
                                    { "j",     keys("]b") },
                                    { "k",     keys("[b") },
@@ -117,11 +118,12 @@
                                    { "E",     keys(":MoltenExportOutput<CR>") },
                                    { "K",     keys("<leader>sbh") },
 
+                                   { "D",     keys("/``<CR>Vk?``<CR>:nohl<CR>DDDD") },
                                    { "r",     ":QuartoSend<CR>" },
                                    { "q", nil,              { exit = true } },
                                    -- { "q",     nil,              { exit = true } },
-                                   -- { "o", keys("/```<CR>:nohl<CR>o<CR>`<c-j>"), { desc = "new cell ↓", exit = true } },
-                                   -- { "O", keys("?```.<CR>:nohl<CR><leader>kO<CR>`<c-j>"), { desc = "new cell ↑", exit = true } },
+                                  { "o", keys("/```<CR>:nohl<CR>o<CR>```python<CR><CR><CR><CR>```<c-k><c-k>"), { desc = "new cell ↓", exit = true } },
+                                  { "O", keys("?```.<CR>:nohl<CR><leader>kO<leader><CR>```python<CR><CR><CR><CR>```<c-k><c-k>"), { desc = "new cell ↑", exit = true } },
                                    { "s", ":noautocmd MoltenEnterOutput<CR>", { desc = "show" } },
                                    { "h", ":MoltenHideOutput<CR>", { desc = "hide" } },
                                    { "R", ":MoltenRestart<CR>", { desc = "restart kernel" } },

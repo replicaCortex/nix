@@ -21,6 +21,9 @@
       # set -g @plugin 'jimeh/tmux-themepack'
       # set -g @themepack 'powerline/default/gray'
 
+      # set -g default-terminal "tmux-256color"
+      # set -ga terminal-overrides ",alacritty:Tc"
+
       # If if ever need escape in a tmux command maybe up this a little. But it makes nvim feel slow
       set escape-time 1 # in ms
 
