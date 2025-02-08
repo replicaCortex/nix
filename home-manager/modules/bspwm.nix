@@ -13,16 +13,16 @@
 
       # "pgrep -x rofi > /dev/null || rofi"
       # "flameshot"
-      "pgrep -x feh > /dev/null || feh --bg-scale ~/nix/home-manager/modules/conf/background/2.jpg"
+      "pgrep -x feh > /dev/null || feh --bg-scale ~/nix/home-manager/modules/conf/background/nixos-wallpaper-catppuccin-mocha.png"
       # "xsetroot -cursor_name left_ptr"
     ];
 
     monitors = {
       HDMI-0 = [
-        ""
-        ""
-        "󰈹"
-        ""
+        "I"
+        "II"
+        "III"
+        "IV"
       ];
     };
 
