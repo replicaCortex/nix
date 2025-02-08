@@ -36,7 +36,7 @@
       font = {
         builtin_box_drawing = true;
         # size = 14.0;
-        size = 18.0;
+        size = 8.0;
         # bold = {
         #   family = "Cousine NerdFont";
         #   style = "Bold";
@@ -64,23 +64,23 @@
         #   style = "Regular";
         # };
 
-        bold = {
-          family = "ProggyClean NerdFont";
-          style = "Bold";
-        };
-        normal = {
-          family = "ProggyClean Nerd Font";
-          style = "Regular";
-        };
-
         # bold = {
-        #   family = "Departure Mono NerdFont";
+        #   family = "ProggyClean NerdFont";
         #   style = "Bold";
         # };
         # normal = {
-        #   family = "Departure Mono Nerd Font";
+        #   family = "ProggyClean Nerd Font";
         #   style = "Regular";
         # };
+
+        bold = {
+          family = "Departure Mono NerdFont";
+          style = "Bold";
+        };
+        normal = {
+          family = "Departure Mono Nerd Font";
+          style = "Regular";
+        };
 
         # bold = {
         #   family = "GohuFont14 NerdFont";
