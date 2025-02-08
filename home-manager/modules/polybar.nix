@@ -30,14 +30,14 @@ in {
       border-size = 4pt
       border-color = ${fuck}{colors.bg}
 
-      font-0 = ProggyClean NerdFont:style=Regular:pixelsize=14;2
-      font-1 = ProggyClean NerdFont:style=Regular:pixelsize=14;2
-      font-2 = ProggyClean NerdFont:style=Regular:pixelsize=14;2
-      font-3 = ProggyClean NerdFont:style=Regular:pixelsize=14;2
+      font-0 = ProggyClean NerdFont:style=Regular:pixelsize=12;2
+      font-1 = ProggyClean NerdFont:style=Regular:pixelsize=12;2
+      font-2 = ProggyClean NerdFont:style=Regular:pixelsize=12;2
+      font-3 = ProggyClean NerdFont:style=Regular:pixelsize=12;2
 
-      modules-left = sep cpu sep memory sep alsa
+      modules-left = sep cpu sep memory sep temperature
       modules-center = xworkspaces
-      modules-right = ethernet sepmini xkeyboard date sep
+      modules-right = ethernet slesh sepmini battery slesh sepmini xkeyboard slesh date sep
 
       dpi-x = 96
       dpi-y = 96

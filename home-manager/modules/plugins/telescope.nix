@@ -120,23 +120,23 @@
     };
 
     keymaps = [
-      # {
-      #   mode = "n";
-      #   key = "/";
-      #   action.__raw = ''
-      #     function()
-      #       require('telescope.builtin').current_buffer_fuzzy_find(
-      #         require('telescope.themes').get_dropdown {
-      #           winblend = 0,
-      #           previewer = false
-      #         }
-      #       )
-      #     end
-      #   '';
-      #   options = {
-      #     desc = "[/] Fuzzily search in current buffer";
-      #   };
-      # }
+      {
+        mode = "n";
+        key = "/";
+        action.__raw = ''
+          function()
+            require('telescope.builtin').current_buffer_fuzzy_find(
+              require('telescope.themes').get_dropdown {
+                winblend = 0,
+                previewer = false
+              }
+            )
+          end
+        '';
+        options = {
+          desc = "[/] Fuzzily search in current buffer";
+        };
+      }
       # {
       #   mode = "n";
       #   key = "<leader>s/";
