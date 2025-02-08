@@ -19,6 +19,12 @@
 
       "super + w" = "firefox";
 
+      "super + F7" = "amixer -q set Master 5%-";
+
+      "super + F8" = "amixer -q set Master 5%+";
+
+      "super + F6" = "amixer -q set Master toggle";
+
       # "super + p" = "xcolor -P 150 -s clipboard";
 
       "Print" = "flameshot gui";
