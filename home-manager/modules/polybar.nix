@@ -15,8 +15,8 @@ in {
       radius = 0
       bottom = false
 
-      background = ${fuck}{colors.bg}
-      foreground = ${fuck}{colors.fg}
+      background = ${fuck}{colors.base}
+      foreground = ${fuck}{colors.test}
 
       line-size = 0pt
 
@@ -28,7 +28,7 @@ in {
       offset-y = 10
 
       border-size = 4pt
-      border-color = ${fuck}{colors.bg}
+      border-color = ${fuck}{colors.base}
 
       font-0 = ProggyClean NerdFont:style=Regular:pixelsize=12;2
       font-1 = ProggyClean NerdFont:style=Regular:pixelsize=12;2

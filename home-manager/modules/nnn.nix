@@ -4,12 +4,14 @@ in
   {pkgs, ...}: {
     programs.nnn = {
       enable = true;
-      extraPackages = with pkgs; [mediainfo glow bat ueberzugpp];
+      extraPackages = with pkgs; [nsxiv file mktemp];
       package = pkgs.nnn.override {withNerdIcons = true;};
 
       # NODE: разрабинье васяниус, поэтому качаем имеративно плагины
 
       # sh -c "$(curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs)"
+
+      # :TODO сделать создание папок плагинов через home-manager
 
       # plugins = {
       #   src =

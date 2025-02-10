@@ -3,7 +3,8 @@
     # ./tex.nix
     # ./urxvt.nix
     ./obs.nix
-    # ./lf.nix
+    # ./portal.nix
+    # ./lf.gix
     ./zathura.nix
     ./nnn.nix
     ./zotero.nix
@@ -17,7 +18,7 @@
     ./nixvim.nix
     ./polybar.nix
     ./bspwm.nix
-    # ./picom.nix
+    ./picom.nix
     ./sxhkd.nix
     # ./htop.nix
     ./feh.nix

@@ -1,21 +1,5 @@
 {
   programs.nixvim = {
-    # `friendly-snippets` contains a variety of premade snippets
-    #    See the README about individual language/framework/plugin snippets:
-    #    https://github.com/rafamadriz/friendly-snippets
-    # https://nix-community.github.io/nixvim/plugins/friendly-snippets.html
-    # plugins.friendly-snippets = {
-    #   enable = true;
-    # };
-
-    # Autocompletion
-    # See `:help cmp`
-    # https://nix-community.github.io/nixvim/plugins/cmp/index.html
-
-    # plugins.cmp-cmdline = {
-    #   enable = true;
-    # };
-
     plugins.cmp = {
       enable = true;
 
@@ -69,65 +53,48 @@
           # '';
         };
 
-        # Dependencies
-        #
-        # WARNING: If plugins.cmp.autoEnableSources Nixivm will automatically enable the
-        # corresponding source plugins. This will work only when this option is set to a list.
-        # If you use a raw lua string, you will need to explicitly enable the relevant source
-        # plugins in your nixvim configuration.
         sources = [
-          # Snippet Engine & its associated nvim-cmp source
-          # https://nix-community.github.io/nixvim/plugins/luasnip/index.html
           {
             name = "luasnip";
           }
           {
             name = "neorg";
           }
-
-          # {
-          #   name = "cmp_zotcite";
-          # }
-          # {
-          #   name = "cmp_vimtex";
-          # }
-
           {
             name = "vimtex";
           }
-          # Adds other completion capabilites.
-          #  nvim-cmp does not ship with all sources by default. They are split
-          #  into multiple repos for maintenance purposes.
-          # https://nix-community.github.io/nixvim/plugins/cmp-nvim-lsp.html
           {
             name = "nvim_lsp";
           }
-          # https://nix-community.github.io/nixvim/plugins/cmp-path.html
           {
             name = "path";
           }
         ];
       };
       cmdline = {
-        "/" = {
-          mapping = {
-            __raw = "cmp.mapping.preset.cmdline()";
-            # "<C-n>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
-            # "<C-p>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
-            # "<TAB>" = "cmp.mapping.confirm({ select = true })";
-          };
-          sources = [
-            {
-              name = "buffer";
-            }
-          ];
-        };
+        # "/" = {
+        #   mapping = {
+        #     # __raw = "cmp.mapping.preset.cmdline()";
+        # __raw = ''
+        #   { ["<C-n>"] = cmp.mapping(cmp.mapping.select_next_item(), { "c" }),
+        #     ["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "c" }),
+        #     ["<TAB>"] = cmp.mapping.confirm({ select = true }), }
+        #     '';
+        #   };
+        #   sources = [
+        #     {
+        #       name = "buffer";
+        #     }
+        #   ];
+        # };
         ":" = {
           mapping = {
-            __raw = "cmp.mapping.preset.cmdline()";
-            # "<C-n>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
-            # "<C-p>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
-            # "<TAB>" = "cmp.mapping.confirm({ select = true })";
+            # __raw = "cmp.mapping.preset.cmdline()";
+            __raw = ''
+              { ["<C-n>"] = cmp.mapping(cmp.mapping.select_next_item(), { "c" }),
+                ["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "c" }),
+                ["<TAB>"] = cmp.mapping.confirm({ select = true }), }
+            '';
           };
           sources = [
             {
