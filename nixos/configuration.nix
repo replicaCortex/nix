@@ -145,15 +145,15 @@ in {
       export BROWSER="firefox"
 
       #-----
-      export NNN_OPTS="H" # 'H' shows the hidden files. Same as option -H (so 'nnn -deH')
+      export NNN_OPTS="H"
       export NNN_FIFO=/tmp/nnn.fifo
-      # export NNN_OPTS="deH" # if you prefer to have all the options at the same place
+      # export NNN_OPTS="deH"
       export LC_COLLATE="C" # hidden files on top
-      export NNN_FIFO="/tmp/nnn.fifo" # temporary buffer for the previews
-      # export NNN_FCOLORS="AAAAE631BBBBCCCCDDDD9999" # feel free to change the colors
-      export NNN_PLUG='p:preview-tui' # many other plugins are available here: https://github.com/jarun/nnn/tree/master/plugins
+      export NNN_FIFO="/tmp/nnn.fifo"
+      export NNN_PLUG='p:preview-tabbed'
       #-----
-      n () # to cd on quit
+
+      n ()
       {
 
           if [ -n $NNNLVL ] && [ "${fuck}{NNNLVL:-0}" -ge 1 ]; then
@@ -249,8 +249,8 @@ in {
     windowManager.bspwm.enable = true;
     displayManager.lightdm = {
       enable = true;
+      background = ../home-manager/modules/conf/background/nixos-wallpaper-catppuccin-mocha.png;
       greeters.slick.enable = true;
-      background = builtins.toString ../home-manager/modules/conf/background/login-wallpaper.png;
     };
     desktopManager.xterm.enable = false;
 

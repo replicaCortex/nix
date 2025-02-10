@@ -17,11 +17,11 @@
     ./plugins/treesitter.nix
     ./plugins/custom/plugins/TSObjects/treesitter-textobjects.nix
 
-    # ./plugins/custom/plugins/neotest.nix
-    # ./plugins/kickstart/plugins/debug.nix
-    # ./plugins/custom/plugins/leetcode.nix
+    ./plugins/custom/plugins/neotest.nix
+    ./plugins/kickstart/plugins/debug.nix
+    ./plugins/custom/plugins/leetcode.nix
+    ./plugins/custom/plugins/hydra.nix
     # ./plugins/custom/plugins/notebookNavigator.nix
-    # ./plugins/custom/plugins/hydra.nix
 
     ./plugins/kickstart/plugins/indent-blankline.nix
     #./plugins/kickstart/plugins/lint.nix
@@ -36,7 +36,6 @@
     # ./plugins/custom/plugins/markdown.nix
 
     # ./plugins/custom/plugins/multicursors.nix
-    # ./plugins/custom/plugins/fidget.nix
     # ./plugins/custom/plugins/norg-fmt.nix
     # ./plugins/custom/plugins/lualine.nix
     ./plugins/custom/plugins/oil.nix
@@ -53,7 +52,7 @@
     # ./plugins/custom/plugins/diagnostics.nix
     ./plugins/custom/plugins/leap.nix
     # ./plugins/custom/plugins/obsidian.nix
-    # ./plugins/custom/plugins/vimtex.nix
+    ./plugins/custom/plugins/vimtex.nix
     # ./plugins/custom/plugins/lazygit.nix
     # ./plugins/custom/plugins/noice.nix
     # ./plugins/custom/plugins/firenvim.nix
@@ -79,7 +78,10 @@
 
     colorschemes = {
       catppuccin = {
-        settings.no_italic = true;
+        settings = {
+          # flavour = "latte";
+          no_italic = true;
+        };
         enable = true;
         # settings = {
         #   integrations = {

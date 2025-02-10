@@ -1,12 +1,14 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     nerd-fonts.cousine
-    open-sans
-    arkpandora_ttf
-    nerd-fonts.jetbrains-mono
-    nerd-fonts.gohufont
+    tabbed
+    # nerd-fonts.ubuntu
+    # open-sans
+    # arkpandora_ttf
+    # nerd-fonts.jetbrains-mono
+    # nerd-fonts.gohufont
     nerd-fonts.proggy-clean-tt
-    nerd-fonts.bigblue-terminal
+    # nerd-fonts.bigblue-terminal
     nerd-fonts.departure-mono
     # gohufont
 
@@ -14,6 +16,7 @@
     killall
     btop
     ntfs3g
+    mpv
     unzip
     fzf
     xclip

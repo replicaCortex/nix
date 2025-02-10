@@ -14,8 +14,8 @@
             preview_cutoff = 0;
             prompt_position = "top";
           };
-          selection_caret = " ";
-          prompt_prefix = "   ";
+          selection_caret = "> ";
+          prompt_prefix = "=> ";
         };
         sorting_strategy = "ascending";
       };

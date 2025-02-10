@@ -90,7 +90,7 @@
 
       set -g focus-events on
 
-      source "~/nix/home-manager/modules/conf/tmux//bar.conf"
+      source "~/nix/home-manager/modules/conf/tmux/bar.conf"
 
       # # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
       # run '~/.tmux/plugins/tpm/tpm'

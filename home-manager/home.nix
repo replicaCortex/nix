@@ -1,6 +1,7 @@
-{
+{pkgs, ...}: {
   imports = [
     ./modules/bundle.nix
+    ./catppuccin.nix
   ];
 
   home = {
