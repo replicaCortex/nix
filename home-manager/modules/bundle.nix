@@ -13,7 +13,7 @@
     # ./kitty.nix
     ./redshift.nix
     ./clipmenu.nix
-    #./flameshot.nix
+    ./flameshot.nix
     ./alacritty.nix
     ./nixvim.nix
     ./polybar.nix

@@ -4,13 +4,13 @@
       enable = true;
 
       settings = {
-        snippet = {
-          expand = ''
-            function(args)
-              require('luasnip').lsp_expand(args.body)
-            end
-          '';
-        };
+        # snippet = {
+        #   expand = ''
+        #     function(args)
+        #       require('luasnip').lsp_expand(args.body)
+        #     end
+        #   '';
+        # };
 
         completion = {
           completeopt = "menu,menuone,noinsert";
@@ -54,9 +54,9 @@
         };
 
         sources = [
-          {
-            name = "luasnip";
-          }
+          # {
+          #   name = "luasnip";
+          # }
           {
             name = "neorg";
           }

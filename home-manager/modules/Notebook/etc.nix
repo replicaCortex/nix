@@ -14,7 +14,7 @@
     killall
     tabbed
     btop
-    ntfs3g
+    # ntfs3g
     mpv
     unzip
     fzf
@@ -23,6 +23,7 @@
     lazygit
     ripgrep
     dmenu
+    networkmanager_dmenu
 
     #Global python pkgs
     # python312Packages.pytest

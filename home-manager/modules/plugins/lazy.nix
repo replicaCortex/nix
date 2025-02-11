@@ -1,41 +1,38 @@
 {
-  plugins.lz-n = {
-    enable = true;
-    # plugins = {
-    #   __unkeyed-1 = "telescope.nvim";
-    #   cmd = [
-    #     "Telescope"
-    #   ];
-    #   keys = [
-    #     {
-    #       __unkeyed-1 = "<leader>ff";
-    #       __unkeyed-2 = "<CMD>Telescope autocommands<CR>";
-    #       desc = "Telescope autocommands";
-    #     }
-    #     {
-    #       __unkeyed-1 = "<leader>fb";
-    #       __unkeyed-2 = "<CMD>Telescope buffers<CR>";
-    #       desc = "Telescope buffers";
-    #     }
-    #   ];
-    # };
-    # extraConfigLuaPre = ''
-    #   -- You can pass in a plugin spec or a plugin's name.
-    #   local keymap = require("lz.n").keymap({
-    #     "telescope.nvim",
-    #     cmd = "Telescope",
-    #     after = function()
-    #       require("telescope").setup()
-    #     end,
-    #   })
-    #   -- Now you can create keymaps that will load the plugin using
-    #   -- the same UX as vim.keymap.set().
-    #   keymap.set("n", "<leader>tp", function()
-    #     require("telescope.builtin").find_files()
-    #   end)
-    #   keymap.set("n", "<leader>tg", function()
-    #     require("telescope.builtin").live_grep()
-    #   end)
-    # '';
+  programs.nixvim = {
+    colorschemes.catppuccin = {
+      enable = true;
+      lazyLoad.enable = true;
+    };
+    plugins.lz-n = {
+      enable = true;
+    };
+    extraConfigLuaPre = ''
+      require("lz.n").load {
+        {
+          "leetcode.nvim",
+          cmd = "Leet",
+          after = function()
+              require("Leetcode").setup()
+            end,
+        },
+        {
+            "vim-startuptime",
+            cmd = "StartupTime",
+            before = function()
+                -- Configuration for plugins that don't force you to call a `setup` function
+                -- for initialization should typically go in a `before`
+                --- or `beforeAll` function.
+                vim.g.startuptime_tries = 10
+            end,
+        },
+        {
+            "image.nvim",
+            ft = "markdown",
+        },
+
+        }
+
+    '';
   };
 }

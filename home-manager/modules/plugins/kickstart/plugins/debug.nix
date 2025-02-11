@@ -6,9 +6,27 @@
     # be extended to other languages as well. That's why it's called
     # kickstart.nixvim and not kitchen-sink.nixvim ;)
     # https://nix-community.github.io/nixvim/plugins/dap/index.html
-    plugins.cmp-dap.enable = true;
+    # plugins.cmp-dap.enable = true;
 
     plugins.dap-ui = {
+      # lazyLoad.settings = {
+      #   before.__raw = ''
+      #     function()
+      #       require('lz.n').trigger_load('nvim-dap')
+      #     end
+      #   '';
+      #   keys = [
+      #     {
+      #       __unkeyed-1 = "<A-u>";
+      #       __unkeyed-2.__raw = ''
+      #         function()
+      #           require('dap.ext.vscode').load_launchjs(nil, {})
+      #           require("dapui").toggle()
+      #         end
+      #       '';
+      #     }
+      #   ];
+      # };
       enable = true;
 
       # Set icons to characters that are more likely to work in every terminal.
@@ -76,12 +94,31 @@
       ];
       # };
     };
-    plugins.dap-virtual-text = {enable = true;};
+    plugins.dap-virtual-text = {
+      # lazyLoad.settings = {
+      #   before.__raw = ''
+      #     function()
+      #       require('lz.n').trigger_load('nvim-dap')
+      #     end
+      #   '';
+      #   cmd = [
+      #     "DapVirtualTextToggle"
+      #     "DapVirtualTextEnable"
+      #   ];
+      # };
+      enable = true;
+    };
     plugins.dap-python = {
       enable = true;
     };
 
     plugins.dap = {
+      # lazyLoad.settings = {
+      #   cmd = [
+      #     "DapContinue"
+      #     "DapNew"
+      #   ];
+      # };
       enable = true;
 
       # extensions = {

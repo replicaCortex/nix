@@ -1,6 +1,10 @@
 {
   programs.nixvim = {
     plugins.telescope = {
+      # lazyLoad = {
+      #   enable = true;
+      #   settings.cmd = "Telescope";
+      # };
       settings = {
         defaults = {
           file_ignore_patterns = [

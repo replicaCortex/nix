@@ -1,4 +1,7 @@
 {pkgs, ...}: {
+  home.packages = with pkgs; [
+    dotnet-sdk
+  ];
   programs.nixvim = {
     plugins.cmp-nvim-lsp = {
       enable = true;
@@ -36,6 +39,10 @@
           enable = true;
         };
 
+        csharp_ls = {
+          enable = true;
+        };
+
         lua_ls = {
           enable = true;
 
@@ -57,7 +64,12 @@
       };
 
       keymaps = {
-        # Diagnostic keymaps
+        diagnostic = {
+          "<leader>l[" = "goto_prev";
+          "<leader>l]" = "goto_next";
+          "<leader>lH" = "open_float";
+        };
+
         # diagnostic = {
         #   "<leader>q" = {
         #     #mode = "n";

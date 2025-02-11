@@ -6,6 +6,7 @@
   imports = [
     # Core
 
+    # ./plugins/lazy.nix
     # ./plugins/gitsigns.nix
     ./plugins/telescope.nix
     ./plugins/conform.nix
@@ -13,15 +14,17 @@
     ./plugins/nvim-cmp.nix
     # ./plugins/blink.nix
     ./plugins/mini.nix
-    # ./plugins/luasnip.nix
+    ./plugins/luasnip.nix
     ./plugins/treesitter.nix
-    ./plugins/custom/plugins/TSObjects/treesitter-textobjects.nix
 
+    ./plugins/custom/plugins/img-clip.nix
+    ./plugins/custom/plugins/markdown.nix
     ./plugins/custom/plugins/neotest.nix
     ./plugins/kickstart/plugins/debug.nix
     ./plugins/custom/plugins/leetcode.nix
     ./plugins/custom/plugins/hydra.nix
-    # ./plugins/custom/plugins/notebookNavigator.nix
+
+    ./plugins/custom/plugins/vimtex.nix
 
     ./plugins/kickstart/plugins/indent-blankline.nix
     #./plugins/kickstart/plugins/lint.nix
@@ -31,16 +34,14 @@
 
     ./plugins/custom/plugins/undotree.nix
     ./plugins/custom/plugins/neorg.nix
+    # ./plugins/custom/plugins/norg-fmt.nix
     ./plugins/custom/plugins/todo.nix
-    ./plugins/custom/plugins/img-clip.nix
-    # ./plugins/custom/plugins/markdown.nix
+    # ./plugins/custom/plugins/vim-startuptime.nix
 
     # ./plugins/custom/plugins/multicursors.nix
-    # ./plugins/custom/plugins/norg-fmt.nix
     # ./plugins/custom/plugins/lualine.nix
     ./plugins/custom/plugins/oil.nix
     # ./plugins/custom/plugins/pencil.nix
-    # ./plugins/lazy.nix
     # ./plugins/custom/plugins/cmp-zotcite.nix
     # ./plugins/custom/plugins/zotcite.nix
     # ./plugins/custom/plugins/zen-mode.nix
@@ -52,7 +53,6 @@
     # ./plugins/custom/plugins/diagnostics.nix
     ./plugins/custom/plugins/leap.nix
     # ./plugins/custom/plugins/obsidian.nix
-    ./plugins/custom/plugins/vimtex.nix
     # ./plugins/custom/plugins/lazygit.nix
     # ./plugins/custom/plugins/noice.nix
     # ./plugins/custom/plugins/firenvim.nix
@@ -62,11 +62,12 @@
     #./plugins/custom/plugins/nougat.nix
 
     # jupyter
-    # ./plugins/custom/plugins/jupyter/molten.nix
-    # ./plugins/custom/plugins/jupyter/quarto.nix
-    # ./plugins/custom/plugins/jupyter/otter.nix
-    # ./plugins/custom/plugins/jupyter/jupytext.nix
-    # ./plugins/custom/plugins/image.nix
+    ./plugins/custom/plugins/jupyter/molten.nix
+    ./plugins/custom/plugins/jupyter/quarto.nix
+    ./plugins/custom/plugins/jupyter/otter.nix
+    ./plugins/custom/plugins/jupyter/jupytext.nix
+    ./plugins/custom/plugins/TSObjects/treesitter-textobjects.nix
+    ./plugins/custom/plugins/image.nix
 
     # frplugin
     ./plugins/ftpluginx.nix
@@ -344,7 +345,7 @@
       #         local oil = require(" oil ")
       #         local filename = oil.get_cursor_entry().name
       #         local dir = oil.get_current_dir()
-      #         oil.close()
+      #         oil.close()oil
       #
       #         local img_clip = require(" img-clip ")
       #         img_clip.paste_image({}, dir .. filename)

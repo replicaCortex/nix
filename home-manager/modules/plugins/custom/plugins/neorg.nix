@@ -1,6 +1,10 @@
 {pkgs, ...}: {
   programs.nixvim = {
     plugins.neorg = {
+      # lazyLoad.settings = {
+      #   cmd = "Neorg";
+      #   ft = "norg";
+      # };
       enable = true;
 
       settings = {
@@ -56,7 +60,7 @@
           "core.dirman" = {
             config = {
               workspaces = {
-                notes = ''~/notes'';
+                notes = ''~/Desktop/notes'';
               };
               default_workspace = "notes";
             };

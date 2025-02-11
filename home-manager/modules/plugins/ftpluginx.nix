@@ -28,6 +28,12 @@
         vim.opt.expandtab = true
       '';
 
+      "ftplugin/cs.lua".text = ''
+        vim.opt.tabstop = 4
+        vim.opt.shiftwidth = 4
+        vim.opt.expandtab = true
+      '';
+
       "ftplugin/nix.lua".text = ''
         vim.opt.tabstop = 2
         vim.opt.shiftwidth = 2

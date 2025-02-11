@@ -150,7 +150,7 @@ in {
       # export NNN_OPTS="deH"
       export LC_COLLATE="C" # hidden files on top
       export NNN_FIFO="/tmp/nnn.fifo"
-      export NNN_PLUG='p:preview-tabbed'
+      export NNN_PLUG='p:preview-tabbed;F:fzopen;f:fzcd;d:dragdrop'
       #-----
 
       n ()
