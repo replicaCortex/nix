@@ -1,12 +1,20 @@
 {
   programs.nixvim = {
     plugins.oil = {
+      # lazyLoad = {
+      #   enable = true;
+      #   settings = {
+      #     keys = [
+      #       {"<C-n>" = "<CMD>Oil<CR>";}
+      #     ];
+      #   };
+      # };
       enable = true;
       settings = {
         keymaps = {
           "<C-c>" = false;
           "<C-l>" = false;
-          "<C-r>" = false;
+          # "<C-r>" = false;
           "<C-n>" = "actions.close";
           "l" = "actions.select";
           "h" = "actions.parent";

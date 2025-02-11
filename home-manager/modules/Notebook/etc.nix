@@ -14,7 +14,7 @@
     killall
     tabbed
     btop
-    ntfs3g
+    # ntfs3g
     mpv
     unzip
     fzf
