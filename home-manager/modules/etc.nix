@@ -9,11 +9,11 @@
     # nerd-fonts.gohufont
     nerd-fonts.proggy-clean-tt
     # nerd-fonts.bigblue-terminal
-    nerd-fonts.departure-mono
+    # nerd-fonts.departure-mono
     # gohufont
 
-    flameshot
     killall
+    tabbed
     btop
     ntfs3g
     mpv
@@ -22,7 +22,6 @@
     xclip
     wget
     lazygit
-    gcc
     ripgrep
     dmenu
 

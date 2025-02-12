@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   imports = [
-    ./modules/bundle.nix
+    ./modules/Notebook/bundle.nix
     ./catppuccin.nix
   ];
 

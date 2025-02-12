@@ -10,12 +10,19 @@
       black
       alejandra
       astyle
+      csharpier
       prettierd
     ];
 
     # Autoformat
     # https://nix-community.github.io/nixvim/plugins/conform-nvim.html
     plugins.conform-nvim = {
+      # lazyLoad.settings = {
+      #   cmd = [
+      #     "ConformInfo"
+      #   ];
+      #   event = ["BufWrite"];
+      # };
       enable = true;
       settings = {
         notify_on_error = false;
@@ -40,7 +47,8 @@
           markdown = ["prettierd"];
           c = ["astyle"];
           javascript = ["astyle"];
-          # neorg = ["norg-fmt"];
+          chsarp = ["csharpier"];
+          neorg = ["norg-fmt"];
           #
           # You can use a sublist to tell conform to run *until* a formatter
           # is found

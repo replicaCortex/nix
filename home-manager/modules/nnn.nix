@@ -4,8 +4,14 @@ in
   {pkgs, ...}: {
     programs.nnn = {
       enable = true;
-      extraPackages = with pkgs; [nsxiv file mktemp];
+      extraPackages = with pkgs; [nsxiv file mktemp xdragon];
       package = pkgs.nnn.override {withNerdIcons = true;};
+      bookmarks = {
+        c = "~/";
+        b = "~/notes";
+        n = "~/nix";
+        d = "~/Downloads";
+      };
 
       # NODE: разрабинье васяниус, поэтому качаем имеративно плагины
 
