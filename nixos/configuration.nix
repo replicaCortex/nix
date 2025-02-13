@@ -20,17 +20,17 @@ in {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  hardware.pulseaudio.enable = false;
-  hardware.alsa.enablePersistence = true;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true; # if not already enabled
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-  };
+  # hardware.pulseaudio.enable = false;
+  # hardware.alsa.enablePersistence = true;
+  # security.rtkit.enable = true;
+  # services.pipewire = {
+  #   enable = true; # if not already enabled
+  #   alsa.enable = true;
+  #   alsa.support32Bit = true;
+  #   pulse.enable = true;
+  #   # If you want to use JACK applications, uncomment this
+  #   #jack.enable = true;
+  # };
 
   nixpkgs.config.allowUnfree = true;
 
@@ -198,7 +198,6 @@ in {
     isNormalUser = true;
     description = "replica";
     extraGroups = ["networkmanager" "wheel" "vboxsf"];
-    packages = with pkgs; [];
   };
 
   # Enable automatic login for the user.
@@ -207,13 +206,11 @@ in {
   environment.systemPackages = with pkgs; [
     zsh-powerlevel10k
     home-manager
-    osu-lazer
-    alsa-utils
   ];
 
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.package = pkgs.bluez;
-  hardware.pulseaudio.package = pkgs.pulseaudioFull;
+  # hardware.bluetooth.enable = true;
+  # hardware.bluetooth.package = pkgs.bluez;
+  # hardware.pulseaudio.package = pkgs.pulseaudioFull;
   # services.blueman.enable = true;
 
   # hardware.nvidia.package = let
@@ -233,17 +230,6 @@ in {
   #     patches = [rcu_patch];
   #   };
 
-  # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
-  hardware.graphics = {
-    enable = true;
-  };
-  services.xserver.videoDrivers = ["nvidia"];
-  hardware.nvidia = {
-    modesetting.enable = true;
-    open = false;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-  };
-
   services.xserver = {
     enable = true;
     windowManager.bspwm.enable = true;
@@ -253,14 +239,6 @@ in {
       greeters.slick.enable = true;
     };
     desktopManager.xterm.enable = false;
-
-    # https://github.com/dustinlyons/nixos-config/tree/main
-
-    screenSection = ''
-      Option       "metamodes" "nvidia-auto-select +0+0 {ForceFullCompositionPipeline=On}"
-      Option       "AllowIndirectGLXProtocol" "off"
-      Option       "TripleBuffer" "on"
-    '';
   };
 
   # services = {
@@ -290,42 +268,6 @@ in {
       auto-optimise-store = true;
       experimental-features = ["nix-command" "flakes"];
     };
-  };
-
-  fileSystems."/mnt/course" = {
-    device = "/dev/disk/by-uuid/963E4CE23E4CBD4D";
-    fsType = "ntfs-3g";
-    options = [
-      "users"
-      "nofail"
-    ];
-  };
-
-  fileSystems."/mnt/storage" = {
-    device = "/dev/disk/by-uuid/5AA0538EA0536F8D";
-    fsType = "ntfs-3g";
-    options = [
-      "users"
-      "nofail"
-    ];
-  };
-
-  fileSystems."/mnt/workspace" = {
-    device = "/dev/disk/by-uuid/8E5CD8B45CD89873";
-    fsType = "ntfs-3g";
-    options = [
-      "users"
-      "nofail"
-    ];
-  };
-
-  fileSystems."/mnt/game" = {
-    device = "/dev/disk/by-uuid/2ACE5DF0CE5DB4B3";
-    fsType = "ntfs-3g";
-    options = [
-      "users"
-      "nofail"
-    ];
   };
 
   # Some programs need SUID wrappers, can be configured further or are

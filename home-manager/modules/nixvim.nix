@@ -419,7 +419,6 @@
       web-devicons.enable = true;
     };
 
-    # TODO: сделать ленивую загрузку
     extraPlugins = with pkgs.vimPlugins; [
       nvim-web-devicons
     ];
