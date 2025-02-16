@@ -8,7 +8,7 @@ in
       package = pkgs.nnn.override {withNerdIcons = true;};
       bookmarks = {
         c = "~/";
-        b = "~/notes";
+        b = "~/Desktop/notes";
         n = "~/nix";
         d = "~/Downloads";
       };
@@ -35,5 +35,8 @@ in
       #     # p = "preview-tui";
       #   };
       # };
+    };
+    programs.fzf = {
+      enable = true;
     };
   }

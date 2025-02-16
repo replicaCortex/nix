@@ -1,17 +1,19 @@
-{
+{pkgs, ...}: {
+  home.packages = with pkgs; [shellcheck pylint statix markdownlint-cli2];
   programs.nixvim = {
-    # Linting
-    # https://nix-community.github.io/nixvim/plugins/lint/index.html
     plugins.lint = {
       enable = true;
 
       # NOTE: Enabling these will cause errors unless these tools are installed
       lintersByFt = {
-        nix = ["nix"];
+        nix = ["statix"];
         markdown = [
-          "markdownlint"
-          #vale
+          "markdownlint-cli2"
         ];
+        python = ["pylint"];
+        shell = ["shellcheck"];
+        tex = ["chktex"];
+        # chsarp = ["FxCop"];
         #clojure = ["clj-kondo"];
         #dockerfile = ["hadolint"];
         #inko = ["inko"];

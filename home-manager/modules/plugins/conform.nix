@@ -1,5 +1,12 @@
 {pkgs, ...}: {
   programs.nixvim = {
+    # autoCmd = [
+    #   {
+    #     event = "BufWritePost";
+    #     pattern = "*.norg";
+    #     command = "silent !norg-fmt % > %:p";
+    #   }
+    # ];
     # Dependencies
     #
     # https://nix-community.github.io/nixvim/NeovimOptions/index.html?highlight=extraplugins#extrapackages
@@ -10,7 +17,6 @@
       black
       alejandra
       astyle
-      csharpier
       prettierd
     ];
 
@@ -40,15 +46,12 @@
         '';
         formatters_by_ft = {
           lua = ["stylua"];
-          # Conform can also run multiple formatters sequentially
           python = ["ruff" "black"];
           nix = ["alejandra"];
           latex = ["latexindent"];
           markdown = ["prettierd"];
           c = ["astyle"];
           javascript = ["astyle"];
-          chsarp = ["csharpier"];
-          neorg = ["norg-fmt"];
           #
           # You can use a sublist to tell conform to run *until* a formatter
           # is found

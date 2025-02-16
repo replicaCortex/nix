@@ -54,11 +54,8 @@
         };
 
         sources = [
-          # {
-          #   name = "luasnip";
-          # }
           {
-            name = "neorg";
+            name = "luasnip";
           }
           {
             name = "vimtex";
@@ -68,6 +65,9 @@
           }
           {
             name = "path";
+          }
+          {
+            name = "buffer";
           }
         ];
       };

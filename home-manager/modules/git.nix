@@ -4,4 +4,7 @@
     userName = "replicaCortex";
     userEmail = "replicaCortex@gmail.com";
   };
+  programs.lazygit = {
+    enable = true;
+  };
 }

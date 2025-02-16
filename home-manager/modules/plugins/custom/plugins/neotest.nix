@@ -19,8 +19,13 @@
           enabled = false;
         };
       };
-      adapters.python = {
-        enable = true;
+      adapters = {
+        python = {
+          enable = true;
+        };
+        dotnet = {
+          enable = true;
+        };
       };
     };
     extraConfigLuaPre = ''

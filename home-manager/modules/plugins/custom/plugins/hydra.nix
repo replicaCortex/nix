@@ -110,7 +110,7 @@
 
                                },
                                mode = { "n" },
-                    body = "<localleader>j",
+                    body = "<localleader>n",
                                heads = {
                                    { "j",     keys("]b") },
                                    { "k",     keys("[b") },
@@ -180,7 +180,7 @@
 
                                },
                                mode = { "n" },
-                               body = "<localleader>d", -- this is the key that triggers the hydra
+                               body = "<localleader>du", -- this is the key that triggers the hydra
                                heads = {
                 { "<A-u>", function() require("dapui").toggle() end },
                   { "n", function() require("dap").toggle_breakpoint() end },

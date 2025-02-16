@@ -1,0 +1,5 @@
+{
+  import = [
+    ./norg-fmt.nix
+  ];
+}

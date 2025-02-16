@@ -92,6 +92,12 @@
           mode = "n";
           action = "live_grep";
         };
+
+        "<leader>fb" = {
+          mode = "n";
+          action = "buffers";
+        };
+
         "<leader>fd" = {
           mode = "n";
           action = "diagnostics";

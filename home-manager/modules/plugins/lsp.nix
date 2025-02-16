@@ -1,7 +1,4 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
-    dotnet-sdk
-  ];
   programs.nixvim = {
     plugins.cmp-nvim-lsp = {
       enable = true;
@@ -21,26 +18,34 @@
       enable = true;
 
       servers = {
-        clangd = {
-          enable = true;
-        };
         nixd = {
           enable = true;
         };
+
         pyright = {
           enable = true;
         };
 
-        texlab = {
+        # texlab = {
+        #   enable = true;
+        # };
+
+        ltex = {
           enable = true;
         };
 
-        marksman = {
-          enable = true;
-        };
+        # marksman = {
+        #   enable = true;
+        # };
 
-        csharp_ls = {
+        # csharp_ls = {
+        #   enable = true;
+        #   package = null;
+        # };
+
+        clangd = {
           enable = true;
+          package = null;
         };
 
         lua_ls = {

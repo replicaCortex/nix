@@ -20,20 +20,22 @@
     ./plugins/custom/plugins/img-clip.nix
     ./plugins/custom/plugins/markdown.nix
     ./plugins/custom/plugins/neotest.nix
+    ./plugins/custom/plugins/neogen.nix
     ./plugins/kickstart/plugins/debug.nix
-    ./plugins/custom/plugins/leetcode.nix
+    # ./plugins/custom/plugins/leetcode.nix
     ./plugins/custom/plugins/hydra.nix
 
     ./plugins/custom/plugins/vimtex.nix
 
     ./plugins/kickstart/plugins/indent-blankline.nix
-    #./plugins/kickstart/plugins/lint.nix
+    # ./plugins/kickstart/plugins/lint.nix
     # ./plugins/kickstart/plugins/autopairs.nix
 
     # Plug
 
     ./plugins/custom/plugins/undotree.nix
     ./plugins/custom/plugins/neorg.nix
+    ./plugins/custom/plugins/interim-ls.nix
     # ./plugins/custom/plugins/norg-fmt.nix
     ./plugins/custom/plugins/todo.nix
     # ./plugins/custom/plugins/vim-startuptime.nix
@@ -56,7 +58,7 @@
     # ./plugins/custom/plugins/lazygit.nix
     # ./plugins/custom/plugins/noice.nix
     # ./plugins/custom/plugins/firenvim.nix
-    # ./plugins/custom/plugins/harpoon.nix
+    ./plugins/custom/plugins/harpoon.nix
     # ./plugins/custom/plugins/telescope-zotero.nix
 
     #./plugins/custom/plugins/nougat.nix
@@ -67,7 +69,7 @@
     ./plugins/custom/plugins/jupyter/otter.nix
     ./plugins/custom/plugins/jupyter/jupytext.nix
     ./plugins/custom/plugins/TSObjects/treesitter-textobjects.nix
-    ./plugins/custom/plugins/image.nix
+    # ./plugins/custom/plugins/image.nix
 
     # frplugin
     ./plugins/ftpluginx.nix
@@ -325,11 +327,11 @@
           desc = "Move focus to the upper window";
         };
       }
-      {
-        mode = "n";
-        key = "?";
-        action = "<nop>";
-      }
+      # {
+      #   mode = "n";
+      #   key = "?";
+      #   action = "<nop>";
+      # }
       {
         mode = "n";
         key = "<leader>p";
@@ -405,7 +407,6 @@
     autoCmd = [
       {
         event = ["TextYankPost"];
-        desc = "Highlight when yanking (copying) text";
         group = "kickstart-highlight-yank";
         callback.__raw = ''
           function()
@@ -413,15 +414,35 @@
           end
         '';
       }
+
+      # {
+      #   event = ["FileType"];
+      #   pattern = ["markdown" "norg"];
+      #   callback.__raw = ''
+      #     function()
+      #     require("image").setup = image_setup_original
+      #     require("image").setup(_M.image_config)
+      #     end
+      #   '';
+      # }
+      # {
+      #   event = ["BufWritePost"];
+      #   pattern = "*.norg";
+      #   callback.__raw = ''
+      #     function()
+      #       vim.highlight.on_yank()
+      #     end
+      #   '';
+      # }
     ];
 
     plugins = {
-      web-devicons.enable = true;
+      # web-devicons.enable = true;
     };
 
     # TODO: сделать ленивую загрузку
     extraPlugins = with pkgs.vimPlugins; [
-      nvim-web-devicons
+      # nvim-web-devicons
     ];
 
     extraConfigLuaPre = ''

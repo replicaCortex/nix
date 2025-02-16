@@ -6,6 +6,7 @@
     # ./portal.nix
     # ./lf.gix
     ./zathura.nix
+    ./btop.nix
     ./nnn.nix
     ./zotero.nix
     ./git.nix

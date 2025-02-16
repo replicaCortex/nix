@@ -14,8 +14,10 @@
         keymaps = {
           "<C-c>" = false;
           "<C-l>" = false;
+          "<localleader>p" = ''actions.preview'';
           # "<C-r>" = false;
           "<C-n>" = "actions.close";
+          "<localleader>/" = "actions.toggle_hidden";
           "l" = "actions.select";
           "h" = "actions.parent";
         };

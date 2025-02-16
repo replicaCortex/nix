@@ -1,7 +1,9 @@
-{pkgs, ...}: {
+{
   imports = [
-    ./modules/Notebook/bundle.nix
+    ./modules/bundle.nix
     ./catppuccin.nix
+
+    # ./modules/Rust/index.nix
   ];
 
   home = {

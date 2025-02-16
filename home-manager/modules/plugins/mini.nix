@@ -3,6 +3,7 @@
     # Collection of various small independent plugins/modules
     # https://nix-community.github.io/nixvim/plugins/mini.html
     plugins.mini = {
+      mockDevIcons = true;
       enable = true;
 
       modules = {
@@ -31,6 +32,8 @@
         statusline = {
           # use_icons.__raw = "vim.g.have_nerd_font";
         };
+        icons.enable = true;
+        tabline = {};
 
         pairs = {};
         # notify = {};
@@ -46,8 +49,60 @@
     # https://nix-community.github.io/nixvim/NeovimOptions/index.html?highlight=extraconfiglu#extraconfiglua
     extraConfigLua = ''
       require('mini.statusline').section_location = function()
-        return '%2l:%-2v'
+                    return '%2l:%-2v'
       end
+
+      vim.cmd [[
+        highlight MiniTablineCurrent gui=underline guisp=#b4befe
+        highlight MiniTablineModifiedCurrent gui=underline guisp=#b4befe guifg=#f38ba8
+        highlight MiniTablineModifiedVisible guifg=#f38ba8
+      ]]
     '';
+    keymaps = [
+      {
+        mode = "n";
+        key = "<A-.>";
+        action = "<cmd>:bnext<CR>";
+        options = {
+          silent = true;
+        };
+      }
+
+      {
+        mode = "n";
+        key = "<A-n>";
+        action = "<cmd>:bunload<CR>";
+        options = {
+          silent = true;
+        };
+      }
+
+      {
+        mode = "n";
+        key = "<A-,>";
+        action = "<cmd>:bprevious<CR>";
+        options = {
+          silent = true;
+        };
+      }
+
+      {
+        mode = "n";
+        key = "<A-x>";
+        action = "<cmd>:bdelete<CR>";
+        options = {
+          silent = true;
+        };
+      }
+
+      {
+        mode = "n";
+        key = "<A-X>";
+        action = "<cmd>:bdelete!<CR>";
+        options = {
+          silent = true;
+        };
+      }
+    ];
   };
 }
