@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{
   home.pointerCursor = {
     gtk.enable = true;
     x11.enable = true;
@@ -16,7 +16,7 @@
     btop.enable = true;
     fzf.enable = true;
     mpv.enable = true;
-    zsh-syntax-highlighting.enable = true;
+    # zsh-syntax-highlighting.enable = true;
     obs.enable = true;
     # gtk.enable = true;
   };

@@ -1,35 +1,35 @@
 {
   imports = [
-    # ./tex.nix
-    # ./urxvt.nix
-    ./obs.nix
-    # ./portal.nix
-    # ./lf.gix
-    ./zathura.nix
-    ./btop.nix
-    ./nnn.nix
-    ./zotero.nix
-    ./git.nix
-    # ./ranger.nix
-    # ./kitty.nix
-    ./redshift.nix
-    ./clipmenu.nix
-    ./flameshot.nix
-    ./alacritty.nix
-    ./nixvim.nix
-    ./polybar.nix
-    ./bspwm.nix
-    ./picom.nix
-    ./sxhkd.nix
-    # ./htop.nix
-    ./feh.nix
-    #./rofi.nix
-    ./firefox.nix
-    ./etc.nix
-    ./zsh.nix
-    ./tmux.nix
+    # apps
+    ./apps/media.nix
+    ./apps/utils.nix
+    ./apps/browsers.nix
+
+    # windowManagers
+    ./windowManagers/bspwm.nix
+    ./windowManagers/sxhkd.nix
+    ./windowManagers/polybar.nix
+
+    # shell
+    ./shell/nnn.nix
+    ./shell/tmux.nix
+    ./shell/advcpmv.nix
+
+    # terminal
+    ./terminals/alacritty.nix
+
+    # editors
+    ./editors/neovim/nixvim.nix
+
+    # services
+    ./services/picom.nix
+    ./services/clipmenu.nix
+    ./services/redshift.nix
 
     # TSobject
-    ./plugins/custom/plugins/TSObjects/textobjects.nix
+    ./editors/neovim/plugins/custom/plugins/TSObjects/textobjects.nix
+
+    # etc
+    ./etc.nix
   ];
 }
