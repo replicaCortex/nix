@@ -9,11 +9,11 @@ in {
   imports = [
     ./zsh/zsh.nix
     ./vbox/vbox.nix
-    ./audio/audio.nix
-    ./nvidia/nvidia.nix
+    # ./audio/audio.nix
+    # ./nvidia/nvidia.nix
     # ./overlay/overlay.nix
-    ./bluetooth/bluetooth.nix
-    ./filesystem/filesystem.nix
+    # ./bluetooth/bluetooth.nix
+    # ./filesystem/filesystem.nix
     ./hardware-configuration/hardware-configuration.nix
   ];
 

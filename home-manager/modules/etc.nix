@@ -5,7 +5,6 @@
 
     killall
     tabbed
-    ntfs3g
     unzip
     xclip
     wget

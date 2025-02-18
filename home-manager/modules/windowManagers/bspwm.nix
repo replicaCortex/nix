@@ -23,7 +23,7 @@
     '';
 
     monitors = {
-      HDMI-0 = [
+      eDP-1 = [
         "I"
         "II"
         "III"
