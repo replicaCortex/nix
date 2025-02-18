@@ -197,14 +197,14 @@
     #
     # '';
     keymaps = [
-      # {
-      #   mode = "n";
-      #   key = "<localleader>i";
-      #   action = ":Neorg index<CR>";
-      #   options = {
-      #     silent = true;
-      #   };
-      # }
+      {
+        mode = "n";
+        key = "<localleader>ii";
+        action = ":Neorg index<CR>";
+        options = {
+          silent = true;
+        };
+      }
 
       {
         mode = "n";
@@ -226,8 +226,8 @@
 
       {
         mode = "n";
-        key = "<localleader>jt";
-        action = ":Neorg journal today<CR>";
+        key = "<localleader>jo";
+        action = ":Neorg journal tomorrow<CR>";
         options = {
           silent = true;
         };
@@ -246,6 +246,15 @@
         mode = "n";
         key = "<localleader>TT";
         action = "<cmd>Neorg templates add journal<CR>";
+        options = {
+          silent = true;
+        };
+      }
+
+      {
+        mode = "n";
+        key = "<localleader>jc";
+        action = "<cmd>Neorg journal custom<CR>";
         options = {
           silent = true;
         };
