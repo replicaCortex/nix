@@ -1,0 +1,21 @@
+{
+  "eval": {
+    "target": {
+      "args": [
+        "--flake", ".", "homeConfigurations.replica"
+      ],
+      "installable": "homeConfigurations.replica"
+    },
+    "depth": 5,
+    "workers": 3
+  },
+  "options": {
+    "enable": true,
+    "target": {
+      "args": [
+        "--flake", ".", "homeConfigurations.replica"
+      ],
+      "installable": "homeConfigurations.replica.options"
+    }
+  }
+}

@@ -18,9 +18,16 @@
       enable = true;
 
       servers = {
+        # TODO: разобраться как это работает
         nixd = {
           enable = true;
+          # cmd = ["nixd"];
+          # rootDir = builtins.getEnv "HOME";
         };
+
+        # nil_ls = {
+        #   enable = true;
+        # };
 
         pyright = {
           enable = true;
