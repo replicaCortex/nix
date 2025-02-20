@@ -12,6 +12,7 @@
             "^.git/"
             "^__pycache__/"
             "venv"
+            "journal"
           ];
           layout_strategy = "flex";
           layout_config = {

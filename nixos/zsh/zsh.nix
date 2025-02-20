@@ -5,6 +5,9 @@ in {
 
   environment.systemPackages = with pkgs; [
     zsh-powerlevel10k
+    zsh-fzf-history-search
+    # zsh-nix-shell
+    zsh-fzf-tab
   ];
 
   programs.zsh = {
@@ -30,17 +33,14 @@ in {
 
       "cp" = "advcp -g";
       "mv" = "advmv -g";
-      "tor" = "qbittorrent";
     };
 
-    # plugins = [
-    #   {name = "zsh-users/zsh-autosuggestions";}
-    #   {
-    #     name = "powerlevel10k";
-    #     src = pkgs.zsh-powerlevel10k;
-    #   }
-    # ];
     shellInit = ''
+
+      source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
+      source ${pkgs.zsh-fzf-history-search}/share/zsh-fzf-history-search/zsh-fzf-history-search.plugin.zsh
+      # source ${pkgs.zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh
+
       setxkbmap -option grp:caps_toggle -layout us,ru
 
       # if [ -z "$TMUX" ] && [ -n "$DISPLAY" ]; then
@@ -83,27 +83,5 @@ in {
       }
 
     '';
-
-    # plugins = [
-    #   {
-    #     name = "powerlevel10k";
-    #     src = pkgs.zsh-powerlevel10k;
-    #     file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-    #   }
-    # ];
-
-    # zplug = {
-    #   enable = true;
-    #   plugins = [
-    #     {name = "zsh-users/zsh-autosuggestions";}
-    #   ];
-    # };
-
-    # oh-my-zsh = {
-    #   enable = true;
-    #   plugins = ["git" "thefuck" "z" "sudo"];
-    #   theme = "agnoster";
-    #   extraConfig = '''';
-    # };
   };
 }

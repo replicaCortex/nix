@@ -27,5 +27,18 @@
         };
       };
     };
+
+    # autoCmd = [
+    #   {
+    #     event = ["FileType"];
+    #     pattern = ["png" "jpeg" "web"];
+    #     callback.__raw = ''
+    #       function()
+    #       require("image").setup = image_setup_original
+    #       require("image").setup()
+    #       end
+    #     '';
+    #   }
+    # ];
   };
 }
