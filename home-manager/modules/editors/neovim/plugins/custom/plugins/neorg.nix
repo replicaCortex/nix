@@ -10,8 +10,13 @@
       @end
 
       * {TITLE_INPUT}
-        - ( ) TODO:
-        -- ( ) {CURSOR}
+        TODO:
+        ~ ( ) typing
+        ~ ( ) leetcode
+        ~ ( ) философия
+        ~ ( ) {https://goodresearch.dev/pipelines}[flake]
+        ~~ {https://aistudio.google.com/u/3/prompts/1oO62_armg0P8b9Ks98FT7L7GSXXvDQ-i}[google]
+        ~ ( ) {CURSOR}
 
       ** Daily Review
          Reflections:
@@ -111,17 +116,17 @@
             # '';
           };
 
-          "core.qol.toc" = {
-            config = {
-              enter = true;
-              fixed_width = 26;
-              auto_toc = {
-                open = true;
-                close = true;
-                # exit = false;
-              };
-            };
-          };
+          # "core.qol.toc" = {
+          #   config = {
+          #     enter = true;
+          #     fixed_width = 26;
+          #     auto_toc = {
+          #       open = true;
+          #       close = false;
+          #       exit = false;
+          #     };
+          #   };
+          # };
           "core.qol.todo_items" = {
             config = {
               # update_todo_parents = false;
@@ -259,6 +264,42 @@
           silent = true;
         };
       }
+    ];
+
+    autoCmd = [
+      {
+        event = ["FileType"];
+        pattern = "norg";
+        callback.__raw = ''
+          function()
+            vim.api.nvim_buf_set_keymap(0, "n", "<localleader>fn", ":Telescope neorg find_norg_files<CR>", { noremap = true, silent = true })
+            -- vim.api.nvim_buf_set_keymap(0, "n", "<localleader>nr", ":Neorg return<CR>", { noremap = true, silent = true })
+            vim.api.nvim_buf_set_keymap(0, "n", "<localleader>il", ":Telescope neorg insert_link<CR>", { noremap = true, silent = true })
+            -- vim.api.nvim_buf_set_keymap(0, "n", "<A-o>", ":Neorg toc left<CR>:q<CR>:bdelete<CR>", { noremap = true, silent = true })
+            -- vim.api.nvim_buf_set_keymap(0, "n", "<C-C>", "<C-h>:q<CR>:bdelete!<CR>", { noremap = true, silent = true })
+          end
+        '';
+      }
+
+      # {
+      #   event = ["FileType"];
+      #   pattern = ["markdown" "norg"];
+      #   callback.__raw = ''
+      #     function()
+      #     require("image").setup = image_setup_original
+      #     require("image").setup(_M.image_config)
+      #     end
+      #   '';
+      # }
+      # {
+      #   event = ["BufWritePost"];
+      #   pattern = "*.norg";
+      #   callback.__raw = ''
+      #     function()
+      #       vim.highlight.on_yank()
+      #     end
+      #   '';
+      # }
     ];
   };
 }

@@ -6,7 +6,7 @@
   imports = [
     # Core
 
-    # ./plugins/lazy.nix
+    ./plugins/lazy.nix
     # ./plugins/gitsigns.nix
     ./plugins/telescope.nix
     ./plugins/conform.nix
@@ -22,7 +22,7 @@
     ./plugins/custom/plugins/neotest.nix
     ./plugins/custom/plugins/neogen.nix
     ./plugins/kickstart/plugins/debug.nix
-    # ./plugins/custom/plugins/leetcode.nix
+    ./plugins/custom/plugins/leetcode.nix
     ./plugins/custom/plugins/hydra.nix
 
     ./plugins/custom/plugins/vimtex.nix
@@ -69,7 +69,7 @@
     ./plugins/custom/plugins/jupyter/otter.nix
     ./plugins/custom/plugins/jupyter/jupytext.nix
     ./plugins/custom/plugins/TSObjects/treesitter-textobjects.nix
-    # ./plugins/custom/plugins/image.nix
+    ./plugins/custom/plugins/image.nix
 
     # frplugin
     ./plugins/ftpluginx.nix
