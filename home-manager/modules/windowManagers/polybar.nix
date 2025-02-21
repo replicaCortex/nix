@@ -37,7 +37,7 @@ in {
 
       modules-left = sep cpu sep memory sep alsa
       modules-center = xworkspaces
-      modules-right = ethernet slesh sepmini xkeyboard slesh date sep
+      modules-right = ethernet slesh sepmini bluetooth sepmini slesh sepmini xkeyboard slesh date sep
 
       dpi-x = 96
       dpi-y = 96
