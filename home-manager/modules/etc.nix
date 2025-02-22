@@ -6,6 +6,7 @@
     tabbed
     ntfs3g
     unzip
+    nh
     xclip
     wget
     ripgrep

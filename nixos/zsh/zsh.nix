@@ -19,8 +19,9 @@ in {
       "na" = "bluetoothctl connect E4:61:F4:31:88:26";
       ".." = "cd ..";
 
-      "hms" = "home-manager switch --flake ~/nix/";
-      "nrs" = "sudo nixos-rebuild switch --flake ~/nix/";
+      "hms" = "nh home switch --ask /home/replica/nix/";
+      "nrs" = "nh os switch --ask /home/replica/nix/";
+      "nix clean" = "nh clean";
 
       "systemState" = "ls -l /nix/var/nix/gcroots/auto";
 
