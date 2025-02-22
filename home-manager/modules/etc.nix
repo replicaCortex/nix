@@ -5,6 +5,7 @@
     killall
     tabbed
     unzip
+    nh
     xclip
     wget
     ripgrep
