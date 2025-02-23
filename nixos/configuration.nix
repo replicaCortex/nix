@@ -10,6 +10,7 @@ in {
     ./zsh/zsh.nix
     ./vbox/vbox.nix
     ./audio/audio.nix
+    # ./portal/portal.nix
     ./nvidia/nvidia.nix
     # ./overlay/overlay.nix
     ./syncthing/syncthing.nix
