@@ -49,7 +49,7 @@ in {
 
           "Project Manager" = {
             path = "/home/${user}/Desktop/Project Manager";
-            devices = ["Notebook" "iPhone"];
+            devices = ["Notebook"];
           };
         };
 
