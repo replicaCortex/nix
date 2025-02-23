@@ -30,6 +30,7 @@
         # };
 
         pyright = {
+          # package = null;
           enable = true;
         };
 

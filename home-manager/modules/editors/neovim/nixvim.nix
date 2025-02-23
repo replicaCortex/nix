@@ -450,6 +450,11 @@
         require('nvim-web-devicons').setup {}
       end
 
+      -- local venv_path = vim.fn.getcwd() .. "/venv/bin/python"
+      -- if vim.fn.filereadable(venv_path) == 1 then
+      --   vim.g.python3_host_prog = venv_path
+      -- end
+
       -- vim.api.nvim_create_autocmd({"FileType"}, {
       --     pattern = {"tex"},
       --     callback = function()
