@@ -23,8 +23,8 @@ in {
             allowedNetwork = "192.168.0.0/16";
             addresses = ["tcp://192.168.0.99:51820"];
           };
-          "Notebook" = {
-            id = "WW5O366-THBBBA3-HKQAYCP-EWADS4I-4KDDC5Z-3JCO42M-RLBZ3DY-NM7PEQA";
+          "NixOS" = {
+            id = "E7XVWRA-AHFE7R5-Y4TMTAM-HZTW56I-OPLBX56-UO5NO57-667RQ35-APMJEAH";
             allowedNetwork = "192.168.0.0/16";
             autoAcceptFolders = true;
             addresses = ["tcp://192.168.0.103:51820"];
@@ -33,8 +33,19 @@ in {
 
         folders = {
           "notes" = {
-            # id = "ukrub-quh7k";
             path = "/home/${user}/Desktop/notes";
+            devices = ["iPhone" "NixOS"];
+          };
+          "Zotero" = {
+            path = "/home/${user}/Zotero";
+            devices = ["NixOS"];
+          };
+          "Vbox" = {
+            path = "/home/${user}/Vbox";
+            devices = ["NixOS"];
+          };
+          "Project Manager" = {
+            path = "/home/${user}/Desktop/Project Manager";
             devices = ["iPhone"];
           };
         };

@@ -13,6 +13,7 @@ in {
     # ./nvidia/nvidia.nix
     # ./overlay/overlay.nix
     # ./bluetooth/bluetooth.nix
+    ./syncthing/syncthing.nix
     # ./filesystem/filesystem.nix
     ./hardware-configuration/hardware-configuration.nix
   ];
