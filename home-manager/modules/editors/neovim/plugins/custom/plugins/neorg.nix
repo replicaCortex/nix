@@ -14,8 +14,8 @@
         ~ ( ) typing
         ~ ( ) leetcode
         ~ ( ) философия
-        ~ ( ) {https://goodresearch.dev/pipelines}[flake]
-        ~~ {https://aistudio.google.com/u/3/prompts/1oO62_armg0P8b9Ks98FT7L7GSXXvDQ-i}[google]
+        ~ ( ) {file:///mnt/workspace/notes/1_Prod/NixOs%20handbook/nixos-in-production.pdf}[NixOS handbook]
+        ~~ {https://aistudio.google.com/u/3/prompts/1qtbZlX-h5k1STkHU0OBFFDyquGbYD8aR}[google]
         ~ ( ) {CURSOR}
 
       ** Daily Review

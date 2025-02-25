@@ -11,5 +11,7 @@
     wget
     ripgrep
     dmenu
+
+    python312
   ];
 }

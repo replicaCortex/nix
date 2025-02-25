@@ -1,5 +1,20 @@
 {pkgs, ...}: {
   programs.nixvim = {
+    # autoCmd = [
+    #   {
+    #     event = ["BufEnter"];
+    #     callback.__raw = ''
+    #       function()
+    #         -- Остановить все активные LSP-клиенты
+    #         vim.lsp.stop_client(vim.lsp.get_active_clients())
+    #
+    #         -- Перезапустить LSP
+    #         vim.cmd("LspStart")
+    #       end
+    #     '';
+    #   }
+    # ];
+
     plugins.cmp-nvim-lsp = {
       enable = true;
     };
@@ -25,10 +40,6 @@
           # rootDir = builtins.getEnv "HOME";
         };
 
-        # nil_ls = {
-        #   enable = true;
-        # };
-
         pyright = {
           # package = null;
           enable = true;
@@ -41,15 +52,6 @@
         ltex = {
           enable = true;
         };
-
-        # marksman = {
-        #   enable = true;
-        # };
-
-        # csharp_ls = {
-        #   enable = true;
-        #   package = null;
-        # };
 
         clangd = {
           enable = true;
