@@ -4,12 +4,12 @@
   programs.nixvim = {
     diagnostics = {
       signs = {
-        text = {
-          "__rawKey__vim.diagnostic.severity.ERROR" = "";
-          "__rawKey__vim.diagnostic.severity.WARN" = "";
-          "__rawKey__vim.diagnostic.severity.HINT" = "󰛩";
-          "__rawKey__vim.diagnostic.severity.INFO" = "";
-        };
+        # text = {
+        #   "__rawKey__vim.diagnostic.severity.ERROR" = "";
+        #   "__rawKey__vim.diagnostic.severity.WARN" = "";
+        #   "__rawKey__vim.diagnostic.severity.HINT" = "󰛩";
+        #   "__rawKey__vim.diagnostic.severity.INFO" = "";
+        # };
         texthl = {
           "__rawKey__vim.diagnostic.severity.ERROR" = "DiagnosticError";
           "__rawKey__vim.diagnostic.severity.WARN" = "DiagnosticWarn";
@@ -18,5 +18,12 @@
         };
       };
     };
+    extraConfigLuaPre = ''
+      vim.diagnostic.config({
+        virtual_text = {
+          prefix = ' ', -- Could be '●', '▎', 'x'
+        }
+      })
+    '';
   };
 }
