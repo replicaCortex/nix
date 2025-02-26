@@ -8,6 +8,7 @@
 in {
   imports = [
     ./zsh/zsh.nix
+    # TODO: Замена на qemu
     ./vbox/vbox.nix
     ./audio/audio.nix
     # ./portal/portal.nix

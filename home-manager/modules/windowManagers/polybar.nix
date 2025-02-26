@@ -16,7 +16,7 @@ in {
       bottom = false
 
       background = ${fuck}{colors.base}
-      foreground = ${fuck}{colors.test}
+      foreground = ${fuck}{colors.text}
 
       line-size = 0pt
 
@@ -50,7 +50,7 @@ in {
 
 
       tray-position = center
-      tray-background = ${fuck}{colors.bg}
+      tray-background = ${fuck}{colors.base}
       tray-offset-x = 124pt
       tray-padding = 5
 
