@@ -46,7 +46,7 @@ in {
           };
           "Project Manager" = {
             path = "/home/${user}/Desktop/Project Manager";
-            devices = ["iPhone"];
+            devices = ["NixOS"];
           };
         };
 
