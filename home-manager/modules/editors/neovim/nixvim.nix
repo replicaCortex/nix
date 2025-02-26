@@ -52,7 +52,7 @@
     # ./plugins/custom/plugins/volt.nix
     # ./plugins/custom/plugins/lazy.nix
     # ./plugins/custom/plugins/typr.nix
-    # ./plugins/custom/plugins/diagnostics.nix
+    ./plugins/custom/plugins/diagnostics.nix
     ./plugins/custom/plugins/leap.nix
     # ./plugins/custom/plugins/obsidian.nix
     # ./plugins/custom/plugins/lazygit.nix
@@ -449,21 +449,6 @@
       if vim.g.have_nerd_font then
         require('nvim-web-devicons').setup {}
       end
-
-      -- local venv_path = vim.fn.getcwd() .. "/venv/bin/python"
-      -- if vim.fn.filereadable(venv_path) == 1 then
-      --   vim.g.python3_host_prog = venv_path
-      -- end
-
-      -- vim.api.nvim_create_autocmd({"FileType"}, {
-      --     pattern = {"tex"},
-      --     callback = function()
-      --         -- Вызов функции pencil#init() (предполагая, что она доступна в Lua)
-      --         -- Например:
-      --         vim.cmd('call pencil#init()')
-      --         vim.cmd(':set conceallevel=0 <CR>')
-      --     end,
-      -- })
     '';
 
     extraConfigLuaPost = ''

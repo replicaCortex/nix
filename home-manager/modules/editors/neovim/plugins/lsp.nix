@@ -112,6 +112,26 @@
             key = "<leader>ftd";
             action.__raw = "require('telescope.builtin').lsp_type_definitions";
           }
+
+          {
+            mode = "n";
+            key = "K";
+            action.__raw = "function() vim.lsp.buf.hover() end";
+            settings = {
+              silent = true;
+              noremap = true;
+            };
+          }
+
+          {
+            mode = "i";
+            key = "<A-k>";
+            action = "<Cmd>lua vim.lsp.buf.signature_help()<CR>";
+            settings = {
+              silent = true;
+              noremap = true;
+            };
+          }
           # {
           #   mode = "n";
           #   key = "<leader>fds";

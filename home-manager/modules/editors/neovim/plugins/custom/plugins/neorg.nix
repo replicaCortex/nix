@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{
   home.file = {
     "/.config/nvim/templates/norg/journal.norg".text = ''
       @document.meta
@@ -11,6 +11,7 @@
 
       * {TITLE_INPUT}
         TODO:
+        ___
         ~ ( ) typing
         ~ ( ) leetcode
         ~ ( ) философия
@@ -54,6 +55,21 @@
                   undone = {
                     icon = " ";
                   };
+                  uncertain = {
+                    icon = "";
+                  };
+                  urgent = {
+                    icon = "󱈸";
+                  };
+                  pending = {
+                    icon = "󰞌";
+                  };
+                  cancelled = {
+                    icon = "󰬁";
+                  };
+                  # on-hold = {
+                  #   icon = "󰫵";
+                  # };
                 };
                 heading = {
                   icons = ["◆" "❖" "◈" "◇" "⟡" "⋄"];
