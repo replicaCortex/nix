@@ -119,7 +119,7 @@
             mode = "n";
             key = "K";
             action.__raw = "function() vim.lsp.buf.hover() end";
-            settings = {
+            options = {
               silent = true;
               noremap = true;
             };
@@ -129,7 +129,7 @@
             mode = "i";
             key = "<A-k>";
             action = "<Cmd>lua vim.lsp.buf.signature_help()<CR>";
-            settings = {
+            options = {
               silent = true;
               noremap = true;
             };
