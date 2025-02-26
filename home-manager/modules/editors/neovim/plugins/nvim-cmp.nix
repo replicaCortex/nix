@@ -74,7 +74,7 @@
       cmdline = {
         # "/" = {
         #   mapping = {
-        #     # __raw = "cmp.mapping.preset.cmdline()";
+        # __raw = "cmp.mapping.preset.cmdline()";
         # __raw = ''
         #   { ["<C-n>"] = cmp.mapping(cmp.mapping.select_next_item(), { "c" }),
         #     ["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "c" }),
@@ -91,9 +91,17 @@
           mapping = {
             # __raw = "cmp.mapping.preset.cmdline()";
             __raw = ''
-              { ["<C-n>"] = cmp.mapping(cmp.mapping.select_next_item(), { "c" }),
+              {
+                ["<C-n>"] = cmp.mapping(cmp.mapping.select_next_item(), { "c" }),
                 ["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "c" }),
-                ["<TAB>"] = cmp.mapping.confirm({ select = true }), }
+                ["<Tab>"] = {
+                c = function(default)
+                    if cmp.visible() then
+                      return cmp.confirm({ select = true })
+                    end
+                  default()
+                end,},
+              }
             '';
           };
           sources = [
@@ -115,18 +123,40 @@
     };
     extraConfigLuaPre = ''
 
-      -- local cmp = require("cmp")
-      --
-      -- cmp.setup({
-      --   mapping = {
-      --     ["<C-n>"] = cmp.mapping.select_next_item(),
-      --     ["<C-p>"] = cmp.mapping.select_prev_item(),
-      --     ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-      --     ["<C-f>"] = cmp.mapping.scroll_docs(4),
-      --     ["<Esc>"] = cmp.mapping.abort()
-      --     ["<CR>"] = cmp.mapping.confirm { select = true },
-      --   }
-      -- })
+      local cmp = require'cmp'
+
+      cmp.setup({
+        formatting = {
+          format = function(entry, vim_item)
+            local icons = {
+              Class = " ",
+              Color = " ",
+              Constant = " ",
+              Constructor = " ",
+              Enum = " ",
+              EnumMember = " ",
+              Field = "󰄶 ",
+              File = " ",
+              Folder = " ",
+              Function = "ƒ ",
+              Interface = "󰜰 ",
+              Keyword = "󰌆 ",
+              Method = "󰡱 ",
+              Module = "󰏗 ",
+              Property = " ",
+              Snippet = "󰘍 ",
+              Struct = " ",
+              Text = " ",
+              Unit = " ",
+              Value = "󰎠 ",
+              Variable = "󰫧 ",
+            }
+
+            vim_item.kind = icons[vim_item.kind] or vim_item.kind
+            return vim_item
+          end
+        }
+      })
 
     '';
   };
