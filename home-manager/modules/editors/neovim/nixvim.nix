@@ -7,6 +7,7 @@
     # Core
 
     ./plugins/lazy.nix
+    ./plugins/terminal.nix
     # ./plugins/gitsigns.nix
     ./plugins/telescope.nix
     ./plugins/conform.nix
@@ -440,15 +441,11 @@
       # web-devicons.enable = true;
     };
 
-    # TODO: сделать ленивую загрузку
     extraPlugins = with pkgs.vimPlugins; [
       # nvim-web-devicons
     ];
 
     extraConfigLuaPre = ''
-      if vim.g.have_nerd_font then
-        require('nvim-web-devicons').setup {}
-      end
     '';
 
     extraConfigLuaPost = ''

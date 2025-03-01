@@ -1,5 +1,65 @@
 {pkgs, ...}: {
   programs.nixvim = {
+    extraConfigLuaPre = ''
+      -- local lspconfig = require('lspconfig')
+      -- lspconfig.nixd.setup({
+      --   cmd = { "nixd" },
+      --   settings = {
+      --     nixd = {
+      --       -- Основной nixpkgs (используем стабильную версию)
+      --       nixpkgs = {
+      --         expr = "let flake = builtins.getFlake (toString ./.); in import flake.inputs.nixpkgs-stable { system = \"x86_64-linux\"; }"
+      --       },
+      --
+      --       -- Опции для автодополнения
+      --       options = {
+      --         -- NixOS options из вашего configuration.nix
+      --         nixos_config = {
+      --           expr = "(builtins.getFlake (toString ./.)).nixosConfigurations.nixos.config.system.build.options"
+      --         },
+      --
+      --         -- Home Manager options
+      --         home_manager = {
+      --           expr = "(builtins.getFlake (toString ./.)).homeConfigurations.replica.config.home-manager.build.options"
+      --         },
+      --
+      --         -- Дополнительные источники
+      --         extra = {
+      --           {
+      --             expr = "import (builtins.getFlake \"github:nix-community/nixvim\") { }",
+      --             depth = 3  -- Глубина анализа модулей
+      --           },
+      --           {
+      --             expr = "import (builtins.getFlake \"github:catppuccin/nix\") { }",
+      --             depth = 2
+      --           }
+      --         }
+      --       },
+      --
+      --       -- Настройки диагностики
+      --       diagnostic = {
+      --         suppress = {
+      --           "undefined-var",    -- Часто ложные срабатывания
+      --           "sema-extra-with",  -- Конфликты с nixfmt
+      --           "deprecated-option" -- Устаревшие опции
+      --         },
+      --         level = "Warning"  -- Уровень строгости
+      --       },
+      --
+      --       -- Расширенные возможности
+      --       completion = {
+      --         autoImport = true,    -- Автоимпорт пакетов
+      --         showPackages = "all"  -- Показывать все версии пакетов
+      --       }
+      --     }
+      --   },
+      --   init_options = {
+      --     documentFormatting = true,
+      --     hover = true,
+      --     completion = true
+      --   }
+      -- })
+    '';
     # autoCmd = [
     #   {
     #     event = ["BufEnter"];

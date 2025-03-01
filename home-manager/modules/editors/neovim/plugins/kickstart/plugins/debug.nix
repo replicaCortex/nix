@@ -1,5 +1,8 @@
-{
+{pkgs, ...}: let
+  codelldb = pkgs.vscode-extensions.vadimcn.vscode-lldb;
+in {
   programs.nixvim = {
+    extraPlugins = with pkgs.vimPlugins; [codelldb];
     # Shows how to use the DAP plugin to debug your code.
     #
     # Primarily focused on configuring the debugger for Go, but can
@@ -60,7 +63,10 @@
     };
 
     plugins.dap-lldb = {
-      package = true;
+      enable = true;
+      settings = {
+        codelldb_path = "${codelldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb";
+      };
     };
 
     plugins.dap = {

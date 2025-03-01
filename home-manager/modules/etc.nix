@@ -11,5 +11,6 @@
     wget
     ripgrep
     dmenu
+    texlive.combined.scheme-full
   ];
 }
