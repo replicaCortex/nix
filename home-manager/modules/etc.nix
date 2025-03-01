@@ -13,5 +13,6 @@
     networkmanager_dmenu
 
     python312
+    texlive.combined.scheme-full
   ];
 }

@@ -34,6 +34,8 @@ in {
 
       "cp" = "advcp -g";
       "mv" = "advmv -g";
+
+      "gt" = "gcc -g -O0 -Wp,-U_FORTIFY_SOURCE";
     };
 
     shellInit = ''

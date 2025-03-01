@@ -58,18 +58,53 @@
         highlight MiniTablineModifiedVisible guifg=#f38ba8
       ]]
     '';
+
     keymaps = [
+      # {
+      #   mode = ["n" "i"];
+      #   key = "<A-.>";
+      #   action = "<cmd>:bnext<CR>";
+      #   options = {
+      #     silent = true;
+      #   };
+      # }
+
       {
-        mode = "n";
+        mode = ["n" "i"];
         key = "<A-.>";
-        action = "<cmd>:bnext<CR>";
+        action.__raw = ''
+          function ()
+            if vim.fn.mode() == "i" then
+              vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", true)
+            end
+
+            vim.cmd("bnext")
+          end
+        '';
         options = {
           silent = true;
         };
       }
 
       {
-        mode = "n";
+        mode = ["n" "i"];
+        key = "<A-,>";
+        action.__raw = ''
+          function ()
+            if vim.fn.mode() == "i" then
+              vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", true)
+            end
+
+            vim.cmd("bprevious")
+          end
+        '';
+        options = {
+          silent = true;
+        };
+      }
+
+      {
+        mode = ["n" "i"];
         key = "<A-n>";
         action = "<cmd>:bunload<CR>";
         options = {
@@ -77,17 +112,17 @@
         };
       }
 
-      {
-        mode = "n";
-        key = "<A-,>";
-        action = "<cmd>:bprevious<CR>";
-        options = {
-          silent = true;
-        };
-      }
+      # {
+      #   mode = ["n" "i"];
+      #   key = "<A-,>";
+      #   action = "<cmd>:bprevious<CR>";
+      #   options = {
+      #     silent = true;
+      #   };
+      # }
 
       {
-        mode = "n";
+        mode = ["n" "i"];
         key = "<A-c>";
         action = "<cmd>:bdelete<CR>";
         options = {
@@ -96,7 +131,7 @@
       }
 
       {
-        mode = "n";
+        mode = ["n" "i"];
         key = "<A-C>";
         action = "<cmd>:bdelete!<CR>";
         options = {

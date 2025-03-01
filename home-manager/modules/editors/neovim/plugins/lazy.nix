@@ -49,6 +49,7 @@
       --   end,
       -- })
 
+      -- TODO: сделать меньше размер в md файлах
       vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
         pattern = {"*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp", "*.md", "*.norg", "*.ipynb"},
         callback = function()
@@ -73,12 +74,13 @@
             },
             -- max_width = 100,
             -- max_height = 8,
-            max_height_window_percentage = math.huge,
-            max_width_window_percentage = math.huge,
-            -- window_overlap_clear_enabled = true, -- toggles images when windows are overlapped
+            -- NODE: временно убрал huge
+            -- max_height_window_percentage = math.huge,
+            -- max_width_window_percentage = math.huge,
+            window_overlap_clear_enabled = true, -- toggles images when windows are overlapped
             editor_only_render_when_focused = true, -- auto show/hide images when the editor gains/looses focus
             tmux_show_only_in_active_window = true, -- auto show/hide images in the correct Tmux window (needs visual-activity off)
-            -- window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "fidget", ""},
+            window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "fidget", ""},
           })
         end
       })
