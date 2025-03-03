@@ -52,6 +52,7 @@
                     return '%2l:%-2v'
       end
 
+      -- TODO: инвертировать bg при выделении и наоборот
       vim.cmd [[
         highlight MiniTablineCurrent gui=underline guisp=#b4befe
         highlight MiniTablineModifiedCurrent gui=underline guisp=#b4befe guifg=#f38ba8

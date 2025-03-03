@@ -44,6 +44,9 @@
       vim.api.nvim_set_keymap('t', '<C-k>', '<C-\\><C-n><C-w>k', { noremap = true, silent = true })
       -- vim.api.nvim_set_keymap('t', '<C-l>', '<C-\\><C-n><C-w>l', { noremap = true, silent = true })
 
+      vim.api.nvim_set_keymap('t', '<A-.>', '<C-\\><C-n><cmd>bnext<CR>', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('t', '<A-,>', '<C-\\><C-n><cmd>bprevious<CR>', { noremap = true, silent = true })
+
     '';
   };
 }
