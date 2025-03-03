@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   programs.nixvim = {
     # plugins.cmp-vimtex = {enable = true;};
+    # TODO: сделать авто закрытие и открытие toc
     plugins.vimtex = {
       enable = true;
       zathuraPackage = null;

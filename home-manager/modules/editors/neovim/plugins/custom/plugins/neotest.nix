@@ -23,7 +23,7 @@
         python = {
           enable = true;
         };
-        dotnet = {
+        gtest = {
           enable = true;
         };
       };

@@ -1,15 +1,5 @@
 {pkgs, ...}: {
   programs.nixvim = {
-    # autoCmd = [
-    #   {
-    #     event = "BufWritePost";
-    #     pattern = "*.norg";
-    #     command = "silent !norg-fmt % > %:p";
-    #   }
-    # ];
-    # Dependencies
-    #
-    # https://nix-community.github.io/nixvim/NeovimOptions/index.html?highlight=extraplugins#extrapackages
     extraPackages = with pkgs; [
       # Used to format Lua code
       stylua
@@ -22,12 +12,6 @@
     # Autoformat
     # https://nix-community.github.io/nixvim/plugins/conform-nvim.html
     plugins.conform-nvim = {
-      # lazyLoad.settings = {
-      #   cmd = [
-      #     "ConformInfo"
-      #   ];
-      #   event = ["BufWrite"];
-      # };
       enable = true;
       settings = {
         notify_on_error = false;
@@ -50,28 +34,9 @@
           # latex = ["latexindent"];
           markdown = ["prettierd"];
           c = ["clang-format"];
-          #
-          # You can use a sublist to tell conform to run *until* a formatter
-          # is found
           # javascript = [ [ "prettierd" "prettier" ] ];
         };
       };
     };
-
-    # https://nix-community.github.io/nixvim/keymaps/index.html
-    keymaps = [
-      # {
-      #   mode = "";
-      #   key = "<leader>f";
-      #   action.__raw = ''
-      #     function()
-      #       require('conform').format { async = true, lsp_fallback = true }
-      #     end
-      #   '';
-      #   options = {
-      #     desc = "[F]ormat buffer";
-      #   };
-      # }
-    ];
   };
 }

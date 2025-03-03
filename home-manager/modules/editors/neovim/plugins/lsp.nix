@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{
   programs.nixvim = {
     extraConfigLuaPre = ''
       -- local lspconfig = require('lspconfig')
@@ -115,7 +115,6 @@
 
         clangd = {
           enable = true;
-          package = null;
         };
 
         lua_ls = {
