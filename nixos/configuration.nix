@@ -8,7 +8,6 @@
     ./zsh/zsh.nix
     # TODO: Замена на qemu
     ./vbox/vbox.nix
-    ./qemu/qemu.nix
     ./audio/audio.nix
     # ./portal/portal.nix
     ./nvidia/nvidia.nix

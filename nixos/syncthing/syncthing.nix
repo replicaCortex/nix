@@ -20,14 +20,10 @@ in {
           "iPhone" = {
             id = "ZUZETR5-7AGAECV-MOYWSOL-666OHH7-X7K53FQ-IPDI7VP-ELJ5JIO-GXMDEQF";
             autoAcceptFolders = true;
-            # allowedNetwork = "192.168.0.0/16";
-            # addresses = ["tcp://192.168.0.99:51820"];
           };
           "Notebook" = {
             id = "XGFVY6I-6HYYLXW-EIRCNE5-MY5LQCM-YZWH6XF-ORFVTAM-2TORQIP-USTOEQX";
             autoAcceptFolders = true;
-            # allowedNetwork = "192.168.0.0/16";
-            # addresses = ["tcp://192.168.0.103:51820"];
           };
         };
 
