@@ -227,15 +227,15 @@
         };
       }
 
-      {
-        mode = "n";
-        key = "<localleader>jy";
-        action = ":Neorg journal yesterday<CR>";
-        options = {
-          silent = true;
-        };
-      }
-
+      # {
+      #   mode = "n";
+      #   key = "<localleader>jy";
+      #   action = ":Neorg journal yesterday<CR>";
+      #   options = {
+      #     silent = true;
+      #   };
+      # }
+      #
       {
         mode = "n";
         key = "<localleader>jt";
@@ -245,14 +245,14 @@
         };
       }
 
-      {
-        mode = "n";
-        key = "<localleader>jo";
-        action = ":Neorg journal tomorrow<CR>";
-        options = {
-          silent = true;
-        };
-      }
+      # {
+      #   mode = "n";
+      #   key = "<localleader>jo";
+      #   action = ":Neorg journal tomorrow<CR>";
+      #   options = {
+      #     silent = true;
+      #   };
+      # }
 
       {
         mode = "n";

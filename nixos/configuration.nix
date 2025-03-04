@@ -3,9 +3,7 @@
   pkgs,
   lib,
   ...
-}: let
-  fuck = ''$'';
-in {
+}: {
   imports = [
     ./zsh/zsh.nix
     ./vbox/vbox.nix
