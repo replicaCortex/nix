@@ -3,7 +3,7 @@
     ./modules/bundle.nix
     ./catppuccin.nix
 
-    # ./modules/Rust/index.nix
+    # ./modules/rust/norg-fmt.nix
   ];
 
   home = {

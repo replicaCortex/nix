@@ -64,14 +64,6 @@
 
       map("t", "<C-ч>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
 
-      map({ "n", "t" }, "<A-м>", function()
-          require("nvchad.term").toggle { pos = "vsp", id = "vtoggleTerm" }
-      end, { desc = "terminal toggleable vertical term" })
-
-      map({ "n", "t" }, "<A-р>", function()
-          require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm" }
-      end, { desc = "terminal toggleable horizontal term" })
-
       map("i", "<C-и>", "<ESC>^i", { desc = "move beginning of line" })
       map("i", "<C-у>", "<End>", { desc = "move end of line" })
       map("i", "<C-р>", "<Left>", { desc = "move left" })

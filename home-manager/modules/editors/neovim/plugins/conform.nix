@@ -7,6 +7,7 @@
       black
       alejandra
       prettierd
+      shfmt
     ];
 
     # Autoformat
@@ -34,7 +35,14 @@
           # latex = ["latexindent"];
           markdown = ["prettierd"];
           c = ["clang-format"];
+          sh = ["shfmt"];
           # javascript = [ [ "prettierd" "prettier" ] ];
+        };
+        formatters = {
+          shfmt = {
+            command = "shfmt";
+            args = ["-i" "4" "-ci" "-kp"];
+          };
         };
       };
     };
