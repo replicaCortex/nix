@@ -12,11 +12,10 @@
       * {TITLE_INPUT}
         TODO:
         ___
-        ~ ( ) typing
         ~ ( ) leetcode
         ~ ( ) философия
-        ~ ( ) {https://goodresearch.dev/pipelines}[flake]
-        ~~ {https://aistudio.google.com/u/3/prompts/1oO62_armg0P8b9Ks98FT7L7GSXXvDQ-i}[google]
+        ~ ( ) lem
+        ~ ( ) kolb
         ~ ( ) {CURSOR}
 
       ** Daily Review
@@ -236,15 +235,6 @@
       #   };
       # }
       #
-      {
-        mode = "n";
-        key = "<localleader>jt";
-        action = ":Neorg journal today<CR>";
-        options = {
-          silent = true;
-        };
-      }
-
       # {
       #   mode = "n";
       #   key = "<localleader>jo";
@@ -293,6 +283,17 @@
             vim.api.nvim_buf_set_keymap(0, "n", "<localleader>il", ":Telescope neorg insert_link<CR>", { noremap = true, silent = true })
             -- vim.api.nvim_buf_set_keymap(0, "n", "<A-o>", ":Neorg toc left<CR>:q<CR>:bdelete<CR>", { noremap = true, silent = true })
             -- vim.api.nvim_buf_set_keymap(0, "n", "<C-C>", "<C-h>:q<CR>:bdelete!<CR>", { noremap = true, silent = true })
+          end
+        '';
+      }
+      {
+        event = ["BufWritePost"];
+        pattern = "*.norg";
+        callback.__raw = ''
+          function()
+            local view = vim.fn.winsaveview()
+            vim.cmd("normal! gg=G")
+            vim.fn.winrestview(view)
           end
         '';
       }
