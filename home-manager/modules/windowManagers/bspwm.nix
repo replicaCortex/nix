@@ -5,7 +5,7 @@
       "pgrep -x sxhkd > /dev/null || sxhkd"
       "pgrep -x polybar > /dev/null || polybar"
       "pgrep -x clipmenud > /dev/null || clipmenud"
-      "pgrep -x flameshot > /dev/null || flameshot"
+      # "pgrep -x flameshot > /dev/null || flameshot"
       # "pgrep -x alsa > /dev/null || alsa"
       # "pgrep -x redshift > /dev/null || redshift"
       # "pgrep -x polybar > /dev/null || ~/nix/home-manager/modules/conf/polybar/sh.sh"

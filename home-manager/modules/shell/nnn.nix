@@ -4,7 +4,7 @@ in
   {pkgs, ...}: {
     programs.nnn = {
       enable = true;
-      extraPackages = with pkgs; [nsxiv file mktemp xdragon];
+      extraPackages = with pkgs; [nsxiv file mktemp xdragon xdotool z-lua];
       package = pkgs.nnn.override {withNerdIcons = true;};
       bookmarks = {
         c = "~/";
@@ -17,7 +17,7 @@ in
 
       # sh -c "$(curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs)"
 
-      # :TODO сделать создание папок плагинов через home-manager
+      # TODO: сделать создание папок плагинов через home-manager
 
       # plugins = {
       #   src =

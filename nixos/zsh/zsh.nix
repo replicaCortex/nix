@@ -36,6 +36,8 @@ in {
       "mv" = "advmv -g";
 
       "gt" = "gcc -g -O0 -Wp,-U_FORTIFY_SOURCE";
+
+      "ls" = "nnn -de";
     };
 
     shellInit = ''
@@ -63,11 +65,10 @@ in {
       export BROWSER="firefox"
 
       #-----
-      export NNN_FIFO=/tmp/nnn.fifo
       export NNN_OPTS="r"
       export LC_COLLATE="C" # hidden files on top
       export NNN_FIFO="/tmp/nnn.fifo"
-      export NNN_PLUG='p:preview-tabbed;F:fzopen;f:fzcd;d:dragdrop'
+      export NNN_PLUG='p:preview-tabbed;F:fzopen;f:fzcd;d:dragdrop;j:autojump;x:!chmod +x "$nnn"'
       #-----
 
       n ()

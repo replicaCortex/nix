@@ -3,6 +3,8 @@
     # TODO: сделать автопрокруту без режима вставки
 
     # TODO: Повиксить растягивание
+
+    # TODO: Убрать полное открывание терминала при удалении buf
     extraConfigLuaPre = ''
       vim.api.nvim_create_autocmd("TermOpen", {
           pattern = "*",
@@ -61,7 +63,7 @@
 
       vim.api.nvim_set_keymap("n", "<leader><A-->", "<cmd>split<CR>", { noremap = true, silent = true })
 
-      vim.api.nvim_set_keymap("t", "<ESC>", "<C-\\><C-n>", { noremap = true, silent = true })
+      vim.api.nvim_set_keymap("t", "<C-[>", "<C-\\><C-n>", { noremap = true, silent = true })
 
       vim.api.nvim_set_keymap("t", "<A-c>", "<C-\\><C-n><cmd>bdelete!<CR>", { noremap = true, silent = true })
 
