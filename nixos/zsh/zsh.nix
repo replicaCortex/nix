@@ -80,7 +80,7 @@ in {
               return
           fi
           export NNN_TMPFILE="${fuck}{XDG_CONFIG_HOME:-${fuck}HOME/.config}/nnn/.lastd"
-          nnn "$@"
+          nnn -P p "$@"
           if [ -f "$NNN_TMPFILE" ]; then
                   . "$NNN_TMPFILE"
                   rm -f "$NNN_TMPFILE" > /dev/null
