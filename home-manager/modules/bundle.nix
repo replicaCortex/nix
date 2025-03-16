@@ -25,6 +25,7 @@
     ./services/picom.nix
     ./services/clipmenu.nix
     ./services/redshift.nix
+    ./services/dunst.nix
 
     # TSobject
     ./editors/neovim/plugins/custom/plugins/TSObjects/textobjects.nix
