@@ -209,7 +209,7 @@
           };
         };
       };
-      telescopeIntegration.enable = true;
+      # telescopeIntegration.enable = true;
     };
     # extraConfigLuaPre = ''
     #
@@ -273,19 +273,19 @@
     ];
 
     autoCmd = [
-      {
-        event = ["FileType"];
-        pattern = "norg";
-        callback.__raw = ''
-          function()
-            vim.api.nvim_buf_set_keymap(0, "n", "<localleader>fn", ":Telescope neorg find_norg_files<CR>", { noremap = true, silent = true })
-            -- vim.api.nvim_buf_set_keymap(0, "n", "<localleader>nr", ":Neorg return<CR>", { noremap = true, silent = true })
-            vim.api.nvim_buf_set_keymap(0, "n", "<localleader>il", ":Telescope neorg insert_link<CR>", { noremap = true, silent = true })
-            -- vim.api.nvim_buf_set_keymap(0, "n", "<A-o>", ":Neorg toc left<CR>:q<CR>:bdelete<CR>", { noremap = true, silent = true })
-            -- vim.api.nvim_buf_set_keymap(0, "n", "<C-C>", "<C-h>:q<CR>:bdelete!<CR>", { noremap = true, silent = true })
-          end
-        '';
-      }
+      # {
+      #   event = ["FileType"];
+      #   pattern = "norg";
+      #   callback.__raw = ''
+      #     function()
+      #       -- vim.api.nvim_buf_set_keymap(0, "n", "<localleader>fn", ":Telescope neorg find_norg_files<CR>", { noremap = true, silent = true })
+      #       -- vim.api.nvim_buf_set_keymap(0, "n", "<localleader>nr", ":Neorg return<CR>", { noremap = true, silent = true })
+      #       -- vim.api.nvim_buf_set_keymap(0, "n", "<localleader>il", ":Telescope neorg insert_link<CR>", { noremap = true, silent = true })
+      #       -- vim.api.nvim_buf_set_keymap(0, "n", "<A-o>", ":Neorg toc left<CR>:q<CR>:bdelete<CR>", { noremap = true, silent = true })
+      #       -- vim.api.nvim_buf_set_keymap(0, "n", "<C-C>", "<C-h>:q<CR>:bdelete!<CR>", { noremap = true, silent = true })
+      #     end
+      #   '';
+      # }
       {
         event = ["BufWritePost"];
         pattern = "*.norg";

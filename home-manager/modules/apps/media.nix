@@ -1,4 +1,4 @@
-{
+{pkgs, ...}: {
   programs.feh = {
     enable = true;
     #themes.feh = ["--image-bg"];
@@ -16,16 +16,5 @@
     enable = true;
   };
 
-  # services.flameshot = {
-  #   enable = true;
-  #
-  #   settings = {
-  #     General = {
-  #       disabledTrayIcon = true;
-  #       showStartupLaunchMessage = false;
-  #       autoCloseIdleDaemon = true;
-  #       startupLaunch = false;
-  #     };
-  #   };
-  # };
+  home.packages = with pkgs; [escrotum];
 }

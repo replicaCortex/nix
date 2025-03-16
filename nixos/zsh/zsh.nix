@@ -19,9 +19,10 @@ in {
       "na" = "bluetoothctl connect E4:61:F4:31:88:26";
       ".." = "cd ..";
 
-      "hms" = "nh home switch --ask /home/replica/nix/";
-      "nrs" = "nh os switch --ask /home/replica/nix/";
-      "nix clean" = "nh clean";
+      "hms" = "nh home switch --ask /home/replica/nix/ && dunstify '  NixOS' 'Home switch done 󰄬' || dunstify -u critical -h string:fgcolor:#f38ba8 '  NixOS' 'Home switch failed ❌' -t 4000";
+      "nrs" = "nh os switch --ask /home/replica/nix/ && dunstify '  NixOS' 'Nix switch done 󰄬' || dunstify -u critical -h string:fgcolor:#f38ba8 '  NixOS' 'Home switch failed ❌' -t 4000";
+
+      "nix clean" = "nh clean && dunstify '  NixOS' 'Clean done 󰄬' || dunstify -u critical -h string:fgcolor:#f38ba8 '  NixOS' 'Clean failed ❌' -t 4000";
 
       "systemState" = "ls -l /nix/var/nix/gcroots/auto";
 
@@ -68,7 +69,7 @@ in {
       export NNN_OPTS="r"
       export LC_COLLATE="C" # hidden files on top
       export NNN_FIFO="/tmp/nnn.fifo"
-      export NNN_PLUG='p:preview-tabbed;F:fzopen;f:fzcd;d:dragdrop;j:autojump;x:!chmod +x "$nnn"'
+      export NNN_PLUG='p:preview-tui;f:fzopen;F:fzcd;d:dragdrop;j:autojump;x:!chmod +x "$nnn";k:gitroot;t:nvim'
       #-----
 
       n ()

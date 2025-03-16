@@ -9,7 +9,7 @@
     ./plugins/lazy.nix
     ./plugins/terminal.nix
     # ./plugins/gitsigns.nix
-    ./plugins/telescope.nix
+    # ./plugins/telescope.nix
     ./plugins/conform.nix
     ./plugins/lsp.nix
     ./plugins/nvim-cmp.nix
@@ -19,6 +19,7 @@
     ./plugins/treesitter.nix
 
     ./plugins/custom/plugins/img-clip.nix
+    ./plugins/custom/plugins/vim-ripgrep.nix
     ./plugins/custom/plugins/markdown.nix
     ./plugins/custom/plugins/neotest.nix
     ./plugins/custom/plugins/neogen.nix
@@ -43,7 +44,7 @@
 
     # ./plugins/custom/plugins/multicursors.nix
     # ./plugins/custom/plugins/lualine.nix
-    ./plugins/custom/plugins/oil.nix
+    # ./plugins/custom/plugins/oil.nix
     # ./plugins/custom/plugins/pencil.nix
     # ./plugins/custom/plugins/cmp-zotcite.nix
     # ./plugins/custom/plugins/zotcite.nix
@@ -74,6 +75,8 @@
 
     # frplugin
     ./plugins/ftpluginx.nix
+    ./plugins/wrapperFloaterm/nnnTerm.nix
+    ./plugins/wrapperFloaterm/ripgrepTerm.nix
   ];
 
   programs.nixvim = {
@@ -145,6 +148,11 @@
     };
 
     keymaps = [
+      {
+        mode = "n";
+        key = "n";
+        action = "<CMD>FloatermNew --title=nnnManager nnn<CR>";
+      }
       {
         mode = "i";
         key = "<C-k>";
@@ -255,19 +263,19 @@
       #   key = "<Esc>";
       #   action = "<C-c>";
       # }
-      {
-        mode = "t";
-        key = "<Esc><Esc>";
-        action = "<C-\\><C-n>";
-        options = {
-          desc = "Exit terminal mode";
-        };
-      }
-      {
-        mode = "n";
-        key = "<C-n>";
-        action = "<CMD>Oil<CR>";
-      }
+      # {
+      #   mode = "t";
+      #   key = "<Esc><Esc>";
+      #   action = "<C-\\><C-n>";
+      #   options = {
+      #     desc = "Exit terminal mode";
+      #   };
+      # }
+      # {
+      #   mode = "n";
+      #   key = "<C-n>";
+      #   action = "<CMD>Oil<CR>";
+      # }
       # {
       #   mode = "n";
       #   key = "<C-n>";
@@ -357,37 +365,37 @@
       #   '';
       # }
 
-      {
-        mode = "n";
-        key = "<leader>fi";
-        action.__raw = ''
-
-          function()
-            local telescope = require("telescope.builtin")
-            local actions = require("telescope.actions")
-            local action_state = require("telescope.actions.state")
-
-            telescope.find_files({
-              attach_mappings = function(_, map)
-                local function embed_image(prompt_bufnr)
-                  local entry = action_state.get_selected_entry()
-                  local filepath = entry[1]
-                  actions.close(prompt_bufnr)
-
-                  local img_clip = require("img-clip")
-                  img_clip.paste_image(nil, filepath)
-                end
-
-                map("i", "<CR>", embed_image)
-                map("n", "<CR>", embed_image)
-
-                return true
-              end,
-            })
-          end
-
-        '';
-      }
+      # {
+      #   mode = "n";
+      #   key = "<leader>fi";
+      #   action.__raw = ''
+      #
+      #     function()
+      #       local telescope = require("telescope.builtin")
+      #       local actions = require("telescope.actions")
+      #       local action_state = require("telescope.actions.state")
+      #
+      #       telescope.find_files({
+      #         attach_mappings = function(_, map)
+      #           local function embed_image(prompt_bufnr)
+      #             local entry = action_state.get_selected_entry()
+      #             local filepath = entry[1]
+      #             actions.close(prompt_bufnr)
+      #
+      #             local img_clip = require("img-clip")
+      #             img_clip.paste_image(nil, filepath)
+      #           end
+      #
+      #           map("i", "<CR>", embed_image)
+      #           map("n", "<CR>", embed_image)
+      #
+      #           return true
+      #         end,
+      #       })
+      #     end
+      #
+      #   '';
+      # }
 
       {
         mode = "n";

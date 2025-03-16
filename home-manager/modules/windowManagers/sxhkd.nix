@@ -9,17 +9,17 @@
 
       # "super + {_,shift + }Return" = "{kitty , bspc node -s biggest.local}";
 
-      "super + n" = ''alacritty -e "nwrap $*"'';
+      # "super + n" = ''alacritty -e "nwrap $*"'';
 
       "super + {_,shift + }Return" = "{alacritty , bspc node -s biggest.local}";
 
       # "super + {_,shift + }Return" = "{urxvt , bspc node -s biggest.local}";
 
-      "@Print" = "scrot";
+      "@Print" = "dunstify '󱠏  Screenshot' 'Area selection' -t 1500 && escrotum -Cs";
+
+      "alt + @Print" = "dunstify '󱠏  Screenshot' 'Area selection and save' -t 1500 && escrotum -s ~/screenshot.png && dunstify '󱠏  Screenshot' 'file save to ~/'";
 
       "shift + @Print" = "scrot -d 5";
-
-      # "super + e" = "bemoji";
 
       "shift + ctrl + z" = "clipmenu";
 
@@ -30,10 +30,6 @@
       "super + F8" = "amixer -q set Master 5%+";
 
       "super + F6" = "amixer -q set Master toggle";
-
-      # "super + p" = "xcolor -P 150 -s clipboard";
-
-      "Print" = "flameshot gui";
 
       # ПЕРЕЗАГРУЗИТЬ КОНФИГ SXHKD
       "super + shift + e" = "pkill -USR1 -x sxhkd";
