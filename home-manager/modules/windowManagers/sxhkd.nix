@@ -19,8 +19,6 @@
 
       "alt + @Print" = "dunstify '󱠏  Screenshot' 'Area selection and save' -t 1500 && escrotum -s ~/screenshot.png && dunstify '󱠏  Screenshot' 'file save to ~/'";
 
-      "shift + @Print" = "scrot -d 5";
-
       "shift + ctrl + z" = "clipmenu";
 
       "super + w" = "firefox";

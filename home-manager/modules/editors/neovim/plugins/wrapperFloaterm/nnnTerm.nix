@@ -3,6 +3,17 @@
     extraConfigLuaPre = ''
       vim.cmd("source ~/.config/nvim/autoload/floaterm/wrapper/nnn.vim")
     '';
+
+    keymaps = [
+      {
+        mode = "n";
+        key = "<leader>ff";
+        action = "<CMD>FloatermNew --title=nnnManager nnn<CR>";
+        options = {
+          silent = true;
+        };
+      }
+    ];
   };
 
   home.file = {

@@ -58,7 +58,7 @@
     ./plugins/custom/plugins/leap.nix
     # ./plugins/custom/plugins/obsidian.nix
     # ./plugins/custom/plugins/lazygit.nix
-    # ./plugins/custom/plugins/noice.nix
+    ./plugins/custom/plugins/noice.nix
     # ./plugins/custom/plugins/firenvim.nix
     ./plugins/custom/plugins/harpoon.nix
     # ./plugins/custom/plugins/telescope-zotero.nix
@@ -148,11 +148,6 @@
     };
 
     keymaps = [
-      {
-        mode = "n";
-        key = "n";
-        action = "<CMD>FloatermNew --title=nnnManager nnn<CR>";
-      }
       {
         mode = "i";
         key = "<C-k>";
