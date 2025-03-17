@@ -58,7 +58,7 @@
       --
       -- vim.api.nvim_set_keymap("n", "<leader><A-->", "<cmd>split<CR>", { noremap = true, silent = true })
       --
-      vim.api.nvim_set_keymap("t", "<C-[>", "<C-\\><C-n>", { noremap = true, silent = true })
+      vim.api.nvim_set_keymap("t", "<leader>[", "<C-\\><C-n>", { noremap = true, silent = true })
       --
       -- vim.api.nvim_set_keymap("t", "<A-c>", "<C-\\><C-n><cmd>bdelete!<CR>", { noremap = true, silent = true })
       --
