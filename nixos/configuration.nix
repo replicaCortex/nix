@@ -6,7 +6,6 @@
 }: {
   imports = [
     ./zsh/zsh.nix
-    # TODO: Замена на qemu
     ./vbox/vbox.nix
     ./audio/audio.nix
     # ./portal/portal.nix
@@ -14,6 +13,7 @@
     # ./overlay/overlay.nix
     ./syncthing/syncthing.nix
     ./bluetooth/bluetooth.nix
+    ./garbageCollection/autoGarbage.nix
     ./filesystem/filesystem.nix
     ./hardware-configuration/hardware-configuration.nix
   ];
@@ -74,6 +74,7 @@
       # background = ../home-manager/modules/conf/background/nixos-wallpaper-catppuccin-mocha.png;
       greeters.slick.enable = true;
     };
+    excludePackages = [pkgs.xterm pkgs.nano];
     desktopManager.xterm.enable = false;
 
     # https://github.com/dustinlyons/nixos-config/tree/main
