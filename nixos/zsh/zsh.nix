@@ -24,8 +24,6 @@ in {
 
       "nix clean" = "nh clean && dunstify '  NixOS' 'Clean done 󰄬' || dunstify -u critical -h string:fgcolor:#f38ba8 '  NixOS' 'Clean failed ❌' -t 4000";
 
-      "systemState" = "ls -l /nix/var/nix/gcroots/auto";
-
       "nv" = "nvim .";
       "nb" = "nix build ./";
       "nd" = "nix develop ./";
@@ -69,7 +67,7 @@ in {
       export NNN_OPTS="r"
       export LC_COLLATE="C" # hidden files on top
       export NNN_FIFO="/tmp/nnn.fifo"
-      export NNN_PLUG='p:preview-tui;f:fzopen;F:fzcd;d:dragdrop;j:autojump;x:!chmod +x "$nnn";k:gitroot;t:nvim'
+      export NNN_PLUG='p:preview-tui;f:fzopen;F:fzcd;d:dragdrop;j:autojump;x:!chmod +x "$nnn"'
       #-----
 
       n ()
@@ -80,13 +78,12 @@ in {
               return
           fi
           export NNN_TMPFILE="${fuck}{XDG_CONFIG_HOME:-${fuck}HOME/.config}/nnn/.lastd"
-          nnn -P p "$@"
+          nnn "$@"
           if [ -f "$NNN_TMPFILE" ]; then
                   . "$NNN_TMPFILE"
                   rm -f "$NNN_TMPFILE" > /dev/null
           fi
       }
-
     '';
   };
 }

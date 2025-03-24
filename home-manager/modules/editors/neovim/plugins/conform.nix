@@ -3,8 +3,8 @@
     extraPackages = with pkgs; [
       # Used to format Lua code
       stylua
-      ruff
       black
+      ruff
       alejandra
       prettierd
       shfmt
@@ -43,6 +43,10 @@
             command = "shfmt";
             args = ["-i" "4" "-ci" "-kp"];
           };
+          # ruff = {
+          #   command = "ruff";
+          #   args = ["line-length = 80" "indent-width = 4" ''quote-style = "double"'' ''indent-style = "space"'' ''skip-magic-trailing-comma = false'' ''line-ending = "lf"''];
+          # };
         };
       };
     };

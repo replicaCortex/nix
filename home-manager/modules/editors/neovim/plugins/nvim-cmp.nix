@@ -1,17 +1,11 @@
 {
   programs.nixvim = {
+    # TODO: убрать черный фон для документации от темы
     plugins.cmp = {
+      autoEnableSources = true;
       enable = true;
 
       settings = {
-        # snippet = {
-        #   expand = ''
-        #     function(args)
-        #       require('luasnip').lsp_expand(args.body)
-        #     end
-        #   '';
-        # };
-
         completion = {
           completeopt = "menu,menuone,noinsert";
         };
@@ -32,25 +26,6 @@
             end, {"i", "s"})
           '';
           "<CR>" = "cmp.mapping.confirm { select = true }";
-
-          # "<Esc>" = "cmp.mapping.abort()";
-          # "<Tab>" = "cmp.mapping.select_next_item()";
-          # "<S-Tab>" = "cmp.mapping.select_prev_item()";
-          # "<C-Space>" = "cmp.mapping.complete {}";
-          # "<C-l>" = ''
-          #   cmp.mapping(function()
-          #     if luasnip.expand_or_locally_jumpable() then
-          #       luasnip.expand_or_jump()
-          #     end
-          #   end, { 'i', 's' })
-          # '';
-          # "<C-h>" = ''
-          #   cmp.mapping(function()
-          #     if luasnip.locally_jumpable(-1) then
-          #       luasnip.jump(-1)
-          #     end
-          #   end, { 'i', 's' })
-          # '';
         };
 
         sources = [
@@ -69,27 +44,15 @@
           {
             name = "buffer";
           }
+          {
+            name = "tmux";
+          }
         ];
       };
+
       cmdline = {
-        # "/" = {
-        #   mapping = {
-        # __raw = "cmp.mapping.preset.cmdline()";
-        # __raw = ''
-        #   { ["<C-n>"] = cmp.mapping(cmp.mapping.select_next_item(), { "c" }),
-        #     ["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "c" }),
-        #     ["<TAB>"] = cmp.mapping.confirm({ select = true }), }
-        #     '';
-        #   };
-        #   sources = [
-        #     {
-        #       name = "buffer";
-        #     }
-        #   ];
-        # };
         ":" = {
           mapping = {
-            # __raw = "cmp.mapping.preset.cmdline()";
             __raw = ''
               {
                 ["<C-n>"] = cmp.mapping(cmp.mapping.select_next_item(), { "c" }),
@@ -127,6 +90,14 @@
 
       cmp.setup({
         formatting = {
+        window = {
+            completion = {
+              border = "rounded",
+            },
+            documentation = {
+              border = "rounded",
+            }
+          },
           format = function(entry, vim_item)
             local icons = {
               Class = " ",

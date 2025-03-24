@@ -13,6 +13,7 @@
     # flavor = "latte";
 
     lazygit.enable = true;
+    bat.enable = true;
     btop.enable = true;
     fzf.enable = true;
     mpv.enable = true;

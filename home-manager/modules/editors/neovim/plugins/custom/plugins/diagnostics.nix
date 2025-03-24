@@ -17,13 +17,21 @@
           "__rawKey__vim.diagnostic.severity.INFO" = "DiagnosticInfo";
         };
       };
+
+      update_in_insert = true;
+      severity_sort = true;
+
+      float = {
+        border = "rounded";
+      };
     };
-    extraConfigLuaPre = ''
-      vim.diagnostic.config({
-        virtual_text = {
-          prefix = ' ', -- Could be '●', '▎', 'x'
-        }
-      })
-    '';
+
+    # extraConfigLuaPre = ''
+    #   vim.diagnostic.config({
+    #     virtual_text = {
+    #       prefix = ' ', -- Could be '●', '▎', 'x'
+    #     }
+    #   })
+    # '';
   };
 }

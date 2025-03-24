@@ -2,8 +2,6 @@
   imports = [
     ./modules/bundle.nix
     ./catppuccin.nix
-
-    # ./modules/rust/norg-fmt.nix
   ];
 
   home = {

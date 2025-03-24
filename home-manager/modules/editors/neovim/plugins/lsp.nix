@@ -1,80 +1,18 @@
-{
+{self, ...}: {
   programs.nixvim = {
     extraConfigLuaPre = ''
-      -- local lspconfig = require('lspconfig')
-      -- lspconfig.nixd.setup({
-      --   cmd = { "nixd" },
-      --   settings = {
-      --     nixd = {
-      --       -- Основной nixpkgs (используем стабильную версию)
-      --       nixpkgs = {
-      --         expr = "let flake = builtins.getFlake (toString ./.); in import flake.inputs.nixpkgs-stable { system = \"x86_64-linux\"; }"
-      --       },
-      --
-      --       -- Опции для автодополнения
-      --       options = {
-      --         -- NixOS options из вашего configuration.nix
-      --         nixos_config = {
-      --           expr = "(builtins.getFlake (toString ./.)).nixosConfigurations.nixos.config.system.build.options"
-      --         },
-      --
-      --         -- Home Manager options
-      --         home_manager = {
-      --           expr = "(builtins.getFlake (toString ./.)).homeConfigurations.replica.config.home-manager.build.options"
-      --         },
-      --
-      --         -- Дополнительные источники
-      --         extra = {
-      --           {
-      --             expr = "import (builtins.getFlake \"github:nix-community/nixvim\") { }",
-      --             depth = 3  -- Глубина анализа модулей
-      --           },
-      --           {
-      --             expr = "import (builtins.getFlake \"github:catppuccin/nix\") { }",
-      --             depth = 2
-      --           }
-      --         }
-      --       },
-      --
-      --       -- Настройки диагностики
-      --       diagnostic = {
-      --         suppress = {
-      --           "undefined-var",    -- Часто ложные срабатывания
-      --           "sema-extra-with",  -- Конфликты с nixfmt
-      --           "deprecated-option" -- Устаревшие опции
-      --         },
-      --         level = "Warning"  -- Уровень строгости
-      --       },
-      --
-      --       -- Расширенные возможности
-      --       completion = {
-      --         autoImport = true,    -- Автоимпорт пакетов
-      --         showPackages = "all"  -- Показывать все версии пакетов
-      --       }
-      --     }
-      --   },
-      --   init_options = {
-      --     documentFormatting = true,
-      --     hover = true,
-      --     completion = true
-      --   }
-      -- })
-    '';
-    # autoCmd = [
-    #   {
-    #     event = ["BufEnter"];
-    #     callback.__raw = ''
-    #       function()
-    #         -- Остановить все активные LSP-клиенты
-    #         vim.lsp.stop_client(vim.lsp.get_active_clients())
-    #
-    #         -- Перезапустить LSP
-    #         vim.cmd("LspStart")
-    #       end
-    #     '';
-    #   }
-    # ];
+      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+        vim.lsp.handlers.hover, {
+          border = "rounded"
+        }
+      )
 
+      vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+        vim.lsp.handlers.signature_help, {
+          border = "rounded"
+        }
+      )
+    '';
     plugins.cmp-nvim-lsp = {
       enable = true;
     };
@@ -83,75 +21,73 @@
       enable = true;
     };
 
-    autoGroups = {
-      "kickstart-lsp-attach" = {
-        clear = true;
-      };
+    # autoGroups = {
+    #   "kickstart-lsp-attach" = {
+    #     clear = true;
+    #   };
+    # };
+
+    plugins = {
+      lsp-lines.enable = true;
+      lsp-signature.enable = true;
     };
 
     plugins.lsp = {
       enable = true;
 
+      inlayHints = true;
+
       servers = {
-        # TODO: разобраться как это работает
+        # https://github.com/MattSturgeon/nix-config/blob/main/nvim/config/lsp.nix
         nixd = {
+          # Nix LS
           enable = true;
-          # cmd = ["nixd"];
-          # rootDir = builtins.getEnv "HOME";
+          settings = let
+            flake = ''(builtins.getFlake "${self}")'';
+            system = ''''${builtins.currentSystem}'';
+          in {
+            nixpkgs.expr = "import ${flake}.inputs.nixpkgs { }";
+            options = rec {
+              # flake-parts.expr = "${flake}.debug.options";
+              nixos.expr = "${flake}.nixosConfigurations.desktop.options";
+              home-manager.expr = "${nixos.expr}.home-manager.users.type.getSubOptions [ ]";
+              nixvim.expr = "${flake}.packages.${system}.nvim.options";
+            };
+            diagnostic = {
+              # Suppress noisy warnings
+              suppress = [
+                "sema-escaping-with"
+                "var-bind-to-this"
+              ];
+            };
+          };
         };
 
-        pyright = {
-          # package = null;
-          enable = true;
-        };
+        # pyright.enable = true;
+        # TODO: сделать прочныный фон для виртуального текста
+        basedpyright.enable = true;
 
-        texlab = {
-          enable = true;
-        };
+        texlab.enable = true;
 
-        ltex = {
-          enable = true;
-        };
+        clangd.enable = true;
 
-        clangd = {
-          enable = true;
-        };
+        # ltex.enable = true;
+
+        dockerls.enable = true;
+
+        bashls.enable = true;
 
         lua_ls = {
           enable = true;
-
-          # cmd = {
-          #};
-          # filetypes = {
-          #};
           settings = {
             completion = {
               callSnippet = "Replace";
             };
-            #diagnostics = {
-            #  disable = [
-            #    "missing-fields"
-            #  ];
-            #};
           };
         };
       };
 
       keymaps = {
-        diagnostic = {
-          "<leader>l[" = "goto_prev";
-          "<leader>l]" = "goto_next";
-          "<leader>lH" = "open_float";
-        };
-
-        # diagnostic = {
-        #   "<leader>q" = {
-        #     #mode = "n";
-        #     action = "setloclist";
-        #     desc = "Open diagnostic [Q]uickfix list";
-        #   };
-        # };
-
         extra = [
           {
             mode = "n";
@@ -163,11 +99,6 @@
             key = "<leader>fr";
             action.__raw = "require('telescope.builtin').lsp_references";
           }
-          # {
-          #   mode = "n";
-          #   key = "gI";
-          #   action.__raw = "require('telescope.builtin').lsp_implementations";
-          # }
           {
             mode = "n";
             key = "<leader>ftd";
@@ -193,49 +124,15 @@
               noremap = true;
             };
           }
-          # {
-          #   mode = "n";
-          #   key = "<leader>fds";
-          #   action.__raw = "require('telescope.builtin').lsp_document_symbols";
-          # }
-          # {
-          #   mode = "n";
-          #   key = "<leader>fs";
-          #   action.__raw = "require('telescope.builtin').lsp_dynamic_workspace_symbols";
-          # }
         ];
 
-        # lspBuf = {
-        #   # Rename the variable under your cursor.
-        #   #  Most Language Servers support renaming across files, etc.
-        #   "<leader>rn" = {
-        #     action = "rename";
-        #     desc = "LSP: [R]e[n]ame";
-        #   };
-        #   # Execute a code action, usually your cursor needs to be on top of an error
-        #   # or a suggestion from your LSP for this to activate.
-        #   "<leader>ca" = {
-        #     #mode = "n";
-        #     action = "code_action";
-        #     desc = "LSP: [C]ode [A]ction";
-        #   };
-        #   "gD" = {
-        #     action = "declaration";
-        #     desc = "LSP: [G]oto [D]eclaration";
-        #   };
-        # };
+        lspBuf = {
+          "<leader>rn" = {
+            action = "rename";
+          };
+        };
       };
 
-      # LSP servers and clients are able to communicate to each other what features they support.
-      #  By default, Neovim doesn't support everything that is in the LSP specification.
-      #  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
-      #  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
-      #'';
-
-      # This function gets run when an LSP attaches to a particular buffer.
-      #   That is to say, every time a new file is opened that is associated with
-      #   an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
-      #   function will be executred to configure the current buffer
       onAttach = ''
         -- to define small helper and utility functions so you don't have to repeat yourself.
         --
@@ -250,52 +147,52 @@
         --    See `:help CursorHold` for information about when this is executed
         --
         -- When you move your cursor, the highlights will be cleared (the second autocommand).
-        if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
-          local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
-          vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-            buffer = bufnr,
-            group = highlight_augroup,
-            callback = vim.lsp.buf.document_highlight,
-          })
-
-          vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
-            buffer = bufnr,
-            group = highlight_augroup,
-            callback = vim.lsp.buf.clear_references,
-          })
-
-          vim.api.nvim_create_autocmd('LspDetach', {
-            group = vim.api.nvim_create_augroup('kickstart-lsp-detach', { clear = true }),
-            callback = function(event2)
-              vim.lsp.buf.clear_references()
-              vim.api.nvim_clear_autocmds { group = 'kickstart-lsp-highlight', buffer = event2.buf }
-            end,
-          })
-        end
-
-        -- The following autocommand is used to enable inlay hints in your
-        -- code, if the language server you are using supports them
+        -- if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+        --   local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
+        --   vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+        --     buffer = bufnr,
+        --     group = highlight_augroup,
+        --     callback = vim.lsp.buf.document_highlight,
+        --   })
         --
-        -- This may be unwanted, since they displace some of your code
-        if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-          map('<leader>th', function()
-            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
-          end, '[T]oggle Inlay [H]ints')
-        end
+        --   vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+        --     buffer = bufnr,
+        --     group = highlight_augroup,
+        --     callback = vim.lsp.buf.clear_references,
+        --   })
+        --
+        --   vim.api.nvim_create_autocmd('LspDetach', {
+        --     group = vim.api.nvim_create_augroup('kickstart-lsp-detach', { clear = true }),
+        --     callback = function(event2)
+        --       vim.lsp.buf.clear_references()
+        --       vim.api.nvim_clear_autocmds { group = 'kickstart-lsp-highlight', buffer = event2.buf }
+        --     end,
+        --   })
+        -- end
+        --
+        -- -- The following autocommand is used to enable inlay hints in your
+        -- -- code, if the language server you are using supports them
+        -- --
+        -- -- This may be unwanted, since they displace some of your code
+        -- if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+        --   map('<leader>th', function()
+        --     vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
+        --   end, '[T]oggle Inlay [H]ints')
+        -- end
 
-        require("lspconfig")["pyright"].setup({
-            on_attach = on_attach,
-            capabilities = capabilities,
-            settings = {
-                python = {
-                    analysis = {
-                        diagnosticSeverityOverrides = {
-                            reportUnusedExpression = "none",
-                        },
-                    },
-                },
-            },
-        })
+        -- require("lspconfig")["pyright"].setup({
+        --     on_attach = on_attach,
+        --     capabilities = capabilities,
+        --     settings = {
+        --         python = {
+        --             analysis = {
+        --                 diagnosticSeverityOverrides = {
+        --                     reportUnusedExpression = "none",
+        --                 },
+        --             },
+        --         },
+        --     },
+        -- })
 
       '';
     };

@@ -1,10 +1,10 @@
 {
   programs.nixvim = {
+    extraConfigLuaPre = ''
+    '';
+
     plugins.telescope = {
-      # lazyLoad = {
-      #   enable = true;
-      #   settings.cmd = "Telescope";
-      # };
+      enable = true;
       settings = {
         defaults = {
           file_ignore_patterns = [
@@ -21,13 +21,36 @@
           };
           selection_caret = "> ";
           prompt_prefix = "=> ";
+          mappings = {
+            n = {
+              "q" = {
+                __raw = "require('telescope.actions').close";
+              };
+            };
+          };
         };
         sorting_strategy = "ascending";
       };
-      enable = true;
 
       extensions = {
         fzf-native.enable = true;
+        # undo = {
+        #   enable = true;
+        #   settings = {
+        #     entry_format = "state #$ID";
+        #     side_by_side = true;
+        #     time_format = "!%Y-%m-%dT%TZ";
+        #     use_custom_command = [
+        #       "bash"
+        #       "-c"
+        #       "echo '$DIFF' | delta"
+        #     ];
+        #     use_delta = true;
+        #     vim_diff_opts = {
+        #       ctxlen = 8;
+        #     };
+        #   };
+        # };
         # media-files = {
         #   enable = true;
         #   settings = {
@@ -131,6 +154,14 @@
     };
 
     keymaps = [
+      # {
+      #   mode = "n";
+      #   key = "<leader>u";
+      #   action = "<cmd>Telescope undo<CR>";
+      #   options = {
+      #     silent = true;
+      #   };
+      # }
       {
         mode = "n";
         key = "/";

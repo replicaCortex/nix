@@ -35,7 +35,7 @@ in {
       font-2 = ProggyClean NerdFont:style=Regular:pixelsize=12;2
       font-3 = ProggyClean NerdFont:style=Regular:pixelsize=12;2
 
-      modules-left = sep cpu sep memory sep alsa
+      modules-left = sep cpu sep memory sep gpu-temp sepmini sepmini alsa
       modules-center = xworkspaces
       modules-right = ethernet slesh sepmini xkeyboard slesh date sep
 

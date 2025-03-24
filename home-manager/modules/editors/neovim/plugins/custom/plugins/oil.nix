@@ -1,5 +1,30 @@
 {
   programs.nixvim = {
+    keymaps = [
+      {
+        mode = "n";
+        key = "<C-n>";
+        action = "<CMD>Oil<CR>";
+      }
+
+      # {
+      #   mode = "n";
+      #   key = "<leader>oi";
+      #   action.__raw = ''
+      #
+      #     function()
+      #         local oil = require(" oil ")
+      #         local filename = oil.get_cursor_entry().name
+      #         local dir = oil.get_current_dir()
+      #         oil.close()oil
+      #
+      #         local img_clip = require(" img-clip ")
+      #         img_clip.paste_image({}, dir .. filename)
+      #       end
+      #
+      #   '';
+      # }
+    ];
     plugins.oil = {
       # lazyLoad = {
       #   enable = true;

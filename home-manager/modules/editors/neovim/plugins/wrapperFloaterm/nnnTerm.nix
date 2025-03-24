@@ -2,12 +2,32 @@
   programs.nixvim = {
     extraConfigLuaPre = ''
       vim.cmd("source ~/.config/nvim/autoload/floaterm/wrapper/nnn.vim")
+
+      vim.api.nvim_create_autocmd("VimEnter", {
+        pattern = "*",
+        callback = function()
+          local arg = vim.fn.argv(0)
+          if arg == "." then
+            vim.cmd("bdelete")
+            vim.cmd("FloatermNew nnn")
+          end
+        end
+      })
     '';
 
     keymaps = [
+      # {
+      #   mode = "n";
+      #   key = "<leader>ff";
+      #   action = "<CMD>FloatermNew --title=nnnManager nnn<CR>";
+      #   options = {
+      #     silent = true;
+      #   };
+      # }
+
       {
         mode = "n";
-        key = "<leader>ff";
+        key = "<C-n>";
         action = "<CMD>FloatermNew --title=nnnManager nnn<CR>";
         options = {
           silent = true;
@@ -31,7 +51,7 @@
         lcd %:p:h
 
         let cmdlist = split(a:cmd)
-        let cmd = 'tmux attach-session -t nnn_nvim || tmux new-session -s nnn_nvim "nnn -P p -p ' . shellescape(s:nnn_tmpfile)
+        let cmd = 'tmux attach-session -t nnn_nvim || tmux new-session -s nnn_nvim "nnn -p ' . shellescape(s:nnn_tmpfile)
         if len(cmdlist) > 1
           let cmd .= ' ' . join(map(cmdlist[1:], {_, arg -> shellescape(arg)}), ' ')
         else

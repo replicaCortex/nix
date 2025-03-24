@@ -27,12 +27,13 @@
     home-manager,
     nixpkgs-stable,
     nixvim,
-    nur,
     catppuccin,
+    self,
     ...
   }: {
     nixosConfigurations.nixos = nixpkgs-stable.lib.nixosSystem {
       system = "x86_64-linux";
+
       modules = [
         ./nixos/configuration.nix
       ];
@@ -40,6 +41,7 @@
 
     homeConfigurations.replica = home-manager.lib.homeManagerConfiguration {
       pkgs = nixpkgs.legacyPackages."x86_64-linux";
+      extraSpecialArgs = {inherit self;};
 
       modules = [
         nixvim.homeManagerModules.nixvim

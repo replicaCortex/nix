@@ -2,14 +2,14 @@
   programs.nixvim = {
     extraFiles = {
       "ftplugin/markdown.lua".text = ''
-        vim.opt.tabstop = 2
-        vim.opt.shiftwidth = 2
-        vim.opt.expandtab = true
+         vim.opt.tabstop = 2
+         vim.opt.shiftwidth = 2
+         vim.opt.expandtab = true
 
-        vim.opt_local.conceallevel = 2
+        -- file: nvim/ftplugin/markdown.lua
+        require("quarto").activate()
+        require("otter").activate()
 
-        vim.keymap.set({ "o", "x" }, "il", "<cmd>lua require('various-textobjs').mdlink('inner')<CR>", { buffer = true })
-        vim.keymap.set({ "o", "x" }, "al", "<cmd>lua require('various-textobjs').mdlink('outer')<CR>", { buffer = true })
       '';
 
       "ftplugin/norg.lua".text = ''
