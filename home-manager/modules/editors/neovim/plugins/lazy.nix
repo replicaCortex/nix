@@ -1,9 +1,5 @@
 {
   programs.nixvim = {
-    # colorschemes.catppuccin = {
-    #   enable = true;
-    #   lazyLoad.enable = true;
-    # };
     # plugins.lz-n = {
     #   enable = true;
     # };

@@ -3,7 +3,8 @@
     nerd-fonts.proggy-clean-tt
 
     killall
-    tabbed
+    ntfs3g
+    delta
     unzip
     nh
     xclip

@@ -31,6 +31,21 @@
     ];
     extraConfigLuaPre = ''
 
+      vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+        pattern = {"*.md"},
+
+        callback = function()
+        vim.cmd("setlocal conceallevel=0")
+        end
+        })
+
+      -- vim.api.nvim_set_hl(0, "MoltenCell", { link = "Normal" }) -- убирает выделение клеток
+
+      -- Полностью отключаем фон для клеток
+      vim.api.nvim_set_hl(0, "MoltenCell", {
+        bg = "none",    -- прозрачный фон
+      })
+
       -- automatically import output chunks from a jupyter notebook
       -- tries to find a kernel that matches the kernel in the jupyter notebook
       -- falls back to a kernel that matches the name of the active venv (if any)

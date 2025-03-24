@@ -15,5 +15,16 @@
         view_method = "zathura";
       };
     };
+    extraConfigLuaPre = ''
+
+      vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+        pattern = {"*.md"},
+
+        callback = function()
+        vim.cmd("setlocal conceallevel=0")
+        end
+        })
+
+    '';
   };
 }

@@ -3,7 +3,7 @@
     plugins.quarto = {
       enable = true;
       settings = {
-        lspFuature = {
+        lspFeature = {
           diagnostics = {
             enabled = false;
             triggers = [
