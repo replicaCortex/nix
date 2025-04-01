@@ -48,10 +48,44 @@
       single_monocle = true;
       borderless_monocle = true;
     };
-    # rules = {
-    #   "firefox" = {
-    #     desktop = "^3";
-    #   };
-    # };
+    rules = {
+      # "dmenu" = {
+      #   rectangle = "900x22+610+90";
+      # };
+      "mpv" = {
+        state = "floating";
+        rectangle = "800x450+560+315";
+        follow = false;
+      };
+      "PureRef" = {
+        state = "floating";
+        rectangle = "480x1080+0+0";
+        desktop = "^3";
+      };
+      "krita" = {
+        state = "floating";
+        rectangle = "1440x1080+480+1080";
+        desktop = "^3";
+      };
+
+      "firefox" = {
+        desktop = "^2";
+      };
+
+      "obs" = {
+        desktop = "^4";
+      };
+
+      "Zotero" = {
+        desktop = "^4";
+      };
+      # "Postman" = {
+      #   state = "floating";
+      #   rectangle = "565x425+1350+200";
+      # };
+      "qBittorrent" = {
+        desktop = "^4";
+      };
+    };
   };
 }
