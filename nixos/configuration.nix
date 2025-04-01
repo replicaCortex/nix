@@ -4,12 +4,6 @@
     ./vbox/vbox.nix
     # ./audio/audio.nix
     # ./nvidia/nvidia.nix
-    # ./overlay/overlay.nix
-    # ./bluetooth/bluetooth.nix
-    ./syncthing/syncthing.nix
-    ./garbageCollection/autoGarbage.nix
-    # ./filesystem/filesystem.nix
-    ./hardware-configuration/hardware-configuration.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
