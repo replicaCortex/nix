@@ -18,7 +18,7 @@ in {
       settings = {
         devices = {
           "iPhone" = {
-            id = "ZUZETR5-7AGAECV-MOYWSOL-666OHH7-X7K53FQ-IPDI7VP-ELJ5JIO-GXMDEQF";
+            id = "NF6WLE2-A5FX6HP-EPXYGB7-27CPH46-6Q33EXN-PZ2I677-76EFSUR-XQBNTAV";
             autoAcceptFolders = true;
           };
           "Notebook" = {
