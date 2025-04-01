@@ -1,7 +1,7 @@
 {
   programs.nixvim = {
     extraConfigLuaPre = ''
-      vim.cmd("source ~/.config/nvim/autoload/floaterm/wrapper/nnn.vim")
+      vim.cmd("source ~/.config/nvim/autoload/floaterm/wrapper/yazi.vim")
 
       vim.api.nvim_create_autocmd("VimEnter", {
         pattern = "*",
@@ -9,7 +9,7 @@
           local arg = vim.fn.argv(0)
           if arg == "." then
             vim.cmd("bdelete")
-            vim.cmd("FloatermNew nnn")
+            vim.cmd("FloatermNew yazi")
           end
         end
       })
@@ -28,39 +28,30 @@
       {
         mode = "n";
         key = "<C-n>";
-        action = "<CMD>FloatermNew nnn<CR>";
+        action = "<CMD>FloatermNew --title=yaziManager yazi<CR>";
         options = {
           silent = true;
         };
       }
-
-      # {
-      #   mode = "t";
-      #   key = "<C-n>";
-      #   action = "<CMD>FloatermToggle<CR><CMD>FloatermNew nnn<CR>";
-      #   options = {
-      #     silent = true;
-      #   };
-      # }
     ];
   };
 
   home.file = {
-    "/.config/nvim/autoload/floaterm/wrapper/nnn.vim".text = ''
+    "/.config/nvim/autoload/floaterm/wrapper/yazi.vim".text = ''
       " vim:sw=2:
       " ============================================================================
-      " FileName: nnn.vim
-      " Author: voldikss <dyzplus@gmail.com>
-      " GitHub: https://github.com/voldikss
+      " FileName: yazi.vim
+      " Author: Sam Varga <sam@vargasd.com>
+      " GitHub: https://github.com/vargasd
       " ============================================================================
 
-      function! floaterm#wrapper#nnn#(cmd, jobopts, config) abort
-        let s:nnn_tmpfile = tempname()
+      function! floaterm#wrapper#yazi#(cmd, jobopts, config) abort
+        let s:yazi_tmpfile = tempname()
         let original_dir = getcwd()
         lcd %:p:h
 
         let cmdlist = split(a:cmd)
-        let cmd = 'nnn -p "' . s:nnn_tmpfile . '"'
+        let cmd = 'yazi --chooser-file "' . s:yazi_tmpfile . '"'
         if len(cmdlist) > 1
           let cmd .= ' ' . join(cmdlist[1:], ' ')
         else
@@ -69,14 +60,14 @@
 
         exe "lcd " . original_dir
         let cmd = [&shell, &shellcmdflag, cmd]
-        let jobopts = {'on_exit': funcref('s:nnn_callback')}
+        let jobopts = {'on_exit': funcref('s:yazi_callback')}
         call floaterm#util#deep_extend(a:jobopts, jobopts)
         return [v:false, cmd]
       endfunction
 
-      function! s:nnn_callback(job, data, event, opener) abort
-        if filereadable(s:nnn_tmpfile)
-          let filenames = readfile(s:nnn_tmpfile)
+      function! s:yazi_callback(job, data, event, opener) abort
+        if filereadable(s:yazi_tmpfile)
+          let filenames = readfile(s:yazi_tmpfile)
           if !empty(filenames)
             if has('nvim')
               call floaterm#window#hide(bufnr('%'))

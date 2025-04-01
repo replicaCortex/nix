@@ -3,13 +3,14 @@
     nerd-fonts.proggy-clean-tt
 
     killall
+    xdg-utils
     ntfs3g
     delta
-    unzip
     nh
     xclip
     wget
     ripgrep
+    libreoffice
     dmenu
     texlive.combined.scheme-full
   ];

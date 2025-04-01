@@ -29,7 +29,7 @@
 
     plugins = {
       lsp-lines.enable = true;
-      lsp-signature.enable = true;
+      # lsp-signature.enable = true;
     };
 
     plugins.lsp = {

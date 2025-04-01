@@ -23,7 +23,7 @@
     ./plugins/custom/plugins/leetcode.nix
     ./plugins/custom/plugins/hydra.nix
     # ./plugins/nnnNvim.nix
-    # ./plugins/surround.nix
+    # ./plugins/surround.nixy
 
     ./plugins/custom/plugins/vimtex.nix
 
@@ -74,6 +74,7 @@
     # frplugin
     ./plugins/ftpluginx.nix
     ./plugins/wrapperFloaterm/nnnTerm.nix
+    # ./plugins/wrapperFloaterm/yaziTerm.nix
     # ./plugins/wrapperFloaterm/ripgrepTerm.nix
   ];
 
@@ -293,6 +294,11 @@
       }
       {
         mode = "n";
+        key = "n";
+        action = "<nop>";
+      }
+      {
+        mode = "n";
         key = "<C-n>";
         action = "<CMD>Oil<CR>";
       }
@@ -398,9 +404,6 @@
         '';
       }
     ];
-
-    plugins = {
-    };
 
     extraPlugins = with pkgs.vimPlugins; [
     ];

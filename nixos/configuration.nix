@@ -7,21 +7,20 @@
   imports = [
     ./zsh/zsh.nix
     ./vbox/vbox.nix
+    ./prop/prop.nix
     ./audio/audio.nix
-    # ./portal/portal.nix
     ./nvidia/nvidia.nix
+    # ./portal/portal.nix
     # ./overlay/overlay.nix
     ./syncthing/syncthing.nix
     ./bluetooth/bluetooth.nix
-    ./garbageCollection/autoGarbage.nix
     ./filesystem/filesystem.nix
+    ./garbageCollection/autoGarbage.nix
     ./hardware-configuration/hardware-configuration.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  nixpkgs.config.allowUnfree = true;
 
   fonts = {
     fontconfig = {
@@ -61,17 +60,12 @@
 
   services.getty.autologinUser = "replica";
 
-  environment.systemPackages = with pkgs; [
-    home-manager
-    # osu-lazer
-  ];
-
   services.xserver = {
     enable = true;
     windowManager.bspwm.enable = true;
     displayManager.lightdm = {
       enable = true;
-      # background = ../home-manager/modules/conf/background/nixos-wallpaper-catppuccin-mocha.png;
+      background = ../static/wallpapers/nixos-wallpaper-catppuccin-mocha.png;
       greeters.slick.enable = true;
     };
     excludePackages = [pkgs.xterm pkgs.nano];
