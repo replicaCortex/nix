@@ -37,6 +37,7 @@ in {
       "gt" = "gcc -g -O0 -Wp,-U_FORTIFY_SOURCE";
 
       "ls" = "nnn -de";
+      # "ls" = "br -dp";
     };
 
     shellInit = ''
@@ -59,15 +60,21 @@ in {
       fi
 
       source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+
       export EDITOR="nvim"
-      export TERMINAL="alacritty";
+      export VISUAL="nvim"
+      export TERMINAL="alacritty"
       export BROWSER="firefox"
 
+
+      # === nnn ===
+
       #-----
-      export NNN_OPTS="r"
+      export NNN_OPTS="re"
       export LC_COLLATE="C" # hidden files on top
       export NNN_FIFO="/tmp/nnn.fifo"
-      export NNN_PLUG='p:preview-tui;f:fzopen;F:fzcd;d:dragdrop;j:autojump;x:!chmod +x "$nnn"'
+      export NNN_PREVIEW_FIFO="/tmp/nnn-preview-tui-fifo"
+      export NNN_PLUG='p:preview-tui;f:fzopen;F:fzcd;d:dragdrop;j:autojump;x:!chmod +x "$nnn";y:xdgdefault'
       #-----
 
       n ()
@@ -83,7 +90,22 @@ in {
                   . "$NNN_TMPFILE"
                   rm -f "$NNN_TMPFILE" > /dev/null
           fi
+
+          # rm -f "$NNN_FIFO" "$NNN_PREVIEW_FIFO"
       }
+
+
+      # # === yazi ===
+      #
+      # function y() {
+      #   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+      #   yazi "$@" --cwd-file="$tmp"
+      #   if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+      #     builtin cd -- "$cwd"
+      #   fi
+      #   rm -f -- "$tmp"
+      # }
+
     '';
   };
 }

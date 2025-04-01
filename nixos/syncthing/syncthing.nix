@@ -37,10 +37,10 @@ in {
             path = "/home/${user}/Zotero";
             devices = ["NixOS"];
           };
-          "Vbox" = {
-            path = "/home/${user}/Vbox";
-            devices = ["NixOS"];
-          };
+          # "Vbox" = {
+          #   path = "/home/${user}/Vbox";
+          #   devices = ["NixOS"];
+          # };
           "Project Manager" = {
             path = "/home/${user}/Desktop/ProjectManager";
             devices = ["NixOS"];

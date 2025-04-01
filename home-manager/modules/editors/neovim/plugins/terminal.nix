@@ -67,16 +67,34 @@
       -- vim.api.nvim_set_keymap('t', '<C-k>', '<C-\\><C-n><C-w>k', { noremap = true, silent = true })
       -- vim.api.nvim_set_keymap('t', '<C-l>', '<C-\\><C-n><C-w>l', { noremap = true, silent = true })
       --
+
+      -- TODO: не работает
+      -- function ManageTerminal()
+      --   local terminal_name = vim.fn.execute("echo b:floaterm_title")
+      --
+      --   local expected_name = "nnnManager"
+      --
+      --   if terminal_name == expected_name then
+      --     vim.cmd("FloatermKill")
+      --   else
+      --     vim.cmd("FloatermToggle")
+      --   end
+      -- end
+
       vim.api.nvim_set_keymap('t', '<A-.>', '<C-\\><C-n><cmd>FloatermNext<CR>', { noremap = true, silent = true })
       vim.api.nvim_set_keymap('t', '<A-,>', '<C-\\><C-n><cmd>FloatermPrev<CR>', { noremap = true, silent = true })
 
       vim.api.nvim_set_keymap('t', '<A-c>', '<cmd>FloatermKill<CR><cmd>FloatermNext<CR>', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('t', '<A-n>', '<cmd>FloatermNew --title=floaTerminal<CR>', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('t', '<A-n>', '<cmd>FloatermNew<CR>', { noremap = true, silent = true })
 
       vim.api.nvim_set_keymap('t', '<Esc>', '<Esc>', {noremap = true})
       vim.api.nvim_del_keymap('t', '<Esc>')
 
       vim.api.nvim_set_keymap('n', '<localleader>lz', '<cmd>FloatermNew lazygit<CR>', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', '<localleader>at', '<cmd>FloatermNew atac<CR>', { noremap = true, silent = true })
+
+      -- vim.api.nvim_set_keymap("n", "<leader><leader>", ":lua ManageTerminal()<CR>", { noremap = true, silent = true })
+      -- vim.api.nvim_set_keymap("t", "<leader><leader>", "<C-\\><C-n>:lua ManageTerminal()<CR>", { noremap = true, silent = true })
 
     '';
 

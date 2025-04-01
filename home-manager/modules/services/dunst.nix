@@ -28,7 +28,7 @@
         icon_position = "left";
         sticky_history = "yes";
         history_length = 20;
-        history = "ctrl + shift + alt + z";
+        # history = "ctrl + shift + alt + z";
         browser = "firefox";
         always_run_script = true;
         title = "Dunst";

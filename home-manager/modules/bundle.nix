@@ -13,6 +13,7 @@
     # shell
     ./shell/nnn.nix
     ./shell/tmux.nix
+    ./shell/atac.nix
     ./shell/advcpmv.nix
 
     # terminal
@@ -20,6 +21,7 @@
 
     # editors
     ./editors/neovim/nixvim.nix
+    ./editors/krita.nix
 
     # services
     ./services/picom.nix

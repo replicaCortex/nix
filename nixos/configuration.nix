@@ -15,8 +15,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  nixpkgs.config.allowUnfree = true;
-
   fonts = {
     fontconfig = {
       antialias = false;
@@ -55,17 +53,12 @@
 
   services.getty.autologinUser = "replica";
 
-  environment.systemPackages = with pkgs; [
-    home-manager
-    # osu-lazer
-  ];
-
   services.xserver = {
     enable = true;
     windowManager.bspwm.enable = true;
     displayManager.lightdm = {
       enable = true;
-      # background = ../home-manager/modules/conf/background/nixos-wallpaper-catppuccin-mocha.png;
+      background = ../static/wallpapers/nixos-wallpaper-catppuccin-mocha.png;
       greeters.slick.enable = true;
     };
     desktopManager.xterm.enable = false;
