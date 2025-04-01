@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
     ./zsh/zsh.nix
     ./vbox/vbox.nix
@@ -12,6 +7,7 @@
     # ./overlay/overlay.nix
     # ./bluetooth/bluetooth.nix
     ./syncthing/syncthing.nix
+    ./garbageCollection/autoGarbage.nix
     # ./filesystem/filesystem.nix
     ./hardware-configuration/hardware-configuration.nix
   ];
@@ -73,6 +69,8 @@
       greeters.slick.enable = true;
     };
     desktopManager.xterm.enable = false;
+
+    excludePackages = [pkgs.xterm pkgs.nano];
 
     # https://github.com/dustinlyons/nixos-config/tree/main
   };
