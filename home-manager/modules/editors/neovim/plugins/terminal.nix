@@ -54,9 +54,9 @@
       --
       -- vim.api.nvim_set_keymap("n", "<leader>-", "<cmd>lua OpenSplitTermH()<CR>", { noremap = true, silent = true })
       --
-      -- vim.api.nvim_set_keymap("n", "<leader><A-|>", "<cmd>vsplit<CR>", { noremap = true, silent = true })
-      --
-      -- vim.api.nvim_set_keymap("n", "<leader><A-->", "<cmd>split<CR>", { noremap = true, silent = true })
+      vim.api.nvim_set_keymap("n", "<leader>|", "<cmd>vsplit<CR>", { noremap = true, silent = true })
+
+      vim.api.nvim_set_keymap("n", "<leader>-", "<cmd>split<CR>", { noremap = true, silent = true })
       --
       vim.api.nvim_set_keymap("t", "<leader>[", "<C-\\><C-n>", { noremap = true, silent = true })
       --
@@ -67,19 +67,6 @@
       -- vim.api.nvim_set_keymap('t', '<C-k>', '<C-\\><C-n><C-w>k', { noremap = true, silent = true })
       -- vim.api.nvim_set_keymap('t', '<C-l>', '<C-\\><C-n><C-w>l', { noremap = true, silent = true })
       --
-
-      -- TODO: не работает
-      -- function ManageTerminal()
-      --   local terminal_name = vim.fn.execute("echo b:floaterm_title")
-      --
-      --   local expected_name = "nnnManager"
-      --
-      --   if terminal_name == expected_name then
-      --     vim.cmd("FloatermKill")
-      --   else
-      --     vim.cmd("FloatermToggle")
-      --   end
-      -- end
 
       vim.api.nvim_set_keymap('t', '<A-.>', '<C-\\><C-n><cmd>FloatermNext<CR>', { noremap = true, silent = true })
       vim.api.nvim_set_keymap('t', '<A-,>', '<C-\\><C-n><cmd>FloatermPrev<CR>', { noremap = true, silent = true })

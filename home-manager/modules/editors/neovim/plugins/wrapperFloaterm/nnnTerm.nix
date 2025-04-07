@@ -60,7 +60,7 @@
         lcd %:p:h
 
         let cmdlist = split(a:cmd)
-        let cmd = 'nnn -p "' . s:nnn_tmpfile . '"'
+        let cmd = 'nnn -P p -p "' . s:nnn_tmpfile . '"'
         if len(cmdlist) > 1
           let cmd .= ' ' . join(cmdlist[1:], ' ')
         else

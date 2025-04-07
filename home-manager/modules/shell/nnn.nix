@@ -2,9 +2,14 @@ let
   fuck = ''$'';
 in
   {pkgs, ...}: {
+    xresources.properties = {
+      "Nsxiv.window.background" = "#1e1e2e";
+    };
+
     programs.nnn = {
       enable = true;
-      extraPackages = with pkgs; [file mktemp xdragon z-lua ffmpegthumbnailer ffmpeg glow bat atool eza unzip man ueberzugpp lynx imagemagick libreoffice poppler_utils less];
+      # extraPackages = with pkgs; [file mktemp xdragon z-lua ffmpegthumbnailer ffmpeg glow bat atool eza unzip man ueberzugpp lynx imagemagick libreoffice poppler_utils less];
+      extraPackages = with pkgs; [file mktemp xdragon z-lua mpv nsxiv zathura xdotool tabbed];
       package = pkgs.nnn.override {withNerdIcons = true;};
       bookmarks = {
         c = "~/";

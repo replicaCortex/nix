@@ -82,6 +82,10 @@
     enable = true;
     defaultEditor = true;
 
+    withRuby = false;
+    withPerl = false;
+    withNodeJs = false;
+
     colorschemes = {
       catppuccin = {
         settings = {
@@ -118,6 +122,8 @@
 
       number = true;
       relativenumber = true;
+
+      swapfile = false;
 
       splitbelow = true;
       splitright = true;
