@@ -38,6 +38,11 @@ in {
             devices = ["Notebook"];
           };
 
+          # "Media" = {
+          #   path = "/home/${user}/Media/iPhone";
+          #   devices = ["iPhone"];
+          # };
+
           # "Vbox" = {
           #   path = "/home/${user}/workDisk/Vbox";
           #   devices = ["Notebook"];
@@ -48,10 +53,10 @@ in {
             devices = ["Notebook"];
           };
 
-          "WinShareDir" = {
-            path = "/mnt/workspace/WinShareDir";
-            devices = ["Notebook"];
-          };
+          # "WinShareDir" = {
+          #   path = "/mnt/workspace/WinShareDir";
+          #   devices = ["Notebook"];
+          # };
         };
 
         options.globalAnnounceEnabled = false; # Only sync on LAN
