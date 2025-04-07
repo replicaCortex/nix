@@ -21,7 +21,7 @@
 
       "shift + ctrl + z" = "clipmenu";
 
-      "super + w" = "firefox";
+      "super + w" = "zen";
 
       "super + b" = "bemoji -nt";
 

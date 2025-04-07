@@ -2,8 +2,10 @@
   imports = [
     ./zsh/zsh.nix
     ./vbox/vbox.nix
-    # ./audio/audio.nix
-    # ./nvidia/nvidia.nix
+    ./garbageCollection/autoGarbage.nix
+    ./hardware-configuration/hardware-configuration.nix
+    ./prop/prop.nix
+    ./syncthing/syncthing.nix
   ];
 
   boot.loader.systemd-boot.enable = true;

@@ -72,6 +72,10 @@
         desktop = "^2";
       };
 
+      "zen" = {
+        desktop = "^2";
+      };
+
       "obs" = {
         desktop = "^4";
       };
@@ -79,12 +83,30 @@
       "Zotero" = {
         desktop = "^4";
       };
+
       # "Postman" = {
       #   state = "floating";
       #   rectangle = "565x425+1350+200";
       # };
+
       "qBittorrent" = {
         desktop = "^4";
+      };
+
+      # TODO: ВРЕМЕННЫЙ КАЛЕНДАРЬ
+      "yad-calandar" = {
+        # Position: 849,52 (screen: 0)
+        # Geometry: 222x193
+
+        state = "floating";
+        rectangle = "200x100+850+200";
+        follow = false;
+      };
+
+      "tabbed" = {
+        state = "floating";
+        rectangle = "620x450+1300+200";
+        follow = false;
       };
     };
   };
