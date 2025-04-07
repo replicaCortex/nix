@@ -23,6 +23,10 @@
 
       "super + w" = "firefox";
 
+      "super + b" = "bemoji -nt";
+
+      "super + a" = "~/nix/static/polybar/popup-calendar.sh --popup";
+
       "super + F7" = "amixer -q set Master 5%-";
 
       "super + F8" = "amixer -q set Master 5%+";

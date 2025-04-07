@@ -20,5 +20,7 @@
     # zsh-syntax-highlighting.enable = true;
     obs.enable = true;
     gtk.enable = true;
+    # qutebrowser.enable = true;
+    zathura.enable = true;
   };
 }

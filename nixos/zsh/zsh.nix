@@ -74,7 +74,7 @@ in {
       export LC_COLLATE="C" # hidden files on top
       export NNN_FIFO="/tmp/nnn.fifo"
       export NNN_PREVIEW_FIFO="/tmp/nnn-preview-tui-fifo"
-      export NNN_PLUG='p:preview-tui;f:fzopen;F:fzcd;d:dragdrop;j:autojump;x:!chmod +x "$nnn";y:xdgdefault'
+      export NNN_PLUG='p:preview-tabbed;f:fzopen;F:fzcd;d:dragdrop;j:autojump;x:!chmod +x "$nnn";y:xdgdefault'
       #-----
 
       n ()

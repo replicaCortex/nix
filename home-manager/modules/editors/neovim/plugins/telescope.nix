@@ -20,12 +20,19 @@
             prompt_position = "top";
           };
           selection_caret = "> ";
-          prompt_prefix = "=> ";
+          prompt_prefix = " ";
           mappings = {
             n = {
               "q" = {
                 __raw = "require('telescope.actions').close";
               };
+            };
+
+            i = {
+              "<ESC>" = {
+                __raw = "require('telescope.actions').close";
+              };
+              "<C-u>" = false;
             };
           };
         };
@@ -34,41 +41,6 @@
 
       extensions = {
         fzf-native.enable = true;
-        # undo = {
-        #   enable = true;
-        #   settings = {
-        #     entry_format = "state #$ID";
-        #     side_by_side = true;
-        #     time_format = "!%Y-%m-%dT%TZ";
-        #     use_custom_command = [
-        #       "bash"
-        #       "-c"
-        #       "echo '$DIFF' | delta"
-        #     ];
-        #     use_delta = true;
-        #     vim_diff_opts = {
-        #       ctxlen = 8;
-        #     };
-        #   };
-        # };
-        # media-files = {
-        #   enable = true;
-        #   settings = {
-        #     filetypes = [
-        #       "png"
-        #       "jpg"
-        #       "gif"
-        #       "mp4"
-        #       "webm"
-        #       "pdf"
-        #     ];
-        #     find_cmd = "rg";
-        #   };
-        #   dependencies = {
-        #     chafa.enable = true;
-        #     pdftoppm.enable = true;
-        #   };
-        # };
         ui-select.enable = false;
       };
 

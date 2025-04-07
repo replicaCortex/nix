@@ -11,7 +11,14 @@
     wget
     ripgrep
     libreoffice
-    dmenu
     texlive.combined.scheme-full
+
+    yad
+    xdotool
+
+    # dmenu-rs-enable-plugins
+    dmenu
+    bemoji
+    python312
   ];
 }
