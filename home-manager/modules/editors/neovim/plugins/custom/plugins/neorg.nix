@@ -12,7 +12,6 @@
       * {TITLE_INPUT}
         TODO:
         ___
-        ~ ( ) leetcode
         ~ ( ) философия
         ~ ( ) lem
         ~ ( ) {CURSOR}
@@ -24,14 +23,9 @@
   };
   programs.nixvim = {
     plugins.neorg = {
-      # lazyLoad.settings = {
-      #   cmd = "Neorg";
-      #   ft = "norg";
-      # };
       enable = true;
 
       settings = {
-        # lazy_loading = true;
         load = {
           "core.concealer" = {
             config = {
@@ -208,7 +202,8 @@
           };
         };
       };
-      # telescopeIntegration.enable = true;
+      telescopeIntegration.enable = false;
+      telescopeIntegration.package = null;
     };
     # extraConfigLuaPre = ''
     #

@@ -11,10 +11,11 @@
     ./windowManagers/polybar.nix
 
     # shell
-    ./shell/nnn.nix
+    # ./shell/nnn.nix
     ./shell/tmux.nix
     ./shell/atac.nix
     ./shell/advcpmv.nix
+    # ./shell/broot.nix
 
     # terminal
     ./terminals/alacritty.nix
