@@ -9,6 +9,7 @@
     ./vbox/vbox.nix
     ./prop/prop.nix
     ./audio/audio.nix
+    ./xdg.mime/xdg.nix
     ./nvidia/nvidia.nix
     # ./portal/portal.nix
     # ./overlay/overlay.nix
