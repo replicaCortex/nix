@@ -2,6 +2,7 @@
   imports = [
     ./zsh/zsh.nix
     ./vbox/vbox.nix
+    ./xdg.mime/xdg.nix
     ./garbageCollection/autoGarbage.nix
     ./hardware-configuration/hardware-configuration.nix
     ./prop/prop.nix
