@@ -5,7 +5,7 @@
     ./plugins/lazy.nix
     ./plugins/terminal.nix
     # ./plugins/gitsigns.nix
-    ./plugins/telescope.nix
+    # ./plugins/telescope.nix
     ./plugins/conform.nix
     ./plugins/lsp.nix
     ./plugins/nvim-cmp.nix
@@ -15,15 +15,16 @@
     ./plugins/treesitter.nix
 
     ./plugins/custom/plugins/img-clip.nix
-    # ./plugins/custom/plugins/vim-ripgrep.nix
+    ./plugins/custom/plugins/vim-ripgrep.nix
     # ./plugins/custom/plugins/markdown.nix
     ./plugins/custom/plugins/neotest.nix
     ./plugins/custom/plugins/neogen.nix
     ./plugins/kickstart/plugins/debug.nix
-    ./plugins/custom/plugins/leetcode.nix
+    # ./plugins/custom/plugins/leetcode.nix
     ./plugins/custom/plugins/hydra.nix
+    # ./plugins/custom/plugins/hmts.nix
     # ./plugins/nnnNvim.nix
-    # ./plugins/surround.nixy
+    # ./plugins/surround.nix
 
     ./plugins/custom/plugins/vimtex.nix
 
@@ -73,14 +74,24 @@
 
     # frplugin
     ./plugins/ftpluginx.nix
-    ./plugins/wrapperFloaterm/nnnTerm.nix
+    # ./plugins/custom/plugins/fzflua.nix
+    ./plugins/wrapperFloaterm/fzf.nix
+    # ./plugins/wrapperFloaterm/nnnTerm.nix
     # ./plugins/wrapperFloaterm/yaziTerm.nix
-    # ./plugins/wrapperFloaterm/ripgrepTerm.nix
+    ./plugins/wrapperFloaterm/ripgrepTerm.nix
   ];
 
   programs.nixvim = {
     enable = true;
     defaultEditor = true;
+
+    performance.byteCompileLua = {
+      enable = true;
+      plugins = true;
+    };
+    # performance.combinePlugins = {
+    #   enable = true;
+    # };
 
     withRuby = false;
     withPerl = false;
@@ -298,11 +309,11 @@
         key = "q";
         action = "<nop>";
       }
-      {
-        mode = "n";
-        key = "n";
-        action = "<nop>";
-      }
+      # {
+      #   mode = "n";
+      #   key = "n";
+      #   action = "<nop>";
+      # }
       {
         mode = "n";
         key = "<C-n>";
@@ -340,48 +351,16 @@
           desc = "Move focus to the upper window";
         };
       }
-      {
-        mode = "n";
-        key = "?";
-        action = "<nop>";
-      }
+      # {
+      #   mode = "n";
+      #   key = "?";
+      #   action = "<nop>";
+      # }
       {
         mode = "n";
         key = "<leader>p";
         action = "<cmd>PasteImage<cr>";
       }
-      {
-        mode = "n";
-        key = "<leader>fi";
-        action.__raw = ''
-
-          function()
-            local telescope = require("telescope.builtin")
-            local actions = require("telescope.actions")
-            local action_state = require("telescope.actions.state")
-
-            telescope.find_files({
-              attach_mappings = function(_, map)
-                local function embed_image(prompt_bufnr)
-                  local entry = action_state.get_selected_entry()
-                  local filepath = entry[1]
-                  actions.close(prompt_bufnr)
-
-                  local img_clip = require("img-clip")
-                  img_clip.paste_image(nil, filepath)
-                end
-
-                map("i", "<CR>", embed_image)
-                map("n", "<CR>", embed_image)
-
-                return true
-              end,
-            })
-          end
-
-        '';
-      }
-
       {
         mode = "n";
         key = "<C-k>";
@@ -415,6 +394,7 @@
 
     extraConfigLuaPre = ''
       vim.loader.enable()
+      -- local lsp_lines_enabled = false
     '';
 
     extraConfigLuaPost = ''

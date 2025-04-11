@@ -9,7 +9,7 @@ in
     programs.nnn = {
       enable = true;
       # extraPackages = with pkgs; [file mktemp xdragon z-lua ffmpegthumbnailer ffmpeg glow bat atool eza unzip man ueberzugpp lynx imagemagick libreoffice poppler_utils less];
-      extraPackages = with pkgs; [file mktemp xdragon z-lua mpv nsxiv zathura xdotool tabbed];
+      extraPackages = with pkgs; [file mktemp xdragon mpv nsxiv zathura xdotool tabbed];
       package = pkgs.nnn.override {withNerdIcons = true;};
       bookmarks = {
         c = "~/";

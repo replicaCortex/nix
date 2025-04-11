@@ -45,7 +45,7 @@
 
       modules = [
         nixvim.homeManagerModules.nixvim
-        catppuccin.homeManagerModules.catppuccin
+        catppuccin.homeModules.catppuccin
 
         ./home-manager/home.nix
       ];

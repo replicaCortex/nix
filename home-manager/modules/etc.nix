@@ -1,11 +1,20 @@
 {pkgs, ...}: {
+  programs.bat = {
+    enable = true;
+  };
+
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   home.packages = with pkgs; [
     nerd-fonts.proggy-clean-tt
 
     killall
-    xdg-utils
+    # xdg-utils
     ntfs3g
-    delta
+    # delta
     nh
     xclip
     wget
@@ -17,11 +26,19 @@
     texlive.combined.scheme-full
 
     yad
-    xdotool
+    # xdotool
 
     # dmenu-rs-enable-plugins
     dmenu
     bemoji
     python312
+
+    gnutar
+    gzip
+    unzip
+
+    nsxiv
+
+    ffmpeg
   ];
 }

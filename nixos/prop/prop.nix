@@ -6,8 +6,8 @@
     # postman
     xp-pen-deco-01-v2-driver
     pureref
-    p7zip
-    p7zip-rar
+    # p7zip
+    # p7zip-rar
     # osu-lazer
   ];
 }

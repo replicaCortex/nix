@@ -9,7 +9,7 @@
     userEmail = "replicaCortex@gmail.com";
   };
 
-  programs.lazygit = {
-    enable = true;
-  };
+  # programs.lazygit = {
+  #   enable = true;
+  # };
 }

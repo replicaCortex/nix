@@ -13,7 +13,7 @@ in {
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-    autosuggestions.enable = true;
+    autosuggestions.enable = false;
     syntaxHighlighting.enable = true;
     shellAliases = {
       "na" = "bluetoothctl connect E4:61:F4:31:88:26";
@@ -36,7 +36,11 @@ in {
 
       "gt" = "gcc -g -O0 -Wp,-U_FORTIFY_SOURCE";
 
-      "ls" = "nnn -de";
+      "ext" = "~/nix/static/ext/ext.sh";
+
+      "jc" = "cd ~/Desktop/notes | nvim .";
+
+      # "ls" = "nnn -de";
       # "ls" = "br -dp";
     };
 
@@ -66,6 +70,15 @@ in {
       export TERMINAL="alacritty"
       export BROWSER="firefox"
 
+      export FZF_DEFAULT_OPTS="
+        --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8
+        --color=fg:#cdd6f4,header:#f38ba8,info:#89b4fa,pointer:#f5e0dc
+        --color=marker:#89b4fa,fg+:#cdd6f4,prompt:#89b4fa,hl+:#f38ba8
+        --color=selected-bg:#45475a
+        --color=border:#313244,label:#cdd6f4
+        --layout=reverse"
+      # --border-label="fzf!" --border-label-pos="0"
+
 
       # === nnn ===
 
@@ -74,7 +87,7 @@ in {
       export LC_COLLATE="C" # hidden files on top
       export NNN_FIFO="/tmp/nnn.fifo"
       export NNN_PREVIEW_FIFO="/tmp/nnn-preview-tui-fifo"
-      export NNN_PLUG='p:preview-tabbed;f:fzopen;F:fzcd;d:dragdrop;j:autojump;x:!chmod +x "$nnn";y:xdgdefault'
+      export NNN_PLUG='p:preview-tabbed;f:fzopen;F:fzcd;d:dragdrop;x:!chmod +x "$nnn";y:xdgdefault'
       #-----
 
       n ()

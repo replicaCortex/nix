@@ -1,16 +1,16 @@
 {
   programs.nixvim = {
     extraFiles = {
-      "ftplugin/markdown.lua".text = ''
-         vim.opt.tabstop = 2
-         vim.opt.shiftwidth = 2
-         vim.opt.expandtab = true
-
-        -- file: nvim/ftplugin/markdown.lua
-        require("quarto").activate()
-        require("otter").activate()
-
-      '';
+      # "ftplugin/markdown.lua".text = ''
+      #    vim.opt.tabstop = 2
+      #    vim.opt.shiftwidth = 2
+      #    vim.opt.expandtab = true
+      #
+      #   -- file: nvim/ftplugin/markdown.lua
+      #   -- require("quarto").activate()
+      #   -- require("otter").activate()
+      #
+      # '';
 
       "ftplugin/norg.lua".text = ''
         vim.opt.tabstop = 2

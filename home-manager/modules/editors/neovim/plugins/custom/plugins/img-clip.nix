@@ -2,7 +2,6 @@
   programs.nixvim = {
     extraPlugins = with pkgs.vimPlugins; [
       img-clip-nvim
-      # multiple-cursors
     ];
     extraConfigLuaPre = ''
       require"img-clip".setup {
