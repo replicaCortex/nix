@@ -38,7 +38,8 @@
     unzip
 
     nsxiv
+    jq
 
-    ffmpeg
+    ffmpeg-full
   ];
 }

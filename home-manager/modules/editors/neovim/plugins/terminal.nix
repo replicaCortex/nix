@@ -229,7 +229,7 @@
       vim.api.nvim_del_keymap('t', '<Esc>')
 
       -- vim.api.nvim_set_keymap('n', '<localleader>lz', '<cmd>FloatermNew git<CR>', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('n', '<localleader>at', '<cmd>FloatermNew atac<CR>', { noremap = true, silent = true })
+      -- vim.api.nvim_set_keymap('n', '<localleader>at', '<cmd>FloatermNew atac<CR>', { noremap = true, silent = true })
 
       -- vim.api.nvim_set_keymap("n", "<leader><leader>", ":lua ManageTerminal()<CR>", { noremap = true, silent = true })
       -- vim.api.nvim_set_keymap("t", "<leader><leader>", "<C-\\><C-n>:lua ManageTerminal()<CR>", { noremap = true, silent = true })

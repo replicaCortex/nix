@@ -36,9 +36,11 @@ in {
 
       "gt" = "gcc -g -O0 -Wp,-U_FORTIFY_SOURCE";
 
-      "ext" = "~/nix/static/ext/ext.sh";
+      "ext" = "~/nix/static/sh/ext.sh";
 
-      "jc" = "cd ~/Desktop/notes | nvim .";
+      "record" = "~/nix/static/sh/record.sh";
+
+      "jc" = "nvim ~/Desktop/notes/index.norg";
 
       # "ls" = "nnn -de";
       # "ls" = "br -dp";
@@ -51,6 +53,7 @@ in {
       # source ${pkgs.zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh
 
       setxkbmap -option grp:caps_toggle -layout us,ru
+      bindkey -v
 
       # if [ -z "$TMUX" ] && [ -n "$DISPLAY" ]; then
       #   tmux attach-session -t default || tmux new-session -s default
@@ -68,15 +71,15 @@ in {
       export EDITOR="nvim"
       export VISUAL="nvim"
       export TERMINAL="alacritty"
-      export BROWSER="firefox"
+      export BROWSER="zen"
 
       export FZF_DEFAULT_OPTS="
         --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8
         --color=fg:#cdd6f4,header:#f38ba8,info:#89b4fa,pointer:#f5e0dc
         --color=marker:#89b4fa,fg+:#cdd6f4,prompt:#89b4fa,hl+:#f38ba8
         --color=selected-bg:#45475a
-        --color=border:#313244,label:#cdd6f4
-        --layout=reverse"
+        --color=border:#313244,label:#cdd6f4"
+        # --layout=reverse"
       # --border-label="fzf!" --border-label-pos="0"
 
 

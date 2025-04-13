@@ -13,7 +13,7 @@
     # shell
     # ./shell/nnn.nix
     ./shell/tmux.nix
-    ./shell/atac.nix
+    # ./shell/atac.nix
     ./shell/advcpmv.nix
     # ./shell/broot.nix
 
