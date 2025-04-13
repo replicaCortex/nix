@@ -39,6 +39,7 @@
       function! floaterm#wrapper#fzf#(cmd, jobopts, config) abort
         let s:fzf_tmpfile = tempname()
         let cmd = a:cmd
+        let cmd .= ' --layout=reverse'
         if cmd !~ '--preview'
           if executable('bat')
             let cmd .= ' --preview ' . shellescape('bat --style=numbers --color=always {}')
