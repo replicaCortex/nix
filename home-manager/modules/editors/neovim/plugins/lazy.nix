@@ -17,7 +17,7 @@
 
     plugins.image = {
       lazyLoad.settings = {
-        ft = ["norg" "md" "markdown"];
+        ft = ["norg" "md" "markdown" "png" "jpg" "webm"];
       };
     };
 

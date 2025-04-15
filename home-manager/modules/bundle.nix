@@ -18,11 +18,14 @@
     # ./shell/broot.nix
 
     # terminal
-    ./terminals/alacritty.nix
+    # ./terminals/alacritty.nix
+    ./terminals/wezterm.nix
+    # ./terminals/kitty.nix
 
     # editors
     ./editors/neovim/nixvim.nix
     ./editors/krita.nix
+    ./editors/euporie.nix
 
     # services
     ./services/picom.nix

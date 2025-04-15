@@ -65,11 +65,11 @@
     #./plugins/custom/plugins/nougat.nix
 
     # jupyter
-    ./plugins/custom/plugins/jupyter/molten.nix
-    ./plugins/custom/plugins/jupyter/quarto.nix
-    ./plugins/custom/plugins/jupyter/otter.nix
-    ./plugins/custom/plugins/jupyter/jupytext.nix
-    ./plugins/custom/plugins/TSObjects/treesitter-textobjects.nix
+    # ./plugins/custom/plugins/jupyter/molten.nix
+    # ./plugins/custom/plugins/jupyter/quarto.nix
+    # ./plugins/custom/plugins/jupyter/otter.nix
+    # ./plugins/custom/plugins/jupyter/jupytext.nix
+    # ./plugins/custom/plugins/TSObjects/treesitter-textobjects.nix
     ./plugins/custom/plugins/image.nix
 
     # frplugin

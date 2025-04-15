@@ -38,14 +38,6 @@
         callback.__raw = ''
           function()
             require("lsp_lines").toggle()
-          end
-        '';
-      }
-
-      {
-        event = ["VimEnter"];
-        callback.__raw = ''
-          function()
             vim.lsp.inlay_hint.enable(true)
           end
         '';

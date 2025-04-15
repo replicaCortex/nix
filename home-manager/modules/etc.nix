@@ -28,7 +28,6 @@
     # dmenu-rs-enable-plugins
     dmenu
     bemoji
-    python312
 
     gnutar
     gzip

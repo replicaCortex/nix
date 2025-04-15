@@ -7,6 +7,7 @@
         auto_open_output = false;
         save_path.__raw = "vim.fn.stdpath('data')..'/molten'";
         output_win_border = ["" "━" "" ""];
+        # image_provider = "wezterm";
         image_provider = "image.nvim";
         image_location = "virt";
         output_win_max_height = 12;
@@ -16,6 +17,11 @@
         tick_rate = 142;
       };
     };
+
+    plugins.wezterm = {
+      enable = false;
+    };
+
     keymaps = [
       {
         mode = "n";
