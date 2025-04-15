@@ -36,11 +36,17 @@ in {
 
       "gt" = "gcc -g -O0 -Wp,-U_FORTIFY_SOURCE";
 
+      "d" = "~/nix/static/sh/tmux.sh";
+
       "ext" = "~/nix/static/sh/ext.sh";
 
       "record" = "~/nix/static/sh/record.sh";
 
       "jc" = "nvim ~/Desktop/notes/index.norg";
+
+      "en" = "euporie notebook";
+      "ec" = "euporie console";
+      "ep" = "euporie preview";
 
       # "ls" = "nnn -de";
       # "ls" = "br -dp";
@@ -63,14 +69,14 @@ in {
         if ! tmux has-session -t default 2>/dev/null; then
           tmux new-session -s default
         fi
-        tmux attach-session -t default
+        # tmux attach-session -t default
       fi
 
       source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
 
       export EDITOR="nvim"
       export VISUAL="nvim"
-      export TERMINAL="alacritty"
+      export TERMINAL="wezterm"
       export BROWSER="zen"
 
       export FZF_DEFAULT_OPTS="
@@ -93,22 +99,22 @@ in {
       export NNN_PLUG='p:preview-tabbed;f:fzopen;F:fzcd;d:dragdrop;x:!chmod +x "$nnn";y:xdgdefault'
       #-----
 
-      n ()
-      {
-
-          if [ -n $NNNLVL ] && [ "${fuck}{NNNLVL:-0}" -ge 1 ]; then
-              echo "nnn is already running"
-              return
-          fi
-          export NNN_TMPFILE="${fuck}{XDG_CONFIG_HOME:-${fuck}HOME/.config}/nnn/.lastd"
-          nnn "$@"
-          if [ -f "$NNN_TMPFILE" ]; then
-                  . "$NNN_TMPFILE"
-                  rm -f "$NNN_TMPFILE" > /dev/null
-          fi
-
-          # rm -f "$NNN_FIFO" "$NNN_PREVIEW_FIFO"
-      }
+      # n ()
+      # {
+      #
+      #     if [ -n $NNNLVL ] && [ "${fuck}{NNNLVL:-0}" -ge 1 ]; then
+      #         echo "nnn is already running"
+      #         return
+      #     fi
+      #     export NNN_TMPFILE="${fuck}{XDG_CONFIG_HOME:-${fuck}HOME/.config}/nnn/.lastd"
+      #     nnn "$@"
+      #     if [ -f "$NNN_TMPFILE" ]; then
+      #             . "$NNN_TMPFILE"
+      #             rm -f "$NNN_TMPFILE" > /dev/null
+      #     fi
+      #
+      #     # rm -f "$NNN_FIFO" "$NNN_PREVIEW_FIFO"
+      # }
 
 
       # # === yazi ===

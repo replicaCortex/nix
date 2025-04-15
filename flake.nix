@@ -16,6 +16,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nur-renesat = {
+      url = "github:renesat/nur-renesat";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -29,6 +34,7 @@
     nixvim,
     catppuccin,
     self,
+    nur-renesat,
     ...
   }: {
     nixosConfigurations.nixos = nixpkgs-stable.lib.nixosSystem {
@@ -41,7 +47,10 @@
 
     homeConfigurations.replica = home-manager.lib.homeManagerConfiguration {
       pkgs = nixpkgs.legacyPackages."x86_64-linux";
-      extraSpecialArgs = {inherit self;};
+      extraSpecialArgs = {
+        inherit self;
+        euporiePkg = nur-renesat.packages.x86_64-linux.euporie;
+      };
 
       modules = [
         nixvim.homeManagerModules.nixvim

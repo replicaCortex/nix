@@ -11,7 +11,9 @@
 
       # "super + n" = ''alacritty -e "nwrap $*"'';
 
-      "super + {_,shift + }Return" = "{alacritty , bspc node -s biggest.local}";
+      # "super + {_,shift + }Return" = "{alacritty , bspc node -s biggest.local}";
+
+      "super + {_,shift + }Return" = "{wezterm , bspc node -s biggest.local}";
 
       # "super + {_,shift + }Return" = "{urxvt , bspc node -s biggest.local}";
 
