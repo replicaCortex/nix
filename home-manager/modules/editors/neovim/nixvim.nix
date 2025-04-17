@@ -17,7 +17,7 @@
     ./plugins/custom/plugins/img-clip.nix
     ./plugins/custom/plugins/vim-ripgrep.nix
     # ./plugins/custom/plugins/markdown.nix
-    ./plugins/custom/plugins/neotest.nix
+    # ./plugins/custom/plugins/neotest.nix
     ./plugins/custom/plugins/neogen.nix
     ./plugins/kickstart/plugins/debug.nix
     # ./plugins/custom/plugins/leetcode.nix

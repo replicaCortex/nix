@@ -20,6 +20,7 @@
                 \ '--bind=change:reload:rg --column --line-number --no-heading --color=always --smart-case --no-ignore {q} || true',
                 \ '--bind=ctrl-/:toggle-preview',
                 \ '--bind=alt-a:select-all,alt-d:deselect-all',
+		\ '--layout=reverse',
                 \ '--preview-window=+{2}-/2:right:wrap',
 		\ printf('--preview=%s {1}', s:viewer)
                 \ ]

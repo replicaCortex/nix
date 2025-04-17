@@ -44,9 +44,9 @@
           {
             name = "buffer";
           }
-          {
-            name = "tmux";
-          }
+          # {
+          #   name = "tmux";
+          # }
         ];
       };
 

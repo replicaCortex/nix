@@ -90,6 +90,8 @@
 
         bashls.enable = true;
 
+        ruby_lsp.enable = true;
+
         lua_ls = {
           enable = true;
           settings = {

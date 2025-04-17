@@ -3,9 +3,9 @@
 
   environment.systemPackages = with pkgs; [
     home-manager
-    # postman
     xp-pen-deco-01-v2-driver
     pureref
+    vagrant
     # p7zip
     # p7zip-rar
     # osu-lazer
