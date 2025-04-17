@@ -6,7 +6,7 @@
 <<<<<<< HEAD
       return {
       	font = wezterm.font("Ubuntu Mono"),
-      	font_size = 12.0,
+      	font_size = 11.0,
       	color_scheme = "myCoolTheme",
       	hide_tab_bar_if_only_one_tab = true,
       	use_fancy_tab_bar = false,
