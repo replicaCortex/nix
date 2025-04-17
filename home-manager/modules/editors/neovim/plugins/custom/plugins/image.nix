@@ -11,7 +11,7 @@
         # maxHeightWindowPercentage = 1;
         # maxWidthWindowPercentage = 1;
         editorOnlyRenderWhenFocused = true;
-        tmuxShowOnlyInActiveWindow = true;
+        # tmuxShowOnlyInActiveWindow = true;
         windowOverlapClearEnabled = true;
         windowOverlapClearFtIgnore = [
           "cmp_menu"

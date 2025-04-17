@@ -36,13 +36,13 @@ in {
 
       "gt" = "gcc -g -O0 -Wp,-U_FORTIFY_SOURCE";
 
-      "d" = "~/nix/static/sh/tmux.sh";
+      # "d" = "~/nix/static/sh/tmux.sh";
 
       "ext" = "~/nix/static/sh/ext.sh";
 
       "record" = "~/nix/static/sh/record.sh";
 
-      "jc" = "nvim ~/Desktop/notes/index.norg";
+      "jc" = "cd ~/Desktop/notes/ && nvim ./index.norg";
 
       "en" = "euporie notebook";
       "ec" = "euporie console";
@@ -64,13 +64,6 @@ in {
       # if [ -z "$TMUX" ] && [ -n "$DISPLAY" ]; then
       #   tmux attach-session -t default || tmux new-session -s default
       # fi
-
-      if [ -z "$TMUX" ] && [ -n "$DISPLAY" ]; then
-        if ! tmux has-session -t default 2>/dev/null; then
-          tmux new-session -s default
-        fi
-        # tmux attach-session -t default
-      fi
 
       source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
 

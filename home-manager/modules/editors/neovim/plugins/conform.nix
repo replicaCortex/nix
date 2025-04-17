@@ -8,6 +8,7 @@
       alejandra
       prettierd
       shfmt
+      rubocop
     ];
 
     # Autoformat
@@ -32,10 +33,10 @@
           lua = ["stylua"];
           python = ["ruff" "black"];
           nix = ["alejandra"];
-          # latex = ["latexindent"];
           markdown = ["prettierd"];
           c = ["clang-format"];
           sh = ["shfmt"];
+          ruby = ["rubocop"];
           # javascript = [ [ "prettierd" "prettier" ] ];
         };
         formatters = {
