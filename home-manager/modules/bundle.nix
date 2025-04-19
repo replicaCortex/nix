@@ -34,7 +34,7 @@
     ./services/dunst.nix
 
     # TSobject
-    ./editors/neovim/plugins/custom/plugins/TSObjects/textobjects.nix
+    # ./editors/neovim/plugins/custom/plugins/TSObjects/textobjects.nix
     ../../static/bemoji/bemoji.nix
 
     # etc

@@ -22,7 +22,7 @@
     libreoffice
     texlive.combined.scheme-full
 
-    yad
+    # yad
     # xdotool
 
     # dmenu-rs-enable-plugins

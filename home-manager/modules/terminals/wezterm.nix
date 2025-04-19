@@ -197,6 +197,14 @@
       	},
       })
 
+      config.ssh_domains = {
+        {
+          name = "notebook",
+          remote_address = "192.168.0.101",
+          username = "replica",
+        },
+      }
+
       return config
     '';
 

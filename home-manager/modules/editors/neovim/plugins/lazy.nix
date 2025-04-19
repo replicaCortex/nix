@@ -30,29 +30,29 @@
     #   };
     # };
 
-    plugins.neotest = {
-      lazyLoad.settings = {
-        keys = [
-          "<leader>tr"
-          "<leader>tR"
-          "<leader>tk"
-          "<leader>ta"
-          "<leader>to"
-          "<leader>ts"
-          "<leader>td"
-        ];
-      };
-    };
+    # plugins.neotest = {
+    #   lazyLoad.settings = {
+    #     keys = [
+    #       "<leader>tr"
+    #       "<leader>tR"
+    #       "<leader>tk"
+    #       "<leader>ta"
+    #       "<leader>to"
+    #       "<leader>ts"
+    #       "<leader>td"
+    #     ];
+    #   };
+    # };
 
     plugins.indent-blankline = {
       lazyLoad.settings.event = "DeferredUIEnter";
     };
 
-    plugins.quarto = {
-      lazyLoad.settings = {
-        ft = ["md" "markdown"];
-      };
-    };
+    # plugins.quarto = {
+    #   lazyLoad.settings = {
+    #     ft = ["md" "markdown"];
+    #   };
+    # };
 
     plugins.colorizer = {
       lazyLoad.settings = {

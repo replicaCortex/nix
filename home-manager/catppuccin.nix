@@ -12,7 +12,7 @@
     flavor = "mocha";
     # flavor = "latte";
 
-    lazygit.enable = true;
+    # lazygit.enable = true;
     bat.enable = true;
     btop.enable = true;
     # fzf.enable = true;

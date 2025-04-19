@@ -19,9 +19,9 @@
     # ./plugins/custom/plugins/markdown.nix
     # ./plugins/custom/plugins/neotest.nix
     ./plugins/custom/plugins/neogen.nix
-    ./plugins/kickstart/plugins/debug.nix
+    # ./plugins/kickstart/plugins/debug.nix
     # ./plugins/custom/plugins/leetcode.nix
-    ./plugins/custom/plugins/hydra.nix
+    # ./plugins/custom/plugins/hydra.nix
     # ./plugins/custom/plugins/hmts.nix
     # ./plugins/nnnNvim.nix
     # ./plugins/surround.nix
@@ -126,9 +126,9 @@
 
     opts = {
       completeopt = [
-        "menu" # Показывает меню автодополнения, но не выбирает первый элемент
-        "menuone" # Показывает меню даже если есть только один вариант
-        "noselect" # Не выбирает первый вариант автоматически
+        "menu"
+        "menuone"
+        "noselect"
       ];
 
       number = true;
@@ -196,11 +196,11 @@
 
       # swapfile = false;
 
-      # tabstop = 4;
-      # shiftwidth = 4;
-      #
-      # expandtab = true;
-      # autoindent = true;
+      tabstop = 4;
+      shiftwidth = 4;
+
+      expandtab = true;
+      autoindent = true;
       # };
     };
 
@@ -351,11 +351,11 @@
           desc = "Move focus to the upper window";
         };
       }
-      # {
-      #   mode = "n";
-      #   key = "?";
-      #   action = "<nop>";
-      # }
+      {
+        mode = "n";
+        key = "?";
+        action = "<nop>";
+      }
       {
         mode = "n";
         key = "<leader>p";
