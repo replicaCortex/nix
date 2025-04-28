@@ -16,7 +16,25 @@
 
       {
         mode = "n";
+        key = "<leader>ац";
+        action = "<CMD>FloatermNew rg<CR>";
+        options = {
+          silent = true;
+        };
+      }
+
+      {
+        mode = "n";
         key = "/";
+        action = "<CMD>FloatermNew rgf<CR>";
+        options = {
+          silent = true;
+        };
+      }
+
+      {
+        mode = "n";
+        key = ".";
         action = "<CMD>FloatermNew rgf<CR>";
         options = {
           silent = true;

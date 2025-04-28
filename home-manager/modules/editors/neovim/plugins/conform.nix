@@ -1,7 +1,6 @@
 {pkgs, ...}: {
   programs.nixvim = {
     extraPackages = with pkgs; [
-      # Used to format Lua code
       stylua
       black
       ruff
@@ -9,10 +8,11 @@
       prettierd
       shfmt
       rubocop
+      xmlformat
+      yamlfmt
+      nginx-config-formatter
     ];
 
-    # Autoformat
-    # https://nix-community.github.io/nixvim/plugins/conform-nvim.html
     plugins.conform-nvim = {
       enable = true;
       settings = {
@@ -33,21 +33,24 @@
           lua = ["stylua"];
           python = ["ruff" "black"];
           nix = ["alejandra"];
-          markdown = ["prettierd"];
           c = ["clang-format"];
           sh = ["shfmt"];
           ruby = ["rubocop"];
-          # javascript = [ [ "prettierd" "prettier" ] ];
+          yaml = ["yamlfmt"];
+          xml = ["xmlformat"];
+          nginx = ["nginxfmt"];
+
+          javascript = ["prettierd"];
+          # html = ["prettierd"];
+          # css = ["prettierd"];
+          markdown = ["prettierd"];
+          dockerfile = ["prettierd"];
         };
         formatters = {
           shfmt = {
             command = "shfmt";
             args = ["-i" "4" "-ci" "-kp"];
           };
-          # ruff = {
-          #   command = "ruff";
-          #   args = ["line-length = 80" "indent-width = 4" ''quote-style = "double"'' ''indent-style = "space"'' ''skip-magic-trailing-comma = false'' ''line-ending = "lf"''];
-          # };
         };
       };
     };

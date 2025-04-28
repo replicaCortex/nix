@@ -24,6 +24,15 @@
           silent = true;
         };
       }
+
+      {
+        mode = "n";
+        key = "<leader>аа";
+        action = "<CMD>FloatermNew fzf<CR>";
+        options = {
+          silent = true;
+        };
+      }
     ];
   };
 

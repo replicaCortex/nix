@@ -7,13 +7,28 @@
       require"img-clip".setup {
         default = {
           dir_path = "fig",
-          drag_and_drop = {
-            enabled = true,
-            copy_image = true,
-            insert_mode = true,
-          },
         },
       }
     '';
+
+    # autoCmd = [
+    #   {
+    #     callback.__raw = ''
+    #       function()
+    #       require"img-clip".setup {
+    #         default = {
+    #           dir_path = "fig",
+    #         },
+    #       }
+    #       end
+    #     '';
+    #     event = [
+    #       "BufEnter"
+    #       "BufNewFile"
+    #     ];
+    #
+    #     pattern = ["norg" "md" "markdown" "tex"];
+    #   }
+    # ];
   };
 }

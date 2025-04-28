@@ -9,7 +9,10 @@
   };
 
   home.packages = with pkgs; [
+    # font
     nerd-fonts.proggy-clean-tt
+    nerd-fonts.ubuntu
+    times-newer-roman
 
     killall
     # xdg-utils
@@ -19,13 +22,11 @@
     xclip
     wget
     ripgrep
+
     libreoffice
     texlive.combined.scheme-full
+    python312Packages.catppuccin
 
-    # yad
-    # xdotool
-
-    # dmenu-rs-enable-plugins
     dmenu
     bemoji
 
@@ -37,5 +38,10 @@
     jq
 
     ffmpeg-full
+
+    xdragon
+    xdotool
+
+    file
   ];
 }

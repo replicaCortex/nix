@@ -4,7 +4,7 @@
       langmapper-nvim
     ];
     extraConfigLuaPre = ''
-              require("langmapper").automapping { global = true, buffer = true }
+      require("langmapper").automapping { global = true, buffer = true }
 
       local function escape(str)
           -- You need to escape these characters to work correctly
@@ -43,47 +43,47 @@
       map("n", "<leader>.", "gcc", { desc = "toggle comment", remap = true })
       map("v", "<leader>.", "gc", { desc = "toggle comment", remap = true })
 
-      map("n", "<C-т>", "<cmd>NvimTreeToggle<CR>", { desc = "nvimtree toggle window" })
-      map("n", "<leader>у", "<cmd>NvimTreeFocus<CR>", { desc = "nvimtree focus window" })
+      -- map("n", "<C-т>", "<cmd>NvimTreeToggle<CR>", { desc = "nvimtree toggle window" })
+      -- map("n", "<leader>у", "<cmd>NvimTreeFocus<CR>", { desc = "nvimtree focus window" })
 
-      map("n", "<leader>ац", "<cmd>Telescope live_grep<CR>", { desc = "telescope live grep" })
-      map("n", "<leader>ар", "<cmd>Telescope help_tags<CR>", { desc = "telescope help page" })
-      map("n", "<leader>ащ", "<cmd>Telescope oldfiles<CR>", { desc = "telescope find oldfiles" })
-      map("n", "<leader>сь", "<cmd>Telescope git_commits<CR>", { desc = "telescope git commits" })
-      map("n", "<leader>пе", "<cmd>Telescope git_status<CR>", { desc = "telescope git status" })
-      -- map("n", "<leader>зе", "<cmd>Telescope terms<CR>", { desc = "telescope pick hidden term" })
-      map("n", "<leader>ат", "<cmd>NoiceTelescope<CR>", { desc = "telescope pick hidden term" })
+      -- map("n", "<leader>ац", "<cmd>Telescope live_grep<CR>", { desc = "telescope live grep" })
+      -- map("n", "<leader>ар", "<cmd>Telescope help_tags<CR>", { desc = "telescope help page" })
+      -- map("n", "<leader>ащ", "<cmd>Telescope oldfiles<CR>", { desc = "telescope find oldfiles" })
+      -- map("n", "<leader>сь", "<cmd>Telescope git_commits<CR>", { desc = "telescope git commits" })
+      -- map("n", "<leader>пе", "<cmd>Telescope git_status<CR>", { desc = "telescope git status" })
+      -- -- map("n", "<leader>зе", "<cmd>Telescope terms<CR>", { desc = "telescope pick hidden term" })
+      -- map("n", "<leader>ат", "<cmd>NoiceTelescope<CR>", { desc = "telescope pick hidden term" })
 
-      map("n", "<leader>аа", "<cmd>Telescope find_files<cr>", { desc = "telescope find files" })
-      map(
-          "n",
-          "<leader>аф",
-          "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>",
-          { desc = "telescope find all files" }
-      )
+      -- map("n", "<leader>аа", "<cmd>Telescope find_files<cr>", { desc = "telescope find files" })
+      -- map(
+      --     "n",
+      --     "<leader>аф",
+      --     "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>",
+      --     { desc = "telescope find all files" }
+      -- )
 
-      map("t", "<C-ч>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
+      -- map("t", "<C-ч>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
 
-      map("i", "<C-и>", "<ESC>^i", { desc = "move beginning of line" })
-      map("i", "<C-у>", "<End>", { desc = "move end of line" })
+      -- map("i", "<C-и>", "<ESC>^i", { desc = "move beginning of line" })
+      -- map("i", "<C-у>", "<End>", { desc = "move end of line" })
       map("i", "<C-р>", "<Left>", { desc = "move left" })
       map("i", "<C-д>", "<Right>", { desc = "move right" })
       map("i", "<C-о>", "<Down>", { desc = "move down" })
       map("i", "<C-л>", "<Up>", { desc = "move up" })
 
-      map("n", "<C-ы>", "<cmd>w<CR>", { desc = "general save file" })
-
-      -- vim.api.nvim_create_user_command('ц', vim.cmd('write'), {})
-
-      map("n", "<C-с>", "<cmd>%y+<CR>", { desc = "general copy whole file" })
-
-
-      -- vim.api.nvim_set_keymap('n', 'жР', '<Cmd>lua require("harpoon"):list():append()<CR>',
-      --     { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('n', 'жр',
-          '<Cmd>lua require("harpoon").ui:toggle_quick_menu(require("harpoon"):list())<CR>', { noremap = true, silent = true })
-
-      vim.keymap.set("n", "<leader>ещ", ":noautocmd TodoTelescope<CR> ")
+      -- map("n", "<C-ы>", "<cmd>w<CR>", { desc = "general save file" })
+      --
+      -- -- vim.api.nvim_create_user_command('ц', vim.cmd('write'), {})
+      --
+      -- map("n", "<C-с>", "<cmd>%y+<CR>", { desc = "general copy whole file" })
+      --
+      --
+      -- -- vim.api.nvim_set_keymap('n', 'жР', '<Cmd>lua require("harpoon"):list():append()<CR>',
+      -- --     { noremap = true, silent = true })
+      -- vim.api.nvim_set_keymap('n', 'жр',
+      --     '<Cmd>lua require("harpoon").ui:toggle_quick_menu(require("harpoon"):list())<CR>', { noremap = true, silent = true })
+      --
+      -- vim.keymap.set("n", "<leader>ещ", ":noautocmd TodoTelescope<CR> ")
 
       -- local ls = require("luasnip")
       --

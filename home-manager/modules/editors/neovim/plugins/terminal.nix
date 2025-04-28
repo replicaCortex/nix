@@ -205,7 +205,7 @@
       --
       -- vim.api.nvim_set_keymap("n", "<leader>-", "<cmd>lua OpenSplitTermH()<CR>", { noremap = true, silent = true })
       --
-      vim.api.nvim_set_keymap("n", "<leader>|", "<cmd>vsplit<CR>", { noremap = true, silent = true })
+      vim.api.nvim_set_keymap("n", "<leader>\\", "<cmd>vsplit<CR>", { noremap = true, silent = true })
 
       vim.api.nvim_set_keymap("n", "<leader>-", "<cmd>split<CR>", { noremap = true, silent = true })
       --
