@@ -15,7 +15,7 @@
     ./plugins/treesitter.nix
 
     ./plugins/custom/plugins/img-clip.nix
-    ./plugins/custom/plugins/vim-ripgrep.nix
+    # ./plugins/custom/plugins/make.nix
     # ./plugins/custom/plugins/markdown.nix
     # ./plugins/custom/plugins/neotest.nix
     ./plugins/custom/plugins/neogen.nix
@@ -55,6 +55,7 @@
     # ./plugins/custom/plugins/typr.nix
     ./plugins/custom/plugins/diagnostics.nix
     ./plugins/custom/plugins/leap.nix
+    # ./plugins/custom/plugins/flash.nix
     # ./plugins/custom/plugins/obsidian.nix
     # ./plugins/custom/plugins/lazygit.nix
     # ./plugins/custom/plugins/noice.nix
@@ -79,6 +80,7 @@
     # ./plugins/wrapperFloaterm/nnnTerm.nix
     # ./plugins/wrapperFloaterm/yaziTerm.nix
     ./plugins/wrapperFloaterm/ripgrepTerm.nix
+    ./plugins/custom/plugins/vim-ripgrep.nix
   ];
 
   programs.nixvim = {
@@ -165,8 +167,10 @@
 
       foldlevel = 99; # Folds with a level higher than this number will be closed
       # foldcolumn = "1";
-      foldenable = true;
+      foldenable = false;
       foldlevelstart = -1;
+      # foldmethod = "expr";
+      # foldexpr = "vimtex#fold#level(v:lnum)";
       fillchars = {
         horiz = "━";
         horizup = "┻";
@@ -177,7 +181,7 @@
         verthoriz = "╋";
 
         eob = " ";
-        diff = "\\";
+        diff = " ";
 
         fold = " ";
         foldopen = "~";
@@ -186,15 +190,9 @@
         msgsep = "‾";
       };
 
-      # synmaxcol = 100;
-      # writebackup = false;
-      # pumheight = 5;
-      # title = true;
-      # showmatch = true;
-      # matchtime = 1;
-      # report = 9001;
-
-      # swapfile = false;
+      synmaxcol = 100;
+      pumheight = 5;
+      title = true;
 
       # tabstop = 4;
       # shiftwidth = 4;
@@ -205,6 +203,26 @@
     };
 
     keymaps = [
+      # TODO сделать прокрутку историю команд на A-k и A-l
+
+      # {
+      #   mode = "c";
+      #   key = "<A-k>";
+      #   action = "<C-p>";
+      #   options = {
+      #     noremap = true;
+      #     silent = true;
+      #   };
+      # }
+      # {
+      #   mode = "c";
+      #   key = "<A-l>";
+      #   action = "<C-n>";
+      #   options = {
+      #     noremap = true;
+      #     silent = true;
+      #   };
+      # }
       {
         mode = "i";
         key = "<C-k>";
@@ -309,15 +327,16 @@
         key = "q";
         action = "<nop>";
       }
-      # {
-      #   mode = "n";
-      #   key = "n";
-      #   action = "<nop>";
-      # }
       {
         mode = "n";
-        key = "<C-n>";
-        action = "<CMD>Oil<CR>";
+        key = "n";
+        action = "<nop>";
+      }
+
+      {
+        mode = "n";
+        key = "N";
+        action = "<nop>";
       }
       {
         mode = "n";
@@ -361,6 +380,7 @@
         key = "<leader>p";
         action = "<cmd>PasteImage<cr>";
       }
+
       {
         mode = "n";
         key = "<C-k>";
@@ -393,8 +413,13 @@
     ];
 
     extraConfigLuaPre = ''
+      -- vim.cmd [[ highlight DiffDelete guifg= #443244]]
       vim.loader.enable()
-      -- local lsp_lines_enabled = false
+
+      vim.api.nvim_create_user_command('DeleteFile', function()
+        vim.fn.delete(vim.fn.expand('%:p'))
+        vim.cmd('bd')
+      end, {})
     '';
 
     extraConfigLuaPost = ''

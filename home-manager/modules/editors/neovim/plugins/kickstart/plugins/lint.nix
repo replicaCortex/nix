@@ -13,7 +13,6 @@
         python = ["pylint"];
         shell = ["shellcheck"];
         tex = ["chktex"];
-        # chsarp = ["FxCop"];
         #clojure = ["clj-kondo"];
         #dockerfile = ["hadolint"];
         #inko = ["inko"];
