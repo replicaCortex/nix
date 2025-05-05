@@ -1,11 +1,6 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
-    ./zsh/zsh.nix
+    # ./zsh/zsh.nix
     ./vbox/vbox.nix
     ./prop/prop.nix
     ./audio/audio.nix
@@ -27,6 +22,19 @@
     fontconfig = {
       antialias = false;
     };
+  };
+
+  # shell
+  users.defaultUserShell = pkgs.zsh;
+  programs.zsh.enable = true;
+
+  services.zapret = {
+    enable = true;
+    params = [
+      "--dpi-desync=fake,disorder2"
+      "--dpi-desync-ttl=1"
+      "--dpi-desync-autottl=2"
+    ];
   };
 
   networking.hostName = "nixos";
@@ -56,7 +64,6 @@
     isNormalUser = true;
     description = "replica";
     extraGroups = ["networkmanager" "wheel"];
-    packages = with pkgs; [];
   };
 
   services.getty.autologinUser = "replica";
@@ -66,7 +73,7 @@
     windowManager.bspwm.enable = true;
     displayManager.lightdm = {
       enable = true;
-      background = ../static/wallpapers/nixos-wallpaper-catppuccin-mocha.png;
+      background = pkgs.nixos-artwork.wallpapers.dracula.gnomeFilePath;
       greeters.slick.enable = true;
     };
     excludePackages = [pkgs.xterm pkgs.nano];
