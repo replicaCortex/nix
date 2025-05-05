@@ -76,6 +76,10 @@
         desktop = "^2";
       };
 
+      "qutebrowser" = {
+        desktop = "^2";
+      };
+
       "obs" = {
         desktop = "^4";
       };

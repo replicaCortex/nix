@@ -8,16 +8,19 @@
     enableZshIntegration = true;
   };
 
+  xresources.properties = {
+    "Nsxiv.window.background" = "#1e1e2e";
+    "Nsxiv.bar.foreground" = "#cdd6f4";
+    "Nsxiv.window.foreground" = "#cdd6f4";
+  };
+
   home.packages = with pkgs; [
     # font
     nerd-fonts.proggy-clean-tt
     nerd-fonts.ubuntu
     times-newer-roman
 
-    killall
-    # xdg-utils
     ntfs3g
-    # delta
     nh
     xclip
     wget
@@ -28,7 +31,6 @@
 
     python312
     texlive.combined.scheme-full
-    python312Packages.catppuccin
 
     dmenu
     bemoji

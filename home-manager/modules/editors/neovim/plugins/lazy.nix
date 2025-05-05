@@ -1,90 +1,108 @@
 {
   programs.nixvim = {
-    plugins.lz-n = {
-      enable = true;
-    };
-
     colorschemes.catppuccin = {
       lazyLoad.enable = true;
     };
 
-    plugins.neorg = {
-      lazyLoad.settings = {
-        cmd = "Neorg";
-        ft = "norg";
+    plugins = {
+      lz-n = {
+        enable = true;
       };
-    };
 
-    plugins.image = {
-      lazyLoad.settings = {
-        ft = ["norg" "md" "markdown" "png" "jpg" "webm"];
+      fzf-lua.lazyLoad.settings.event = "DeferredUIEnter";
+
+      # fzf-lua.lazyLoad = {
+      # settings = {
+      #   keys = [
+      #     "<leader>ff"
+      #     "<leader>fo"
+      #     "/"
+      #     "<leader>fw"
+      #     "<leader>fb"
+      #     "<leader>dd"
+      #     "<leader>wd"
+      #   ];
+      # };
+      # };
+
+      neorg = {
+        lazyLoad.settings = {
+          cmd = "Neorg";
+          ft = "norg";
+        };
       };
-    };
 
-    # plugins.hydra = {
-    #   lazyLoad.settings = {
-    #     keys = [
-    #       "<localleader>du"
-    #       "<localleader>n"
-    #     ];
-    #   };
-    # };
-
-    plugins.neotest = {
-      lazyLoad.settings = {
-        keys = [
-          "<leader>tr"
-          "<leader>tR"
-          "<leader>tk"
-          "<leader>ta"
-          "<leader>to"
-          "<leader>ts"
-          "<leader>td"
-        ];
+      image = {
+        lazyLoad.settings = {
+          ft = ["norg" "md" "markdown" "png" "jpg" "webm"];
+        };
       };
-    };
 
-    plugins.indent-blankline = {
-      lazyLoad.settings.event = "DeferredUIEnter";
-    };
+      # hydra = {
+      #   lazyLoad.settings = {
+      #     keys = [
+      #       "<localleader>du"
+      #       "<localleader>n"
+      #     ];
+      #   };
+      # };
 
-    plugins.quarto = {
-      lazyLoad.settings = {
-        ft = ["md" "markdown"];
+      # neotest = {
+      #   lazyLoad.settings = {
+      #     keys = [
+      #       "<leader>tr"
+      #       "<leader>tR"
+      #       "<leader>tk"
+      #       "<leader>ta"
+      #       "<leader>to"
+      #       "<leader>ts"
+      #       "<leader>td"
+      #     ];
+      #   };
+      # };
+
+      indent-blankline = {
+        lazyLoad.settings.event = "DeferredUIEnter";
       };
-    };
 
-    plugins.colorizer = {
-      lazyLoad.settings = {
-        ft = ["ini" "css" "html" "toml" "js" "ts" "yaml"];
+      # quarto = {
+      #   lazyLoad.settings = {
+      #     ft = ["md" "markdown"];
+      #   };
+      # };
+
+      colorizer = {
+        lazyLoad.settings = {
+          ft = ["ini" "css" "html" "toml" "js" "ts" "yaml"];
+        };
       };
-    };
 
-    plugins.conform-nvim = {
-      lazyLoad.settings = {
-        # ft = ["*"];
-        event = "BufWritePre";
+      conform-nvim = {
+        lazyLoad.settings = {
+          # ft = ["*"];
+          event = "BufWritePre";
+        };
       };
+
+      # lsp = {
+      #   lazyLoad.settings = {
+      #     # ft = ["*"];
+      #     event = "InsertEnter";
+      #   };
+      # };
+
+      # cmp = {
+      #   lazyLoad.settings = {
+      #     # ft = ["*"];
+      #     event = "InsertEnter";
+      #   };
+      # };
+
+      # otter = {
+      #   lazyLoad.settings = {
+      #     ft = ["md" "markdown"];
+      #   };
+      # };
     };
-
-    # plugins.lsp = {
-    #   lazyLoad.settings = {
-    #     # ft = ["*"];
-    #     event = "InsertEnter";
-    #   };
-    # };
-
-    # plugins.cmp = {
-    #   lazyLoad.settings = {
-    #     # ft = ["*"];
-    #     event = "InsertEnter";
-    #   };
-    # };
-
-    # plugins.otter = {
-    #   lazyLoad.settings = {
-    #     ft = ["md" "markdown"];
-    #   };
-    # };
   };
 }

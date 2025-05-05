@@ -5,7 +5,7 @@
     home-manager
     xp-pen-deco-01-v2-driver
     pureref
-    vagrant
+    # vagrant
     # p7zip
     # p7zip-rar
     # osu-lazer

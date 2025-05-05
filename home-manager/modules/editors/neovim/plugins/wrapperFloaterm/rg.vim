@@ -10,13 +10,14 @@
           let s:rg_tmpfile = tempname()
           let prog = 'fzf'
           let arglist = [
+                \ '--header=' . shellescape('Ctrl-n/p: move |   world in files'),
                 \ '--ansi',
                 \ '--multi',
                 \ '--no-height',
                 \ '--delimiter=:',
                 \ '--phony',
                 \ '--query=',
-                \ '--prompt=RG > ',
+                \ '--prompt=World: ',
                 \ '--bind=change:reload:rg --column --line-number --no-heading --color=always --smart-case --no-ignore {q} || true',
                 \ '--bind=ctrl-/:toggle-preview',
                 \ '--bind=alt-a:select-all,alt-d:deselect-all',

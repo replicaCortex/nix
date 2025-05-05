@@ -1,6 +1,5 @@
 {pkgs, ...}: {
   imports = [
-    ./zsh/zsh.nix
     ./vbox/vbox.nix
     ./xdg.mime/xdg.nix
     ./garbageCollection/autoGarbage.nix
@@ -45,7 +44,6 @@
     isNormalUser = true;
     description = "replica";
     extraGroups = ["networkmanager" "wheel"];
-    packages = with pkgs; [];
   };
 
   services.getty.autologinUser = "replica";
@@ -55,7 +53,7 @@
     windowManager.bspwm.enable = true;
     displayManager.lightdm = {
       enable = true;
-      background = ../static/wallpapers/nixos-wallpaper-catppuccin-mocha.png;
+      background = pkgs.nixos-artwork.wallpapers.dracula.gnomeFilePath;
       greeters.slick.enable = true;
     };
     desktopManager.xterm.enable = false;

@@ -30,7 +30,7 @@ in {
 
         folders = {
           "notes" = {
-            path = "/home/${user}/Desktop/notes";
+            path = "/home/${user}/notes";
             devices = ["iPhone" "NixOS"];
           };
           "Zotero" = {
@@ -42,7 +42,7 @@ in {
           #   devices = ["NixOS"];
           # };
           "Project Manager" = {
-            path = "/home/${user}/Desktop/ProjectManager";
+            path = "/home/${user}/ProjectManager";
             devices = ["NixOS"];
           };
         };

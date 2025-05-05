@@ -1,9 +1,9 @@
-{pkgs, ...}: {
+{pkgs}: {
   imports = [
     # Core
 
     ./plugins/lazy.nix
-    ./plugins/terminal.nix
+    # ./plugins/terminal.nix
     # ./plugins/gitsigns.nix
     # ./plugins/telescope.nix
     ./plugins/conform.nix
@@ -37,6 +37,7 @@
     ./plugins/custom/plugins/undotree.nix
     ./plugins/custom/plugins/neorg.nix
     ./plugins/custom/plugins/interim-ls.nix
+    ./plugins/custom/plugins/fzf.lua.nix
     # ./plugins/custom/plugins/norg-fmt.nix
     # ./plugins/custom/plugins/todo.nix
     # ./plugins/custom/plugins/vim-startuptime.nix
@@ -74,13 +75,13 @@
     ./plugins/custom/plugins/image.nix
 
     # frplugin
-    ./plugins/ftpluginx.nix
+    # ./plugins/ftpluginx.nix
     # ./plugins/custom/plugins/fzflua.nix
-    ./plugins/wrapperFloaterm/fzf.nix
+    # ./plugins/wrapperFloaterm/fzf.nix
     # ./plugins/wrapperFloaterm/nnnTerm.nix
     # ./plugins/wrapperFloaterm/yaziTerm.nix
-    ./plugins/wrapperFloaterm/ripgrepTerm.nix
-    ./plugins/custom/plugins/vim-ripgrep.nix
+    # ./plugins/wrapperFloaterm/ripgrepTerm.nix
+    # ./plugins/custom/plugins/vim-ripgrep.nix
   ];
 
   programs.nixvim = {
@@ -127,11 +128,11 @@
     clipboard.providers.xclip.enable = true;
 
     opts = {
-      completeopt = [
-        "menu" # Показывает меню автодополнения, но не выбирает первый элемент
-        "menuone" # Показывает меню даже если есть только один вариант
-        "noselect" # Не выбирает первый вариант автоматически
-      ];
+      # completeopt = [
+      #   "menu"
+      #   "menuone"
+      #   "noselect"
+      # ];
 
       number = true;
       relativenumber = true;
@@ -203,8 +204,6 @@
     };
 
     keymaps = [
-      # TODO сделать прокрутку историю команд на A-k и A-l
-
       # {
       #   mode = "c";
       #   key = "<A-k>";
@@ -342,33 +341,21 @@
         mode = "n";
         key = "<C-h>";
         action = "<C-w><C-h>";
-        options = {
-          desc = "Move focus to the left window";
-        };
       }
       {
         mode = "n";
         key = "<C-l>";
         action = "<C-w><C-l>";
-        options = {
-          desc = "Move focus to the right window";
-        };
       }
       {
         mode = "n";
         key = "<C-j>";
         action = "<C-w><C-j>";
-        options = {
-          desc = "Move focus to the lower window";
-        };
       }
       {
         mode = "n";
         key = "<C-k>";
         action = "<C-w><C-k>";
-        options = {
-          desc = "Move focus to the upper window";
-        };
       }
       # {
       #   mode = "n";
@@ -385,9 +372,12 @@
         mode = "n";
         key = "<C-k>";
         action = "<C-w><C-k>";
-        options = {
-          desc = "Move focus to the upper window";
-        };
+      }
+
+      {
+        mode = "n";
+        key = "<localleader>q";
+        action = ":bd<CR>";
       }
     ];
 
