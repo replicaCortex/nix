@@ -219,8 +219,8 @@
       -- vim.api.nvim_set_keymap('t', '<C-l>', '<C-\\><C-n><C-w>l', { noremap = true, silent = true })
       --
 
-      vim.api.nvim_set_keymap('t', '<A-.>', '<C-\\><C-n><cmd>FloatermNext<CR>', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('t', '<A-,>', '<C-\\><C-n><cmd>FloatermPrev<CR>', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('t', 'K', '<C-\\><C-n><cmd>FloatermNext<CR>', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('t', 'J', '<C-\\><C-n><cmd>FloatermPrev<CR>', { noremap = true, silent = true })
 
       vim.api.nvim_set_keymap('t', '<A-c>', '<cmd>FloatermKill<CR><cmd>FloatermNext<CR>', { noremap = true, silent = true })
       vim.api.nvim_set_keymap('t', '<A-N>', '<cmd>FloatermNew<CR>', { noremap = true, silent = true })

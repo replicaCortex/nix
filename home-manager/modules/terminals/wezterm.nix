@@ -3,17 +3,19 @@
     enable = true;
 
     extraConfig = ''
-      local bar = wezterm.plugin.require("https://github.com/adriankarlen/bar.wezterm")
+      local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
       local act = wezterm.action
 
       local config = {}
 
       config.color_scheme = "Catppuccin Mocha"
 
+      config.term = "wezterm"
+
       config.font = wezterm.font("Ubuntu Mono")
       config.font_size = 12.0
       config.use_fancy_tab_bar = false
-      config.tab_bar_at_bottom = true
+      config.tab_bar_at_bottom = false
       config.audible_bell = "Disabled"
       config.freetype_load_target = "Mono"
 
@@ -136,74 +138,70 @@
       	},
       }
 
-      bar.apply_to_config(config, {
-      	position = "bottom",
-      	max_width = 32,
-      	padding = {
-      		left = 0,
-      		right = 0,
-      		tabs = {
-      			left = 1,
-      			right = 0,
-      		},
-      	},
-      	separator = {
-      		space = 1,
-      		left_icon = "<-",
-      		right_icon = "<-",
-      		field_icon = "|",
-      	},
-      	modules = {
-      		tabs = {
-      			active_tab_fg = 4,
-      			inactive_tab_fg = 6,
-      		},
-      		workspace = {
-      			enabled = true,
-      			icon = wezterm.nerdfonts.cod_window .. " ",
-      			color = 8,
-      		},
-      		clock = {
-      			enabled = false,
-      			icon = wezterm.nerdfonts.md_calendar_clock,
-      			format = "%H:%M",
-      			color = 5,
-      		},
-      		leader = {
-      			enabled = true,
-      			icon = "LEADER  ",
-      			color = 2,
-      		},
-      		pane = {
-      			enabled = false,
-      			icon = wezterm.nerdfonts.cod_multiple_windows,
-      			color = 7,
-      		},
-      		username = {
-      			enabled = true,
-      			icon = "user",
-      			color = 6,
-      		},
-      		hostname = {
-      			enabled = true,
-      			icon = "host",
-      			color = 8,
-      		},
-      		cwd = {
-      			enabled = true,
-      			icon = "cwd ",
-      			color = 7,
-      		},
-      	},
-      })
-
       config.ssh_domains = {
-        {
-          name = "notebook",
-          remote_address = "192.168.0.101",
-          username = "replica",
-        },
+      	{
+      		name = "notebook",
+      		remote_address = "192.168.0.101",
+      		username = "replica",
+      	},
       }
+
+      wezterm.GLOBAL = wezterm.GLOBAL or {}
+
+      wezterm.on("window-resized", function(window, pane)
+      	local pd = pane:get_dimensions()
+      	wezterm.GLOBAL.window_cols = pd.cols
+      end)
+
+      local n = 119
+
+      tabline.setup({
+      	options = {
+      		icons_enabled = false,
+      		theme = "Catppuccin Mocha",
+      		tabs_enabled = true,
+      		theme_overrides = {},
+      		section_separators = "",
+      		component_separators = "",
+      		tab_separators = "",
+      	},
+      	sections = {
+      		tabline_a = {
+      			{
+      				"mode",
+      				fmt = function(str)
+      					local cols = wezterm.GLOBAL.window_cols or 0
+      					if cols > n then
+      						return str
+      					else
+      						return str:sub(1, 1)
+      					end
+      				end,
+      			},
+      		},
+      		tabline_b = { " I     " },
+
+      		tabline_c = { " " },
+      		tab_active = {
+      			"index",
+      			{ "parent", padding = 0 },
+      			"/",
+      			{ "cwd", padding = { left = 0, right = 1 } },
+      			{ "zoomed", padding = 0 },
+      		},
+      		tab_inactive = {
+      			"index",
+      			{ "parent", padding = 0 },
+      			"/",
+      			{ "cwd", padding = { left = 0, right = 1 } },
+      			{ "zoomed", padding = 0 },
+      		},
+      		tabline_x = "",
+      		tabline_y = { "  nixos " },
+      		tabline_z = { "workspace" },
+      	},
+      	extensions = {},
+      })
 
       return config
     '';

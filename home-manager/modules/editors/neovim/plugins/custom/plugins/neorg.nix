@@ -48,20 +48,17 @@
                     icon = " ";
                   };
                   uncertain = {
-                    icon = "";
+                    icon = "?";
                   };
                   urgent = {
-                    icon = "󱈸";
+                    icon = "!";
                   };
                   pending = {
-                    icon = "󰞌";
+                    icon = "~";
                   };
                   cancelled = {
-                    icon = "󰬁";
+                    icon = "×";
                   };
-                  # on-hold = {
-                  #   icon = "󰫵";
-                  # };
                 };
                 heading = {
                   icons = ["◆" "❖" "◈" "◇" "⟡" "⋄"];
@@ -163,7 +160,7 @@
           "core.dirman" = {
             config = {
               workspaces = {
-                notes = ''~/Desktop/notes'';
+                notes = ''~/notes'';
               };
               default_workspace = "notes";
             };

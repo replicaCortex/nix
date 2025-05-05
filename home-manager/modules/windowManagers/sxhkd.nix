@@ -23,7 +23,9 @@
 
       "shift + ctrl + z" = "clipmenu";
 
-      "super + w" = "zen";
+      # "super + w" = "zen";
+
+      "super + w" = "qutebrowser";
 
       "super + b" = "bemoji -nt";
 

@@ -1,0 +1,82 @@
+/* Catppuccin Mocha with blue accent */
+:root {
+    /* Mocha palette :contentReference[oaicite:3]{index=3} */
+    --cp-base: #1e1e2e;
+    --cp-mantle: #181825;
+    --cp-crust: #11111b;
+    --cp-surface: #313244;
+    --cp-overlay: #45475a;
+    --cp-text: #cdd6f4;
+    --cp-sub1: #bac2de;
+    --cp-blue: #89b4fa;
+    /* accent color :contentReference[oaicite:4]{index=4} */
+}
+
+/* общий фон и текст */
+body,
+html {
+    background-color: var(--cp-base) !important;
+    color: var(--cp-text) !important;
+}
+
+/* контейнеры, карты, секции */
+div,
+section,
+article,
+main {
+    background-color: var(--cp-surface) !important;
+    border-color: var(--cp-overlay) !important;
+}
+
+/* ссылки, кнопки, чекбоксы — с акцентом */
+a,
+button,
+input[type="checkbox"],
+input[type="radio"],
+.btn {
+    color: var(--cp-blue) !important;
+    border-color: var(--cp-blue) !important;
+}
+
+/* при наведении акцент ярче */
+a:hover,
+button:hover {
+    color: var(--cp-text) !important;
+    background-color: var(--cp-blue) !important;
+}
+
+/* заголовки */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--cp-sub1) !important;
+}
+
+/* таблицы */
+table {
+    border-color: var(--cp-overlay) !important;
+}
+
+th,
+td {
+    border-color: var(--cp-overlay) !important;
+}
+
+/* формы и поля ввода */
+input,
+textarea,
+select {
+    background-color: var(--cp-mantle) !important;
+    color: var(--cp-text) !important;
+    border-color: var(--cp-overlay) !important;
+}
+
+/* подчёркивание кода и pre */
+pre,
+code {
+    background-color: var(--cp-crust) !important;
+    color: var(--cp-text) !important;
+}

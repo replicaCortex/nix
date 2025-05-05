@@ -49,6 +49,8 @@
         let s:fzf_tmpfile = tempname()
         let cmd = a:cmd
         let cmd .= ' --layout=reverse'
+        let cmd .= " --header='Ctrl-n/p: move |  '"
+        let cmd .= " --prompt 'File: '"
         if cmd !~ '--preview'
           if executable('bat')
             let cmd .= ' --preview ' . shellescape('bat --style=numbers --color=always {}')

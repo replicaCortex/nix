@@ -12,7 +12,7 @@ function! floaterm#wrapper#rgf#(cmd, jobopts, config) abort
 
   let fzf_cmd = printf(
         \ 'fzf --ansi --no-height --preview=%s'
-        \   . ' --phony --query= --prompt="RG > "'
+        \   . ' --phony --query= --prompt="World   file: "'
         \   . ' --delimiter=:' 
         \   . ' --preview-window=+{1}-/2:65%%:down:wrap'
         \   . ' --bind="change:reload:%s || true"',
