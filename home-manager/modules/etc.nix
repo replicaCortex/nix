@@ -42,8 +42,9 @@
     ffmpeg-full
 
     xdragon
-    xdotool
 
     file
+
+    tg
   ];
 }

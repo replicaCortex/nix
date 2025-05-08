@@ -22,6 +22,9 @@
         #     };
         #   };
         # };
+        # fzf_opts = {
+        #   __raw = ''{ ["--highlight-line"] = false, }'';
+        # };
       };
 
       keymaps = {
@@ -30,10 +33,23 @@
         "/" = "blines";
         "<leader>fw" = "live_grep";
         "<leader>fb" = "buffers";
+        "<leader>fg" = "git_status";
         "<leader>dd" = "diagnostics_document";
         "<leader>wd" = "diagnostics_workspace";
       };
     };
+    # keymaps = [
+    #   {
+    #     mode = "n";
+    #     key = "<leader>fb";
+    #     action = "<CMD>FzfLua buffers fzf_opts.--header-lines=false<CR>";
+    #     options = {
+    #       noremap = true;
+    #       silent = true;
+    #     };
+    #   }
+    # ];
+
     extraConfigLuaPre = ''
       vim.keymap.set({ "n", "v", "i", "c"}, "<C-x><C-f>",
         function() require("fzf-lua").complete_path() end,

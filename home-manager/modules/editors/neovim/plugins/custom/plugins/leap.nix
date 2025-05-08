@@ -120,27 +120,27 @@
 
       -- spooky
 
-      require("leap-spooky").setup({
-      	extra_text_objects = nil,
-      	affixes = {
-      		magnetic = { window = "m" },
-      		remote = { window = "r" },
-      	},
-      	prefix = false,
-      	paste_on_remote_yank = false,
-      })
+      -- require("leap-spooky").setup({
+      -- 	extra_text_objects = nil,
+      -- 	affixes = {
+      -- 		magnetic = { window = "m" },
+      -- 		remote = { window = "r" },
+      -- 	},
+      -- 	prefix = false,
+      -- 	paste_on_remote_yank = false,
+      -- })
     '';
 
-    extraPlugins = [
-      (pkgs.vimUtils.buildVimPlugin {
-        name = "leap-spooky.nvim";
-        src = pkgs.fetchFromGitHub {
-          owner = "ggandor";
-          repo = "leap-spooky.nvim";
-          rev = "5f44a1f63dc1c4ce50244e92da5bc0d8d1f6eb47";
-          hash = "sha256-XpWDFpiMZ6Up6gLzC6L0XWSiysgh5+6g0vxqi2vzdqE=";
-        };
-      })
-    ];
+    # extraPlugins = [
+    #   (pkgs.vimUtils.buildVimPlugin {
+    #     name = "leap-spooky.nvim";
+    #     src = pkgs.fetchFromGitHub {
+    #       owner = "ggandor";
+    #       repo = "leap-spooky.nvim";
+    #       rev = "5f44a1f63dc1c4ce50244e92da5bc0d8d1f6eb47";
+    #       hash = "sha256-XpWDFpiMZ6Up6gLzC6L0XWSiysgh5+6g0vxqi2vzdqE=";
+    #     };
+    #   })
+    # ];
   };
 }
