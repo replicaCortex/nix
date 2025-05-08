@@ -11,6 +11,10 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # shell
+  users.defaultUserShell = pkgs.zsh;
+  programs.zsh.enable = true;
+
   fonts = {
     fontconfig = {
       antialias = false;
@@ -44,6 +48,10 @@
     isNormalUser = true;
     description = "replica";
     extraGroups = ["networkmanager" "wheel"];
+  };
+
+  environment.sessionVariables = {
+    QT_QUICK_BACKEND = "vulkan";
   };
 
   services.getty.autologinUser = "replica";

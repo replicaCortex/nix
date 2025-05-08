@@ -55,7 +55,9 @@
         "<Alt-k>" = "tab-move -";
         "<Alt-j>" = "tab-move +";
 
-        "<ctrl-alt-c>" = "config-cycle tabs.show multiple never";
+        "<Ctrl-V>" = "fake-key -g <Ctrl-v>";
+
+        "<ctrl-alt-c>" = "config-cycle tabs.show always never";
         # "<ctrl-s>" = "config-cycle tabs.show multiple never";
         # ",l" = ''config-cycle spellcheck.languages ["ru-RU"] ["en-US"]'';
 
@@ -96,7 +98,7 @@
     };
     extraConfig = ''
       config.set('downloads.location.prompt', True)
-      config.set('downloads.location.directory', '~/downloads/')
+      # config.set('downloads.location.directory', '~/downloads/')
 
       config.unbind('r')
 
@@ -143,7 +145,7 @@
       c.fonts.tabs.selected           = "14px Ubuntu Mono"
       c.fonts.tabs.unselected         = "14px Ubuntu Mono"
 
-      c.tabs.show = "multiple"
+      c.tabs.show = "always"
       c.tabs.last_close               = "startpage"
       c.auto_save.session             = True
       c.session.lazy_restore          = True

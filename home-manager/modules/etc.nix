@@ -27,9 +27,6 @@
     ripgrep
 
     libreoffice
-    networkmanager_dmenu
-
-    python312
     texlive.combined.scheme-full
 
     dmenu
@@ -45,8 +42,9 @@
     ffmpeg-full
 
     xdragon
-    xdotool
 
     file
+
+    tg
   ];
 }

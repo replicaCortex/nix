@@ -1,4 +1,4 @@
-{pkgs}: {
+{pkgs, ...}: {
   imports = [
     # Core
 
@@ -399,8 +399,8 @@
       }
     ];
 
-    extraPlugins = with pkgs.vimPlugins; [
-    ];
+    # extraPlugins = with pkgs.vimPlugins; [
+    # ];
 
     extraConfigLuaPre = ''
       -- vim.cmd [[ highlight DiffDelete guifg= #443244]]
