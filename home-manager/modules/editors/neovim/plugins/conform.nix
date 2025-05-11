@@ -9,7 +9,6 @@
       shfmt
       xmlformat
       yamlfmt
-      nginx-config-formatter
     ];
 
     plugins.conform-nvim = {
@@ -33,11 +32,10 @@
           sh = ["shfmt"];
           yaml = ["yamlfmt"];
           xml = ["xmlformat"];
-          nginx = ["nginxfmt"];
 
           javascript = ["prettierd"];
-          # html = ["prettierd"];
-          # css = ["prettierd"];
+          html = ["prettierd"];
+          css = ["prettierd"];
           markdown = ["prettierd"];
           dockerfile = ["prettierd"];
         };

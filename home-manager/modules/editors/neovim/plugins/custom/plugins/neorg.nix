@@ -166,6 +166,8 @@
             };
           };
           "core.integrations.treesitter" = {};
+          # "core.export.markdown" = {__empty = null;};
+          "core.export" = {__empty = null;};
           "core.journal" = {
             config = {
               journal_folder = "2_Live/journal";

@@ -52,8 +52,11 @@
         "<Space>i" = "config-cycle content.images true false";
         "<Space>j" = "config-cycle content.javascript.enabled true false";
 
-        "<Alt-k>" = "tab-move -";
-        "<Alt-j>" = "tab-move +";
+        "J" = "tab-prev";
+        "K" = "tab-next";
+
+        "<Alt-j>" = "tab-move -";
+        "<Alt-k>" = "tab-move +";
 
         "<Ctrl-V>" = "fake-key -g <Ctrl-v>";
 
@@ -149,7 +152,7 @@
       c.tabs.last_close               = "startpage"
       c.auto_save.session             = True
       c.session.lazy_restore          = True
-      c.tabs.position = 'left'
+      c.tabs.position = 'top'
       c.content.blocking.method = "both"
 
       c.content.javascript.enabled = False

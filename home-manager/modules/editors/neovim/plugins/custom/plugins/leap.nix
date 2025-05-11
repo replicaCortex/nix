@@ -75,6 +75,7 @@
 
       require("leap").opts.substitute_chars = {
       	["\r"] = "¬",
+      	["\n"] = "¬",
       	[" "] = "·",
       }
 
@@ -95,25 +96,6 @@
       	multi_accept = "",
       	multi_revert = "",
       }
-
-      -- "clever-R"
-      vim.keymap.set({ "n", "x", "o" }, "R", function()
-      	local sk = vim.deepcopy(require("leap").opts.special_keys)
-      	-- The items in `special_keys` can be both strings or tables - the
-      	-- shortest workaround might be the below one:
-      	sk.next_target = vim.fn.flatten(vim.list_extend({ "R" }, { sk.next_target }))
-      	sk.prev_target = vim.fn.flatten(vim.list_extend({ "r" }, { sk.prev_target }))
-      	-- Remove the temporary traversal keys from `safe_labels`.
-      	local sl = {}
-      	for _, label in ipairs(vim.deepcopy(require("leap").opts.safe_labels)) do
-      		if label ~= "R" and label ~= "r" then
-      			table.insert(sl, label)
-      		end
-      	end
-      	require("leap.treesitter").select({
-      		opts = { special_keys = sk, safe_labels = sl },
-      	})
-      end)
 
       -- Настройка цвета для LeapBackdrop (опционально)
       vim.api.nvim_set_hl(0, "LeapBackdrop", { fg = "#666666" })
