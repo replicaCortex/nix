@@ -3,7 +3,7 @@
     enable = true;
     keybindings = {
       #"super + d" = "rofi -show drun -config .config/rofi/menu_bottom.rasi -show-icons";
-      "super + d" = "dmenu_run";
+      "super + d" = ''dmenu_run -fn "Ubuntu Mono" -l 5'';
 
       ## File Manager
 
@@ -17,9 +17,9 @@
 
       # "super + {_,shift + }Return" = "{urxvt , bspc node -s biggest.local}";
 
-      "@Print" = "dunstify '󱠏  Screenshot' 'Area selection' -t 1500 && escrotum -Cs";
+      "super + p" = "dunstify '󱠏  Screenshot' 'Area selection' -t 1500 && maim --select | xclip -sel c -t image/png";
 
-      "alt + @Print" = "dunstify '󱠏  Screenshot' 'Area selection and save' -t 1500 && escrotum -s ~/screenshot.png && dunstify '󱠏  Screenshot' 'file save to ~/'";
+      "super + shift + p" = ''d=$(date +%s); dunstify '󱠏  Screenshot' 'Area selection and save' -t 1500 && maim --select ~/media/screenshot/"$d".png && dunstify '󱠏  Screenshot' "file saved to ~/media/screenshot/$d.png"'';
 
       "shift + ctrl + z" = "clipmenu";
 
@@ -29,7 +29,7 @@
 
       "super + b" = "bemoji -nt";
 
-      "super + a" = "~/nix/static/polybar/popup-calendar.sh --popup";
+      # "super + a" = "~/nix/static/polybar/popup-calendar.sh --popup";
 
       "super + F7" = "amixer -q set Master 5%-";
 

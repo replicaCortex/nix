@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{...}: {
   imports = [
     # Core
 
@@ -16,12 +16,12 @@
 
     ./plugins/custom/plugins/img-clip.nix
     # ./plugins/custom/plugins/make.nix
-    # ./plugins/custom/plugins/markdown.nix
+    ./plugins/custom/plugins/markdown.nix
     # ./plugins/custom/plugins/neotest.nix
-    ./plugins/custom/plugins/neogen.nix
-    ./plugins/kickstart/plugins/debug.nix
+    # ./plugins/custom/plugins/neogen.nix
+    # ./plugins/kickstart/plugins/debug.nix
     # ./plugins/custom/plugins/leetcode.nix
-    ./plugins/custom/plugins/hydra.nix
+    # ./plugins/custom/plugins/hydra.nix
     # ./plugins/custom/plugins/hmts.nix
     # ./plugins/nnnNvim.nix
     # ./plugins/surround.nix
@@ -37,6 +37,7 @@
     ./plugins/custom/plugins/undotree.nix
     ./plugins/custom/plugins/neorg.nix
     ./plugins/custom/plugins/interim-ls.nix
+    # ./plugins/custom/plugins/org.nix
     ./plugins/custom/plugins/fzf.lua.nix
     # ./plugins/custom/plugins/norg-fmt.nix
     # ./plugins/custom/plugins/todo.nix
@@ -52,7 +53,6 @@
     ./plugins/custom/plugins/langmapper.nix
     ./plugins/custom/plugins/colorizer.nix
     # ./plugins/custom/plugins/volt.nix
-    # ./plugins/custom/plugins/lazy.nix
     # ./plugins/custom/plugins/typr.nix
     ./plugins/custom/plugins/diagnostics.nix
     ./plugins/custom/plugins/leap.nix
@@ -128,12 +128,6 @@
     clipboard.providers.xclip.enable = true;
 
     opts = {
-      # completeopt = [
-      #   "menu"
-      #   "menuone"
-      #   "noselect"
-      # ];
-
       number = true;
       relativenumber = true;
 
@@ -403,12 +397,33 @@
     # ];
 
     extraConfigLuaPre = ''
-      -- vim.cmd [[ highlight DiffDelete guifg= #443244]]
+      vim.opt.wrap = true
+      vim.opt.linebreak = true
+      vim.opt.breakindent = true
+      vim.opt.breakindentopt = 'list:-1'
+      vim.opt.formatlistpat = '^\\s*[-~>]\\+\\s\\((.)\\s\\)\\?'
+
       vim.loader.enable()
 
-      vim.api.nvim_create_user_command('DeleteFile', function()
+      vim.api.nvim_create_user_command('DF', function()
         vim.fn.delete(vim.fn.expand('%:p'))
         vim.cmd('bd')
+      end, {})
+
+      function RenameCurrentFile()
+        local old = vim.fn.expand("%")
+        vim.ui.input({ prompt = "New name: ", default = old }, function(new)
+          if not new or new == "" or new == old then
+            return
+          end
+          vim.cmd("saveas " .. new)
+          vim.cmd("silent !rm " .. old)
+          vim.cmd("e " .. new)
+        end)
+      end
+
+      vim.api.nvim_create_user_command("RF", function()
+        RenameCurrentFile()
       end, {})
     '';
 

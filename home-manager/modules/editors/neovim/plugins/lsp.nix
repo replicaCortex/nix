@@ -1,18 +1,5 @@
 {self, ...}: {
   programs.nixvim = {
-    extraConfigLuaPre = ''
-      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-        vim.lsp.handlers.hover, {
-          border = "rounded"
-        }
-      )
-
-      vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-        vim.lsp.handlers.signature_help, {
-          border = "rounded"
-        }
-      )
-    '';
     plugins.cmp-nvim-lsp = {
       enable = true;
     };
@@ -25,7 +12,7 @@
         callback.__raw = ''
           function()
             require("lsp_lines").toggle()
-            -- vim.lsp.inlay_hint.enable(true)
+            vim.o.winborder = "rounded"
           end
         '';
       }
@@ -74,7 +61,30 @@
 
         clangd.enable = true;
 
-        # ltex.enable = true;
+        marksman.enable = true;
+
+        ltex = {
+          enable = true;
+          settings = {
+            language = "ru-RU";
+            completionEnabled = true;
+            additionalRules = {
+              motherTongue = "ru-RU";
+              enablePickyRules = true;
+            };
+            latex.commands = {
+              "\\cite[]{}" = "dummy";
+              "\\cite{}" = "dummy";
+              "\\documentclass[]{}" = "ignore";
+              "\\label{}" = "ignore";
+            };
+            environments = {
+              lstlisting = "ignore";
+              verbatim = "ignore";
+              minted = "ignore";
+            };
+          };
+        };
 
         dockerls.enable = true;
 

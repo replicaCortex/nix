@@ -9,6 +9,13 @@
         enable = true;
       };
 
+      render-markdown = {
+        lazyLoad = {
+          enable = true;
+          settings.ft = "markdown";
+        };
+      };
+
       fzf-lua.lazyLoad.settings.event = "DeferredUIEnter";
 
       # fzf-lua.lazyLoad = {
@@ -31,6 +38,13 @@
           ft = "norg";
         };
       };
+
+      # orgmode = {
+      #   lazyLoad.settings = {
+      #     cmd = "org";
+      #     ft = "org";
+      #   };
+      # };
 
       image = {
         lazyLoad.settings = {

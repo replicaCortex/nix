@@ -5,8 +5,40 @@
       enable = true;
 
       settings = {
+        formatting = {
+          format.__raw = ''
+            function(entry, vim_item)
+              local icons = {
+                Class = " ",
+                Color = " ",
+                Constant = " ",
+                Constructor = " ",
+                Enum = " ",
+                EnumMember = " ",
+                Field = "󰄶 ",
+                File = " ",
+                Folder = " ",
+                Function = "ƒ ",
+                Interface = "󰜰 ",
+                Keyword = "󰌆 ",
+                Method = "󰡱 ",
+                Module = "󰏗 ",
+                Property = " ",
+                Snippet = "󰘍 ",
+                Struct = " ",
+                Text = " ",
+                Unit = " ",
+                Value = "󰎠 ",
+                Variable = "󰫧 ",
+              }
+
+              vim_item.kind = icons[vim_item.kind] or vim_item.kind
+              return vim_item
+            end
+          '';
+        };
         completion = {
-          completeopt = "menu,menuone,noinsert";
+          completeopt = "menu,menuone,preview,noinsert";
         };
 
         mapping = {
@@ -42,6 +74,10 @@
             name = "buffer";
           }
         ];
+        window = {
+          completion.border = "rounded";
+          documentation.border = "rounded";
+        };
       };
 
       cmdline = {
@@ -78,49 +114,41 @@
         };
       };
     };
-    extraConfigLuaPre = ''
-      local cmp = require("cmp")
-
-      cmp.setup({
-      	formatting = {
-      		window = {
-      			completion = {
-      				border = "rounded",
-      			},
-      			documentation = {
-      				border = "rounded",
-      			},
-      		},
-      		format = function(entry, vim_item)
-      			local icons = {
-      				Class = " ",
-      				Color = " ",
-      				Constant = " ",
-      				Constructor = " ",
-      				Enum = " ",
-      				EnumMember = " ",
-      				Field = "󰄶 ",
-      				File = " ",
-      				Folder = " ",
-      				Function = "ƒ ",
-      				Interface = "󰜰 ",
-      				Keyword = "󰌆 ",
-      				Method = "󰡱 ",
-      				Module = "󰏗 ",
-      				Property = " ",
-      				Snippet = "󰘍 ",
-      				Struct = " ",
-      				Text = " ",
-      				Unit = " ",
-      				Value = "󰎠 ",
-      				Variable = "󰫧 ",
-      			}
-
-      			vim_item.kind = icons[vim_item.kind] or vim_item.kind
-      			return vim_item
-      		end,
-      	},
-      })
-    '';
+    # extraConfigLuaPre = ''
+    #   local cmp = require("cmp")
+    #
+    #   cmp.setup({
+    #   	formatting = {
+    #   		format = function(entry, vim_item)
+    #   			local icons = {
+    #   				Class = " ",
+    #   				Color = " ",
+    #   				Constant = " ",
+    #   				Constructor = " ",
+    #   				Enum = " ",
+    #   				EnumMember = " ",
+    #   				Field = "󰄶 ",
+    #   				File = " ",
+    #   				Folder = " ",
+    #   				Function = "ƒ ",
+    #   				Interface = "󰜰 ",
+    #   				Keyword = "󰌆 ",
+    #   				Method = "󰡱 ",
+    #   				Module = "󰏗 ",
+    #   				Property = " ",
+    #   				Snippet = "󰘍 ",
+    #   				Struct = " ",
+    #   				Text = " ",
+    #   				Unit = " ",
+    #   				Value = "󰎠 ",
+    #   				Variable = "󰫧 ",
+    #   			}
+    #
+    #   			vim_item.kind = icons[vim_item.kind] or vim_item.kind
+    #   			return vim_item
+    #   		end,
+    #   	},
+    #   })
+    # '';
   };
 }

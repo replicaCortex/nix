@@ -26,5 +26,5 @@
   #   enable = true;
   # };
 
-  home.packages = with pkgs; [escrotum];
+  home.packages = with pkgs; [maim];
 }

@@ -45,6 +45,6 @@
 
     file
 
-    tg
+    telegram-desktop
   ];
 }
