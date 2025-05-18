@@ -50,12 +50,12 @@
     # ./plugins/custom/plugins/cmp-zotcite.nix
     # ./plugins/custom/plugins/zotcite.nix
     # ./plugins/custom/plugins/zen-mode.nix
-    ./plugins/custom/plugins/langmapper.nix
     ./plugins/custom/plugins/colorizer.nix
     # ./plugins/custom/plugins/volt.nix
     # ./plugins/custom/plugins/typr.nix
     ./plugins/custom/plugins/diagnostics.nix
     ./plugins/custom/plugins/leap.nix
+    ./plugins/custom/plugins/langmapper.nix
     # ./plugins/custom/plugins/flash.nix
     # ./plugins/custom/plugins/obsidian.nix
     # ./plugins/custom/plugins/lazygit.nix
@@ -75,7 +75,7 @@
     ./plugins/custom/plugins/image.nix
 
     # frplugin
-    # ./plugins/ftpluginx.nix
+    ./plugins/ftpluginx.nix
     # ./plugins/custom/plugins/fzflua.nix
     # ./plugins/wrapperFloaterm/fzf.nix
     # ./plugins/wrapperFloaterm/nnnTerm.nix
@@ -105,6 +105,20 @@
         settings = {
           # flavour = "latte";
           no_italic = true;
+          custom_highlights = ''
+            function(colors)
+              return {
+                Pmenu = { bg = colors.base, fg = colors.text },
+                FloatBorder = { bg = colors.base, fg = colors.text },
+                NormalFloat = { bg = colors.base },
+
+                LspFloatWinNormal = { bg = colors.base },
+                RenderMarkdownCode    = { bg = colors.base },
+                LspInlayHint = {bg = colors.none },
+                LspSignatureActiveParameter = { bg = colors.none, fg = colors.overlay0 },
+              }
+            end
+          '';
         };
         enable = true;
         # settings = {
@@ -397,11 +411,11 @@
     # ];
 
     extraConfigLuaPre = ''
-      vim.opt.wrap = true
-      vim.opt.linebreak = true
-      vim.opt.breakindent = true
-      vim.opt.breakindentopt = 'list:-1'
-      vim.opt.formatlistpat = '^\\s*[-~>]\\+\\s\\((.)\\s\\)\\?'
+      -- vim.opt.wrap = true
+      -- vim.opt.linebreak = true
+      -- vim.opt.breakindent = true
+      -- vim.opt.breakindentopt = 'list:-1'
+      -- vim.opt.formatlistpat = '^\\s*[-~>]\\+\\s\\((.)\\s\\)\\?'
 
       vim.loader.enable()
 

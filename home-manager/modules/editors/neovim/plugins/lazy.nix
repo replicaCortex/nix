@@ -16,20 +16,38 @@
         };
       };
 
-      fzf-lua.lazyLoad.settings.event = "DeferredUIEnter";
+      luasnip = {
+        lazyLoad = {
+          enable = true;
+          settings = {
+            event = "InsertEnter";
+          };
+        };
+      };
+
+      # fzf-lua.lazyLoad.settings.event = "DeferredUIEnter";
 
       # fzf-lua.lazyLoad = {
-      # settings = {
-      #   keys = [
-      #     "<leader>ff"
-      #     "<leader>fo"
-      #     "/"
-      #     "<leader>fw"
-      #     "<leader>fb"
-      #     "<leader>dd"
-      #     "<leader>wd"
-      #   ];
-      # };
+      #   settings = {
+      #     keys = [
+      #       "<leader>ff"
+      #       "<leader>аа"
+      #       "<leader>fo"
+      #       "<leader>ащ"
+      #       "/"
+      #       "."
+      #       "<leader>fw"
+      #       "<leader>ац"
+      #       "<leader>fb"
+      #       "<leader>аи"
+      #       "<leader>fg"
+      #       "<leader>ап"
+      #       "<leader>dd"
+      #       "<leader>вв"
+      #       "<leader>wd"
+      #       "<leader>цв"
+      #     ];
+      #   };
       # };
 
       neorg = {

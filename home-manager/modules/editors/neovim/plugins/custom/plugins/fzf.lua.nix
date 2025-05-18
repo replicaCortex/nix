@@ -29,13 +29,21 @@
 
       keymaps = {
         "<leader>ff" = "files";
+        "<leader>аа" = "files";
         "<leader>fo" = "oldfiles";
+        "<leader>ащ" = "oldfiles";
         "/" = "blines";
+        "." = "blines";
         "<leader>fw" = "live_grep";
+        "<leader>ац" = "live_grep";
         "<leader>fb" = "buffers";
+        "<leader>аи" = "buffers";
         "<leader>fg" = "git_status";
+        "<leader>ап" = "git_status";
         "<leader>dd" = "diagnostics_document";
+        "<leader>вв" = "diagnostics_document";
         "<leader>wd" = "diagnostics_workspace";
+        "<leader>цв" = "diagnostics_workspace";
       };
     };
     # keymaps = [
@@ -99,7 +107,7 @@
       					if name == nil then
       						return
       					end
-      					vim.cmd("e " ..  fullpath .. "/" .. name)
+      					vim.cmd("e " .. fullpath .. "/" .. name)
       					vim.cmd("w ++p") -- will create directory if not exists, so you can write new/dir/some_file.lua.
       				end)
       			end,
@@ -121,6 +129,22 @@
       vim.keymap.set({ "n" }, "<leader>fc", function()
       	fzf_create_file()
       end, { silent = true })
+
+      vim.keymap.set({ "n", "v", "i" }, "<C-ч><C-а>", function()
+      	require("fzf-lua").complete_path()
+      end, { silent = true })
+
+      vim.keymap.set({ "i" }, "<C-ч><C-а>", function()
+      	require("fzf-lua").complete_file({
+      		cmd = "rg --files",
+      		winopts = { preview = { hidden = true } },
+      	})
+      end, { silent = true })
+
+      vim.keymap.set({ "n" }, "<leader>ас", function()
+      	fzf_create_file()
+      end, { silent = true })
+
     '';
   };
 

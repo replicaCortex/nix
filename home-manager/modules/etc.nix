@@ -5,7 +5,6 @@
 
   programs.fzf = {
     enable = true;
-    enableZshIntegration = true;
   };
 
   xresources.properties = {
@@ -30,7 +29,6 @@
     texlive.combined.scheme-full
 
     dmenu
-    bemoji
 
     gnutar
     gzip

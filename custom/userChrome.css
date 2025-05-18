@@ -1,7 +1,6 @@
 /* Catppuccin Mocha Blue userChrome.css*/
 
 @media (prefers-color-scheme: dark) {
-
   :root {
     --zen-colors-primary: #313244 !important;
     --zen-primary-color: #89b4fa !important;
@@ -26,7 +25,7 @@
     --zen-main-browser-background: #1e1e2e !important;
   }
 
-  #permissions-granted-icon{
+  #permissions-granted-icon {
     color: #1e1e2e !important;
   }
 
@@ -61,7 +60,12 @@
 
   toolbar .toolbarbutton-1 {
     &:not([disabled]) {
-      &:is([open], [checked]) > :is(.toolbarbutton-icon, .toolbarbutton-text, .toolbarbutton-badge-stack){
+      &:is([open], [checked])
+        > :is(
+          .toolbarbutton-icon,
+          .toolbarbutton-text,
+          .toolbarbutton-badge-stack
+        ) {
         fill: #11111b;
       }
     }
@@ -111,4 +115,3 @@
 * {
   font-family: Ubuntu mono !important;
 }
-

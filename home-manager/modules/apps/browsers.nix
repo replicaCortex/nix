@@ -21,9 +21,26 @@
         sha256 = "sha256-e3QgDPa3AOpPyzwvVjPQyEsSUC9goisjBUDMxLwg8ZE=";
       })
 
+      # NOTE: no sha
+      # (pkgs.fetchurl {
+      #   url = "https://raw.githubusercontent.com/afreakk/greasemonkeyscripts/refs/heads/master/reddit_adblock.js";
+      #   sha256 = "sha256-e3QgDPa3AOpPyzwvVjPQyEsSUC9goisjBUDMxLwg8ZE=";
+      # })
+
+      # (pkgs.fetchurl {
+      #   url = "https://raw.githubusercontent.com/afreakk/greasemonkeyscripts/refs/heads/master/youtube_adblock.js";
+      #   sha256 = "sha256-e3QgDPa3AOpPyzwvVjPQyEsSUC9goisjBUDMxLwg8ZE=";
+      # })
+
+      # WARN: скрипты не работают... ???
       # (pkgs.fetchurl {
       #   url = "https://raw.githubusercontent.com/Eject37/ReTube/refs/heads/main/ReTube.user.js";
       #   sha256 = "sha256-SEBaicGYrwOghANvjbvubf6hD09KKYcChayA5OQa53I=";
+      # })
+
+      # (pkgs.fetchurl {
+      #   url = "https://raw.githubusercontent.com/ilyhalight/voice-over-translation/master/dist/vot.user.js";
+      #   sha256 = "sha256-xHJ+2vMPepLQzm7U9sIwOVvFZTgOtXoi2kbK0UMmXAQ=";
       # })
     ];
     aliases = {
@@ -31,6 +48,7 @@
     };
     keyBindings = {
       normal = {
+        # "<Space>u" = "undo";
         "<Space>ff" = "cmd-set-text -s :open";
         "<Space>fw" = "cmd-set-text -s :open -t";
         "<Space>fb" = "cmd-set-text -s :tab-focus";
@@ -51,6 +69,7 @@
         "<Ctrl-C>" = "tab-close -o";
         "<Space>i" = "config-cycle content.images true false";
         "<Space>j" = "config-cycle content.javascript.enabled true false";
+        ";e" = "edit-text";
 
         "J" = "tab-prev";
         "K" = "tab-next";
@@ -61,37 +80,60 @@
         "<Ctrl-V>" = "fake-key -g <Ctrl-v>";
 
         "<ctrl-alt-c>" = "config-cycle tabs.show always never";
-        # "<ctrl-s>" = "config-cycle tabs.show multiple never";
-        # ",l" = ''config-cycle spellcheck.languages ["ru-RU"] ["en-US"]'';
 
-        # "<Space>аа" = "cmd-set-text -s :open";
-        # "<Space>ац" = "cmd-set-text -s :open -t";
-        # "<Space>аи" = "cmd-set-text -s :tab-focus";
-        # "<Space>ащ" = "history -t";
-        # "<Space>ив" = "tab-clone";
-        # "<Space>а" = "hint";
-        # # "<Space>ис" = "tab-select";
-        # # "<Space>ид" = "tab-close";
-        # "<Space>иЯ" = "tab-only"; # Shift+Z = Я
-        # "<Space>з" = "tab-pin";
-        # "<Space>к" = "reload";
-        # "<Space>нн" = "yank";
-        # "<Space>нв" = "yank domain";
-        # "<Space>нь" = "yank inline [{title}]({url:yank})";
-        # "<Space>нт" = "yank inline ({url:yank})[{title}]";
-        # "<Space>не" = "yank title";
-        # "<Ctrl-с>" = "tab-close";
-        # "<Ctrl-С>" = "tab-close -o";
-        # "<Space>ш" = "config-cycle content.images true false";
-        # "<Space>о" = "config-cycle content.javascript.enabled true false";
-        #
-        # "<Alt-л>" = "tab-move -";
-        # "<Alt-о>" = "tab-move +";
-        #
-        # "<ctrl-alt-с>" = "config-cycle tabs.show multiple never";
-        #
-        # "<Ctrl-т>" = "completion-item-focus --history next";
-        # "<Ctrl-з>" = "completion-item-focus --history prev";
+        "г" = "undo";
+        "а" = "hint";
+        "А" = "hint";
+        "о" = "scroll down";
+        "л" = "scroll up";
+        "д" = "scroll right";
+        "р" = "scroll left";
+        "ш" = "insert-text ";
+        "т" = "search-next";
+        "Т" = "search-prev";
+        "м" = "mode-enter caret";
+        "М" = "mode-enter caret ;; selection-toggle --line";
+        "<Space>аа" = "cmd-set-text -s :open";
+        "<Space>ац" = "cmd-set-text -s :open -t";
+        "<Space>аи" = "cmd-set-text -s :tab-focus";
+        "<Space>ащ" = "history -t";
+        "<Space>ис" = "tab-clone";
+        # "<Space>bs" = "tab-select";
+        # "<Space>bd" = "tab-close";
+        "<Space>иЯ" = "tab-only";
+        "<Space>х" = "tab-pin";
+        "<Space>к" = "reload";
+        "<Space>нн" = "yank";
+        "<Space>нв" = "yank domain";
+        "<Space>нь" = "yank inline [{title}]({url:yank})";
+        "<Space>нт" = "yank inline ({url:yank})[{title}]";
+        "<Space>не" = "yank title";
+        "<Ctrl-с>" = "tab-close";
+        "<Ctrl-С>" = "tab-close -o";
+        "<Space>ш" = "config-cycle content.images true false";
+        "<Space>о" = "config-cycle content.javascript.enabled true false";
+        ";у" = "edit-text";
+        "." = "cmd-set-text /";
+        "," = "cmd-set-text ?";
+        "Ж" = "cmd-set-text :";
+
+        "О" = "tab-prev";
+        "Л" = "tab-next";
+
+        "<Alt-о>" = "tab-move -";
+        "<Alt-л>" = "tab-move +";
+
+        "<Ctrl-М>" = "fake-key -g <Ctrl-v>";
+
+        "<ctrl-alt-с>" = "config-cycle tabs.show always never";
+        ";l" = ''config-cycle spellcheck.languages ["ru-RU"] ["en-US"]'';
+        ";д" = ''config-cycle spellcheck.languages ["ru-RU"] ["en-US"]'';
+      };
+      insert = {
+        ";l" = ''config-cycle spellcheck.languages ["ru-RU"] ["en-US"]'';
+        ";д" = ''config-cycle spellcheck.languages ["ru-RU"] ["en-US"]'';
+        ";e" = "edit-text";
+        ";у" = "edit-text";
       };
       command = {
         "<Ctrl-n>" = "completion-item-focus --history next";
@@ -115,6 +157,8 @@
       config.unbind('d')
       config.unbind('D')
       config.unbind('co')
+      # config.unbind('u')
+      # config.unbind('U')
       config.unbind('<Ctrl-p>')
       config.unbind('T')
       config.unbind('q')
@@ -165,20 +209,17 @@
       config.set('content.javascript.enabled', True, 'https://npi-tu.ru/*')
       config.set('content.javascript.enabled', True, 'https://vk.com/*')
       config.set('content.javascript.enabled', True, 'https://web.whatsapp.com/*')
-      config.set('content.javascript.enabled', True, 'https://www.ozon.ru/*')
       config.set('content.javascript.enabled', True, 'https://github.com/*')
       config.set('content.javascript.enabled', True, 'https://budilki.ru/*')
       config.set('content.javascript.enabled', True, 'https://translate.google.com/*')
-      config.set('content.javascript.enabled', True, 'https://web.telegram.org/*')
       config.set('content.javascript.enabled', True, 'https://www.reddit.com/*')
 
       c.content.images = False
 
-      config.set('content.images', True, 'https://web.telegram.org/*')
       config.set('content.images', True, 'https://*.reddit.com/*')
+      config.set('content.images', True, 'https://reddit.com/*')
       config.set('content.images', True, 'https://music.youtube.com/*')
       config.set('content.images', True, 'https://imgur.com/*')
-      config.set('content.images', True, 'https://www.ozon.ru/*')
       config.set('content.images', True, 'https://web.whatsapp.com/*')
       config.set('content.images', True, 'https://*.wikipedia.org/*')
 
@@ -198,19 +239,11 @@
       c.content.headers.custom = {"accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"}
       c.content.canvas_reading = False
       c.content.webgl = False
-
-      url_replacer = {
-          "www.reddit.com" : {
-              "out": "old.reddit.com",
-              "force_https": True,
-              "clean_queries": True
-          },
-          "reddit.com": {
-              "out": "old.reddit.com",
-              "force_https": True,
-              "clean_queries": True
-          },
-      }
+      c.content.autoplay = False
+      c.content.pdfjs = True
+      c.colors.webpage.bg = '#000000'
     '';
   };
 }
+# :set content.proxy http://f8eedd6d353a7c86c61a8d792bf66af1:f8eedd6d353a7c86c61a8d792bf66af1@103.75.119.40:5598
+

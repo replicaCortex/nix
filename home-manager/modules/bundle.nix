@@ -11,8 +11,8 @@
     ./windowManagers/polybar.nix
 
     # shell
-    ./shell/zsh.nix
     # ./shell/zsh.nix
+    ./shell/bash.nix
     # ./shell/nnn.nix
     # ./shell/tmux.nix
     # ./shell/atac.nix
@@ -37,7 +37,7 @@
 
     # TSobject
     # ./editors/neovim/plugins/custom/plugins/TSObjects/textobjects.nix
-    ../../static/bemoji/bemoji.nix
+    # ../../static/bemoji/bemoji.nix
 
     # etc
     ./etc.nix

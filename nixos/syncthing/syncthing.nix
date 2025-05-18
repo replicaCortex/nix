@@ -48,10 +48,10 @@ in {
           #   devices = ["Notebook"];
           # };
 
-          "Project Manager" = {
-            path = "/home/${user}/ProjectManager";
-            devices = ["Notebook"];
-          };
+          # "code" = {
+          #   path = "/home/${user}/code";
+          #   devices = ["Notebook"];
+          # };
 
           # "WinShareDir" = {
           #   path = "/mnt/workspace/WinShareDir";

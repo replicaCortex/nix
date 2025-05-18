@@ -3,21 +3,55 @@
     enable = true;
 
     extraConfig = ''
-      local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
       local act = wezterm.action
-
       local config = {}
 
       config.color_scheme = "Catppuccin Mocha"
+
+      config.colors = {
+      	tab_bar = {
+      		background = "#171720",
+
+      		active_tab = {
+      			bg_color = "#89b4fa",
+      			fg_color = "#181825",
+
+      			intensity = "Bold",
+      			underline = "None",
+      			italic = false,
+      			strikethrough = false,
+      		},
+
+      		inactive_tab = {
+      			bg_color = "#313244",
+      			fg_color = "#808080",
+      		},
+
+      		inactive_tab_hover = {
+      			bg_color = "#3b3052",
+      			fg_color = "#909090",
+      			italic = true,
+      		},
+      	},
+      }
+
+      config.window_frame = {
+      	border_left_width = "0cell",
+      	border_right_width = "0cell",
+      	border_bottom_height = "0cell",
+      	border_top_height = "0cell",
+      }
 
       config.term = "wezterm"
 
       config.font = wezterm.font("Ubuntu Mono")
       config.font_size = 12.0
       config.use_fancy_tab_bar = false
-      config.tab_bar_at_bottom = false
+      config.tab_bar_at_bottom = true
       config.audible_bell = "Disabled"
       config.freetype_load_target = "Mono"
+      config.show_new_tab_button_in_tab_bar = false
+      -- config.use_ime = true
 
       config.window_decorations = "RESIZE"
       config.window_close_confirmation = "AlwaysPrompt"
@@ -63,21 +97,37 @@
       	{ key = "PageUp", mods = "SHIFT", action = wezterm.action.DisableDefaultAssignment },
       	{ key = "PageDown", mods = "SHIFT", action = wezterm.action.DisableDefaultAssignment },
 
+      	-- I LOOOOOOVE WEZ!!!
+      	{ key = "Ы", mods = "SHIFT", action = act.SendString("Ы") },
+
       	{ key = "\\", mods = "LEADER", action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
 
       	{ key = "-", mods = "LEADER", action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }) },
 
       	{ key = "[", mods = "LEADER", action = act.ActivateCopyMode },
+      	{ key = "х", mods = "LEADER", action = act.ActivateCopyMode },
+
       	{ key = ":", mods = "LEADER", action = act.ActivateCommandPalette },
+      	{ key = "Ж", mods = "LEADER", action = act.ActivateCommandPalette },
+
       	{ key = "h", mods = "LEADER", action = act.ActivatePaneDirection("Left") },
       	{ key = "j", mods = "LEADER", action = act.ActivatePaneDirection("Down") },
       	{ key = "k", mods = "LEADER", action = act.ActivatePaneDirection("Up") },
       	{ key = "l", mods = "LEADER", action = act.ActivatePaneDirection("Right") },
 
+      	{ key = "р", mods = "LEADER", action = act.ActivatePaneDirection("Left") },
+      	{ key = "о", mods = "LEADER", action = act.ActivatePaneDirection("Down") },
+      	{ key = "л", mods = "LEADER", action = act.ActivatePaneDirection("Up") },
+      	{ key = "д", mods = "LEADER", action = act.ActivatePaneDirection("Right") },
+
       	{ key = "z", mods = "LEADER", action = act.TogglePaneZoomState },
+      	{ key = "я", mods = "LEADER", action = act.TogglePaneZoomState },
 
       	{ key = "r", mods = "LEADER", action = act.ActivateKeyTable({ name = "resize_pane", one_shot = false }) },
+      	{ key = "к", mods = "LEADER", action = act.ActivateKeyTable({ name = "resize_pane", one_shot = false }) },
+
       	{ key = "x", mods = "LEADER", action = act.CloseCurrentPane({ confirm = true }) },
+      	{ key = "ч", mods = "LEADER", action = act.CloseCurrentPane({ confirm = true }) },
 
       	{ key = "w", mods = "LEADER", action = act.ShowTabNavigator },
       	{ key = "c", mods = "LEADER", action = act.SpawnTab("CurrentPaneDomain") },
@@ -146,62 +196,100 @@
       	},
       }
 
-      wezterm.GLOBAL = wezterm.GLOBAL or {}
+      -- wezterm.GLOBAL = wezterm.GLOBAL or {}
+      --
+      -- wezterm.on("window-resized", function(window, pane)
+      -- 	local pd = pane:get_dimensions()
+      -- 	wezterm.GLOBAL.window_cols = pd.cols
+      -- end)
+      --
+      -- local n = 119
 
-      wezterm.on("window-resized", function(window, pane)
-      	local pd = pane:get_dimensions()
-      	wezterm.GLOBAL.window_cols = pd.cols
-      end)
-
-      local n = 119
-
-      tabline.setup({
-      	options = {
-      		icons_enabled = false,
-      		theme = "Catppuccin Mocha",
-      		tabs_enabled = true,
-      		theme_overrides = {},
-      		section_separators = "",
-      		component_separators = "",
-      		tab_separators = "",
-      	},
-      	sections = {
-      		tabline_a = {
-      			{
-      				"mode",
-      				fmt = function(str)
-      					local cols = wezterm.GLOBAL.window_cols or 0
-      					if cols > n then
-      						return str
-      					else
-      						return str:sub(1, 1)
-      					end
-      				end,
-      			},
-      		},
-      		tabline_b = { " I     " },
-
-      		tabline_c = { " " },
-      		tab_active = {
-      			"index",
-      			{ "parent", padding = 0 },
-      			"/",
-      			{ "cwd", padding = { left = 0, right = 1 } },
-      			{ "zoomed", padding = 0 },
-      		},
-      		tab_inactive = {
-      			"index",
-      			{ "parent", padding = 0 },
-      			"/",
-      			{ "cwd", padding = { left = 0, right = 1 } },
-      			{ "zoomed", padding = 0 },
-      		},
-      		tabline_x = "",
-      		tabline_y = { "  nixos " },
-      		tabline_z = { "workspace" },
-      	},
-      	extensions = {},
-      })
+      -- tabline.setup({
+      -- 	options = {
+      -- 		icons_enabled = true,
+      -- 		theme = "Catppuccin Mocha",
+      -- 		tabs_enabled = true,
+      -- 		section_separators = {
+      -- 			left = wezterm.nerdfonts.pl_left_hard_divider,
+      -- 			right = wezterm.nerdfonts.pl_right_hard_divider,
+      -- 		},
+      -- 		component_separators = {
+      -- 			left = wezterm.nerdfonts.pl_left_soft_divider,
+      -- 			right = wezterm.nerdfonts.pl_right_soft_divider,
+      -- 		},
+      -- 		tab_separators = {
+      -- 			left = wezterm.nerdfonts.pl_left_hard_divider,
+      -- 			right = wezterm.nerdfonts.pl_right_hard_divider,
+      -- 		},
+      -- 		theme_overrides = {
+      -- 			normal_mode = {
+      -- 				a = { fg = "#181825", bg = "#89b4fa" },
+      -- 				b = { fg = "#afb5c9", bg = "#313244" },
+      -- 				c = { fg = "#cdd6f4", bg = "#181825" },
+      -- 			},
+      -- 			copy_mode = {
+      -- 				a = { fg = "#181825", bg = "#c1a8e0" },
+      -- 				b = { fg = "#afb5c9", bg = "#313244" },
+      -- 				c = { fg = "#cdd6f4", bg = "#181825" },
+      -- 			},
+      -- 			search_mode = {
+      -- 				a = { fg = "#181825", bg = "#a6e3a1" },
+      -- 				b = { fg = "#a6e3a1", bg = "#313244" },
+      -- 				c = { fg = "#cdd6f4", bg = "#181825" },
+      -- 			},
+      -- 			window_mode = {
+      -- 				a = { fg = "#181825", bg = "#cba6f7" },
+      -- 				b = { fg = "#cba6f7", bg = "#313244" },
+      -- 				c = { fg = "#cdd6f4", bg = "#181825" },
+      -- 			},
+      -- 			tab = {
+      -- 				active = { fg = "#cdd6f4", bg = "#313244" },
+      -- 				inactive = { fg = "#afb5c9", bg = "#11111b" },
+      -- 				inactive_hover = { fg = "#f5c2e7", bg = "#313244" },
+      -- 			},
+      -- 		},
+      -- 	},
+      -- 	sections = {
+      -- 		tabline_a = {
+      -- 			{
+      -- 				"mode",
+      -- 				fmt = function(str)
+      -- 					local cols = wezterm.GLOBAL.window_cols or 0
+      -- 					if cols > n then
+      -- 						return str
+      -- 					else
+      -- 						return str:sub(1, 1)
+      -- 					end
+      -- 				end,
+      -- 			},
+      -- 		},
+      -- 		tabline_b = { " I     " },
+      -- 		tabline_c = { " " },
+      -- 		tab_active = {
+      -- 			"index",
+      -- 			-- { "parent", padding = 0 },
+      -- 			-- "/",
+      -- 			-- { "cwd", padding = { left = 0, right = 0 } },
+      -- 			-- { "zoomed", padding = 0 },
+      -- 			{ "process", padding = { left = 0, right = 1 } },
+      -- 		},
+      -- 		tab_inactive = { "index", { "process", padding = { left = 0, right = 1 } } },
+      -- 		tabline_x = "",
+      -- 		tabline_y = {
+      -- 			function()
+      -- 				local cols = wezterm.GLOBAL.window_cols or 0
+      -- 				if cols > n then
+      -- 					return " I hate  NixOS "
+      -- 				else
+      -- 					return "  NixOS "
+      -- 				end
+      -- 			end,
+      -- 		},
+      -- 		tabline_z = { "workspace" },
+      -- 	},
+      -- 	extensions = {},
+      -- })
 
       return config
     '';

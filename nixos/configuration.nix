@@ -25,8 +25,8 @@
   };
 
   # shell
-  users.defaultUserShell = pkgs.zsh;
-  programs.zsh.enable = true;
+  # users.defaultUserShell = pkgs.zsh;
+  # programs.zsh.enable = true;
 
   services.zapret = {
     enable = true;
@@ -73,7 +73,6 @@
     windowManager.bspwm.enable = true;
     displayManager.lightdm = {
       enable = true;
-      background = pkgs.nixos-artwork.wallpapers.dracula.gnomeFilePath;
       greeters.slick.enable = true;
     };
     excludePackages = [pkgs.xterm pkgs.nano];

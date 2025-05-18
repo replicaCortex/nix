@@ -27,7 +27,7 @@
 
       "super + w" = "qutebrowser";
 
-      "super + b" = "bemoji -nt";
+      # "super + b" = "bemoji -nt";
 
       # "super + a" = "~/nix/static/polybar/popup-calendar.sh --popup";
 

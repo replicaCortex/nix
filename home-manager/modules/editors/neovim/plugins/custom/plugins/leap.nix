@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{...}: {
   programs.nixvim = {
     plugins.leap = {
       enable = true;
@@ -75,7 +75,6 @@
 
       require("leap").opts.substitute_chars = {
       	["\r"] = "¬",
-      	["\n"] = "¬",
       	[" "] = "·",
       }
 
@@ -97,8 +96,11 @@
       	multi_revert = "",
       }
 
-      -- Настройка цвета для LeapBackdrop (опционально)
+      -- Настройка цвета для LeapBackdrop
       vim.api.nvim_set_hl(0, "LeapBackdrop", { fg = "#666666" })
+
+      vim.keymap.set({ 'n', 'x', 'o' }, "ы", "<Plug>(leap-forward)", { })
+      vim.keymap.set({'n', 'x', 'o'}, 'Ы',  '<Plug>(leap-backward)', { })
 
       -- spooky
 

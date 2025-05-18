@@ -19,21 +19,18 @@
     ];
 
     extraConfigLuaPre = ''
-      vim.cmd [[
-        augroup LazyProseMode
-          autocmd!
-          " при открытии markdown или plain text — подгрузить плагин
-          autocmd FileType markdown,text packadd vim-pencil
-        augroup END
-      ]]
-
-      -- после packadd вызываем setup плагина
-      vim.api.nvim_create_autocmd({"FileType"}, {
-        pattern = {"markdown","text"},
-        callback = function()
-          require("vim-pencil").setup()
-        end
-      })
+      -- NOTE что? not work))
+      require("lz.n").load {
+          {
+              "pencil",
+              cmd = "Pencil",
+              after = function() require("pencil").setup({ }) end,
+          },
+          {
+              "no-neck-pain-nvim",
+              cmd = "NoNeckPain",
+          },
+      }
     '';
   };
 }
