@@ -70,6 +70,10 @@
         "<Space>i" = "config-cycle content.images true false";
         "<Space>j" = "config-cycle content.javascript.enabled true false";
         ";e" = "edit-text";
+        "<Space>bl" = "cmd-set-text -s :bookmark-load";
+        "<Space>bL" = "cmd-set-text -s :bookmark-load -t";
+        "<Space>q" = "cmd-set-text -s :quickmark-load";
+        "<Space>Q" = "cmd-set-text -s :quickmark-load -t";
 
         "J" = "tab-prev";
         "K" = "tab-next";
@@ -88,7 +92,7 @@
         "л" = "scroll up";
         "д" = "scroll right";
         "р" = "scroll left";
-        "ш" = "insert-text ";
+        "ш" = "mode-enter insert";
         "т" = "search-next";
         "Т" = "search-prev";
         "м" = "mode-enter caret";
@@ -116,6 +120,10 @@
         "." = "cmd-set-text /";
         "," = "cmd-set-text ?";
         "Ж" = "cmd-set-text :";
+        "<Space>ид" = "cmd-set-text -s :bookmark-load";
+        "<Space>иД" = "cmd-set-text -s :bookmark-load -t";
+        "<Space>й" = "cmd-set-text -s :quickmark-load";
+        "<Space>Й" = "cmd-set-text -s :quickmark-load -t";
 
         "О" = "tab-prev";
         "Л" = "tab-next";
@@ -151,6 +159,17 @@
       config.unbind('ym')
       config.unbind('yd')
       config.unbind('yt')
+      config.unbind('m')
+      config.unbind('M')
+      config.unbind('sf')
+      config.unbind('gb')
+      config.unbind('gB')
+      config.unbind('wB')
+      config.unbind('wb')
+      config.unbind('sf')
+      config.unbind('ss')
+      config.unbind('sl')
+      config.unbind('sk')
 
       config.unbind('gC')
       config.unbind('gt')
@@ -242,6 +261,7 @@
       c.content.autoplay = False
       c.content.pdfjs = True
       c.colors.webpage.bg = '#000000'
+      c.content.tls.certificate_errors = "block"
     '';
   };
 }
