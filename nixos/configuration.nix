@@ -8,7 +8,7 @@
     ./nvidia/nvidia.nix
     # ./portal/portal.nix
     # ./overlay/overlay.nix
-    ./syncthing/syncthing.nix
+    # ./syncthing/syncthing.nix
     ./bluetooth/bluetooth.nix
     ./filesystem/filesystem.nix
     ./garbageCollection/autoGarbage.nix
@@ -71,15 +71,13 @@
   services.xserver = {
     enable = true;
     windowManager.bspwm.enable = true;
-    displayManager.lightdm = {
-      enable = true;
-      greeters.slick.enable = true;
-    };
     excludePackages = [pkgs.xterm pkgs.nano];
     desktopManager.xterm.enable = false;
 
     # https://github.com/dustinlyons/nixos-config/tree/main
   };
+
+  services.displayManager.ly.enable = true;
 
   nix = {
     settings = {

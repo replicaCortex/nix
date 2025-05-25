@@ -11,23 +11,18 @@
     ./windowManagers/polybar.nix
 
     # shell
-    # ./shell/zsh.nix
     ./shell/bash.nix
-    # ./shell/nnn.nix
-    # ./shell/tmux.nix
-    # ./shell/atac.nix
-    # ./shell/advcpmv.nix
-    # ./shell/broot.nix
+    ./shell/zellij.nix
 
     # terminal
-    # ./terminals/alacritty.nix
-    ./terminals/wezterm.nix
+    ./terminals/alacritty.nix
+    # ./terminals/wezterm.nix
     # ./terminals/kitty.nix
 
     # editors
     ./editors/neovim/nixvim.nix
     ./editors/krita.nix
-    ./editors/euporie.nix
+    # ./editors/euporie.nix
 
     # services
     ./services/picom.nix

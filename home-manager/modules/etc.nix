@@ -44,5 +44,6 @@
     file
 
     telegram-desktop
+    python312
   ];
 }
