@@ -1,11 +1,4 @@
 {
-  home.pointerCursor = {
-    gtk.enable = true;
-    x11.enable = true;
-    # name = "Catppuccin-Mocha-Blue-Cursors";
-    # package = pkgs.catppuccin-cursors.mochaBlue;
-    size = 24;
-  };
   catppuccin = {
     accent = "blue";
     cursors.enable = true;
@@ -22,5 +15,6 @@
     gtk.enable = true;
     qutebrowser.enable = true;
     zathura.enable = true;
+    fuzzel.enable = true;
   };
 }

@@ -1,7 +1,4 @@
 {pkgs, ...}: {
-  # home.packages = with pkgs; [
-  # liquidprompt
-  # ];
   programs.bash = {
     enable = true;
     enableCompletion = true;
@@ -17,6 +14,7 @@
       alias nb="nix build ./"
       alias nd="nix develop ./"
       alias nr="nix run"
+      alias vi="vimiv * --command 'enter thumbnail'"
 
       alias jn="jupyter notebook"
 
@@ -34,9 +32,6 @@
       alias ep="euporie preview"
 
       source ~/nix/static/sh/bash-git-prompt/gitprompt.sh
-
-      # Установка раскладки клавиатуры
-      setxkbmap -option grp:caps_toggle -layout us,ru
 
       source ${pkgs.fzf}/share/fzf/completion.bash
       source ${pkgs.fzf}/share/fzf/key-bindings.bash
@@ -83,7 +78,7 @@
       # Export Environment Variables
       export EDITOR="nvim"
       export VISUAL="nvim"
-      export TERMINAL="wezterm"
+      export TERMINAL="foot"
       export BROWSER="qutebrowser"
 
       # FZF Default Options

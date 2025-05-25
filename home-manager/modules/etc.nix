@@ -7,42 +7,73 @@
     enable = true;
   };
 
-  xresources.properties = {
-    "Nsxiv.window.background" = "#1e1e2e";
-    "Nsxiv.bar.foreground" = "#cdd6f4";
-    "Nsxiv.window.foreground" = "#cdd6f4";
+  services.podman = {
+    enable = true;
+    settings = {
+      policy = {
+        default = [
+          {type = "insecureAcceptAnything";}
+        ];
+        transports = {
+          docker = {
+            "docker.io" = [
+              {type = "insecureAcceptAnything";}
+            ];
+            "quay.io" = [
+              {type = "insecureAcceptAnything";}
+            ];
+          };
+        };
+      };
+    };
   };
 
   home.packages = with pkgs; [
     # font
-    nerd-fonts.proggy-clean-tt
     nerd-fonts.ubuntu
+    ubuntu_font_family
     times-newer-roman
 
     ntfs3g
     nh
-    xclip
     wget
     ripgrep
 
     libreoffice
     texlive.combined.scheme-full
 
-    dmenu
-
     gnutar
     gzip
     unzip
 
-    nsxiv
-    jq
-
     ffmpeg-full
-
-    xdragon
 
     file
 
+    vimiv-qt
+
     telegram-desktop
+    xdragon
+    # python312
   ];
+
+  # home.file.vimiv_keys = {
+  #   source = ../../static/vimiv/keys.conf;
+  #   target = ".config/vimiv/keys.config";
+  # };
+  #
+  # home.file.vimiv = {
+  #   source = ../../static/vimiv/vimiv.conf;
+  #   target = ".config/vimiv/vimiv.conf";
+  # };
+  #
+  # home.file.vimiv_cat = {
+  #   source = ../../static/vimiv/styles/catppuccine_mocha;
+  #   target = ".config/vimiv/styles/catppuccine_mocha";
+  # };
+
+  home.file.vimiv = {
+    source = ../../static/vimiv;
+    target = ".config/vimiv";
+  };
 }

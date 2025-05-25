@@ -1,0 +1,128 @@
+; cattppuccine mocha theme for vimiv
+; Copy this file as ~/.config/vimiv/styles/cattppuccine_mocha
+; and set STYLE in vimiv.conf to 'cattppuccine_mocha'
+
+[STYLE]
+; -- Base palette (crust -> text)
+base00 = #11111B      
+base01 = #181825      
+base02 = #1E1E2E      
+base03 = #313244      
+base04 = #45475A      
+base05 = #CDD6F4      
+base06 = #A6ADC8      
+base07 = #BAC2DE      
+
+; -- Accents
+base08 = #F38BA8      
+base09 = #FAB387      
+base0A = #F9E2AF      
+base0B = #A6E3A1      
+base0C = #94E2D5      
+base0D = #89B4FA      
+base0E = #CBA6F7      
+base0F = #EBA0AC      
+
+; -- Fonts and layout
+font = 10pt Ubuntu Mono
+
+; -- Image viewer
+image.bg = #1E1E2E
+image.scrollbar.width = 8px
+image.scrollbar.bg = #1E1E2E
+image.scrollbar.fg = #6C7086    
+image.scrollbar.padding = 2px
+
+; -- Library (file browser)
+library.font = 10pt Monospace
+library.fg = #CDD6F4
+library.padding = 2px
+library.directory.fg = #89B4FA 
+library.even.bg = #1E1E2E
+tibrary.odd.bg = #1E1E2E
+library.selected.bg = #89B4FA
+library.selected.fg = #11111B
+library.search.highlighted.fg = #1E1E2E
+library.search.highlighted.bg = #585B70
+library.scrollbar.width = 8px
+library.scrollbar.bg = #1E1E2E
+library.scrollbar.fg = #6C7086
+library.scrollbar.padding = 2px
+library.border = 0px solid
+
+; -- Status bar
+statusbar.font = 10pt Monospace
+statusbar.bg = #313244
+statusbar.fg = #CDD6F4
+statusbar.error = #F38BA8
+statusbar.warning = #FAB387
+statusbar.info = #94E2D5
+statusbar.message_border = 2px solid
+statusbar.padding = 4
+
+; -- Thumbnails
+thumbnail.font = 10pt Monospace
+thumbnail.fg = #CDD6F4
+thumbnail.bg = #181825
+thumbnail.padding = 20
+thumbnail.selected.bg = #89B4FA
+thumbnail.search.highlighted.bg = #585B70
+thumbnail.default.bg = #74C7EC
+thumbnail.error.bg = #F38BA8
+thumbnail.frame.fg = #CDD6F4
+
+; -- Completion menu
+completion.height = 16em
+completion.fg = #CDD6F4
+completion.even.bg = #1E1E2E
+completion.odd.bg = #1E1E2E
+completion.selected.fg = #11111B
+completion.selected.bg = #89B4FA
+
+; -- Key hint
+keyhint.padding = 2px
+keyhint.border_radius = 10px
+keyhint.suffix_color = #89B4FA
+
+; -- Manipulation widgets
+manipulate.fg = #CDD6F4
+manipulate.focused.fg = #89B4FA
+manipulate.bg = #181825
+manipulate.slider.left = #89B4FA
+manipulate.slider.handle = #585B70
+manipulate.slider.right = #313244
+manipulate.image.border = 2px solid
+manipulate.image.border.color = #89B4FA
+
+; -- Marks
+mark.color = #CBA6F7
+
+; -- Keybindings hints
+keybindings.bindings.color = #89B4FA
+keybindings.highlight.color = #CBA6F7
+
+; -- Metadata box
+metadata.padding = 2px
+metadata.border_radius = 10px
+metadata.bg = #1E1E2E
+
+; -- Prompt
+prompt.font = 10pt Monospace
+prompt.fg = #CDD6F4
+prompt.bg = #313244
+prompt.padding = 2px
+prompt.border_radius = 10px
+prompt.border = 2px solid
+prompt.border.color = #89B4FA
+
+; -- Crop overlays
+crop.shading = #88000000
+crop.border = 2px solid
+crop.border.color = #88A6ADC8
+crop.grip.color = #88FFFFFF
+crop.grip.border = 2px solid
+crop.grip.border.color = #88A6ADC8
+
+; -- Unfocused selections
+library.selected.bg.unfocus = #8889B4FA
+thumbnail.selected.bg.unfocus = #8889B4FA

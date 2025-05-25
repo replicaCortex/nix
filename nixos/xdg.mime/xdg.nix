@@ -2,9 +2,12 @@
   xdg.mime = {
     enable = true;
     defaultApplications = {
-      "image/jpeg" = ["nsxiv.desktop"];
-      "image/png" = ["nsxiv.desktop"];
-      "image/gif" = ["nsxiv.desktop"];
+      "image/jpeg" = ["vimiv.desktop"];
+      "image/png" = ["vimiv.desktop"];
+      "image/gif" = ["vimiv.desktop"];
+
+      "x-scheme-handler/http" = ["userapp-Zen-FBZ352.desktop"];
+      "x-scheme-handler/https" = ["userapp-Zen-FBZ352.desktop"];
     };
   };
 }

@@ -6,6 +6,7 @@
     ./audio/audio.nix
     ./xdg.mime/xdg.nix
     ./nvidia/nvidia.nix
+    ./hyprland.nix
     # ./portal/portal.nix
     # ./overlay/overlay.nix
     ./syncthing/syncthing.nix
@@ -23,10 +24,6 @@
       antialias = false;
     };
   };
-
-  # shell
-  # users.defaultUserShell = pkgs.zsh;
-  # programs.zsh.enable = true;
 
   services.zapret = {
     enable = true;
@@ -56,29 +53,16 @@
     LC_TIME = "ru_RU.UTF-8";
   };
 
-  services.xserver.xkb = {
-    layout = "us,ru";
-  };
-
   users.users.replica = {
     isNormalUser = true;
     description = "replica";
-    extraGroups = ["networkmanager" "wheel"];
+    extraGroups = ["networkmanager" "wheel" "input"];
   };
 
   services.getty.autologinUser = "replica";
 
-  services.xserver = {
+  services.displayManager.ly = {
     enable = true;
-    windowManager.bspwm.enable = true;
-    displayManager.lightdm = {
-      enable = true;
-      greeters.slick.enable = true;
-    };
-    excludePackages = [pkgs.xterm pkgs.nano];
-    desktopManager.xterm.enable = false;
-
-    # https://github.com/dustinlyons/nixos-config/tree/main
   };
 
   nix = {

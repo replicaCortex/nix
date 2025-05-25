@@ -4,11 +4,12 @@
     Option       "AllowIndirectGLXProtocol" "off"
     Option       "TripleBuffer" "on"
   '';
+  services.xserver.videoDrivers = ["nvidia"];
 
   hardware.graphics = {
     enable = true;
   };
-  services.xserver.videoDrivers = ["nvidia"];
+
   hardware.nvidia = {
     modesetting.enable = true;
     open = false;

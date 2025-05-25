@@ -139,7 +139,8 @@
       loaded_perl_provider = 0;
     };
 
-    clipboard.providers.xclip.enable = true;
+    # clipboard.providers.xclip.enable = true;
+    clipboard.providers.wl-copy.enable = true;
 
     opts = {
       number = true;

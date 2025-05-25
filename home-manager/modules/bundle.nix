@@ -6,32 +6,26 @@
     ./apps/browsers.nix
 
     # windowManagers
-    ./windowManagers/bspwm.nix
-    ./windowManagers/sxhkd.nix
-    ./windowManagers/polybar.nix
+    # ./windowManagers/sway.nix
+    # ./windowManagers/hyprland.nix
 
     # shell
-    # ./shell/zsh.nix
     ./shell/bash.nix
-    # ./shell/nnn.nix
+    ./shell/fuzzel.nix
+    ./shell/zellij.nix
     # ./shell/tmux.nix
-    # ./shell/atac.nix
-    # ./shell/advcpmv.nix
-    # ./shell/broot.nix
 
     # terminal
-    # ./terminals/alacritty.nix
-    ./terminals/wezterm.nix
-    # ./terminals/kitty.nix
+    # ./terminals/wezterm.nix
+    ./terminals/foot.nix
 
     # editors
     ./editors/neovim/nixvim.nix
     ./editors/krita.nix
-    ./editors/euporie.nix
+    # ./editors/euporie.nix
 
     # services
-    ./services/picom.nix
-    ./services/clipmenu.nix
+    # ./services/clipmenu.nix
     ./services/redshift.nix
     ./services/dunst.nix
 
