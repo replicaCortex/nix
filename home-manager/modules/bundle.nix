@@ -12,7 +12,8 @@
 
     # shell
     ./shell/bash.nix
-    ./shell/zellij.nix
+    # ./shell/zellij.nix
+    ./shell/tmux.nix
 
     # terminal
     ./terminals/alacritty.nix
@@ -25,7 +26,7 @@
     # ./editors/euporie.nix
 
     # services
-    ./services/picom.nix
+    # ./services/picom.nix
     ./services/clipmenu.nix
     ./services/redshift.nix
     ./services/dunst.nix

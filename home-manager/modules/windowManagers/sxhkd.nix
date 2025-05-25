@@ -11,9 +11,11 @@
 
       # "super + n" = ''alacritty -e "nwrap $*"'';
 
-      # "super + {_,shift + }Return" = "{alacritty , bspc node -s biggest.local}";
+      "super + {_,shift + }Return" = "{alacritty , bspc node -s biggest.local}";
 
-      "super + {_,shift + }Return" = "{wezterm , bspc node -s biggest.local}";
+      # "super + {_,shift + }Return" = "{sakura , bspc node -s biggest.local}";
+
+      # "super + {_,shift + }Return" = "{wezterm , bspc node -s biggest.local}";
 
       # "super + {_,shift + }Return" = "{urxvt , bspc node -s biggest.local}";
 
@@ -68,7 +70,7 @@
       "super + {_,shift + }{1-9,0}" = "bspc {desktop -f,node -d} '^{1-9,10}'";
 
       # ЗАКРЫТЬ ОКНО ИЛИ УБИТЬ ЕГО
-      "super + {_, shift + }c" = "bspc node -{c}";
+      "super + shift + c" = "bspc node -{c}";
 
       # ПЕРЕМЕЩЕНИЕ ТАЙЛИНГОВЫХ ОКОН
       "super + {_,shift + }{h,j,k,l}" = "bspc node -{f,s} {west,south,north,east}";

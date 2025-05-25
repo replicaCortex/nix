@@ -87,14 +87,25 @@
       export BROWSER="qutebrowser"
 
       # FZF Default Options
-      export FZF_DEFAULT_OPTS="
-      --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8
-      --color=fg:#cdd6f4,header:#f38ba8,info:#89b4fa,pointer:#f5e0dc
-      --color=marker:#89b4fa,fg+:#cdd6f4,prompt:#89b4fa,hl+:#f38ba8
-      --color=selected-bg:#45475a
-      --color=border:#313244,label:#cdd6f4"
-      # --layout=reverse"
-      # --border-label="fzf!" --border-label-pos="0"
+      # export FZF_DEFAULT_OPTS="
+      # --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8
+      # --color=fg:#cdd6f4,header:#f38ba8,info:#89b4fa,pointer:#f5e0dc
+      # --color=marker:#89b4fa,fg+:#cdd6f4,prompt:#89b4fa,hl+:#f38ba8
+      # --color=selected-bg:#45475a
+      # --color=border:#313244,label:#cdd6f4"
+      # # --layout=reverse"
+      # # --border-label="fzf!" --border-label-pos="0"
+
+      export FZF_DEFAULT_OPTS="--style=full \
+        --height=10% \
+        --pointer='>' \
+        --color=pointer:green:bold,bg+:-1:,fg+:green:bold,info:blue:bold,marker:yellow:bold,hl:gray:bold,hl+:yellow:bold \
+        --input-label=' Search ' \
+        --color=input-border:blue,input-label:blue:bold \
+        --list-label=' Results ' \
+        --color=list-border:green,list-label:green:bold \
+        --preview-label=' Preview ' \
+        --color=preview-border:magenta,preview-label:magenta"
 
       shopt -s checkwinsize
 

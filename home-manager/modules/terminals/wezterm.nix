@@ -7,6 +7,7 @@
       local config = {}
 
       config.color_scheme = "Catppuccin Mocha"
+      config.enable_wayland = true
 
       config.colors = {
       	tab_bar = {
@@ -45,7 +46,7 @@
       config.term = "wezterm"
 
       config.font = wezterm.font("Ubuntu Mono")
-      config.font_size = 12.0
+      config.font_size = 10.0
       config.use_fancy_tab_bar = false
       config.tab_bar_at_bottom = true
       config.audible_bell = "Disabled"
@@ -53,7 +54,7 @@
       config.show_new_tab_button_in_tab_bar = false
       -- config.use_ime = true
 
-      config.window_decorations = "RESIZE"
+      config.window_decorations = "NONE"
       config.window_close_confirmation = "AlwaysPrompt"
       config.scrollback_lines = 3000
       -- config.default_workspace = "main"
@@ -187,109 +188,6 @@
       		{ key = "Enter", action = "PopKeyTable" },
       	},
       }
-
-      config.ssh_domains = {
-      	{
-      		name = "notebook",
-      		remote_address = "192.168.0.101",
-      		username = "replica",
-      	},
-      }
-
-      -- wezterm.GLOBAL = wezterm.GLOBAL or {}
-      --
-      -- wezterm.on("window-resized", function(window, pane)
-      -- 	local pd = pane:get_dimensions()
-      -- 	wezterm.GLOBAL.window_cols = pd.cols
-      -- end)
-      --
-      -- local n = 119
-
-      -- tabline.setup({
-      -- 	options = {
-      -- 		icons_enabled = true,
-      -- 		theme = "Catppuccin Mocha",
-      -- 		tabs_enabled = true,
-      -- 		section_separators = {
-      -- 			left = wezterm.nerdfonts.pl_left_hard_divider,
-      -- 			right = wezterm.nerdfonts.pl_right_hard_divider,
-      -- 		},
-      -- 		component_separators = {
-      -- 			left = wezterm.nerdfonts.pl_left_soft_divider,
-      -- 			right = wezterm.nerdfonts.pl_right_soft_divider,
-      -- 		},
-      -- 		tab_separators = {
-      -- 			left = wezterm.nerdfonts.pl_left_hard_divider,
-      -- 			right = wezterm.nerdfonts.pl_right_hard_divider,
-      -- 		},
-      -- 		theme_overrides = {
-      -- 			normal_mode = {
-      -- 				a = { fg = "#181825", bg = "#89b4fa" },
-      -- 				b = { fg = "#afb5c9", bg = "#313244" },
-      -- 				c = { fg = "#cdd6f4", bg = "#181825" },
-      -- 			},
-      -- 			copy_mode = {
-      -- 				a = { fg = "#181825", bg = "#c1a8e0" },
-      -- 				b = { fg = "#afb5c9", bg = "#313244" },
-      -- 				c = { fg = "#cdd6f4", bg = "#181825" },
-      -- 			},
-      -- 			search_mode = {
-      -- 				a = { fg = "#181825", bg = "#a6e3a1" },
-      -- 				b = { fg = "#a6e3a1", bg = "#313244" },
-      -- 				c = { fg = "#cdd6f4", bg = "#181825" },
-      -- 			},
-      -- 			window_mode = {
-      -- 				a = { fg = "#181825", bg = "#cba6f7" },
-      -- 				b = { fg = "#cba6f7", bg = "#313244" },
-      -- 				c = { fg = "#cdd6f4", bg = "#181825" },
-      -- 			},
-      -- 			tab = {
-      -- 				active = { fg = "#cdd6f4", bg = "#313244" },
-      -- 				inactive = { fg = "#afb5c9", bg = "#11111b" },
-      -- 				inactive_hover = { fg = "#f5c2e7", bg = "#313244" },
-      -- 			},
-      -- 		},
-      -- 	},
-      -- 	sections = {
-      -- 		tabline_a = {
-      -- 			{
-      -- 				"mode",
-      -- 				fmt = function(str)
-      -- 					local cols = wezterm.GLOBAL.window_cols or 0
-      -- 					if cols > n then
-      -- 						return str
-      -- 					else
-      -- 						return str:sub(1, 1)
-      -- 					end
-      -- 				end,
-      -- 			},
-      -- 		},
-      -- 		tabline_b = { " I     " },
-      -- 		tabline_c = { " " },
-      -- 		tab_active = {
-      -- 			"index",
-      -- 			-- { "parent", padding = 0 },
-      -- 			-- "/",
-      -- 			-- { "cwd", padding = { left = 0, right = 0 } },
-      -- 			-- { "zoomed", padding = 0 },
-      -- 			{ "process", padding = { left = 0, right = 1 } },
-      -- 		},
-      -- 		tab_inactive = { "index", { "process", padding = { left = 0, right = 1 } } },
-      -- 		tabline_x = "",
-      -- 		tabline_y = {
-      -- 			function()
-      -- 				local cols = wezterm.GLOBAL.window_cols or 0
-      -- 				if cols > n then
-      -- 					return " I hate  NixOS "
-      -- 				else
-      -- 					return "  NixOS "
-      -- 				end
-      -- 			end,
-      -- 		},
-      -- 		tabline_z = { "workspace" },
-      -- 	},
-      -- 	extensions = {},
-      -- })
 
       return config
     '';

@@ -1,7 +1,7 @@
 {
   programs.zellij = {
     enable = true;
-    exitShellOnExit = true;
+    # exitShellOnExit = true;
     enableBashIntegration = true;
   };
 

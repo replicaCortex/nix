@@ -80,7 +80,7 @@
       font = {
         builtin_box_drawing = true;
         # size = 13.0;
-        size = 12.0;
+        size = 10.0;
         # bold = {
         #   family = "Cousine NerdFont";
         #   style = "Bold";

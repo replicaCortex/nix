@@ -17,6 +17,7 @@
     # font
     nerd-fonts.proggy-clean-tt
     nerd-fonts.ubuntu
+    ubuntu_font_family
     times-newer-roman
 
     ntfs3g
@@ -35,7 +36,6 @@
     unzip
 
     nsxiv
-    jq
 
     ffmpeg-full
 
@@ -44,6 +44,9 @@
     file
 
     telegram-desktop
-    python312
+    # python312
+    killall
+    nurl
+    picom
   ];
 }

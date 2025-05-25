@@ -71,13 +71,17 @@
   services.xserver = {
     enable = true;
     windowManager.bspwm.enable = true;
+
+    displayManager.lightdm = {
+      enable = true;
+      background = ../static/wallpapers/pixel-galaxy.png;
+    };
+
     excludePackages = [pkgs.xterm pkgs.nano];
     desktopManager.xterm.enable = false;
 
     # https://github.com/dustinlyons/nixos-config/tree/main
   };
-
-  services.displayManager.ly.enable = true;
 
   nix = {
     settings = {
