@@ -18,6 +18,7 @@
     # font
     nerd-fonts.proggy-clean-tt
     nerd-fonts.ubuntu
+    ubuntu_font_family
     times-newer-roman
 
     ntfs3g
@@ -30,14 +31,12 @@
     texlive.combined.scheme-full
 
     dmenu
-    bemoji
 
     gnutar
     gzip
     unzip
 
     nsxiv
-    jq
 
     ffmpeg-full
 
@@ -46,5 +45,9 @@
     file
 
     telegram-desktop
+    # python312
+    killall
+    nurl
+    picom
   ];
 }

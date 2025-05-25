@@ -11,33 +11,29 @@
     ./windowManagers/polybar.nix
 
     # shell
-    ./shell/zsh.nix
-    # ./shell/zsh.nix
-    # ./shell/nnn.nix
-    # ./shell/tmux.nix
-    # ./shell/atac.nix
-    # ./shell/advcpmv.nix
-    # ./shell/broot.nix
+    ./shell/bash.nix
+    # ./shell/zellij.nix
+    ./shell/tmux.nix
 
     # terminal
-    # ./terminals/alacritty.nix
-    ./terminals/wezterm.nix
+    ./terminals/alacritty.nix
+    # ./terminals/wezterm.nix
     # ./terminals/kitty.nix
 
     # editors
     ./editors/neovim/nixvim.nix
     ./editors/krita.nix
-    ./editors/euporie.nix
+    # ./editors/euporie.nix
 
     # services
-    ./services/picom.nix
+    # ./services/picom.nix
     ./services/clipmenu.nix
     ./services/redshift.nix
     ./services/dunst.nix
 
     # TSobject
-    ./editors/neovim/plugins/custom/plugins/TSObjects/textobjects.nix
-    ../../static/bemoji/bemoji.nix
+    # ./editors/neovim/plugins/custom/plugins/TSObjects/textobjects.nix
+    # ../../static/bemoji/bemoji.nix
 
     # etc
     ./etc.nix

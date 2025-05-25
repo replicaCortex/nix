@@ -59,13 +59,13 @@
   services.xserver = {
     enable = true;
     windowManager.bspwm.enable = true;
+
     displayManager.lightdm = {
       enable = true;
-      background = pkgs.nixos-artwork.wallpapers.dracula.gnomeFilePath;
-      greeters.slick.enable = true;
+      background = ../static/wallpapers/pixel-galaxy.png;
     };
-    desktopManager.xterm.enable = false;
 
+    desktopManager.xterm.enable = false;
     excludePackages = [pkgs.xterm pkgs.nano];
 
     # https://github.com/dustinlyons/nixos-config/tree/main
