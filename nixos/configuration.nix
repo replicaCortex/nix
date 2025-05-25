@@ -1,15 +1,15 @@
 {pkgs, ...}: {
   imports = [
     # ./zsh/zsh.nix
-    ./vbox/vbox.nix
+    # ./vbox/vbox.nix
     ./prop/prop.nix
-    ./audio/audio.nix
+    # ./audio/audio.nix
     ./xdg.mime/xdg.nix
-    ./nvidia/nvidia.nix
+    # ./nvidia/nvidia.nix
     # ./portal/portal.nix
     # ./overlay/overlay.nix
     # ./syncthing/syncthing.nix
-    ./bluetooth/bluetooth.nix
+    # ./bluetooth/bluetooth.nix
     ./filesystem/filesystem.nix
     ./garbageCollection/autoGarbage.nix
     ./hardware-configuration/hardware-configuration.nix
@@ -28,14 +28,14 @@
   # users.defaultUserShell = pkgs.zsh;
   # programs.zsh.enable = true;
 
-  services.zapret = {
-    enable = true;
-    params = [
-      "--dpi-desync=fake,disorder2"
-      "--dpi-desync-ttl=1"
-      "--dpi-desync-autottl=2"
-    ];
-  };
+  # services.zapret = {
+  #   enable = true;
+  #   params = [
+  #     "--dpi-desync=fake,disorder2"
+  #     "--dpi-desync-ttl=1"
+  #     "--dpi-desync-autottl=2"
+  #   ];
+  # };
 
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
@@ -68,14 +68,14 @@
 
   services.getty.autologinUser = "replica";
 
-  services.xserver = {
-    enable = true;
-    windowManager.bspwm.enable = true;
-    excludePackages = [pkgs.xterm pkgs.nano];
-    desktopManager.xterm.enable = false;
-
-    # https://github.com/dustinlyons/nixos-config/tree/main
-  };
+  # services.xserver = {
+  #   enable = true;
+  #   windowManager.bspwm.enable = true;
+  #   excludePackages = [pkgs.xterm pkgs.nano];
+  #   desktopManager.xterm.enable = false;
+  #
+  #   # https://github.com/dustinlyons/nixos-config/tree/main
+  # };
 
   services.displayManager.ly.enable = true;
 

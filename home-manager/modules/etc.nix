@@ -7,26 +7,20 @@
     enable = true;
   };
 
-  xresources.properties = {
-    "Nsxiv.window.background" = "#1e1e2e";
-    "Nsxiv.bar.foreground" = "#cdd6f4";
-    "Nsxiv.window.foreground" = "#cdd6f4";
-  };
+  # xresources.properties = {
+  #   "Nsxiv.window.background" = "#1e1e2e";
+  #   "Nsxiv.bar.foreground" = "#cdd6f4";
+  #   "Nsxiv.window.foreground" = "#cdd6f4";
+  # };
 
   home.packages = with pkgs; [
     # font
-    nerd-fonts.proggy-clean-tt
-    nerd-fonts.ubuntu
-    times-newer-roman
-
     ntfs3g
     nh
     xclip
-    wget
     ripgrep
 
-    libreoffice
-    texlive.combined.scheme-full
+    # texlive.combined.scheme-full
 
     dmenu
 
@@ -34,16 +28,12 @@
     gzip
     unzip
 
-    nsxiv
     jq
-
-    ffmpeg-full
 
     xdragon
 
     file
 
-    telegram-desktop
     python312
   ];
 }

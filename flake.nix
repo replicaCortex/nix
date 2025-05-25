@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
-    catppuccin.url = "github:catppuccin/nix";
+    # catppuccin.url = "github:catppuccin/nix";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -32,7 +32,7 @@
     home-manager,
     nixpkgs-stable,
     nixvim,
-    catppuccin,
+    # catppuccin,
     self,
     nur-renesat,
     ...
@@ -54,7 +54,7 @@
 
       modules = [
         nixvim.homeManagerModules.nixvim
-        catppuccin.homeModules.catppuccin
+        # catppuccin.homeModules.catppuccin
 
         ./home-manager/home.nix
       ];

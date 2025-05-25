@@ -14,9 +14,9 @@
     ./plugins/luasnip.nix
     ./plugins/treesitter.nix
 
-    ./plugins/custom/plugins/img-clip.nix
+    # ./plugins/custom/plugins/img-clip.nix
     # ./plugins/custom/plugins/make.nix
-    ./plugins/custom/plugins/markdown.nix
+    # ./plugins/custom/plugins/markdown.nix
     # ./plugins/custom/plugins/neotest.nix
     # ./plugins/custom/plugins/neogen.nix
     # ./plugins/kickstart/plugins/debug.nix
@@ -26,7 +26,7 @@
     # ./plugins/nnnNvim.nix
     # ./plugins/surround.nix
 
-    ./plugins/custom/plugins/vimtex.nix
+    # ./plugins/custom/plugins/vimtex.nix
 
     ./plugins/kickstart/plugins/indent-blankline.nix
     # ./plugins/kickstart/plugins/lint.nix
@@ -72,7 +72,7 @@
     # ./plugins/custom/plugins/jupyter/otter.nix
     # ./plugins/custom/plugins/jupyter/jupytext.nix
     # ./plugins/custom/plugins/TSObjects/treesitter-textobjects.nix
-    ./plugins/custom/plugins/image.nix
+    # ./plugins/custom/plugins/image.nix
 
     # frplugin
     ./plugins/ftpluginx.nix
@@ -100,36 +100,36 @@
     withPerl = false;
     withNodeJs = false;
 
-    colorschemes = {
-      catppuccin = {
-        settings = {
-          # flavour = "latte";
-          no_italic = true;
-          custom_highlights = ''
-            function(colors)
-              return {
-                Pmenu = { bg = colors.base, fg = colors.text },
-                FloatBorder = { bg = colors.base, fg = colors.text },
-                NormalFloat = { bg = colors.base },
-
-                LspFloatWinNormal = { bg = colors.base },
-                RenderMarkdownCode    = { bg = colors.base },
-                LspInlayHint = {bg = colors.none },
-                LspSignatureActiveParameter = { bg = colors.none, fg = colors.overlay0 },
-              }
-            end
-          '';
-        };
-        enable = true;
-        # settings = {
-        #   integrations = {
-        #     cmp = true;
-        #     mini = true;
-        #     treesitter = true;
-        #   };
-        # };
-      };
-    };
+    # colorschemes = {
+    #   catppuccin = {
+    #     settings = {
+    #       # flavour = "latte";
+    #       no_italic = true;
+    #       custom_highlights = ''
+    #         function(colors)
+    #           return {
+    #             Pmenu = { bg = colors.base, fg = colors.text },
+    #             FloatBorder = { bg = colors.base, fg = colors.text },
+    #             NormalFloat = { bg = colors.base },
+    #
+    #             LspFloatWinNormal = { bg = colors.base },
+    #             RenderMarkdownCode    = { bg = colors.base },
+    #             LspInlayHint = {bg = colors.none },
+    #             LspSignatureActiveParameter = { bg = colors.none, fg = colors.overlay0 },
+    #           }
+    #         end
+    #       '';
+    #     };
+    #     enable = true;
+    #     # settings = {
+    #     #   integrations = {
+    #     #     cmp = true;
+    #     #     mini = true;
+    #     #     treesitter = true;
+    #     #   };
+    #     # };
+    #   };
+    # };
 
     globals = {
       mapleader = " ";
