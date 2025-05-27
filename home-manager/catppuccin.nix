@@ -22,5 +22,6 @@
     gtk.enable = true;
     qutebrowser.enable = true;
     zathura.enable = true;
+    alacritty.enable = true;
   };
 }

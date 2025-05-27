@@ -114,41 +114,5 @@
         };
       };
     };
-    # extraConfigLuaPre = ''
-    #   local cmp = require("cmp")
-    #
-    #   cmp.setup({
-    #   	formatting = {
-    #   		format = function(entry, vim_item)
-    #   			local icons = {
-    #   				Class = " ",
-    #   				Color = " ",
-    #   				Constant = " ",
-    #   				Constructor = " ",
-    #   				Enum = " ",
-    #   				EnumMember = " ",
-    #   				Field = "󰄶 ",
-    #   				File = " ",
-    #   				Folder = " ",
-    #   				Function = "ƒ ",
-    #   				Interface = "󰜰 ",
-    #   				Keyword = "󰌆 ",
-    #   				Method = "󰡱 ",
-    #   				Module = "󰏗 ",
-    #   				Property = " ",
-    #   				Snippet = "󰘍 ",
-    #   				Struct = " ",
-    #   				Text = " ",
-    #   				Unit = " ",
-    #   				Value = "󰎠 ",
-    #   				Variable = "󰫧 ",
-    #   			}
-    #
-    #   			vim_item.kind = icons[vim_item.kind] or vim_item.kind
-    #   			return vim_item
-    #   		end,
-    #   	},
-    #   })
-    # '';
   };
 }

@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   imports = [
     # ./zsh/zsh.nix
-    ./vbox/vbox.nix
+    # ./vbox/vbox.nix
     ./prop/prop.nix
     ./audio/audio.nix
     ./xdg.mime/xdg.nix

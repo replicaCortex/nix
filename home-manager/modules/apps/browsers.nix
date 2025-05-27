@@ -63,7 +63,7 @@
         "<Space>yy" = "yank";
         "<Space>yd" = "yank domain";
         "<Space>ym" = "yank inline [{title}]({url:yank})";
-        "<Space>yn" = "yank inline ({url:yank})[{title}]";
+        "<Space>yo" = "yank inline [[{url:yank}][{title}]]";
         "<Space>yt" = "yank title";
         "<Ctrl-c>" = "tab-close";
         "<Ctrl-C>" = "tab-close -o";
@@ -232,6 +232,7 @@
       config.set('content.javascript.enabled', True, 'https://budilki.ru/*')
       config.set('content.javascript.enabled', True, 'https://translate.google.com/*')
       config.set('content.javascript.enabled', True, 'https://www.reddit.com/*')
+      config.set('content.javascript.enabled', True, 'https://nix-community.github.io/nixvim/*')
 
       c.content.images = False
 

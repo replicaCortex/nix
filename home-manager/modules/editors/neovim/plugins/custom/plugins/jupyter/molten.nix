@@ -2,6 +2,7 @@
   programs.nixvim = {
     plugins.molten = {
       enable = true;
+      autoLoad = true;
       # python3Dependencies = p: with p; [];
       settings = {
         auto_open_output = false;

@@ -1,8 +1,14 @@
-{self, ...}: {
+{
+  self,
+  pkgs,
+  ...
+}: {
   programs.nixvim = {
     plugins.cmp-nvim-lsp = {
       enable = true;
     };
+
+    # extraPackages = with pkgs; [ty];
 
     plugins.lsp-lines.enable = true;
 
@@ -57,11 +63,15 @@
 
         basedpyright.enable = true;
 
+        # NOTE: wayting...
+        # ty.enable = true;
+
         texlab.enable = true;
 
         clangd.enable = true;
 
         marksman.enable = true;
+        zk.enable = true;
 
         # ltex = {
         #   enable = true;
@@ -144,18 +154,18 @@
         	end
         end
 
-        require("lspconfig")["basedpyright"].setup({
-        	on_attach = on_attach,
-        	settings = {
-        		python = {
-        			analysis = {
-        				diagnosticSeverityOverrides = {
-        					reportUnusedExpression = "none",
-        				},
-        			},
-        		},
-        	},
-        })
+        --  require("lspconfig")["basedpyright"].setup({
+        --  	on_attach = on_attach,
+        --  	settings = {
+        --  		python = {
+        --  			analysis = {
+        --  				diagnosticSeverityOverrides = {
+        --  					reportUnusedExpression = "none",
+        --  				},
+        --  			},
+        --  		},
+        --  	},
+        --  })
       '';
     };
   };

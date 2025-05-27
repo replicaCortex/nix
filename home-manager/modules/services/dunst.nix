@@ -8,12 +8,12 @@
 
         monitor = 0;
         follow = "mouse";
-        border = 1;
+        border = 2;
         indicate_hidden = "yes";
         shrink = "no";
         separator_height = 0;
         frame_width = 1;
-        frame_color = "#89b4fa";
+        frame_color = "#313143";
         sort = "no";
         font = "Ubuntu mono";
         line_height = 4;
@@ -29,7 +29,7 @@
         sticky_history = "yes";
         history_length = 20;
         # history = "ctrl + shift + alt + z";
-        browser = "firefox";
+        browser = "qutebrowser";
         always_run_script = true;
         title = "Dunst";
         class = "Dunst";

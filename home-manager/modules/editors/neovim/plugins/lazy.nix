@@ -16,6 +16,13 @@
         };
       };
 
+      zk = {
+        lazyLoad = {
+          enable = true;
+          settings.ft = "markdown";
+        };
+      };
+
       luasnip = {
         lazyLoad = {
           enable = true;
@@ -50,17 +57,10 @@
       #   };
       # };
 
-      neorg = {
-        lazyLoad.settings = {
-          cmd = "Neorg";
-          ft = "norg";
-        };
-      };
-
-      # orgmode = {
+      # neorg = {
       #   lazyLoad.settings = {
-      #     cmd = "org";
-      #     ft = "org";
+      #     cmd = "Neorg";
+      #     ft = "norg";
       #   };
       # };
 
@@ -127,12 +127,6 @@
       #   lazyLoad.settings = {
       #     # ft = ["*"];
       #     event = "InsertEnter";
-      #   };
-      # };
-
-      # otter = {
-      #   lazyLoad.settings = {
-      #     ft = ["md" "markdown"];
       #   };
       # };
     };

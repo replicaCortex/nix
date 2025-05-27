@@ -35,8 +35,8 @@
     # Plug
 
     ./plugins/custom/plugins/undotree.nix
-    ./plugins/custom/plugins/neorg.nix
-    ./plugins/custom/plugins/interim-ls.nix
+    # ./plugins/custom/plugins/neorg.nix
+    # ./plugins/custom/plugins/interim-ls.nix
     # ./plugins/custom/plugins/org.nix
     ./plugins/custom/plugins/fzf.lua.nix
     # ./plugins/custom/plugins/norg-fmt.nix
@@ -75,7 +75,7 @@
     ./plugins/custom/plugins/image.nix
 
     # frplugin
-    ./plugins/ftpluginx.nix
+    # ./plugins/ftpluginx.nix
     # ./plugins/custom/plugins/fzflua.nix
     # ./plugins/wrapperFloaterm/fzf.nix
     # ./plugins/wrapperFloaterm/nnnTerm.nix

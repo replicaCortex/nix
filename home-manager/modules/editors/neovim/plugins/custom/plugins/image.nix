@@ -4,8 +4,8 @@
       enable = true;
 
       settings = {
-        # backend = "ueberzug";
-        backend = "kitty";
+        backend = "ueberzug";
+        # backend = "kitty";
         maxHeight = 15;
         maxWidth = 100;
         # maxHeightWindowPercentage = 1;
