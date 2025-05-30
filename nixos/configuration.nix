@@ -1,11 +1,16 @@
 {pkgs, ...}: {
   imports = [
-    ./vbox/vbox.nix
+    ./prop/prop.nix
+    # ./vbox/vbox.nix
     ./xdg.mime/xdg.nix
+    # ./nvidia/nvidia.nix
+    # ./portal/portal.nix
+    # ./overlay/overlay.nix
+    ./syncthing/syncthing.nix
+    ./bluetooth/bluetooth.nix
+    # ./filesystem/filesystem.nix
     ./garbageCollection/autoGarbage.nix
     ./hardware-configuration/hardware-configuration.nix
-    ./prop/prop.nix
-    ./syncthing/syncthing.nix
   ];
 
   boot.loader.systemd-boot.enable = true;

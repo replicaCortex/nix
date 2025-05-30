@@ -33,18 +33,18 @@ in {
             path = "/home/${user}/notes";
             devices = ["iPhone" "NixOS"];
           };
-          "Zotero" = {
-            path = "/home/${user}/Zotero";
-            devices = ["NixOS"];
-          };
+          # "Zotero" = {
+          #   path = "/home/${user}/Zotero";
+          #   devices = ["NixOS"];
+          # };
           # "Vbox" = {
           #   path = "/home/${user}/Vbox";
           #   devices = ["NixOS"];
           # };
-          "Project Manager" = {
-            path = "/home/${user}/ProjectManager";
-            devices = ["NixOS"];
-          };
+          # "Project Manager" = {
+          #   path = "/home/${user}/ProjectManager";
+          #   devices = ["NixOS"];
+          # };
         };
 
         options.globalAnnounceEnabled = false; # Only sync on LAN

@@ -63,34 +63,34 @@
 
         marksman.enable = true;
 
-        ltex = {
-          enable = true;
-          settings = {
-            language = "ru-RU";
-            completionEnabled = true;
-            additionalRules = {
-              motherTongue = "ru-RU";
-              enablePickyRules = true;
-            };
-            latex.commands = {
-              "\\cite[]{}" = "dummy";
-              "\\cite{}" = "dummy";
-              "\\documentclass[]{}" = "ignore";
-              "\\label{}" = "ignore";
-            };
-            environments = {
-              lstlisting = "ignore";
-              verbatim = "ignore";
-              minted = "ignore";
-            };
-          };
-        };
+        # zk.enable = true;
+
+        # ltex = {
+        #   enable = true;
+        #   settings = {
+        #     language = "ru-RU";
+        #     completionEnabled = true;
+        #     additionalRules = {
+        #       motherTongue = "ru-RU";
+        #       enablePickyRules = true;
+        #     };
+        #     latex.commands = {
+        #       "\\cite[]{}" = "dummy";
+        #       "\\cite{}" = "dummy";
+        #       "\\documentclass[]{}" = "ignore";
+        #       "\\label{}" = "ignore";
+        #     };
+        #     environments = {
+        #       lstlisting = "ignore";
+        #       verbatim = "ignore";
+        #       minted = "ignore";
+        #     };
+        #   };
+        # };
 
         dockerls.enable = true;
 
         bashls.enable = true;
-
-        nginx_language_server.enable = true;
 
         html.enable = true;
 

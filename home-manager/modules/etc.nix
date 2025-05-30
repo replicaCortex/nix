@@ -47,7 +47,7 @@
     telegram-desktop
     # python312
     killall
-    nurl
     picom
+    zk
   ];
 }

@@ -11,7 +11,7 @@
     ./plugins/nvim-cmp.nix
     # ./plugins/blink.nix
     ./plugins/mini.nix
-    ./plugins/luasnip.nix
+    # ./plugins/luasnip.nix
     ./plugins/treesitter.nix
 
     ./plugins/custom/plugins/img-clip.nix
@@ -35,8 +35,9 @@
     # Plug
 
     ./plugins/custom/plugins/undotree.nix
-    ./plugins/custom/plugins/neorg.nix
-    ./plugins/custom/plugins/interim-ls.nix
+    # ./plugins/custom/plugins/neorg.nix
+    ./plugins/custom/plugins/zk.nix
+    # ./plugins/custom/plugins/interim-ls.nix
     # ./plugins/custom/plugins/org.nix
     ./plugins/custom/plugins/fzf.lua.nix
     # ./plugins/custom/plugins/norg-fmt.nix
@@ -72,10 +73,10 @@
     # ./plugins/custom/plugins/jupyter/otter.nix
     # ./plugins/custom/plugins/jupyter/jupytext.nix
     # ./plugins/custom/plugins/TSObjects/treesitter-textobjects.nix
-    ./plugins/custom/plugins/image.nix
+    # ./plugins/custom/plugins/image.nix
 
     # frplugin
-    # ./plugins/ftpluginx.nix
+    ./plugins/ftpluginx.nix
     # ./plugins/custom/plugins/fzflua.nix
     # ./plugins/wrapperFloaterm/fzf.nix
     # ./plugins/wrapperFloaterm/nnnTerm.nix

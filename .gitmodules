@@ -1,0 +1,3 @@
+[submodule "static/sh/bash-git-prompt"]
+	path = static/sh/bash-git-prompt
+	url = https://github.com/magicmonty/bash-git-prompt

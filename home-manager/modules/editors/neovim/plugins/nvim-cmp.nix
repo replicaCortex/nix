@@ -73,6 +73,9 @@
           {
             name = "buffer";
           }
+          {
+            name = "render-markdown";
+          }
         ];
         window = {
           completion.border = "rounded";
