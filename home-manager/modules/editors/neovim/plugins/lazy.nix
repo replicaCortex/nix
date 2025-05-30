@@ -64,11 +64,11 @@
       #   };
       # };
 
-      image = {
-        lazyLoad.settings = {
-          ft = ["norg" "md" "markdown" "png" "jpg" "webm"];
-        };
-      };
+      # image = {
+      #   lazyLoad.settings = {
+      #     ft = ["norg" "md" "markdown" "png" "jpg" "webm"];
+      #   };
+      # };
 
       # hydra = {
       #   lazyLoad.settings = {

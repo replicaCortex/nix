@@ -36,7 +36,7 @@
           javascript = ["prettierd"];
           html = ["prettierd"];
           css = ["prettierd"];
-          markdown = ["prettierd"];
+          # markdown = ["prettierd"];
           dockerfile = ["prettierd"];
         };
         formatters = {

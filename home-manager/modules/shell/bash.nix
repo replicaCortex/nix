@@ -33,6 +33,8 @@
       alias ec="euporie console"
       alias ep="euporie preview"
 
+      alias cat="bat"
+
       source ~/nix/static/sh/bash-git-prompt/gitprompt.sh
 
       # Установка раскладки клавиатуры
@@ -83,7 +85,7 @@
       # Export Environment Variables
       export EDITOR="nvim"
       export VISUAL="nvim"
-      export TERMINAL="wezterm"
+      export TERMINAL="alacritty"
       export BROWSER="qutebrowser"
 
       # FZF Default Options

@@ -8,7 +8,7 @@
     ./nvidia/nvidia.nix
     # ./portal/portal.nix
     # ./overlay/overlay.nix
-    # ./syncthing/syncthing.nix
+    ./syncthing/syncthing.nix
     ./bluetooth/bluetooth.nix
     ./filesystem/filesystem.nix
     ./garbageCollection/autoGarbage.nix
