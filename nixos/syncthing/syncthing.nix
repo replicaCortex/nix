@@ -28,7 +28,7 @@ in {
         };
 
         folders = {
-          "notes" = {
+          "note" = {
             path = "/home/${user}/notes";
             devices = ["iPhone" "Notebook"];
           };
@@ -48,10 +48,10 @@ in {
           #   devices = ["Notebook"];
           # };
 
-          # "code" = {
-          #   path = "/home/${user}/code";
-          #   devices = ["Notebook"];
-          # };
+          "code" = {
+            path = "/home/${user}/code";
+            devices = ["Notebook"];
+          };
 
           # "WinShareDir" = {
           #   path = "/mnt/workspace/WinShareDir";

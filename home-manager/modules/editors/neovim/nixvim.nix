@@ -36,6 +36,7 @@
 
     ./plugins/custom/plugins/undotree.nix
     # ./plugins/custom/plugins/neorg.nix
+    ./plugins/custom/plugins/zk.nix
     # ./plugins/custom/plugins/interim-ls.nix
     # ./plugins/custom/plugins/org.nix
     ./plugins/custom/plugins/fzf.lua.nix
