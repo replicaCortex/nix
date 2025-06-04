@@ -8,7 +8,7 @@
     ./nvidia/nvidia.nix
     # ./portal/portal.nix
     # ./overlay/overlay.nix
-    ./syncthing/syncthing.nix
+    # ./syncthing/syncthing.nix
     ./bluetooth/bluetooth.nix
     ./filesystem/filesystem.nix
     ./garbageCollection/autoGarbage.nix
@@ -74,7 +74,7 @@
 
     displayManager.lightdm = {
       enable = true;
-      background = ../static/wallpapers/pixel-galaxy.png;
+      background = ../static/wallpapers/oldWallaper/lockNixWallpaper.png;
     };
 
     excludePackages = [pkgs.xterm pkgs.nano];

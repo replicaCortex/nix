@@ -9,7 +9,7 @@
   ];
 
   programs.qutebrowser = {
-    enable = true;
+    enable = false;
     loadAutoconfig = true;
     searchEngines = {
       DEFAULT = "https://www.google.com/search?hl=en&q={}";

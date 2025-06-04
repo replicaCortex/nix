@@ -28,17 +28,17 @@
       };
     };
 
-    extraConfigLuaPre = " 
-    vim.api.nvim_create_user_command('ToggleDiagnostics', function()
-      local loclist_exists = vim.fn.loclist(0) ~= ''
-      if loclist_exists then
-        vim.cmd('lclose')  -- Закрыть, если уже открыт
-      else
-        vim.diagnostic.setloclist()  -- Обновить и открыть, если закрыт
-        vim.cmd('lopen')
-      end
-    end, {})
-    ";
+    # extraConfigLuaPre = "
+    # vim.api.nvim_create_user_command('ToggleDiagnostics', function()
+    #   local loclist_exists = vim.fn.loclist(0) ~= ''
+    #   if loclist_exists then
+    #     vim.cmd('lclose')  -- Закрыть, если уже открыт
+    #   else
+    #     vim.diagnostic.setloclist()  -- Обновить и открыть, если закрыт
+    #     vim.cmd('lopen')
+    #   end
+    # end, {})
+    # ";
 
     keymaps = [
       {

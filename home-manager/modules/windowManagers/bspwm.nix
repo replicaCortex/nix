@@ -6,7 +6,7 @@
       "pgrep -x polybar > /dev/null || ~/nix/static/polybar/polybarStarup.sh"
       "pgrep -x clipmenud > /dev/null || clipmenud"
       "pgrep -x picom > /dev/null || picom --config ~/nix/static/picom/picom.conf"
-      "pgrep -x feh > /dev/null || feh --bg-scale ~/nix/static/wallpapers/pixel-galaxy.png"
+      "pgrep -x feh > /dev/null || feh --randomize --bg-scale ~/nix/static/wallpapers/*.{png,jpg}"
     ];
 
     extraConfig = ''

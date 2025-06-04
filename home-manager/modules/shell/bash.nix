@@ -33,6 +33,8 @@
       alias ec="euporie console"
       alias ep="euporie preview"
 
+      alias poweroff="cd ~/note && zk u && /home/replica/.nix-profile/bin/poweroff"
+
       alias cat="bat"
 
       source ~/nix/static/sh/bash-git-prompt/gitprompt.sh
@@ -86,7 +88,7 @@
       export EDITOR="nvim"
       export VISUAL="nvim"
       export TERMINAL="alacritty"
-      export BROWSER="qutebrowser"
+      export BROWSER="zen"
 
       # FZF Default Options
       export FZF_DEFAULT_OPTS="

@@ -71,7 +71,7 @@
         clangd.enable = true;
 
         marksman.enable = true;
-        zk.enable = true;
+        # zk.enable = true;
 
         # ltex = {
         #   enable = true;

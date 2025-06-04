@@ -1,16 +1,16 @@
-/* Catppuccin Mocha Blue userChrome.css*/
+/* Catppuccin Mocha Peach userChrome.css*/
 
 @media (prefers-color-scheme: dark) {
   :root {
     --zen-colors-primary: #313244 !important;
-    --zen-primary-color: #89b4fa !important;
+    --zen-primary-color: #fab387 !important;
     --zen-colors-secondary: #313244 !important;
-    --zen-colors-tertiary: #1e1e2e !important;
-    --zen-colors-border: #89b4fa !important;
-    --toolbarbutton-icon-fill: #89b4fa !important;
+    --zen-colors-tertiary: #181825 !important;
+    --zen-colors-border: #fab387 !important;
+    --toolbarbutton-icon-fill: #fab387 !important;
     --lwt-text-color: #cdd6f4 !important;
     --toolbar-field-color: #cdd6f4 !important;
-    --tab-selected-textcolor: rgb(171, 197, 247) !important;
+    --tab-selected-textcolor: rgb(227, 197, 190) !important;
     --toolbar-field-focus-color: #cdd6f4 !important;
     --toolbar-color: #cdd6f4 !important;
     --newtab-text-primary-color: #cdd6f4 !important;
@@ -21,12 +21,14 @@
     --lwt-sidebar-background-color: #11111b !important;
     --toolbar-bgcolor: #313244 !important;
     --newtab-background-color: #1e1e2e !important;
-    --zen-themed-toolbar-bg: #1e1e2e !important;
-    --zen-main-browser-background: #1e1e2e !important;
+    --zen-themed-toolbar-bg: #181825 !important;
+    --zen-main-browser-background: #181825 !important;
+    --toolbox-bgcolor-inactive: #181825 !important;
+    --zen-main-browser-background-toolbar: #181825 !important;
   }
 
   #permissions-granted-icon {
-    color: #1e1e2e !important;
+    color: #181825 !important;
   }
 
   .sidebar-placesTree {
@@ -38,7 +40,7 @@
   }
 
   #TabsToolbar {
-    background-color: #1e1e2e !important;
+    background-color: #181825 !important;
   }
 
   #urlbar-background {
@@ -47,15 +49,23 @@
 
   .content-shortcuts {
     background-color: #1e1e2e !important;
-    border-color: #89b4fa !important;
+    border-color: #fab387 !important;
   }
 
   .urlbarView-url {
-    color: #89b4fa !important;
+    color: #fab387 !important;
   }
 
   #zenEditBookmarkPanelFaviconContainer {
     background: #11111b !important;
+  }
+
+  #zen-media-controls-toolbar {
+    & #zen-media-progress-bar {
+      &::-moz-range-track {
+        background: #313244 !important;
+      }
+    }
   }
 
   toolbar .toolbarbutton-1 {

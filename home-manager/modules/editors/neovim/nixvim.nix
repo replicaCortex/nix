@@ -55,6 +55,7 @@
     # ./plugins/custom/plugins/volt.nix
     # ./plugins/custom/plugins/typr.nix
     ./plugins/custom/plugins/diagnostics.nix
+    ./plugins/custom/plugins/zk.nix
     ./plugins/custom/plugins/leap.nix
     ./plugins/custom/plugins/langmapper.nix
     # ./plugins/custom/plugins/flash.nix

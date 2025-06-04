@@ -16,12 +16,12 @@
         };
       };
 
-      zk = {
-        lazyLoad = {
-          enable = true;
-          settings.ft = "markdown";
-        };
-      };
+      # zk = {
+      #   lazyLoad = {
+      #     enable = true;
+      #     settings.ft = "markdown";
+      #   };
+      # };
 
       luasnip = {
         lazyLoad = {
