@@ -1,0 +1,181 @@
+* {
+  font-family: "Ubuntu Mono";
+  font-size: 14px;
+  border: none;
+}
+
+/* Фон панели - тёмный фон Gruvbox */
+window.top_bar#waybar {
+  background-color: #282828;
+}
+
+/* Состояние клавиатуры */
+#keyboard-state label.locked {
+  color: #fabd2f; /* желтый акцент */
+}
+#keyboard-state label {
+  color: #928374; /* приглушенный светло-серый */
+}
+
+/* Workspaces */
+#workspaces,
+#workspaces button,
+#workspaces button.empty,
+#workspaces button.special,
+#workspaces button.active,
+#workspaces button.hidden,
+#workspaces button.urgent,
+#workspaces button.persistent {
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+}
+
+#workspaces button {
+  color: #ebdbb2; /* основной текст */
+}
+#workspaces button.empty,
+#workspaces button.special {
+  color: #928374; /* неактивные */
+}
+#workspaces button.focused {
+  color: #282828; /* фон активного workspace */
+  background-color: #fabd2f; /* активный акцент */
+}
+
+/* Центр модуля (например, название) */
+window.top_bar .modules-center {
+  font-weight: bold;
+  color: #fabd2f;
+}
+
+/* Разделители */
+#custom-separator,
+#custom-separator_dot {
+  color: #8ec07c; /* зелёный */
+}
+
+/* Часы */
+#clock.time {
+  color: #d3869b; /* пурпурный */
+}
+#clock.week,
+#clock.month {
+  color: #83a598; /* синий */
+}
+#clock.calendar {
+  color: #b16286; /* альтернативный тон пурпурного */
+}
+
+/* Bluetooth */
+#bluetooth.disabled {
+  color: #928374;
+}
+#bluetooth.on,
+#bluetooth.connected {
+  color: #83a598;
+}
+
+/* CPU / память / диск */
+#cpu,
+#memory,
+#disk {
+  color: #83a598; /* базовый синий */
+}
+#cpu.low,
+#memory.low,
+#disk.low,
+#temperature {
+  color: #83a598; /* низкая нагрузка – зелёный */
+}
+#cpu.lower-medium,
+#memory.lower-medium,
+#disk.lower-medium {
+  color: #fabd2f; /* чуть выше – жёлтый */
+}
+#cpu.medium,
+#memory.medium,
+#disk.medium {
+  color: #fe8019; /* средний – оранжевый */
+}
+#cpu.upper-medium,
+#memory.upper-medium,
+#disk.upper-medium {
+  color: #fb4934; /* выше среднего – красный */
+}
+#cpu.high,
+#memory.high,
+#disk.high,
+#temperature.critical,
+#battery.low,
+#systemd-failed-units {
+  color: #cc241d; /* критический – тёмно-красный */
+}
+
+/* Батарея */
+#battery {
+  color: #8ec07c; /* нормальный заряд – зелёный */
+}
+#battery.lower-medium {
+  color: #fabd2f; /* понижение – жёлтый */
+}
+#battery.medium {
+  color: #fe8019; /* средний – оранжевый */
+}
+#battery.upper-medium {
+  color: #fb4934; /* высокий – красный */
+}
+#battery.high {
+  color: #b8bb26; /* почти полный – ярко-зелёный */
+}
+
+/* Подсветка экрана */
+#backlight {
+  color: #928374;
+}
+#backlight.low {
+  color: #928374;
+}
+#backlight.lower-medium {
+  color: #a89984;
+}
+#backlight.medium {
+  color: #ebdbb2;
+}
+#backlight.upper-medium {
+  color: #f2e5bc; /* светлый акцент */
+}
+#backlight.high {
+  color: #fbf1c7; /* почти белый */
+}
+
+/* Pulseaudio */
+#pulseaudio.bluetooth {
+  color: #83a598;
+}
+#pulseaudio.muted {
+  color: #928374;
+}
+#pulseaudio {
+  color: #ebdbb2;
+}
+#pulseaudio.low {
+  color: #8ec07c;
+}
+#pulseaudio.lower-medium {
+  color: #fabd2f;
+}
+#pulseaudio.medium {
+  color: #fe8019;
+}
+#pulseaudio.upper-medium {
+  color: #fb4934;
+}
+#pulseaudio.high {
+  color: #cc241d;
+}
+
+/* Общий цвет текста в Waybar */
+window#waybar {
+  color: #ebdbb2;
+}

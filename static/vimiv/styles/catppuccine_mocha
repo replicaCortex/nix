@@ -1,0 +1,124 @@
+[STYLE]
+; -- Base palette (Gruvbox Dark: от darkest до светлого текста)
+base00 = #282828      
+base01 = #3c3836      
+base02 = #504945      
+base03 = #665c54      
+base04 = #bdae93      
+base05 = #ebdbb2      
+base06 = #fbf1c7      
+base07 = #f9f5d7      
+
+
+base08 = #fb4934      
+base09 = #fe8019      
+base0A = #fabd2f      
+base0B = #b8bb26      
+base0C = #8ec07c      
+base0D = #83a598      
+base0E = #d3869b      
+base0F = #d65d0e      
+
+
+font = 10pt Ubuntu Mono
+
+
+image.bg = #282828
+image.scrollbar.width = 8px
+image.scrollbar.bg = #282828
+image.scrollbar.fg = #7c6f64    
+image.scrollbar.padding = 2px
+
+
+library.font = 10pt Monospace
+library.fg = #ebdbb2
+library.padding = 2px
+library.directory.fg = #83a598 
+library.even.bg = #282828
+library.odd.bg = #282828
+library.selected.bg = #83a598
+library.selected.fg = #282828
+library.search.highlighted.fg = #282828
+library.search.highlighted.bg = #665c54
+library.scrollbar.width = 8px
+library.scrollbar.bg = #282828
+library.scrollbar.fg = #7c6f64
+library.scrollbar.padding = 2px
+library.border = 0px solid
+
+
+statusbar.font = 10pt Monospace
+statusbar.bg = #313244   
+statusbar.fg = #ebdbb2
+statusbar.error = #fb4934
+statusbar.warning = #fabd2f
+statusbar.info = #8ec07c
+statusbar.message_border = 2px solid
+statusbar.padding = 4
+
+
+thumbnail.font = 10pt Monospace
+thumbnail.fg = #ebdbb2
+thumbnail.bg = #3c3836
+thumbnail.padding = 20
+thumbnail.selected.bg = #83a598
+thumbnail.search.highlighted.bg = #665c54
+thumbnail.default.bg = #8ec07c
+thumbnail.error.bg = #fb4934
+thumbnail.frame.fg = #ebdbb2
+
+
+completion.height = 16em
+completion.fg = #ebdbb2
+completion.even.bg = #282828
+completion.odd.bg = #282828
+completion.selected.fg = #282828
+completion.selected.bg = #83a598
+
+
+keyhint.padding = 2px
+keyhint.border_radius = 10px
+keyhint.suffix_color = #83a598
+
+
+manipulate.fg = #ebdbb2
+manipulate.focused.fg = #83a598
+manipulate.bg = #3c3836
+manipulate.slider.left = #83a598
+manipulate.slider.handle = #665c54
+manipulate.slider.right = #313244
+manipulate.image.border = 2px solid
+manipulate.image.border.color = #83a598
+
+
+mark.color = #d3869b
+
+
+keybindings.bindings.color = #83a598
+keybindings.highlight.color = #d3869b
+
+
+metadata.padding = 2px
+metadata.border_radius = 10px
+metadata.bg = #282828
+
+
+prompt.font = 10pt Monospace
+prompt.fg = #ebdbb2
+prompt.bg = #3c3836
+prompt.padding = 2px
+prompt.border_radius = 10px
+prompt.border = 2px solid
+prompt.border.color = #83a598
+
+
+crop.shading = #88000000
+crop.border = 2px solid
+crop.border.color = #88A6ADC8  
+crop.grip.color = #88FFFFFF
+crop.grip.border = 2px solid
+crop.grip.border.color = #88A6ADC8
+
+
+library.selected.bg.unfocus = #8883a598
+thumbnail.selected.bg.unfocus = #8883a598

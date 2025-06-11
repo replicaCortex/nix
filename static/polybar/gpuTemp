@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-#temp="$(nvidia-settings -q gpucoretemp | awk 'NR==2{print substr($4,1,2) }')"
-temp="$(nvidia-smi -q -d temperature | awk 'NR==11{print $5}')"
-echo -e "$temp°C "
