@@ -1,3 +1,7 @@
 [submodule "static/sh/bash-git-prompt"]
 	path = static/sh/bash-git-prompt
 	url = https://github.com/magicmonty/bash-git-prompt
+
+[submodule "static/nvim/friendly-snippets"]
+	path = static/nvim/friendly-snippets
+	url = https://github.com/replicaCortex/friendly-snippets

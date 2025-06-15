@@ -1,13 +1,58 @@
+local fzf = require "fzf-lua"
+
 require("fzf-lua").setup {
-  files = {
-    color_icons = true,
-    file_icons = true,
-    find_opts = [[-type f -not -path '*.git/objects*' -not -path '*.env*']],
-    multiprocess = true,
-    prompt = "Files: ",
+  hls = {
+    normal = "Normal",
+    preview_normal = "Normal",
+    border = "Function",
+    preview_border = "Function",
   },
   winopts = {
+    height = 0.55,
+    width = 0.8,
+    row = 0.5,
+    -- preview = { hidden = "hidden" },
     border = "rounded",
+    treesitter = { enabled = true },
+  },
+  fzf_opts = {
+    ["--no-info"] = "",
+    ["--info"] = "hidden",
+    -- ["--padding"] = "13%,5%,13%,5%",
+    ["--header"] = " ",
+    ["--no-scrollbar"] = "",
+  },
+  files = {
+    formatter = "path.filename_first",
+    git_icons = false,
+    no_header = true,
+    cwd_header = false,
+    cwd_prompt = false,
+    winopts = {
+      title = " files 📑 ",
+      title_pos = "center",
+      title_flags = false,
+    },
+  },
+  buffers = {
+    formatter = "path.filename_first",
+    no_header = true,
+    fzf_opts = { ["--delimiter"] = " ", ["--with-nth"] = "-1.." },
+    winopts = {
+      title = " buffers 📝 ",
+      title_pos = "center",
+    },
+  },
+  git = {
+    branches = {
+      cmd = "git branch -a --format='%(refname:short)'",
+      no_header = true,
+      winopts = {
+        title = " branches  ",
+        title_pos = "center",
+        preview = { hidden = "hidden" },
+      },
+    },
   },
 }
 

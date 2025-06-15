@@ -72,7 +72,7 @@ require("leap").opts.substitute_chars = {
 
 require("leap").opts.equivalence_classes = {
   ")]}>",
-  "\t\r\n",
+  " \n",
   "([{<",
   { '"', "'", "`" },
 }
@@ -90,3 +90,6 @@ require("leap").opts.special_keys = {
 
 -- Настройка цвета для LeapBackdrop
 vim.api.nvim_set_hl(0, "LeapBackdrop", { fg = "#666666" })
+
+vim.keymap.set({ "n", "x", "o" }, "s", "<Plug>(leap-forward)")
+vim.keymap.set({ "n", "x", "o" }, "S", "<Plug>(leap-backward)")
