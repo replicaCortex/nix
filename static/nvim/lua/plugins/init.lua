@@ -141,6 +141,6 @@ return {
 
   {
     "replicaCortex/friendly-snippets",
-    enabled = true,
+    enabled = false,
   },
 }

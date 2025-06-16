@@ -27,3 +27,15 @@ mapd({ "n" }, "<A-i>")
 mapd({ "n" }, "<leader>n")
 mapd({ "n" }, "<leader>rn")
 mapd({ "n" }, "<leader>ch")
+
+local ls = require "luasnip"
+
+map({ "i", "s" }, "<C-n>", function()
+  ls.change_choice(1)
+end)
+map({ "i", "s" }, "<C-p>", function()
+  ls.change_choice(-1)
+end)
+map({ "i", "s" }, "<C-t>", function()
+  require "luasnip.extras.select_choice"()
+end)
