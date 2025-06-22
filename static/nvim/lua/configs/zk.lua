@@ -3,7 +3,7 @@ local opts = { noremap = true, silent = false }
 local commands = require "zk.commands"
 
 zk.setup {
-  picker = "fzf_lua",
+  picker = "telescope",
 }
 
 commands.add("ZkOrphans", function(options)

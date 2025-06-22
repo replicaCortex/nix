@@ -3,20 +3,21 @@
 
   environment.systemPackages = with pkgs; [
     # xp-pen-deco-01-v2-driver
-    # p7zip
     git
 
     nh
-    ripgrep
     wl-clipboard
     cliphist
     bat
 
     fzf
+    ripgrep
+    fd
 
     gnutar
     gzip
     unzip
+    p7zip
 
     ffmpeg-full
     vimiv-qt
@@ -25,18 +26,22 @@
     xdragon
 
     file
+    btop
 
     telegram-desktop
     python312
-    tree-sitter
+    luajit
 
     gcc
     swaycwd
 
     zk
     neovim
+
     mpv
+
     zathura
+    qbittorrent-enhanced
     texlive.combined.scheme-full
 
     grim
@@ -44,6 +49,7 @@
 
     # lsp
     basedpyright
+    # ty
     black
 
     prettier
@@ -55,6 +61,8 @@
 
     bash-language-server
     shfmt
+
+    tree-sitter
 
     texlab
   ];

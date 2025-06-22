@@ -72,12 +72,57 @@ return {
   },
 
   {
-    "ibhagwan/fzf-lua",
-    event = "VeryLazy",
+    "kshenoy/vim-signature",
+    event = "User FilePost",
 
     config = function()
-      require "configs.fzf"
+      require "configs.vim-signature"
     end,
+  },
+
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "debugloop/telescope-undo.nvim",
+    },
+    opts = function(_, conf)
+      conf.defaults = {
+        layout_strategy = "flex",
+        layout_config = {
+          vertical = {
+            prompt_position = "top",
+            mirror = true,
+          },
+
+          horizontal = {
+            prompt_position = "top",
+          },
+        },
+        sorting_strategy = "ascending",
+
+        mappings = {
+          i = {
+            ["<c-c>"] = require("telescope.actions").delete_buffer + require("telescope.actions").move_to_top,
+            ["<Esc>"] = require("telescope.actions").close,
+            ["<C-u>"] = false,
+          },
+        },
+      }
+
+      return conf
+    end,
+  },
+
+  {
+    "HakonHarnes/img-clip.nvim",
+    ft = { "md", "tex" },
+    config = function()
+      require "configs.img-clip"
+    end,
+    keys = {
+      { "<leader>p", "<cmd>PasteImage<cr>", desc = "Paste image from system clipboard" },
+    },
   },
 
   {
@@ -130,17 +175,12 @@ return {
   },
 
   {
-    "nvim-telescope/telescope.nvim",
-    enabled = false,
-  },
-
-  {
     "rafamadriz/friendly-snippets",
     enabled = false,
   },
 
   {
-    "replicaCortex/friendly-snippets",
+    "lewis6991/gitsigns.nvim",
     enabled = false,
   },
 }

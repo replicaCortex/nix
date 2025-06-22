@@ -3,8 +3,7 @@
     ./prop/packages.nix
     ./sway/sway.nix
     # ./vbox/vbox.nix
-    # ./xdg.mime/xdg.nix
-    ./bluetooth/bluetooth.nix
+    # ./bluetooth/bluetooth.nix
     ./hardware-configuration/hardware-configuration.nix
   ];
 

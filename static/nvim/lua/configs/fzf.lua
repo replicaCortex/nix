@@ -19,7 +19,7 @@ require("fzf-lua").setup {
     ["--no-info"] = "",
     ["--info"] = "hidden",
     -- ["--padding"] = "13%,5%,13%,5%",
-    ["--header"] = " ",
+    -- ["--header"] = " ",
     ["--no-scrollbar"] = "",
   },
   files = {
@@ -34,6 +34,18 @@ require("fzf-lua").setup {
       title_flags = false,
     },
   },
+  grep = {
+    formatter = "path.filename_first",
+    git_icons = false,
+    no_header = true,
+    cwd_header = false,
+    cwd_prompt = false,
+    winopts = {
+      title = " grep 🔍 ",
+      title_pos = "center",
+      title_flags = false,
+    },
+  },
   buffers = {
     formatter = "path.filename_first",
     no_header = true,
@@ -41,17 +53,6 @@ require("fzf-lua").setup {
     winopts = {
       title = " buffers 📝 ",
       title_pos = "center",
-    },
-  },
-  git = {
-    branches = {
-      cmd = "git branch -a --format='%(refname:short)'",
-      no_header = true,
-      winopts = {
-        title = " branches  ",
-        title_pos = "center",
-        preview = { hidden = "hidden" },
-      },
     },
   },
 }

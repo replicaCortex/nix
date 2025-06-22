@@ -58,7 +58,7 @@ return {
     },
     fmt(
       [[
-  \textbf{{{}}} 
+  \textbf{{{}}}
   ]],
       f(function(_, parent)
         return parent.snippet.env.POSTFIX_MATCH
@@ -73,7 +73,7 @@ return {
     },
     fmt(
       [[
-  \textbf{{{}}} 
+  \textbf{{{}}}
   ]],
       f(function(_, parent)
         return parent.snippet.env.POSTFIX_MATCH
@@ -88,7 +88,7 @@ return {
     },
     fmt(
       [[
-  \textit{{{}}} 
+  \textit{{{}}}
   ]],
       f(function(_, parent)
         return parent.snippet.env.POSTFIX_MATCH
@@ -103,7 +103,7 @@ return {
     },
     fmt(
       [[
-  \textit{{{}}} 
+  \textit{{{}}}
   ]],
       f(function(_, parent)
         return parent.snippet.env.POSTFIX_MATCH
@@ -128,7 +128,7 @@ return {
     \section{{{}}} % (fold)[
 
     {}
-    
+
     % section {} (end)]
     ]],
       {
@@ -146,7 +146,7 @@ return {
     \subsection{{{}}} % (fold)[
 
     {}
-    
+
     % subsection {} (end)]
     ]],
       {
@@ -164,7 +164,7 @@ return {
     \subsubsection{{{}}} % (fold)[
 
     {}
-    
+
     % subsubsection {} (end)]
     ]],
       {
@@ -182,7 +182,7 @@ return {
     \paragraph{{{}}} % (fold)[
 
     {}
-    
+
     % paragraph {} (end)]
     ]],
       {
@@ -193,21 +193,21 @@ return {
     )
   ),
 
-  ms(c(1, {
-    t "\\setmainfont{TimesNewerRoman}",
-    t "\\setmainfont{Ubuntu}",
-    sn(nil, fmt("\\setmainfont{{{}}}", { i(1, "font") })),
-  })),
+  -- ms(c(1, {
+  --   t "\\setmainfont{TimesNewerRoman}",
+  --   t "\\setmainfont{Ubuntu}",
+  --   sn(nil, fmt("\\setmainfont{{{}}}", { i(1, "font") })),
+  -- })),
 
   ms(
     { "font", "ащте" },
     c(1, {
       fmt(
         [[
-\usepackage[left={}cm, right={}cm, top={}cm, bottom={}cm{}]{{geometry}}
+  \usepackage[left={}cm, right={}cm, top={}cm, bottom={}cm{}]{{geometry}}
 
 
-]],
+  ]],
         {
           i(1, "1.0"), -- left
           i(2, "1.0"), -- right
@@ -222,10 +222,10 @@ return {
 
       fmt(
         [[
-\usepackage[margin={}cm]{{geometry}}
+  \usepackage[margin={}cm]{{geometry}}
 
 
-]],
+  ]],
         {
           i(1, "1.0"), -- margin
         }

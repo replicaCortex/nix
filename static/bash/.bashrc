@@ -14,6 +14,8 @@ alias ext="~/nix/static/sh/ext.sh"
 alias record="~/nix/static/sh/record.sh"
 alias recordA="~/nix/static/sh/recordA.sh"
 alias vi="vimiv * --command 'enter thumbnail'"
+# alias vi="love ~/code/love_test/"
+alias ff='fd | fzf -m'
 
 alias cat="bat"
 
@@ -56,8 +58,6 @@ HISTTIMEFORMAT='%F %T '
 shopt -s autocd 2>/dev/null
 shopt -s dirspell 2>/dev/null
 shopt -s cdspell 2>/dev/null
-
-shopt -s cdable_vars
 
 # Commands that should be applied only for interactive shells.
 [[ $- == *i* ]] || return

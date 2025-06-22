@@ -4,9 +4,7 @@ require "nvchad.mappings"
 
 local map = vim.keymap.set
 local mapd = vim.keymap.del
-
--- map("n", ";", ":", { desc = "CMD enter command mode" })
--- map("i", "jk", "<ESC>")
+local ls = require "luasnip"
 
 map({ "n" }, "q:", "<nop>")
 map({ "n" }, "U", "<C-r>")
@@ -28,8 +26,6 @@ mapd({ "n" }, "<leader>n")
 mapd({ "n" }, "<leader>rn")
 mapd({ "n" }, "<leader>ch")
 
-local ls = require "luasnip"
-
 map({ "i", "s" }, "<C-n>", function()
   ls.change_choice(1)
 end)
@@ -39,3 +35,16 @@ end)
 map({ "i", "s" }, "<C-t>", function()
   require "luasnip.extras.select_choice"()
 end)
+
+map(
+  "n",
+  "<leader>fi",
+  "<cmd>lua require('image_embed').open_image_picker()<CR>",
+  { desc = "telescope find and past image" }
+)
+
+map("n", "<leader>fu", "<cmd>Telescope undo<CR>", { desc = "telescope undo" })
+
+map("n", "<leader>ds", "<cmd>Telescope diagnostics<CR>", { desc = "diagnostics list" })
+map("n", "/", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = "Curreent buffer find" })
+map("n", "?", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = "Curreent buffer find" })
