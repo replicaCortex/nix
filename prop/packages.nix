@@ -1,69 +1,71 @@
 {pkgs, ...}: {
   nixpkgs.config.allowUnfree = true;
 
-  environment.systemPackages = with pkgs; [
-    # xp-pen-deco-01-v2-driver
-    git
+  environment = {
+    systemPackages = with pkgs; [
+      # xp-pen-deco-01-v2-driver
+      git
 
-    nh
-    wl-clipboard
-    cliphist
-    bat
+      nh
+      wl-clipboard
+      gammastep
+      cliphist
+      bat
 
-    fzf
-    ripgrep
-    fd
+      fzf
+      ripgrep
+      fd
 
-    gnutar
-    gzip
-    unzip
-    p7zip
+      gnutar
+      gzip
+      unzip
+      p7zip
 
-    ffmpeg-full
-    vimiv-qt
-    (callPackage ../zen/zen.nix {})
+      ffmpeg-full
+      vimiv-qt
+      (callPackage ../zen/zen.nix {})
 
-    xdragon
+      xdragon
 
-    file
-    btop
+      file
+      btop
 
-    telegram-desktop
-    python312
-    luajit
+      telegram-desktop
+      python312
+      luajit
 
-    gcc
-    swaycwd
+      gcc
 
-    zk
-    neovim
+      zk
+      neovim
 
-    mpv
+      mpv
 
-    zathura
-    qbittorrent-enhanced
-    texlive.combined.scheme-full
+      zathura
+      qbittorrent-enhanced
+      texlive.combined.scheme-full
 
-    grim
-    slurp
+      grim
+      slurp
 
-    # lsp
-    basedpyright
-    # ty
-    black
+      # lsp
+      basedpyright
+      # ty
+      black
 
-    prettier
+      prettier
 
-    alejandra
+      alejandra
 
-    stylua
-    lua-language-server
+      stylua
+      lua-language-server
 
-    bash-language-server
-    shfmt
+      bash-language-server
+      shfmt
 
-    tree-sitter
+      tree-sitter
 
-    texlab
-  ];
+      texlab
+    ];
+  };
 }

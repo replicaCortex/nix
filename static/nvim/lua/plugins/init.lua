@@ -49,7 +49,6 @@ return {
     "nvim-treesitter/nvim-treesitter",
     opts = {
       ensure_installed = {
-        "norg",
         "lua",
         "html",
         "css",
@@ -72,15 +71,6 @@ return {
   },
 
   {
-    "kshenoy/vim-signature",
-    event = "User FilePost",
-
-    config = function()
-      require "configs.vim-signature"
-    end,
-  },
-
-  {
     "nvim-telescope/telescope.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -90,6 +80,9 @@ return {
       conf.defaults = {
         layout_strategy = "flex",
         layout_config = {
+          flex = {
+            flip_columns = 140,
+          },
           vertical = {
             prompt_position = "top",
             mirror = true,
@@ -116,7 +109,7 @@ return {
 
   {
     "HakonHarnes/img-clip.nvim",
-    ft = { "md", "tex" },
+    ft = { "markdown", "tex" },
     config = function()
       require "configs.img-clip"
     end,
@@ -163,6 +156,26 @@ return {
     end,
   },
 
+  {
+    "SUSTech-data/neopyter",
+    cmd = "Neopyter",
+
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "AbaoFromCUG/websocket.nvim",
+
+      opts = {
+        mode = "direct",
+        remote_address = "127.0.0.1:9001",
+        file_pattern = { "*.ju.*" },
+      },
+    },
+    config = function()
+      require "configs.jupyter"
+    end,
+  },
+
   -- disebale plug
   {
     "NvChad/nvterm",
@@ -181,6 +194,11 @@ return {
 
   {
     "lewis6991/gitsigns.nvim",
+    enabled = false,
+  },
+
+  {
+    "nvim-tree/nvim-tree.lua",
     enabled = false,
   },
 }

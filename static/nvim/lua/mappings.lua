@@ -45,6 +45,7 @@ map(
 
 map("n", "<leader>fu", "<cmd>Telescope undo<CR>", { desc = "telescope undo" })
 
-map("n", "<leader>ds", "<cmd>Telescope diagnostics<CR>", { desc = "diagnostics list" })
+map("n", "<leader>fd", "<cmd>Telescope diagnostics<CR>", { desc = "diagnostics list" })
+map("n", "<leader>fj", "<cmd>Telescope jumplist<CR>", { desc = "jumplist" })
 map("n", "/", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = "Curreent buffer find" })
 map("n", "?", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = "Curreent buffer find" })

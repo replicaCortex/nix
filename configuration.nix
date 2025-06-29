@@ -1,5 +1,6 @@
 {pkgs, ...}: {
   imports = [
+    # ./podman/podman.nix
     ./prop/packages.nix
     ./sway/sway.nix
     # ./vbox/vbox.nix
@@ -9,13 +10,6 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-wlr
-    ];
-  };
 
   fonts = {
     fontconfig = {

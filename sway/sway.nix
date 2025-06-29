@@ -3,7 +3,6 @@
 
   environment.systemPackages = with pkgs; [
     waybar
-    sway-launcher-desktop
     brightnessctl
     dunst
     swaycwd
