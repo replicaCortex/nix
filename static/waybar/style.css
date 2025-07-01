@@ -115,16 +115,16 @@ window.top_bar .modules-center {
 
 /* Батарея */
 #battery {
-  color: #8ec07c; /* нормальный заряд – зелёный */
+  color: #fb4934; /* нормальный заряд – зелёный */
 }
 #battery.lower-medium {
-  color: #fabd2f; /* понижение – жёлтый */
+  color: #fe8019; /* понижение – жёлтый */
 }
 #battery.medium {
-  color: #fe8019; /* средний – оранжевый */
+  color: #fabd2f; /* средний – оранжевый */
 }
 #battery.upper-medium {
-  color: #fb4934; /* высокий – красный */
+  color: #8ec07c; /* высокий – красный */
 }
 #battery.high {
   color: #b8bb26; /* почти полный – ярко-зелёный */

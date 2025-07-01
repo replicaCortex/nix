@@ -8,13 +8,13 @@
 
       nh
       wl-clipboard
+      # wl-screenrec
       gammastep
       cliphist
       bat
 
       fzf
       ripgrep
-      fd
 
       gnutar
       gzip

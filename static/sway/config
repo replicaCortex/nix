@@ -14,7 +14,7 @@ set $right l
 # focus_follows_mouse no
 mouse_warping container
 
-set $term foot
+set $term footclient
 # set $menu exec $term --app-id=launcher -e sway-launcher-desktop
 set $histClip exec $term --app-id=cliphist -e sh -c "cliphist list | fzf | cliphist decode | wl-copy"
 set $screen exec dunstify "󱠏  Screenshot" "Area selection" -t 1500 && grim -g "$(slurp)" - | wl-copy --type image/png
@@ -28,6 +28,7 @@ exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DE
 exec waybar
 exec dunst
 exec wl-paste --watch cliphist store
+exec foot --server
 exec gammastep -O 4000
 
 for_window [app_id="^launcher$"] floating enable, sticky enable
@@ -93,7 +94,7 @@ bindsym $mod+a focus parent
 # 💻 Window Management
 bindsym $mod+Return exec $term
 bindsym $mod+Shift+Return exec $term --working-directory="$(swaycwd)"
-bindsym $mod+n exec $term --working-directory="$(swaycwd)" sh -c "nvim"
+bindsym $mod+n exec $term --working-directory="$(swaycwd)" bash -c "nvim"
 bindsym $mod+Shift+c kill
 # bindsym $mod+d exec $menu
 bindsym $mod+w exec zen
@@ -157,7 +158,8 @@ bindsym $mod+p $screen
 bindsym $mod+Shift+p $screenSave
 
 # 🎨 Theme & Appearance
-client.focused #FFA500 #FFA500 #282828 #FFA500
+# client.focused #FFA500 #FFA500 #282828 #FFA500
+client.focused #FFA500 #FFA500 #282828 #FFf500
 
 # 🛠️ Services & Extras
 

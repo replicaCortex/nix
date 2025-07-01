@@ -19,8 +19,6 @@ alias ff='fd | fzf -m'
 
 alias cat="bat"
 
-source ~/nix/static/sh/bash-git-prompt/gitprompt.sh
-
 # Включение Vi mode
 set -o vi
 
@@ -53,6 +51,8 @@ PROMPT_COMMAND='history -a'
 
 HISTCONTROL="erasedups:ignoreboth"
 
+stty -ixon
+
 export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear:nv"
 
 HISTTIMEFORMAT='%F %T '
@@ -66,6 +66,12 @@ shopt -s cdspell 2>/dev/null
 
 HISTFILESIZE=100000
 HISTSIZE=10000
+
+prompt_marker() {
+  printf '\e]133;A\e\\'
+}
+
+PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }prompt_marker
 
 shopt -s histappend
 shopt -s checkwinsize
