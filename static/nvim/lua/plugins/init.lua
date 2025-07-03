@@ -22,8 +22,8 @@ return {
       if not opts.keymap then
         opts.keymap = {}
       end
-      opts.keymap["<Tab>"] = { "snippet_forward" }
-      opts.keymap["<S-Tab>"] = { "snippet_backward" }
+      opts.keymap["<Tab>"] = { "snippet_forward", "fallback" }
+      opts.keymap["<S-Tab>"] = { "snippet_backward", "fallback" }
       opts.cmdline = {
         keymap = {
           ["<Tab>"] = { "show", "accept" },
@@ -129,7 +129,6 @@ return {
 
   {
     "lervag/vimtex",
-    lazy = "VeryLazy",
     ft = "tex",
 
     config = function()
@@ -138,21 +137,47 @@ return {
   },
 
   {
-    "MeanderingProgrammer/render-markdown.nvim",
-    ft = "markdown",
-    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
-
+    "OXY2DEV/markview.nvim",
+    ft = { "markdown" },
+    opts = {
+      preview = {
+        filetypes = { "md", "markdown" },
+      },
+    },
     config = function()
-      require "configs.markdown-render"
+      require "configs.markview"
     end,
   },
 
   {
     "Wansmer/langmapper.nvim",
-    ft = { "markdown", "tex" },
+    lazy = false,
+    priority = 1, -- High priority is needed if you will use `autoremap()`
 
     config = function()
       require "configs.langmapper"
+    end,
+  },
+
+  {
+    "folke/which-key.nvim",
+    opts = function(_, opts)
+      local translate_key = require("langmapper.utils").translate_keycode
+      opts.filter = function(mapping)
+        return mapping.lhs
+          and mapping.lhs == translate_key(mapping.lhs, "default", "ru")
+          and mapping.desc
+          and mapping.desc:find "LM" == nil
+      end
+    end,
+  },
+
+  {
+    "Wansmer/symbol-usage.nvim",
+
+    event = "LspAttach",
+    config = function()
+      require "configs.symbol-usage"
     end,
   },
 
@@ -176,9 +201,29 @@ return {
     end,
   },
 
+  {
+    "rachartier/tiny-glimmer.nvim",
+    event = "VeryLazy",
+    priority = 10,
+
+    config = function()
+      require "configs.tiny-glimmmer"
+    end,
+  },
+
   -- disebale plug
   {
     "NvChad/nvterm",
+    enabled = false,
+  },
+
+  {
+    "nvzone/menu",
+    enabled = false,
+  },
+
+  {
+    "nvzone/minty",
     enabled = false,
   },
 

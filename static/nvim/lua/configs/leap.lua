@@ -93,3 +93,13 @@ vim.api.nvim_set_hl(0, "LeapBackdrop", { fg = "#666666" })
 
 vim.keymap.set({ "n", "x", "o" }, "s", "<Plug>(leap-forward)")
 vim.keymap.set({ "n", "x", "o" }, "S", "<Plug>(leap-backward)")
+
+vim.keymap.set({ "n", "x", "o" }, "ы", "<Plug>(leap-forward)")
+vim.keymap.set({ "n", "x", "o" }, "Ы", "<Plug>(leap-backward)")
+
+require("leap.util")["get-input"] = function()
+  local ok, ch = pcall(vim.fn.getcharstr)
+  if ok and ch ~= vim.api.nvim_replace_termcodes("<esc>", true, false, true) then
+    return require("langmapper.utils").translate_keycode(ch, "default", "ru")
+  end
+end

@@ -6,16 +6,17 @@ alias nv="nvim"
 alias nb="nix build ./"
 alias nd="nix develop ./"
 alias nr="nix run"
-
-alias jn="jupyter notebook"
+alias ns="nix shell"
 
 alias ext="~/nix/static/sh/ext.sh"
 
 alias record="~/nix/static/sh/record.sh"
 alias recordA="~/nix/static/sh/recordA.sh"
+
 alias vi="vimiv * --command 'enter thumbnail'"
-# alias vi="love ~/code/love_test/"
-alias ff='fd | fzf -m'
+
+alias ff='find . -path "./.git" -prune -o -type f | fzf -m --preview "bat --style=numbers --color=always --line-range=:100 {}" --preview-window=down'
+alias nvf='nv $(ff)'
 
 alias cat="bat"
 
@@ -31,9 +32,7 @@ export VISUAL="nvim"
 export TERMINAL="foot"
 export BROWSER="zen"
 
-export LD_LIBRARY_PATH=/nix/store/l7d6vwajpfvgsd3j4cr25imd1mzb7d1d-gcc-14.3.0-lib/lib
-
-PROMPT_DIRTRIM=2
+export PROMPT_DIRTRIM=2
 
 bind Space:magic-space
 
@@ -47,15 +46,14 @@ bind "set completion-map-case on"
 
 bind "set mark-symlinked-directories on"
 
-PROMPT_COMMAND='history -a'
-
-HISTCONTROL="erasedups:ignoreboth"
+export PROMPT_COMMAND='history -a'
 
 stty -ixon
 
-export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear:nv"
+export HISTCONTROL="erasedups:ignoreboth:ignoredups"
+export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear:nv:nvf:find:fzf:history:vi:cd:nix-shell"
 
-HISTTIMEFORMAT='%F %T '
+# HISTTIMEFORMAT='%F %T '
 
 shopt -s autocd 2>/dev/null
 shopt -s dirspell 2>/dev/null
@@ -64,14 +62,8 @@ shopt -s cdspell 2>/dev/null
 # Commands that should be applied only for interactive shells.
 [[ $- == *i* ]] || return
 
-HISTFILESIZE=100000
-HISTSIZE=10000
-
-prompt_marker() {
-  printf '\e]133;A\e\\'
-}
-
-PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }prompt_marker
+export HISTFILESIZE=100000
+export HISTSIZE=10000
 
 shopt -s histappend
 shopt -s checkwinsize

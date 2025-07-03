@@ -11,6 +11,7 @@ M.base46 = {
   hl_override = {
     Comment = { italic = true },
     ["@comment"] = { italic = true },
+    ["LspInlayHint"] = { bg = "#282828" },
   },
 }
 

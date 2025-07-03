@@ -8,6 +8,7 @@ font Ubuntu Mono 14px
 # ⌨️  Mod + Keybindings
 set $mod Mod4
 set $left h
+set $left_ru р
 set $down j
 set $up k
 set $right l
@@ -16,9 +17,10 @@ mouse_warping container
 
 set $term footclient
 # set $menu exec $term --app-id=launcher -e sway-launcher-desktop
-set $histClip exec $term --app-id=cliphist -e sh -c "cliphist list | fzf | cliphist decode | wl-copy"
+set $histClip exec $term --app-id=cliphist -e bash -c "cliphist list | fzf | cliphist decode | wl-copy"
 set $screen exec dunstify "󱠏  Screenshot" "Area selection" -t 1500 && grim -g "$(slurp)" - | wl-copy --type image/png
 set $screenSave exec 'd=$(date +%s); dunstify "󱠏  Screenshot" "Area selection and save" -t 1500 && grim -g "$(slurp)" ~/"$(date +%s)".png && dunstify "󱠏  Screenshot" "file saved to ~/$d.png"'
+set $test exec $term bash -c "nvim -c 'Telescope find_files'"
 
 # exec
 # Ебать nixos хуйня )))
@@ -81,47 +83,47 @@ bindsym $mod+Shift+9 move container to workspace number 9
 bindsym $mod+Shift+0 move container to workspace number 10
 
 # 🧠 Tiling & Layout
-bindsym $mod+ctrl+h splith
-bindsym $mod+ctrl+v splitv
-bindsym $mod+s layout stacking
-bindsym $mod+t layout tabbed
-bindsym $mod+e layout toggle split
-bindsym $mod+u fullscreen
-bindsym $mod+i floating toggle
-bindsym $mod+space focus mode_toggle
-bindsym $mod+a focus parent
+bindsym --to-code $mod+ctrl+h splith
+bindsym --to-code $mod+ctrl+v splitv
+bindsym --to-code $mod+s layout stacking
+bindsym --to-code $mod+t layout tabbed
+bindsym --to-code $mod+e layout toggle split
+bindsym --to-code $mod+u fullscreen
+bindsym --to-code $mod+i floating toggle
+bindsym --to-code $mod+space focus mode_toggle
+bindsym --to-code $mod+a focus parent
 
 # 💻 Window Management
 bindsym $mod+Return exec $term
 bindsym $mod+Shift+Return exec $term --working-directory="$(swaycwd)"
-bindsym $mod+n exec $term --working-directory="$(swaycwd)" bash -c "nvim"
-bindsym $mod+Shift+c kill
-# bindsym $mod+d exec $menu
-bindsym $mod+w exec zen
+bindsym --to-code $mod+n exec $term --working-directory="$(swaycwd)" bash -c "nvim"
+bindsym --to-code $mod+Shift+c kill
+# bindsym --to-code $mod+d exec $menu
+bindsym --to-code $mod+w exec zen
 floating_modifier $mod normal
-bindsym $mod+Shift+q reload
+bindsym --to-code $mod+Shift+q reload
 
 bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit sway?' -b 'Yes, exit sway' 'swaymsg exit'
 
 # 🎯 Focus Navigation
-bindsym $mod+$left focus left
-bindsym $mod+$down focus down
-bindsym $mod+$up focus up
-bindsym $mod+$right focus right
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
+bindsym --to-code $mod+$left focus left
+bindsym --to-code $mod+$down focus down
+bindsym --to-code $mod+$up focus up
+bindsym --to-code $mod+$right focus right
+bindsym --to-code $mod+Left focus left
+bindsym --to-code $mod+Down focus down
+bindsym --to-code $mod+Up focus up
+bindsym --to-code $mod+Right focus right
 
 # 🔀 Move Windows
-bindsym $mod+Shift+$left move left
-bindsym $mod+Shift+$down move down
-bindsym $mod+Shift+$up move up
-bindsym $mod+Shift+$right move right
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+bindsym --to-code $mod+Shift+$left move left
+bindsym --to-code $mod+Shift+$down move down
+bindsym --to-code $mod+Shift+$up move up
+bindsym --to-code $mod+Shift+$right move right
+bindsym --to-code $mod+Shift+Left move left
+bindsym --to-code $mod+Shift+Down move down
+bindsym --to-code $mod+Shift+Up move up
+bindsym --to-code $mod+Shift+Right move right
 
 # 📦 Scratchpad
 bindsym $mod+Shift+minus move scratchpad
@@ -153,9 +155,10 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-bindsym Ctrl+Shift+z $histClip
-bindsym $mod+p $screen
-bindsym $mod+Shift+p $screenSave
+bindsym --to-code Ctrl+Shift+z $histClip
+# bindsym Ctrl+Shift+z $test
+bindsym --to-code $mod+p $screen
+bindsym --to-code $mod+Shift+p $screenSave
 
 # 🎨 Theme & Appearance
 # client.focused #FFA500 #FFA500 #282828 #FFA500
@@ -169,6 +172,7 @@ client.focused #FFA500 #FFA500 #282828 #FFf500
  # bar 
 # bar {
 #     status_command waybar
+
 #     position top
 #     tray_output *
 #     pango_markup enabled

@@ -114,7 +114,7 @@ window.top_bar .modules-center {
 }
 
 /* Батарея */
-#battery {
+#battery.low {
   color: #fb4934; /* нормальный заряд – зелёный */
 }
 #battery.lower-medium {
@@ -128,6 +128,9 @@ window.top_bar .modules-center {
 }
 #battery.high {
   color: #b8bb26; /* почти полный – ярко-зелёный */
+}
+#battery {
+  color: #b8bb26;
 }
 
 /* Подсветка экрана */
