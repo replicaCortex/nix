@@ -1,10 +1,10 @@
 {pkgs, ...}: {
   imports = [
-    # ./podman/podman.nix
+    ./podman/podman.nix
     ./prop/packages.nix
     ./sway/sway.nix
-    # ./vbox/vbox.nix
-    # ./bluetooth/bluetooth.nix
+    ./vbox/vbox.nix
+    ./bluetooth/bluetooth.nix
     ./hardware-configuration/hardware-configuration.nix
   ];
 
@@ -19,6 +19,15 @@
       nerd-fonts.ubuntu
       ubuntu_font_family
       times-newer-roman
+    ];
+  };
+
+  services.zapret = {
+    enable = true;
+    params = [
+      "--dpi-desync=fake,disorder2"
+      "--dpi-desync-ttl=1"
+      "--dpi-desync-autottl=2"
     ];
   };
 

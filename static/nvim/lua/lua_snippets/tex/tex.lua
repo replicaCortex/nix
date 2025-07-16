@@ -117,7 +117,7 @@ return {
       [[
     \cite{{{}}}
     ]],
-      i(1, "autor")
+      i(1, "author")
     )
   ),
 

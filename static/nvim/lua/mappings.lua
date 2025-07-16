@@ -51,8 +51,10 @@ map("n", "<leader>fj", "<cmd>Telescope jumplist<CR>", { desc = "jumplist" })
 map("n", "/", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = "Curreent buffer find" })
 map("n", "?", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = "Curreent buffer find" })
 map("n", "gr", "<cmd>Telescope lsp_references<CR>", { desc = "LSP References" })
+map("n", "<leader>fg", "<cmd>Telescope git_status<CR>", { desc = "telescope git status" })
 
 map("n", "<leader>ih", function()
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled {})
+  vim.cmd "lua require('symbol-usage').refresh()"
   vim.cmd "lua require('symbol-usage').toggle()"
 end, { desc = "toggle inlay gint" })

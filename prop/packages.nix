@@ -3,15 +3,20 @@
 
   environment = {
     systemPackages = with pkgs; [
-      # xp-pen-deco-01-v2-driver
+      krita
+      xp-pen-deco-01-v2-driver
+
       git
+      git-lfs
 
       nh
       wl-clipboard
-      # wl-screenrec
+      xdragon
       gammastep
       cliphist
       bat
+      jq
+      btop
 
       fzf
       ripgrep
@@ -25,28 +30,24 @@
       vimiv-qt
       (callPackage ../zen/zen.nix {})
 
-      xdragon
-
       file
-      btop
 
       telegram-desktop
-      python312
-      luajit
 
+      python312
       gcc
+      gnumake
 
       zk
       neovim
 
       mpv
+      grim
+      slurp
 
       zathura
       qbittorrent-enhanced
       texlive.combined.scheme-full
-
-      grim
-      slurp
 
       # lsp
       basedpyright
@@ -66,6 +67,14 @@
       tree-sitter
 
       texlab
+
+      # linter
+
+      codespell
+      luajitPackages.luacheck
+      sqls
+      sql-formatter
+      pylint
     ];
   };
 }

@@ -7,3 +7,4 @@ o.cursorlineopt = "both" -- to enable cursorline!
 o.relativenumber = true
 o.swapfile = false
 o.title = true
+o.virtualedit = "block"

@@ -15,7 +15,7 @@ alias recordA="~/nix/static/sh/recordA.sh"
 
 alias vi="vimiv * --command 'enter thumbnail'"
 
-alias ff='find . -path "./.git" -prune -o -type f | fzf -m --preview "bat --style=numbers --color=always --line-range=:100 {}" --preview-window=down'
+alias ff='find . \( -path "./.git" -o -path "./.venv" -o -path "./.*py*" -o -path "./*__*" \) -prune -o \( -type f -o -type d \) -print | fzf -m --preview "bat --style=numbers --color=always --line-range=:100 {}" --preview-window=down'
 alias nvf='nv $(ff)'
 
 alias cat="bat"

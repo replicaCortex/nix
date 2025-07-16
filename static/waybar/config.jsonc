@@ -4,7 +4,7 @@
     "position": "top",
 //    "width": 1900,
     "spacing": 6,
-    "modules-left": ["sway/workspaces", "sway/language"],
+    "modules-left": ["sway/workspaces", "sway/language", "tray"],
     "modules-center": ["clock#time", "custom/separator", "clock#week", "custom/separator_dot", "clock#month", "custom/separator", "clock#calendar"],
     "modules-right": ["battery" , "temperature", "custom/separator", "cpu","custom/separator", "memory","custom/separator", "disk", "pulseaudio", "custom/separator","bluetooth"],
 
@@ -22,7 +22,7 @@
 },
 
     "clock#time": {
-        "format": "  [ {:%H:%M:%S}",
+        "format": "  [ {:%H:%M:??}",
     },
 
     "custom/separator": {
@@ -85,19 +85,6 @@
         "max-length": 35,
         // "on-click": "bash -c bluetooth_toggle",
         // "on-click-right": "overskride",
-    },
-
-    "hyprland/window": {
-        "format": "{title}",
-        "max-length": 50,
-    },
-
-
-    "hyprland/language": {
-        "format-en": "[ ENG ]",
-        "format-ru": "[ RUS ]",
-        "keyboard-name": "at-translated-set-2-keyboard",
-        "on-click": "hyprctl switchxkblayout at-translated-set-2-keyboard next",
     },
 
     "keyboard-state": {

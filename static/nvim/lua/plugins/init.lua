@@ -13,6 +13,14 @@ return {
     end,
   },
 
+  -- {
+  --   "mfussenegger/nvim-lint",
+  --   event = "BufWritePre", -- uncomment for format on save
+  --   config = function()
+  --     require "configs.linter"
+  --   end,
+  -- },
+
   -- test new blink
   { import = "nvchad.blink.lazyspec" },
   {
@@ -101,6 +109,10 @@ return {
             ["<C-u>"] = false,
           },
         },
+        file_ignore_patterns = {
+          "%.lock",
+          "__pycache__/",
+        },
       }
 
       return conf
@@ -181,25 +193,25 @@ return {
     end,
   },
 
-  {
-    "SUSTech-data/neopyter",
-    cmd = "Neopyter",
-
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
-      "AbaoFromCUG/websocket.nvim",
-
-      opts = {
-        mode = "direct",
-        remote_address = "127.0.0.1:9001",
-        file_pattern = { "*.ju.*" },
-      },
-    },
-    config = function()
-      require "configs.jupyter"
-    end,
-  },
+  -- {
+  --   "SUSTech-data/neopyter",
+  --   cmd = "Neopyter",
+  --
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --     "nvim-treesitter/nvim-treesitter",
+  --     "AbaoFromCUG/websocket.nvim",
+  --
+  --     opts = {
+  --       mode = "direct",
+  --       remote_address = "127.0.0.1:9001",
+  --       file_pattern = { "*.ju.*" },
+  --     },
+  --   },
+  --   config = function()
+  --     require "configs.jupyter"
+  --   end,
+  -- },
 
   {
     "rachartier/tiny-glimmer.nvim",

@@ -20,7 +20,6 @@ set $term footclient
 set $histClip exec $term --app-id=cliphist -e bash -c "cliphist list | fzf | cliphist decode | wl-copy"
 set $screen exec dunstify "󱠏  Screenshot" "Area selection" -t 1500 && grim -g "$(slurp)" - | wl-copy --type image/png
 set $screenSave exec 'd=$(date +%s); dunstify "󱠏  Screenshot" "Area selection and save" -t 1500 && grim -g "$(slurp)" ~/"$(date +%s)".png && dunstify "󱠏  Screenshot" "file saved to ~/$d.png"'
-set $test exec $term bash -c "nvim -c 'Telescope find_files'"
 
 # exec
 # Ебать nixos хуйня )))
@@ -36,7 +35,7 @@ exec gammastep -O 4000
 for_window [app_id="^launcher$"] floating enable, sticky enable
 for_window [app_id="^cliphist$"] floating enable, sticky enable
 for_window [app_id="^pavucontrol$"] floating enable, sticky enable
-for_window [app_id="^mpv$"] floating enable, sticky enable
+# for_window [app_id="^mpv$"] floating enable, sticky enable
 # for_window [app_id="blueman-manager"] floating enable, sticky enable
 
 # 🖼️  Display & Wallpaper
@@ -83,8 +82,8 @@ bindsym $mod+Shift+9 move container to workspace number 9
 bindsym $mod+Shift+0 move container to workspace number 10
 
 # 🧠 Tiling & Layout
-bindsym --to-code $mod+ctrl+h splith
-bindsym --to-code $mod+ctrl+v splitv
+bindsym --to-code $mod+b splith
+bindsym --to-code $mod+v splitv
 bindsym --to-code $mod+s layout stacking
 bindsym --to-code $mod+t layout tabbed
 bindsym --to-code $mod+e layout toggle split
@@ -155,8 +154,7 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-bindsym --to-code Ctrl+Shift+z $histClip
-# bindsym Ctrl+Shift+z $test
+bindsym --to-code Ctrl+Shift+h $histClip
 bindsym --to-code $mod+p $screen
 bindsym --to-code $mod+Shift+p $screenSave
 

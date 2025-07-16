@@ -6,6 +6,9 @@ local servers = {
   -- "ty",
   "bashls",
   "texlab",
+
+  -- https://github.com/sqls-server/sqls?tab=readme-ov-file
+  "sqls",
 }
 
 if vim.lsp.inlay_hint then
