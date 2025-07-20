@@ -20,6 +20,7 @@ set $term footclient
 set $histClip exec $term --app-id=cliphist -e bash -c "cliphist list | fzf | cliphist decode | wl-copy"
 set $screen exec dunstify "󱠏  Screenshot" "Area selection" -t 1500 && grim -g "$(slurp)" - | wl-copy --type image/png
 set $screenSave exec 'd=$(date +%s); dunstify "󱠏  Screenshot" "Area selection and save" -t 1500 && grim -g "$(slurp)" ~/"$(date +%s)".png && dunstify "󱠏  Screenshot" "file saved to ~/$d.png"'
+set $zen_ exec $term --app-id=cliphist -e bash -c ~/nix/zen/search_zen.sh
 
 # exec
 # Ебать nixos хуйня )))
@@ -31,6 +32,8 @@ exec dunst
 exec wl-paste --watch cliphist store
 exec foot --server
 exec gammastep -O 4000
+exec --no-startup-id swaymsg "workspace 10; exec zen; exec :"
+exec --no-startup-id swaymsg 'workspace 1'
 
 for_window [app_id="^launcher$"] floating enable, sticky enable
 for_window [app_id="^cliphist$"] floating enable, sticky enable
@@ -98,7 +101,7 @@ bindsym $mod+Shift+Return exec $term --working-directory="$(swaycwd)"
 bindsym --to-code $mod+n exec $term --working-directory="$(swaycwd)" bash -c "nvim"
 bindsym --to-code $mod+Shift+c kill
 # bindsym --to-code $mod+d exec $menu
-bindsym --to-code $mod+w exec zen
+bindsym --to-code $mod+w exec $zen_
 floating_modifier $mod normal
 bindsym --to-code $mod+Shift+q reload
 

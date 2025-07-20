@@ -17,6 +17,7 @@
       bat
       jq
       btop
+      sqlite
 
       fzf
       ripgrep
@@ -29,6 +30,7 @@
       ffmpeg-full
       vimiv-qt
       (callPackage ../zen/zen.nix {})
+      mpv
 
       file
 
@@ -36,18 +38,17 @@
 
       python312
       gcc
-      gnumake
 
       zk
       neovim
 
-      mpv
       grim
       slurp
 
       zathura
       qbittorrent-enhanced
       texlive.combined.scheme-full
+      libreoffice
 
       # lsp
       basedpyright
@@ -68,12 +69,13 @@
 
       texlab
 
+      sqls
+      sql-formatter
+
       # linter
 
       codespell
       luajitPackages.luacheck
-      sqls
-      sql-formatter
       pylint
     ];
   };
