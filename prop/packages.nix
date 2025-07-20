@@ -4,6 +4,7 @@
   environment = {
     systemPackages = with pkgs; [
       krita
+      desmume
       xp-pen-deco-01-v2-driver
 
       git
@@ -31,6 +32,7 @@
       vimiv-qt
       (callPackage ../zen/zen.nix {})
       mpv
+      wf-recorder
 
       file
 
