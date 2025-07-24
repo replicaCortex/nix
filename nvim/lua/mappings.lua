@@ -55,6 +55,6 @@ map("n", "<leader>fg", "<cmd>Telescope git_status<CR>", { desc = "telescope git 
 
 map("n", "<leader>ih", function()
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled {})
-  vim.cmd "lua require('symbol-usage').refresh()"
+  -- vim.cmd "lua require('symbol-usage').refresh()"
   vim.cmd "lua require('symbol-usage').toggle()"
 end, { desc = "toggle inlay gint" })

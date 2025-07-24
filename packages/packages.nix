@@ -4,8 +4,9 @@
   environment = {
     systemPackages = with pkgs; [
       krita
-      desmume
-      xp-pen-deco-01-v2-driver
+
+      retroarch
+      libretro.desmume
 
       git
       git-lfs
@@ -26,6 +27,7 @@
       gnutar
       gzip
       unzip
+      unrar
       p7zip
 
       ffmpeg-full

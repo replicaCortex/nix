@@ -8,17 +8,58 @@ alias nd="nix develop ./"
 alias nr="nix run"
 alias ns="nix shell"
 
-alias ext="~/nix/static/sh/ext.sh"
+alias ext="~/nix/**/ext.sh"
 
-alias record="~/nix/static/sh/record.sh"
-alias recordA="~/nix/static/sh/recordA.sh"
+alias record="~/nix/**/record.sh"
+alias recordA="~/nix/**/recordA.sh"
 
 alias vi="vimiv * --command 'enter thumbnail'"
 
-alias ff='find . \( -path "./.git" -o -path "./.venv" -o -path "./.*py*" -o -path "./*__*" \) -prune -o \( -type f -o -type d \) -print | fzf -m --preview "bat --style=numbers --color=always --line-range=:100 {}" --preview-window=down'
+alias ff='find . \( -path "**/venv" -o -path "**/__*" -o -path "**/.*" -o -path "./WinShareDir" \) -prune -o -type f -print | fzf -m --preview "bat --style=numbers --color=always --line-range=:100 {}" --preview-window=down'
 alias nvf='nv $(ff)'
+alias nvb='nv ~/nix/**/.bashrc'
 
 alias cat="bat"
+
+zf() {
+  fzf_prompt=$(find . -name "*.pdf" -o -name "*.djvu" | fzf)
+
+  if [ -z "$fzf_prompt" ]; then
+    return 0
+  fi
+
+  zathura "$fzf_prompt"
+}
+
+alias zf="zf"
+
+mpvf() {
+  fzf_prompt=$(find . -name "*.mp4" -o -name "*.mkv" -o -name "*.avi" -o -name "*.mov" -o -name "*.webm" -o -name "*.flv" -o -name "*.mpeg" -o -name "*.mpg" -o -name "*.wmv" -o -name "*.3gp" -o -name "*.ts" -o -name "*.m4v" -o -name "*.ogv" -o -name "*.mov" | fzf)
+
+  if [ -z "$fzf_prompt" ]; then
+    return 0
+  fi
+
+  mpv "$fzf_prompt"
+}
+
+alias mpvf="mpvf"
+
+cdf() {
+  path=$(find . \( -path "**/venv" -o -path "**/__*" -o -path "**/.*" -o -path "./WinShareDir" \) -prune -o -type d -print | fzf --preview="ls {}" --preview-window=down)
+  cd "$path" || exit 0
+
+  if [ -z "$path" ]; then
+    return 0
+  fi
+
+  path=$(realpath --relative-to="$HOME" "$PWD")
+  echo "~/$path"
+}
+
+alias cdf="cdf"
+
+# ---
 
 # Включение Vi mode
 set -o vi
