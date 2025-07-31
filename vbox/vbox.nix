@@ -1,7 +1,5 @@
-{
-  nixpkgs.config.allowUnfree = true;
-  virtualisation.virtualbox.host.enable = true;
-  virtualisation.virtualbox.host.enableExtensionPack = true;
-  users.extraGroups.vboxusers.members = ["user-with-access-to-virtualbox"];
-  boot.kernelParams = ["kvm.enable_virt_at_load=0"];
+{pkgs, ...}: {
+  environment = {
+    systemPackages = [pkgs.qemu];
+  };
 }

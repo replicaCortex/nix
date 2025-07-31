@@ -36,12 +36,12 @@ vim.api.nvim_create_autocmd("CmdlineLeave", {
 --   end,
 -- })
 
-vim.api.nvim_create_user_command("CopyLspMessage", function()
-  local msg = vim.diagnostic.get(0, { lnum = vim.fn.line "." - 1 })[1]
-  if msg then
-    vim.fn.setreg("+", msg.message)
-    print "Diagnostic message copied to clipboard!"
-  else
-    print "No diagnostic message found."
-  end
-end, {})
+vim.api.nvim_create_autocmd("TextYankPost", {
+  pattern = "*",
+  callback = function()
+    vim.highlight.on_yank {
+      higroup = "IncSearch",
+      timeout = 200,
+    }
+  end,
+})

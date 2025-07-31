@@ -22,7 +22,6 @@
       sqlite
 
       fzf
-      ripgrep
 
       gnutar
       gzip
@@ -69,18 +68,12 @@
       bash-language-server
       shfmt
 
+      clang-tools
+      gdb
+
       tree-sitter
 
       texlab
-
-      sqls
-      sql-formatter
-
-      # linter
-
-      codespell
-      luajitPackages.luacheck
-      pylint
     ];
   };
 }

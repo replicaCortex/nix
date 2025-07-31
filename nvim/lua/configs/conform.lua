@@ -6,7 +6,8 @@ local options = {
     python = { "black" },
     css = { "prettier" },
     html = { "prettier" },
-    sql = { "sql_formatter" },
+    c = { "clang-format" },
+    -- sql = { "sql_formatter" },
   },
 
   format_on_save = {

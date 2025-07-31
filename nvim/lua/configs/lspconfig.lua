@@ -4,11 +4,13 @@ local servers = {
   "basedpyright",
   -- NOTE: сыро
   -- "ty",
+
   "bashls",
   "texlab",
+  "clangd",
 
   -- https://github.com/sqls-server/sqls?tab=readme-ov-file
-  "sqls",
+  -- "sqls",
 }
 
 if vim.lsp.inlay_hint then

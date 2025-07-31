@@ -67,68 +67,68 @@ return {
     },
   },
 
-  {
-    "ggandor/leap.nvim",
-    keys = {
-      { "s", "<Plug>(leap-forward)", desc = "leap forward" },
-      { "S", "<Plug>(leap-backward)", desc = "leap basckward" },
-    },
-    config = function()
-      require "configs.leap"
-    end,
-  },
+  -- {
+  --   "ggandor/leap.nvim",
+  --   keys = {
+  --     { "s", "<Plug>(leap-forward)", desc = "leap forward" },
+  --     { "S", "<Plug>(leap-backward)", desc = "leap basckward" },
+  --   },
+  --   config = function()
+  --     require "configs.leap"
+  --   end,
+  -- },
 
-  {
-    "nvim-telescope/telescope.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "debugloop/telescope-undo.nvim",
-    },
-    opts = function(_, conf)
-      conf.defaults = {
-        layout_strategy = "flex",
-        layout_config = {
-          flex = {
-            flip_columns = 140,
-          },
-          vertical = {
-            prompt_position = "top",
-            mirror = true,
-          },
+  -- {
+  --   "nvim-telescope/telescope.nvim",
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --     "debugloop/telescope-undo.nvim",
+  --   },
+  --   opts = function(_, conf)
+  --     conf.defaults = {
+  --       layout_strategy = "flex",
+  --       layout_config = {
+  --         flex = {
+  --           flip_columns = 140,
+  --         },
+  --         vertical = {
+  --           prompt_position = "top",
+  --           mirror = true,
+  --         },
+  --
+  --         horizontal = {
+  --           prompt_position = "top",
+  --         },
+  --       },
+  --       sorting_strategy = "ascending",
+  --
+  --       mappings = {
+  --         i = {
+  --           ["<c-c>"] = require("telescope.actions").delete_buffer + require("telescope.actions").move_to_top,
+  --           ["<Esc>"] = require("telescope.actions").close,
+  --           ["<C-u>"] = false,
+  --         },
+  --       },
+  --       file_ignore_patterns = {
+  --         "%.lock",
+  --         "__pycache__/",
+  --       },
+  --     }
+  --
+  --     return conf
+  --   end,
+  -- },
 
-          horizontal = {
-            prompt_position = "top",
-          },
-        },
-        sorting_strategy = "ascending",
-
-        mappings = {
-          i = {
-            ["<c-c>"] = require("telescope.actions").delete_buffer + require("telescope.actions").move_to_top,
-            ["<Esc>"] = require("telescope.actions").close,
-            ["<C-u>"] = false,
-          },
-        },
-        file_ignore_patterns = {
-          "%.lock",
-          "__pycache__/",
-        },
-      }
-
-      return conf
-    end,
-  },
-
-  {
-    "HakonHarnes/img-clip.nvim",
-    ft = { "markdown", "tex" },
-    config = function()
-      require "configs.img-clip"
-    end,
-    keys = {
-      { "<leader>p", "<cmd>PasteImage<cr>", desc = "Paste image from system clipboard" },
-    },
-  },
+  -- {
+  --   "HakonHarnes/img-clip.nvim",
+  --   ft = { "markdown", "tex" },
+  --   config = function()
+  --     require "configs.img-clip"
+  --   end,
+  --   keys = {
+  --     { "<leader>p", "<cmd>PasteImage<cr>", desc = "Paste image from system clipboard" },
+  --   },
+  -- },
 
   {
     "zk-org/zk-nvim",
@@ -148,18 +148,18 @@ return {
     end,
   },
 
-  {
-    "OXY2DEV/markview.nvim",
-    ft = { "markdown" },
-    opts = {
-      preview = {
-        filetypes = { "md", "markdown" },
-      },
-    },
-    config = function()
-      require "configs.markview"
-    end,
-  },
+  -- {
+  --   "OXY2DEV/markview.nvim",
+  --   ft = { "markdown" },
+  --   opts = {
+  --     preview = {
+  --       filetypes = { "md", "markdown" },
+  --     },
+  --   },
+  --   config = function()
+  --     require "configs.markview"
+  --   end,
+  -- },
 
   {
     "Wansmer/langmapper.nvim",
@@ -213,15 +213,15 @@ return {
   --   end,
   -- },
 
-  {
-    "rachartier/tiny-glimmer.nvim",
-    event = "VeryLazy",
-    priority = 10,
-
-    config = function()
-      require "configs.tiny-glimmmer"
-    end,
-  },
+  -- {
+  --   "rachartier/tiny-glimmer.nvim",
+  --   event = "VeryLazy",
+  --   priority = 10,
+  --
+  --   config = function()
+  --     require "configs.tiny-glimmmer"
+  --   end,
+  -- },
 
   -- disebale plug
   {
@@ -256,6 +256,21 @@ return {
 
   {
     "nvim-tree/nvim-tree.lua",
+    enabled = false,
+  },
+
+  {
+    "nvim-telescope/telescope.nvim",
+    enabled = false,
+  },
+
+  {
+    "nvzone/volt",
+    enabled = false,
+  },
+
+  {
+    "folke/which-key.nvim",
     enabled = false,
   },
 }

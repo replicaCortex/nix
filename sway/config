@@ -40,6 +40,8 @@ for_window [app_id="^pavucontrol$"] floating enable, sticky enable
 # for_window [app_id="^mpv$"] floating enable, sticky enable
 # for_window [app_id="blueman-manager"] floating enable, sticky enable
 
+for_window [class="krita"] move to workspace 1
+
 # 🖼️  Display & Wallpaper
 output * bg ~/nix/wallpapers/girl-outline.png fill
 
@@ -57,8 +59,6 @@ input "type:touchpad" {
 
 gaps inner 5
 # gaps outer 1
-
-# exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
 
 # 🔧 Workspace Management
 bindsym $mod+1 workspace number 1
@@ -97,7 +97,7 @@ bindsym --to-code $mod+a focus parent
 # 💻 Window Management
 bindsym $mod+Return exec $term
 bindsym $mod+Shift+Return exec $term --working-directory="$(swaycwd)"
-bindsym --to-code $mod+n exec $term --working-directory="$(swaycwd)" bash -c "nvim"
+# bindsym --to-code $mod+n exec $term --working-directory="$(swaycwd)" bash -c "nvim"
 bindsym --to-code $mod+Shift+c kill
 # bindsym --to-code $mod+d exec $menu
 bindsym --to-code $mod+w exec $zen_
