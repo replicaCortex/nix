@@ -12,7 +12,6 @@ set $left_ru р
 set $down j
 set $up k
 set $right l
-# focus_follows_mouse no
 mouse_warping container
 
 set $term footclient
@@ -20,7 +19,7 @@ set $term footclient
 set $histClip exec $term --app-id=cliphist -e bash -c "cliphist list | fzf | cliphist decode | wl-copy"
 set $screen exec dunstify "󱠏  Screenshot" "Area selection" -t 1500 && grim -g "$(slurp)" - | wl-copy --type image/png
 set $screenSave exec 'd=$(date +%s); dunstify "󱠏  Screenshot" "Area selection and save" -t 1500 && grim -g "$(slurp)" ~/"$(date +%s)".png && dunstify "󱠏  Screenshot" "file saved to ~/$d.png"'
-set $zen_ exec $term --app-id=cliphist -e bash -c ~/nix/zen/search_zen.sh
+set $zen_ exec $term --app-id=cliphist -e bash -c ~/nix/zen/sh.sh
 
 # exec
 # Ебать nixos хуйня )))
@@ -32,15 +31,12 @@ exec dunst
 exec wl-paste --watch cliphist store
 exec foot --server
 exec gammastep -O 4000
-exec --no-startup-id swaymsg "workspace 10; exec zen ~/nix/zen/load.load"
+exec rm ly-session.log 
 
-for_window [app_id="^launcher$"] floating enable, sticky enable
 for_window [app_id="^cliphist$"] floating enable, sticky enable, move position 608 52
 for_window [app_id="^pavucontrol$"] floating enable, sticky enable
 # for_window [app_id="^mpv$"] floating enable, sticky enable
 # for_window [app_id="blueman-manager"] floating enable, sticky enable
-
-for_window [class="krita"] move to workspace 1
 
 # 🖼️  Display & Wallpaper
 output * bg ~/nix/wallpapers/girl-outline.png fill
@@ -84,8 +80,8 @@ bindsym $mod+Shift+9 move container to workspace number 9
 bindsym $mod+Shift+0 move container to workspace number 10
 
 # 🧠 Tiling & Layout
-bindsym --to-code $mod+b splith
-bindsym --to-code $mod+v splitv
+# bindsym --to-code $mod+b splith
+bindsym --to-code $mod+v split toggle
 bindsym --to-code $mod+s layout stacking
 bindsym --to-code $mod+t layout tabbed
 bindsym --to-code $mod+e layout toggle split
@@ -159,6 +155,8 @@ bindsym $mod+r mode "resize"
 bindsym --to-code Ctrl+Shift+h $histClip
 bindsym --to-code $mod+p $screen
 bindsym --to-code $mod+Shift+p $screenSave
+bindsym --to-code $mod+z exec zen ~/nix/zen/load.load
+
 
 # 🎨 Theme & Appearance
 # client.focused #FFA500 #FFA500 #282828 #FFA500

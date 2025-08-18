@@ -3,13 +3,9 @@
 
   environment = {
     systemPackages = with pkgs; [
-      krita
-
-      retroarch
-      libretro.desmume
+      aseprite
 
       git
-      git-lfs
 
       nh
       wl-clipboard
@@ -19,7 +15,6 @@
       bat
       jq
       btop
-      sqlite
 
       fzf
 
@@ -33,7 +28,7 @@
       vimiv-qt
       (callPackage ../zen/zen.nix {})
       mpv
-      wf-recorder
+      yt-dlp
 
       file
 
@@ -51,7 +46,6 @@
       zathura
       qbittorrent-enhanced
       texlive.combined.scheme-full
-      libreoffice
 
       # lsp
       basedpyright

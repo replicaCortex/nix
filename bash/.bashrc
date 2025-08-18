@@ -17,91 +17,21 @@ alias recordVT="~/nix/bash/trash_record_voise.sh"
 
 alias vi="vimiv * --command 'enter thumbnail'"
 alias gcc="gcc -Wall -Wextra -Wpedantic"
-
-# fd() {
-#   local pattern="$1"
-#   shift
-#
-#   if [ -z "$pattern" ] || [ "${pattern:0:1}" != "-" ]; then
-#     pattern="*"
-#   fi
-#
-#   # if [ -z "$pattern" ]; then
-#   #   pattern="*"
-#   # fi
-#
-#   find . -name "$pattern" "$@"
-# }
-#
-# alias find="fd"
-
-ff() {
-  find_file=$(find . \( -path "**/venv" -o -path "**/__*" -o -path "**/.*" -o -path "**/WinShareDir" -o -path "**/_minted" \) -prune -o -type f -print | fzf -m --preview "bat --style=numbers --color=always --line-range=:100 {}" --preview-window=down)
-
-  if [ -z "$find_file" ]; then
-    return 0
-  fi
-
-  echo "$find_file"
-}
-
-nvf() {
-  ff=$(ff)
-
-  if [ -z "$ff" ]; then
-    return 0
-  fi
-
-  nvim "$ff"
-}
+alias d="cd ~/note && zk d"
+alias cdo='cd "$(echo $OLDPWD)"'
 
 alias nvi='nv ~/note/index.md'
 alias nvb='nv ~/nix/**/.bashrc'
 alias sbrc="source ~/.bashrc"
 
+alias yt-dlp='yt-dlp --proxy "$PROXY"'
+
 alias cat="bat"
 
-zf() {
-  fzf_prompt=$(find . -name "*.pdf" -o -name "*.djvu" -o -name "*.fb2" | fzf)
+alias work="~/nix/**/work_setup.sh"
+alias work.='work "$PWD"'
 
-  if [ -z "$fzf_prompt" ]; then
-    return 0
-  fi
-
-  zathura "$fzf_prompt"
-}
-
-mpvf() {
-  fzf_prompt=$(find . -name "*.mp4" -o -name "*.mkv" -o -name "*.avi" -o -name "*.mov" -o -name "*.webm" -o -name "*.flv" -o -name "*.mpeg" -o -name "*.mpg" -o -name "*.wmv" -o -name "*.3gp" -o -name "*.ts" -o -name "*.m4v" -o -name "*.ogv" -o -name "*.mov" | fzf)
-
-  if [ -z "$fzf_prompt" ]; then
-    return 0
-  fi
-
-  mpv "$fzf_prompt"
-}
-
-cdf() {
-  path=$(find . \( -path "**/venv" -o -path "**/__*" -o -path "**/.*" -o -path "**/WinShareDir" -o -path "**/_minted" \) -prune -o -type d -print | fzf --preview="ls {}" --preview-window=down)
-  cd "$path" || exit 0
-
-  if [ -z "$path" ]; then
-    return 0
-  fi
-
-  path=$(realpath --relative-to="$HOME" "$PWD")
-  echo "~/$path"
-}
-
-hf() {
-  fzf_prompt=$(history | sort -hr | fzf | cut -c 8-)
-
-  if [ -z "$fzf_prompt" ]; then
-    return 0
-  fi
-
-  $fzf_prompt
-}
+alias book="source ~/nix/**/book_setup.sh"
 
 # ---
 
@@ -116,6 +46,7 @@ export EDITOR="nvim"
 export VISUAL="nvim"
 export TERMINAL="foot"
 export BROWSER="zen"
+export PROXY="https://openproxy:2ad5c3cece9f19f6@nl-hub.freeruproxy.ink:443"
 
 export PROMPT_DIRTRIM=2
 
@@ -129,7 +60,7 @@ bind "set completion-map-case on"
 
 bind "set mark-symlinked-directories on"
 
-export PROMPT_COMMAND='history -a'
+PROMPT_COMMAND="history -a${PROMPT_COMMAND:+;}$PROMPT_COMMAND"
 
 stty -ixon
 
