@@ -8,12 +8,13 @@ alias nd="nix develop ./"
 alias nr="nix run"
 alias ns="nix shell"
 
-alias ext="~/nix/bash/ext.sh"
+alias ext="~/nix/**/ext.sh"
+alias replace="~/nix/**/replace.sh"
 
-alias record="~/nix/bash/record.sh"
-alias recordA="~/nix/bash/recordA.sh"
-alias recordV="~/nix/bash/record_voise.sh"
-alias recordVT="~/nix/bash/trash_record_voise.sh"
+alias record="~/nix/**/record.sh"
+alias recordA="~/nix/**/recordA.sh"
+alias recordV="~/nix/**/record_voise.sh"
+alias recordVT="~/nix/**/trash_record_voise.sh"
 
 alias vi="vimiv * --command 'enter thumbnail'"
 alias gcc="gcc -Wall -Wextra -Wpedantic"
@@ -26,12 +27,13 @@ alias sbrc="source ~/.bashrc"
 
 alias yt-dlp='yt-dlp --proxy "$PROXY"'
 
-alias cat="bat"
-
 alias work="~/nix/**/work_setup.sh"
 alias work.='work "$PWD"'
 
 alias book="source ~/nix/**/book_setup.sh"
+alias b="book"
+
+alias s="~/nix/**/standart_setup.sh"
 
 # ---
 

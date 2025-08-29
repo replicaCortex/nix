@@ -1,10 +1,59 @@
-require "nvchad.options"
-
--- add yours here!
-
+local opt = vim.opt
 local o = vim.o
-o.cursorlineopt = "both" -- to enable cursorline!
-o.relativenumber = true
-o.swapfile = false
-o.title = true
+local g = vim.g
+
+-------------------------------------- options ------------------------------------------
+o.laststatus = 3
+o.showmode = false
+o.splitkeep = "screen"
+
+o.clipboard = "unnamedplus"
+o.cursorline = true
+o.cursorlineopt = "both"
 o.virtualedit = "block"
+o.title = true
+
+-- Indenting
+o.expandtab = true
+o.shiftwidth = 2
+o.smartindent = true
+o.tabstop = 2
+o.softtabstop = 2
+
+opt.fillchars = { eob = " " }
+o.ignorecase = true
+o.smartcase = true
+o.mouse = "a"
+
+-- Numbers
+o.number = true
+o.numberwidth = 2
+o.relativenumber = true
+o.ruler = false
+
+o.signcolumn = "yes"
+o.splitbelow = true
+o.splitright = true
+o.timeoutlen = 400
+o.undofile = true
+
+-- interval for writing swap file to disk, also used by gitsigns
+o.updatetime = 250
+o.swapfile = false
+
+-- go to previous/next line with h,l,left arrow and right arrow
+-- when cursor reaches end/beginning of line
+opt.whichwrap:append "<>[]hl"
+
+-- disable some default providers
+g.loaded_node_provider = 0
+g.loaded_python3_provider = 0
+g.loaded_perl_provider = 0
+g.loaded_ruby_provider = 0
+
+o.foldcolumn = "0"
+o.foldlevel = 99
+o.foldlevelstart = 99
+o.foldclose = "all"
+o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+-- vim.opt.foldlevelstart = 99

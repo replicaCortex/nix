@@ -1,11 +1,11 @@
 {pkgs, ...}: {
   imports = [
-    ./podman/podman.nix
-    ./packages/packages.nix
+    ./podman.nix
+    ./packages.nix
     ./sway/sway.nix
-    ./vbox/vbox.nix
-    ./bluetooth/bluetooth.nix
-    ./hardware-configuration/hardware-configuration.nix
+    ./vbox.nix
+    ./bluetooth.nix
+    ./hardware-configuration.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -16,7 +16,6 @@
       antialias = false;
     };
     packages = with pkgs; [
-      nerd-fonts.ubuntu
       ubuntu_font_family
       times-newer-roman
     ];
@@ -67,6 +66,6 @@
 
   services.displayManager.ly.enable = true;
 
-  services.openssh.enable = true;
+  # services.openssh.enable = true;
   system.stateVersion = "24.11";
 }

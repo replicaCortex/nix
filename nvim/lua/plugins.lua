@@ -1,0 +1,111 @@
+-- require("configs.colorify").run()
+
+return {
+  {
+    "chrisgrieser/nvim-origami",
+    event = "VeryLazy",
+    opts = {},
+
+    init = function()
+      vim.keymap.set("n", "<Left>", function()
+        require("origami").h()
+      end)
+      vim.keymap.set("n", "<Right>", function()
+        require("origami").l()
+      end)
+      vim.keymap.set("n", "<End>", function()
+        require("origami").dollar()
+      end)
+    end,
+  },
+
+  {
+    "nvim-treesitter/nvim-treesitter",
+    event = { "BufReadPost", "BufNewFile" },
+    cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
+    build = ":TSUpdate",
+    config = function()
+      require "configs.treesitter"
+    end,
+  },
+
+  {
+    "stevearc/conform.nvim",
+    event = "BufWritePre",
+    config = function()
+      require "configs.conform"
+    end,
+  },
+
+  {
+    "neovim/nvim-lspconfig",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    event = { "BufReadPost", "BufNewFile" },
+    config = function()
+      require "configs.lspconfig"
+    end,
+  },
+
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    event = { "BufReadPost", "BufNewFile" },
+    opts = {
+      indent = { char = "│" },
+      scope = { char = "│" },
+    },
+  },
+
+  {
+    "saghen/blink.cmp",
+    version = "1.*",
+    event = { "InsertEnter", "CmdLineEnter" },
+
+    dependencies = {
+      {
+        "L3MON4D3/LuaSnip",
+        opts = { history = true, updateevents = "TextChanged" },
+        config = function(_, opts)
+          require("luasnip").config.set_config(opts)
+        end,
+      },
+    },
+
+    opts_extend = { "sources.default" },
+
+    opts = function()
+      return require "configs.blink"
+    end,
+  },
+
+  { "windwp/nvim-autopairs", event = "InsertEnter", opts = {} },
+
+  {
+    "Wansmer/langmapper.nvim",
+    lazy = false,
+    priority = 1, -- High priority is needed if you will use `autoremap()`
+
+    config = function()
+      require "configs.langmapper"
+    end,
+  },
+
+  --- UI ---
+
+  {
+    "nvchad/ui",
+    dependencies = { "nvim-tree/nvim-web-devicons", "nvchad/base46" },
+    config = function()
+      require "nvchad"
+    end,
+  },
+
+  {
+    "nvchad/base46",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    lazy = true,
+    build = function()
+      require("base46").load_all_highlights()
+    end,
+  },
+}

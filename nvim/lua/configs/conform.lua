@@ -1,4 +1,4 @@
-local options = {
+require("conform").setup {
   formatters_by_ft = {
     lua = { "stylua" },
     sh = { "shfmt" },
@@ -6,15 +6,10 @@ local options = {
     python = { "black" },
     css = { "prettier" },
     html = { "prettier" },
-    c = { "clang-format" },
-    -- sql = { "sql_formatter" },
+    c = { "clang-format " },
   },
-
   format_on_save = {
-    -- These options will be passed to conform.format()
     timeout_ms = 500,
-    lsp_fallback = true,
+    lsp_format = "fallback",
   },
 }
-
-return options

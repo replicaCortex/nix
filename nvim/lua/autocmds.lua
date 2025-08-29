@@ -1,5 +1,3 @@
-require "nvchad.autocmds"
-
 vim.api.nvim_create_autocmd("CmdlineEnter", {
   callback = function()
     local cmd =
@@ -28,14 +26,6 @@ vim.api.nvim_create_autocmd("CmdlineLeave", {
   end,
 })
 
--- linter
-
--- vim.api.nvim_create_autocmd({ "InsertLeave", "BufWritePost" }, {
---   callback = function()
---     require("lint").try_lint()
---   end,
--- })
-
 vim.api.nvim_create_autocmd("TextYankPost", {
   pattern = "*",
   callback = function()
@@ -45,3 +35,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     }
   end,
 })
+
+-- vim.api.nvim_create_autocmd("BufReadPost", {
+--vim.cmd "lua require('ufo').closeAllFolds()",
+--})

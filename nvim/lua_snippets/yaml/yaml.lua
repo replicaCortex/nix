@@ -28,33 +28,23 @@ local k = require("luasnip.nodes.key_indexer").new_key
 
 return {
   s(
-    "clang-tidy",
-    fmt(
-      [[
-    ---
-    Checks: >              
-        clang-diagnostic-*,
-        clang-analyzer-*,  
-        readability-*,     
-        # modernize-*,       
-        bugprone-*,        
-        misc-*,            
-                           
-    WarningsAsErrors: '*'  
-    HeaderFilterRegex: '*' 
-    FormatStyle: 'file'    
-    ...                       
-    ]],
-      {}
-    )
-  ),
-
-  s(
     "clangd",
     fmt(
       [[
-      CompileFlags:
-        Add: [-std=c23]
+CompileFlags:
+  Add: [-xc++, -std=c++20, -W*, -pedantic ]
+  # Add: [-xc, -std=c23, -W*, -pedantic ]
+
+Diagnostics:
+  ClangTidy:
+    MissingIncludes: Strict
+    Add: [ clang-diagnostic-*, clang-analyzer-*, readability-*, modernize-*, bugprone-*, misc-*, performance-*, cppcoreguidelines-*, cert-*, google-* ]
+
+Completion:
+  AllScopes: Yes
+  ArgumentLists: FullPlaceholders
+  HeaderInsertion: IWYU
+  CodePatterns: All
 ]],
       {}
     )

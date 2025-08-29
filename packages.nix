@@ -12,7 +12,6 @@
       xdragon
       gammastep
       cliphist
-      bat
       jq
       btop
 
@@ -28,7 +27,6 @@
       vimiv-qt
       (callPackage ../zen/zen.nix {})
       mpv
-      yt-dlp
 
       file
 
@@ -37,7 +35,6 @@
       python312
       gcc
 
-      zk
       neovim
 
       grim

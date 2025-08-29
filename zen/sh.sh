@@ -13,10 +13,6 @@ cat <<'EOF'
 | r                                                      | Reddit                                  |
 | de                                                     | Deepseek Chat                           |
 | go                                                     | Google AI Studio                        |
-| phi                                                    | Google AI phi                           |
-| psy                                                    | Google AI psy                           |
-| lin                                                    | Google AI linux                         |
-| eng                                                    | Google AI eng                           |
 | git                                                    | GitHub                                  |
 | y                                                      | YouTube                                 |
 | ym                                                     | YouTube Music                           |
@@ -114,18 +110,6 @@ case "$query" in
   ;;
 "sh" | "ыр") # Google Translate
   $BROWSER 'zen --new-window "https://s1.sharewood.tech/"'
-  ;;
-"phi" | "зрш") # Google Translate
-  $BROWSER 'zen --new-window "https://aistudio.google.com/prompts/1d1PvhUQ5mF6GSxpSa51sKgEjV8CqGBZc"'
-  ;;
-"psy" | "ыын") # Google Translate
-  $BROWSER 'zen --new-window "https://aistudio.google.com/prompts/1pb70tFvIRvIoWgnDOx55S8qp01PNz2Xn"'
-  ;;
-"lin" | "дшт") # Google Translate
-  $BROWSER 'zen --new-window "https://aistudio.google.com/prompts/1eAiACclCeduvyN_rxLRXL4rwL_QJFE7h"'
-  ;;
-"eng" | "утп") # Google Translate
-  $BROWSER 'zen --new-window "https://aistudio.google.com/prompts/1kWNW22qmlTO5L_9OMgeP_1viDAqy_Kje"'
   ;;
 *)
 
