@@ -16,7 +16,7 @@ mouse_warping container
 
 set $term footclient
 # set $menu exec $term --app-id=launcher -e sway-launcher-desktop
-set $histClip exec $term --app-id=cliphist -e bash -c "cliphist list | fzf | cliphist decode | wl-copy"
+set $histClip exec $term --app-id=cliphist -e bash -c "cliphist-fzf-sixel"
 set $screen exec dunstify "󱠏  Screenshot" "Area selection" -t 1500 && grim -g "$(slurp)" - | wl-copy --type image/png
 set $screenSave exec 'd=$(date +%s); dunstify "󱠏  Screenshot" "Area selection and save" -t 1500 && grim -g "$(slurp)" ~/"$(date +%s)".png && dunstify "󱠏  Screenshot" "file saved to ~/$d.png"'
 set $zen_ exec $term --app-id=cliphist -e bash -c ~/nix/zen/sh.sh

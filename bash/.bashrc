@@ -10,6 +10,8 @@ alias ns="nix shell"
 
 alias ext="~/nix/**/ext.sh"
 alias replace="~/nix/**/replace.sh"
+alias bstar="sudo systemctl start bluetooth.service && na"
+alias bstop="sudo systemctl stop bluetooth.service"
 
 alias record="~/nix/**/record.sh"
 alias recordA="~/nix/**/recordA.sh"
@@ -25,7 +27,7 @@ alias nvi='nv ~/note/index.md'
 alias nvb='nv ~/nix/**/.bashrc'
 alias sbrc="source ~/.bashrc"
 
-alias yt-dlp='yt-dlp --proxy "$PROXY"'
+alias yt-dlp='nix-shell -p yt-dlp && yt-dlp --proxy "$PROXY"'
 
 alias work="~/nix/**/work_setup.sh"
 alias work.='work "$PWD"'
@@ -37,13 +39,6 @@ alias s="~/nix/**/standart_setup.sh"
 
 # ---
 
-# Включение Vi mode
-set -o vi
-
-# Опции bash
-set -o noclobber
-
-# Export Environment Variables
 export EDITOR="nvim"
 export VISUAL="nvim"
 export TERMINAL="foot"
@@ -52,34 +47,15 @@ export PROXY="https://openproxy:2ad5c3cece9f19f6@nl-hub.freeruproxy.ink:443"
 
 export PROMPT_DIRTRIM=2
 
-bind Space:magic-space
-
-bind "set completion-ignore-case on"
-
-bind "set completion-map-case on"
-
-# bind "set show-all-if-ambiguous on"
-
-bind "set mark-symlinked-directories on"
-
 PROMPT_COMMAND="history -a${PROMPT_COMMAND:+;}$PROMPT_COMMAND"
 
-stty -ixon
-
 export HISTCONTROL="erasedups:ignoreboth:ignoredups"
-export HISTIGNORE="&:[ ]*:exit:ls:l:cdf:mpvf:hf:zf:bg:fg:history:clear:nv:nvf:find:fzf:history:vi:cd:nix-shell:ды:св"
-
-# HISTTIMEFORMAT='%F %T '
-
-shopt -s autocd 2>/dev/null
-shopt -s dirspell 2>/dev/null
-shopt -s cdspell 2>/dev/null
-
-# Commands that should be applied only for interactive shells.
-[[ $- == *i* ]] || return
+export HISTIGNORE="&:[ ]*:exit:ls:l:cdf:mpvf:hf:zf:bg:fg:history:clear:nv:nvf:find:fzf:history:vi:cd:nix-shell:ды:св:n:s"
 
 export HISTFILESIZE=100000
 export HISTSIZE=10000
+
+stty -ixon
 
 shopt -s histappend
 shopt -s checkwinsize
@@ -87,3 +63,12 @@ shopt -s extglob
 shopt -s globstar
 shopt -s checkjobs
 shopt -s cmdhist
+
+shopt -s autocd 2>/dev/null
+shopt -s dirspell 2>/dev/null
+shopt -s cdspell 2>/dev/null
+
+set -o noclobber
+
+# Commands that should be applied only for interactive shells.
+[[ $- == *i* ]] || return

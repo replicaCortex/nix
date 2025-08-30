@@ -17,12 +17,15 @@ cat <<'EOF'
 | y                                                      | YouTube                                 |
 | ym                                                     | YouTube Music                           |
 | w                                                      | WhatsApp Web                            |
+| wo                                                     | World                                   |
+| sh                                                     | shedule                                 |
+| p                                                      | Photopea                                |
 | pin                                                    | Pinterest                               |
 | 2ch                                                    | 2ch.hk                                  |
 | arena                                                  | LMSys Chatbot Arena                     |
 | rutrack                                                | RuTracker                               |
 | timer                                                  | Online timer                            |
-| sh                                                     | ShareWood                               |
+| shed                                                   | ShareWood                               |
 +--------------------------------------------------------+-----------------------------------------+
 | Enter                                                  | Exit the script                         |
 +--------------------------------------------------------+-----------------------------------------+
@@ -32,14 +35,14 @@ prompt="prompt: "
 
 read -rep "$prompt" query
 
-BROWSER="swaymsg exec"
+SWAY="swaymsg exec"
 
 if [ -z "$query" ]; then
   exit 0
 fi
 
 if [[ "$query" =~ ^https?:// ]]; then
-  $BROWSER --new-window "$query"
+  $SWAY --new-window "$query"
 
   exit 0
 fi
@@ -54,7 +57,7 @@ if [[ "$query" =~ ^/t || "$query" =~ ^.е ]]; then
     translate="en"
   fi
 
-  $BROWSER "zen --new-window 'https://translate.google.com/?hl=ru&sl=ru&tl=$translate&text=$query&op=translate'"
+  $SWAY "zen --new-window 'https://translate.google.com/?hl=ru&sl=ru&tl=$translate&text=$query&op=translate'"
 
   exit 0
 fi
@@ -63,53 +66,62 @@ if [[ "$query" =~ ^/n ]]; then
 
   query=$(echo "$query" | cut -c 4-)
 
-  $BROWSER "zen --new-window 'https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=$query'"
+  $SWAY "zen --new-window 'https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=$query'"
 
   exit 0
 fi
 
 case "$query" in
 "r" | "к") # Reddit
-  $BROWSER 'zen --new-window "https://www.reddit.com/"'
+  $SWAY 'zen --new-window "https://www.reddit.com/"'
   ;;
 "de" | "ву") # DeepSeek
-  $BROWSER 'zen --new-window "https://chat.deepseek.com/"'
+  $SWAY 'zen --new-window "https://chat.deepseek.com/"'
   ;;
 "go" | "пщ") # Google AI Studio
-  $BROWSER 'zen --new-window "https://aistudio.google.com/prompts/new_chat"'
+  $SWAY 'zen --new-window "https://aistudio.google.com/prompts/new_chat"'
   ;;
 "timer" | "ьшсук") # Таймер
-  $BROWSER 'zen --new-window "https://budilki.ru/timer/#countdown=00:00:00&enabled=0&seconds=0&sound=xylophone&loop=1"'
+  $SWAY 'zen --new-window "https://budilki.ru/timer/#countdown=00:00:00&enabled=0&seconds=0&sound=xylophone&loop=1"'
   ;;
 "y" | "н") # YouTube
-  $BROWSER 'zen --new-window "https://www.youtube.com/"'
+  $SWAY 'zen --new-window "https://www.youtube.com/"'
   ;;
 "ym" | "нь") # YouTube Music
-  $BROWSER 'zen --new-window "https://music.youtube.com/"'
+  $SWAY 'zen --new-window "https://music.youtube.com/"'
   ;;
 "grok" | "пкщл") # Grok
-  $BROWSER 'zen --new-window "https://grok.com/"'
+  $SWAY 'zen --new-window "https://grok.com/"'
   ;;
 "git" | "пше") # GitHub
-  $BROWSER 'zen --new-window "https://github.com/"'
+  $SWAY 'zen --new-window "https://github.com/"'
   ;;
 "pin" | "зшт") # Pinterest
-  $BROWSER 'zen --new-window "https://ru.pinterest.com/"'
+  $SWAY 'zen --new-window "https://ru.pinterest.com/"'
   ;;
 "w" | "ц") # WhatsApp Web
-  $BROWSER 'zen --new-window "https://web.whatsapp.com/"'
+  $SWAY 'zen --new-window "https://web.whatsapp.com/"'
+  ;;
+"p" | "з") # WhatsApp Web
+  $SWAY 'zen --new-window "https://www.photopea.com/"'
   ;;
 "2ch" | "2ср") # 2ch
-  $BROWSER 'zen --new-window "https://2ch.hk/"'
+  $SWAY 'zen --new-window "https://2ch.hk/"'
   ;;
 "arena" | "фкутф") # LM Arena
-  $BROWSER 'zen --new-window "https://lmarena.ai/?arena=&mode=direct"'
+  $SWAY 'zen --new-window "https://lmarena.ai/?arena=&mode=direct"'
   ;;
 "rutrack" | "кенрсфл") # Rutracker
-  $BROWSER 'zen --new-window "https://rutracker.org/forum/tracker.php?nm=bruh"'
+  $SWAY 'zen --new-window "https://rutracker.org/forum/tracker.php?nm=bruh"'
   ;;
 "sh" | "ыр") # Google Translate
-  $BROWSER 'zen --new-window "https://s1.sharewood.tech/"'
+  $SWAY 'zen --new-window "https://npi-tu.ru/schedule/schedule.html?for=student&faculty=2&year=3&group=%D0%9F%D0%9E%D0%92%D0%B0"'
+  ;;
+"wo" | "цщ") # world
+  $SWAY 'zen --new-window "https://word.cloud.microsoft/"'
+  ;;
+"shed" | "ырув") # world
+  $SWAY 'zen --new-window "https://s1.sharewood.tech/"'
   ;;
 *)
 
@@ -120,6 +132,6 @@ case "$query" in
     -e 's| |+|g' \
     <<<"$query")
 
-  $BROWSER "zen --new-window 'https://www.google.com/search?q=$query'"
+  $SWAY "zen --new-window 'https://www.google.com/search?q=$query'"
   ;;
 esac

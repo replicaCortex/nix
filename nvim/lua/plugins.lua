@@ -2,26 +2,18 @@
 
 return {
   {
-    "chrisgrieser/nvim-origami",
-    event = "VeryLazy",
-    opts = {},
-
-    init = function()
-      vim.keymap.set("n", "<Left>", function()
-        require("origami").h()
-      end)
-      vim.keymap.set("n", "<Right>", function()
-        require("origami").l()
-      end)
-      vim.keymap.set("n", "<End>", function()
-        require("origami").dollar()
-      end)
+    "kevinhwang91/nvim-hlslens",
+    keys = {
+      { "/" },
+      { "?" },
+    },
+    config = function()
+      require "configs.hlslens"
     end,
   },
 
   {
     "nvim-treesitter/nvim-treesitter",
-    event = { "BufReadPost", "BufNewFile" },
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate",
     config = function()
@@ -87,6 +79,15 @@ return {
 
     config = function()
       require "configs.langmapper"
+    end,
+  },
+
+  {
+    "kevinhwang91/nvim-ufo",
+    event = { "BufReadPost", "BufNewFile" },
+    dependencies = { "kevinhwang91/promise-async", "nvim-treesitter/nvim-treesitter" },
+    config = function()
+      require "configs.ufo"
     end,
   },
 

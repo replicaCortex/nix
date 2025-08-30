@@ -16,6 +16,7 @@
       btop
 
       fzf
+      chafa
 
       gnutar
       gzip
@@ -25,7 +26,7 @@
 
       ffmpeg-full
       vimiv-qt
-      (callPackage ../zen/zen.nix {})
+      (callPackage ./zen/zen.nix {})
       mpv
 
       file
@@ -35,6 +36,7 @@
       python312
       gcc
 
+      zk
       neovim
 
       grim

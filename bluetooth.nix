@@ -1,5 +1,10 @@
 {pkgs, ...}: {
   hardware.bluetooth.enable = true;
   hardware.bluetooth.package = pkgs.bluez;
-  services.blueman.enable = true;
+
+  hardware.bluetooth.settings = {
+    General = {
+      DiscoverableTimeout = 0;
+    };
+  };
 }

@@ -37,6 +37,8 @@ o.splitright = true
 o.timeoutlen = 400
 o.undofile = true
 
+o.shortmess = "S"
+
 -- interval for writing swap file to disk, also used by gitsigns
 o.updatetime = 250
 o.swapfile = false
@@ -50,10 +52,3 @@ g.loaded_node_provider = 0
 g.loaded_python3_provider = 0
 g.loaded_perl_provider = 0
 g.loaded_ruby_provider = 0
-
-o.foldcolumn = "0"
-o.foldlevel = 99
-o.foldlevelstart = 99
-o.foldclose = "all"
-o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
--- vim.opt.foldlevelstart = 99

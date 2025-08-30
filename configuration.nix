@@ -1,9 +1,9 @@
 {pkgs, ...}: {
   imports = [
-    ./podman.nix
+    # ./podman.nix
+    ./vbox.nix
     ./packages.nix
     ./sway/sway.nix
-    ./vbox.nix
     ./bluetooth.nix
     ./hardware-configuration.nix
   ];
@@ -16,8 +16,9 @@
       antialias = false;
     };
     packages = with pkgs; [
+      nerd-fonts.ubuntu
       ubuntu_font_family
-      times-newer-roman
+      # times-newer-roman
     ];
   };
 
