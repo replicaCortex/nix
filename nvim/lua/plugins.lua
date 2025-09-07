@@ -32,7 +32,7 @@ return {
   {
     "neovim/nvim-lspconfig",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
-    event = { "BufReadPost", "BufNewFile" },
+    event = { "BufReadPost", "BufNewFile", "BufEnter" },
     config = function()
       require "configs.lspconfig"
     end,
@@ -82,15 +82,6 @@ return {
     end,
   },
 
-  {
-    "kevinhwang91/nvim-ufo",
-    event = { "BufReadPost", "BufNewFile" },
-    dependencies = { "kevinhwang91/promise-async", "nvim-treesitter/nvim-treesitter" },
-    config = function()
-      require "configs.ufo"
-    end,
-  },
-
   --- UI ---
 
   {
@@ -109,4 +100,36 @@ return {
       require("base46").load_all_highlights()
     end,
   },
+
+  --- other ---
+
+  {
+    "zk-org/zk-nvim",
+    ft = { "markdown" },
+    config = function()
+      require("zk").setup {}
+    end,
+  },
+
+  {
+    "lervag/vimtex",
+    ft = { "tex" },
+    config = function()
+      vim.g.vimtex_view_method = "zathura"
+    end,
+  },
+
+  {
+    "quarto-dev/quarto-nvim",
+    dependencies = {
+      "jmbuhr/otter.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    ft = { "quarto", "rmd", "r" },
+  },
+
+  -- {
+  --   "R-nvim/R.nvim",
+  --   ft = { "R", "rmd", "quarto" },
+  -- },
 }

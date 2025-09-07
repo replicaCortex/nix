@@ -3,14 +3,12 @@
 
   environment = {
     systemPackages = with pkgs; [
-      aseprite
-
       git
 
       nh
       wl-clipboard
-      xdragon
       gammastep
+      xdragon
       cliphist
       jq
       btop
@@ -33,7 +31,11 @@
 
       telegram-desktop
 
-      python312
+      (pkgs.python312.withPackages
+        (ps: [
+          ps.mdformat
+          ps.mdformat-frontmatter
+        ]))
       gcc
 
       zk
@@ -44,12 +46,18 @@
 
       zathura
       qbittorrent-enhanced
+
+      # word
+      quarto
+      pandoc
       texlive.combined.scheme-full
 
       # lsp
       basedpyright
       # ty
       black
+
+      yaml-language-server
 
       prettier
 
@@ -60,6 +68,8 @@
 
       bash-language-server
       shfmt
+
+      mbake
 
       clang-tools
       gdb

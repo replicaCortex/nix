@@ -35,26 +35,3 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     }
   end,
 })
-
-vim.api.nvim_create_autocmd("BufReadPost", {
-  callback = function()
-    if vim.bo.filetype == "org" then
-      return
-    end
-    local winid = vim.api.nvim_get_current_win()
-    local method = vim.wo[winid].foldmethod
-    if method == "diff" or method == "marker" then
-      require("ufo").closeAllFolds()
-      return
-    end
-    require "async"(function()
-      local bufnr = vim.api.nvim_get_current_buf()
-      require("ufo").attach(bufnr)
-      local ranges = await(require("ufo").getFolds(bufnr, "treesitter") or {})
-      local ok = require("ufo").applyFolds(bufnr, ranges)
-      if ok then
-        require("ufo").closeAllFolds()
-      end
-    end)
-  end,
-})

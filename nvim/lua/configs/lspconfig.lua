@@ -9,6 +9,7 @@ local servers = {
   "texlab",
   "clangd",
   "lua_ls",
+  "yamlls",
 
   -- https://github.com/sqls-server/sqls?tab=readme-ov-file
   -- "sqls",
@@ -26,7 +27,23 @@ lspconfig.clangd.setup {
   },
 }
 
+vim.lsp.config("yamlls", {
+  settings = {
+    yaml = {
+      schemas = {},
+    },
+  },
+})
+
 vim.lsp.enable(servers)
+
+local signature_help = vim.lsp.buf.signature_help
+vim.lsp.buf.signature_help = function(config)
+  config = config or {}
+  config.border = config.border or "rounded"
+  config.title = ""
+  return signature_help(config)
+end
 
 -- disable semanticTokens
 local function on_init(client, _)

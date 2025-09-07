@@ -4,25 +4,28 @@ cat <<'EOF'
 +========================================================+=========================================+
 |                                    PREFIX COMMANDS                                               |
 +--------------------------------------------------------+-----------------------------------------+
-| /t <text>                                              | Google Translate                        |
-| /n <package>                                           | Search NixOS packages                   |
+| !<text>                                                | Google Translate                        |
+| @<package>                                             | Search NixOS packages                   |
 | http(s)://...                                          | Open specified URL in browser           |
 +--------------------------------------------------------+-----------------------------------------+
 |                                       SHORTCUTS                                                  |
 +--------------------------------------------------------+-----------------------------------------+
 | r                                                      | Reddit                                  |
-| de                                                     | Deepseek Chat                           |
+| du                                                     | Duck.ai                                 |
 | go                                                     | Google AI Studio                        |
 | git                                                    | GitHub                                  |
 | y                                                      | YouTube                                 |
 | ym                                                     | YouTube Music                           |
 | w                                                      | WhatsApp Web                            |
 | wo                                                     | World                                   |
-| sh                                                     | shedule                                 |
+| sh                                                     | Shedule                                 |
+| be                                                     | Beline (poor)                           |
+| nb                                                     | Notebook                                |
+| sdo                                                    | Sdo                                     |
 | p                                                      | Photopea                                |
-| pin                                                    | Pinterest                               |
+| ch                                                     | ChatGPT                                 |
 | 2ch                                                    | 2ch.hk                                  |
-| arena                                                  | LMSys Chatbot Arena                     |
+| de                                                     | DeepSeek                                |
 | rutrack                                                | RuTracker                               |
 | timer                                                  | Online timer                            |
 | shed                                                   | ShareWood                               |
@@ -41,15 +44,19 @@ if [ -z "$query" ]; then
   exit 0
 fi
 
-if [[ "$query" =~ ^https?:// ]]; then
-  $SWAY --new-window "$query"
+bind '"\C-q": "exit\n"'
+
+regex='https?://[-[:alnum:]\+&@#/%?=~_|!:,.;]*[-[:alnum:]\+&@#/%=~_|]'
+
+if [[ "$query" =~ $regex ]]; then
+  $SWAY "zen --new-window \"$query\""
 
   exit 0
 fi
 
-if [[ "$query" =~ ^/t || "$query" =~ ^.е ]]; then
+if [[ "$query" =~ ^\! || "$query" =~ ^\! ]]; then
 
-  query=$(echo "$query" | cut -c 4-)
+  query=$(echo "$query" | cut -c 2-)
 
   if echo "$query" | grep "[a-z]"; then
     translate="ru"
@@ -57,14 +64,14 @@ if [[ "$query" =~ ^/t || "$query" =~ ^.е ]]; then
     translate="en"
   fi
 
-  $SWAY "zen --new-window 'https://translate.google.com/?hl=ru&sl=ru&tl=$translate&text=$query&op=translate'"
+  $SWAY "zen --new-window 'https://translate.google.com/?hl=en&sl=en&tl=$translate&text=$query&op=translate'"
 
   exit 0
 fi
 
-if [[ "$query" =~ ^/n ]]; then
+if [[ "$query" =~ ^\@ ]]; then
 
-  query=$(echo "$query" | cut -c 4-)
+  query=$(echo "$query" | cut -c 2-)
 
   $SWAY "zen --new-window 'https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=$query'"
 
@@ -96,9 +103,6 @@ case "$query" in
 "git" | "пше") # GitHub
   $SWAY 'zen --new-window "https://github.com/"'
   ;;
-"pin" | "зшт") # Pinterest
-  $SWAY 'zen --new-window "https://ru.pinterest.com/"'
-  ;;
 "w" | "ц") # WhatsApp Web
   $SWAY 'zen --new-window "https://web.whatsapp.com/"'
   ;;
@@ -122,6 +126,21 @@ case "$query" in
   ;;
 "shed" | "ырув") # world
   $SWAY 'zen --new-window "https://s1.sharewood.tech/"'
+  ;;
+"nb" | "тм") # world
+  $SWAY 'zen --new-window "https://notebooklm.google.com/?authuser=1"'
+  ;;
+"ch" | "ср") # world
+  $SWAY 'zen --new-window "https://chatgpt.com/"'
+  ;;
+"be" | "иу") # world
+  $SWAY 'zen --new-window "https://rostov-na-donu.beeline.ru/customers/products/elk/"'
+  ;;
+"du" | "вг") # world
+  $SWAY 'zen --new-window "https://duckduckgo.com/?q=DuckDuckGo+AI+Chat&ia=chat&duckai=1"'
+  ;;
+"sdo" | "ывщ") # world
+  $SWAY 'zen --new-window "https://sdo.npi-tu.ru/"'
   ;;
 *)
 

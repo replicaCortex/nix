@@ -37,7 +37,7 @@ o.splitright = true
 o.timeoutlen = 400
 o.undofile = true
 
-o.shortmess = "S"
+vim.opt.shortmess:append "cSI"
 
 -- interval for writing swap file to disk, also used by gitsigns
 o.updatetime = 250
@@ -52,3 +52,12 @@ g.loaded_node_provider = 0
 g.loaded_python3_provider = 0
 g.loaded_perl_provider = 0
 g.loaded_ruby_provider = 0
+
+-- bruh
+o.foldenable = true
+o.foldcolumn = "0"
+o.foldlevel = 0
+o.foldmethod = "indent"
+-- o.foldclose = "all"
+-- o.foldmethod = "expr"
+-- o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
