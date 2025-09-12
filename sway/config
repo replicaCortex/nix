@@ -4,6 +4,8 @@
 # include /etc/sway/config.d/*
 default_border pixel 2px
 font Ubuntu Mono 14px
+client.focused #FFA500 #FFA500 #282828 #FFf500
+gaps inner 5
 
 # ⌨️  Mod + Keybindings
 set $mod Mod4
@@ -15,14 +17,11 @@ set $right l
 mouse_warping container
 
 set $term footclient
-# set $menu exec $term --app-id=launcher -e sway-launcher-desktop
 set $histClip exec $term --app-id=cliphist -e bash -c "cliphist-fzf-sixel"
 set $screen exec dunstify "󱠏  Screenshot" "Area selection" -t 1500 && grim -g "$(slurp)" - | wl-copy --type image/png
 set $screenSave exec 'd=$(date +%s); dunstify "󱠏  Screenshot" "Area selection and save" -t 1500 && grim -g "$(slurp)" ~/"$(date +%s)".png && dunstify "󱠏  Screenshot" "file saved to ~/$d.png"'
 set $zen_ exec $term --app-id=cliphist -e bash -c ~/nix/zen/sh.sh
 
-# exec
-# Ебать nixos хуйня )))
 exec systemctl --user import-environment XDG_SESSION_TYPE XDG_CURRENT_DESKTOP 
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 
@@ -32,11 +31,9 @@ exec wl-paste --watch cliphist store
 exec foot --server
 exec gammastep -O 4000
 exec rm ly-session.log 
+exec rm .python_history*
 
 for_window [app_id="^cliphist$"] floating enable, sticky enable, move position 608 52
-for_window [app_id="^pavucontrol$"] floating enable, sticky enable
-# for_window [app_id="^mpv$"] floating enable, sticky enable
-# for_window [app_id="blueman-manager"] floating enable, sticky enable
 
 # 🖼️  Display & Wallpaper
 output * bg ~/nix/wallpapers/girl-outline.png fill
@@ -50,11 +47,7 @@ input "type:keyboard" {
 
 input "type:touchpad" {
   tap enabled
-  # natural_scroll enabled
 }
-
-gaps inner 5
-# gaps outer 1
 
 # 🔧 Workspace Management
 bindsym $mod+1 workspace number 1
@@ -80,7 +73,6 @@ bindsym $mod+Shift+9 move container to workspace number 9
 bindsym $mod+Shift+0 move container to workspace number 10
 
 # 🧠 Tiling & Layout
-# bindsym --to-code $mod+b splith
 bindsym --to-code $mod+v split toggle
 bindsym --to-code $mod+s layout stacking
 bindsym --to-code $mod+t layout tabbed
@@ -94,10 +86,8 @@ bindsym --to-code $mod+a focus parent
 bindsym $mod+Return exec $term
 bindsym $mod+Shift+Return exec $term --working-directory="$(swaycwd)"
 bindsym --to-code $mod+Shift+c kill
-# bindsym --to-code $mod+d exec $menu
-bindsym --to-code $mod+w exec $zen_
-floating_modifier $mod normal
 bindsym --to-code $mod+Shift+q reload
+floating_modifier $mod normal
 
 bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit sway?' -b 'Yes, exit sway' 'swaymsg exit'
 
@@ -121,21 +111,6 @@ bindsym --to-code $mod+Shift+Down move down
 bindsym --to-code $mod+Shift+Up move up
 bindsym --to-code $mod+Shift+Right move right
 
-# 📦 Scratchpad
-bindsym $mod+Shift+minus move scratchpad
-bindsym $mod+minus scratchpad show
-
-# 🎧 Media & Brightness
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +2%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -2%
-bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
-bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
-bindsym XF86MonBrightnessUp exec brightnessctl set +5%
-bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
-
 # ➕ Resize Mode
 mode "resize" {
   bindsym $right resize shrink width 10px
@@ -151,26 +126,9 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
+# Other
+bindsym --to-code $mod+w exec $zen_
 bindsym --to-code Ctrl+Shift+h $histClip
+
 bindsym --to-code $mod+p $screen
 bindsym --to-code $mod+Shift+p $screenSave
-bindsym --to-code $mod+z exec zen ~/nix/zen/load.load
-
-
-# 🎨 Theme & Appearance
-# client.focused #FFA500 #FFA500 #282828 #FFA500
-client.focused #FFA500 #FFA500 #282828 #FFf500
-
-# 🛠️ Services & Extras
-
-# 🔔 Notifications
-
-
- # bar 
-# bar {
-#     status_command waybar
-
-#     position top
-#     tray_output *
-#     pango_markup enabled
-# }

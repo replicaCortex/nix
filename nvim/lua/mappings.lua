@@ -17,6 +17,7 @@ map("n", "<leader>/", "gcc", { remap = true })
 map("v", "<leader>/", "gc", { remap = true })
 
 map("c", "<TAB>", "")
+map("n", "q:", "")
 
 mapd("n", "q")
 mapd("n", "Q")

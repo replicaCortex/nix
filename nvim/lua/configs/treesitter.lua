@@ -1,5 +1,3 @@
--- vim.treesitter.language.register("markdown", { "quarto", "rmd" })
-
 return {
   ensure_installed = {
     "lua",

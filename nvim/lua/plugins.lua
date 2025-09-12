@@ -1,5 +1,3 @@
--- require("configs.colorify").run()
-
 return {
   {
     "kevinhwang91/nvim-hlslens",
@@ -59,6 +57,7 @@ return {
         opts = { history = true, updateevents = "TextChanged" },
         config = function(_, opts)
           require("luasnip").config.set_config(opts)
+          require "configs.luasnip"
         end,
       },
     },

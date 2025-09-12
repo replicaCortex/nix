@@ -1,218 +1,187 @@
 {
-    "name": "top_bar",
-    "layer": "top",
-    "position": "top",
-//    "width": 1900,
-    "spacing": 6,
-    "modules-left": ["sway/workspaces", "sway/language", "tray"],
-    "modules-center": ["clock#time", "custom/separator", "clock#week", "custom/separator_dot", "clock#month", "custom/separator", "clock#calendar"],
-    "modules-right": ["battery" , "temperature", "custom/separator", "cpu","custom/separator", "memory","custom/separator", "disk", "pulseaudio", "custom/separator","bluetooth"],
-
-    // Modules Config
-    "sway/workspaces": {
-        "on-click": "activate",  
-        "format": " {name} ",
-        "format-icons": {},
-        "show-special": true,
-        // "special-visiable-only": true,
+  "layer": "top",
+  "position": "top",
+  "spacing": 6,
+  "modules-left": [
+    "sway/workspaces",
+    "sway/language",
+    "sway/mode"
+  ],
+  "modules-center": [
+    "clock#time",
+    "custom/separator",
+    "clock#week",
+    "custom/separator_dot",
+    "clock#month",
+    "custom/separator",
+    "clock#calendar"
+  ],
+  "modules-right": [
+    "tray", "custom/weather",  "network", "cpu", "memory", "disk", "temperature",
+    "pulseaudio", "bluetooth", "battery"
+  ],
+  "custom/weather": {
+      // "exec": "curl -s 'wttr.in/Moscow?format=1'",
+      "interval": 3600
+  },
+  "sway/workspaces": {
+    "format": " {name} ",
+    "format-icons": {},
+    "show-special": true
+  },
+  "sway/language": {
+    "format": "{short}"
+  },
+  "sway/mode": {
+      "format": "<span style=\"italic\">{}</span>"
+  },
+  "clock#time": {
+    "format": "  {:%H:%M:%S}",
+   "interval": 1
+  },
+  "custom/separator": {
+    "format": " | ",
+    "tooltip": false
+  },
+  "custom/separator_space": {
+    "format": " ",
+    "tooltip": false
+  },
+  "custom/separator_dot": {
+    "format": "•",
+    "tooltip": false
+  },
+  "clock#week": {
+    "format": "{:%a}"
+  },
+  "clock#month": {
+    "format": "{:%h}"
+  },
+  "clock#calendar": {
+    "format": "{:%F}",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "actions": {
+      "on-click-right": "mode"
     },
-
-"sway/language": {
-    "format": "{short}",
-},
-
-    "clock#time": {
-        "format": "  [ {:%H:%M:??}",
+    "calendar": {
+      "mode": "month",
+      "mode-mon-col": 3,
+      "weeks-pos": "right",
+      "on-scroll": 1,
+      "on-click-right": "mode",
+      "format": {
+        "months": "<span color='#f4dbd6'><b>{}</b></span>",
+        "days": "<span color='#cad3f5'><b>{}</b></span>",
+        "weeks": "<span color='#c6a0f6'><b>W{}</b></span>",
+        "weekdays": "<span color='#a6da95'><b>{}</b></span>",
+        "today": "<span color='#f38ba8'><b>{}</b></span>"
+      }
+    }
+  },
+  "bluetooth": {
+    "states": {
+      "high": 90,
+      "upper-medium": 70,
+      "medium": 50,
+      "lower-medium": 30,
+      "low": 10
     },
-
-    "custom/separator": {
-        "format": " | ",
-        "tooltip": false,
+    "format": "",
+    "format-disabled": "X",
+    "format-connected-battery":"󰂅 {device_battery_percentage}%",
+    "max-length": 35
+  },
+  "keyboard-state": {
+    "capslock": true,
+    "format": "{icon}",
+    "format-icons": {
+      "locked": "!",
+      "unlocked": " "
+    }
+  },
+  "cpu": {
+    "format": " {usage}%",
+    "states": {
+      "high": 90,
+      "upper-medium": 70,
+      "medium": 50,
+      "lower-medium": 30,
+      "low": 10
+    }
+  },
+  "memory": {
+    "format": " {percentage}%",
+    "states": {
+      "high": 90,
+      "upper-medium": 70,
+      "medium": 50,
+      "lower-medium": 30,
+      "low": 10
+    }
+  },
+  "disk": {
+    "format": " {percentage_used}%",
+    "states": {
+      "high": 90,
+      "upper-medium": 70,
+      "medium": 50,
+      "lower-medium": 30,
+      "low": 10
+    }
+  },
+  "temperature": {
+    "hwmon-path": "/sys/class/drm/card1/device/hwmon/hwmon6/temp1_input",
+    "critical-threshold": 70,
+    "format": " {temperatureC}°C"
+  },
+  "battery": {
+    "states": {
+      "high": 90,
+      "upper-medium": 70,
+      "medium": 50,
+      "lower-medium": 30,
+      "low": 10
     },
-
-    "custom/separator_space": {
-        "format": " ",
-        "tooltip": false,
+    "format": "{icon} {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-icons": [
+      "[      ]",
+      "[=     ]",
+      "[==    ]",
+      "[====  ]",
+      "[===== ]",
+      "[======]"
+    ]
+  },
+  "pulseaudio": {
+    "states": {
+        "high": 90,
+        "upper-medium": 70,
+        "medium": 50,
+        "lower-medium": 30,
+        "low": 10
     },
-
-    "custom/separator_dot": {
-        "format": "•",
-        "tooltip": false,
-    },
-
-    "clock#week": {
-        "format": "{:%a}",
-    },
-
-    "clock#month": {
-        "format": "{:%h}",
-    },
-
-    "clock#calendar": {
-        "format": "{:%F} ]",
-        "tooltip-format": "<tt><small>{calendar}</small></tt>",
-        "actions": {
-            "on-click-right": "mode",
-        },
-        "calendar": {
-            "mode"          : "month",
-            "mode-mon-col"  : 3,
-            "weeks-pos"     : "right",
-            "on-scroll"     : 1,
-            "on-click-right": "mode",
-            "format": {
-                "months":     "<span color='#f4dbd6'><b>{}</b></span>",
-                "days":       "<span color='#cad3f5'><b>{}</b></span>",
-                "weeks":      "<span color='#c6a0f6'><b>W{}</b></span>",
-                "weekdays":   "<span color='#a6da95'><b>{}</b></span>",
-                "today":      "<span color='#f38ba8'><b>{}</b></span>"
-            }
-        },
-    },
-
-
-    "bluetooth": {
-        "format": "[ BLU: X ] ",
-        "format-disabled": "NONE ]",
-        // "format-connected": "{device_alias} ]",
-        "format-connected-battery": "BAT: {device_battery_percentage}% ]",
-        // "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
-        "tooltip-format": "{controller_alias}\t{controller_address} ({status})\n\n{num_connections} connected",
-        "tooltip-format-disabled": "bluetooth off",
-        "tooltip-format-connected": "{controller_alias}\t{controller_address} ({status})\n\n{num_connections} connected\n\n{device_enumerate}",
-        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t({device_battery_percentage}%)",
-        "max-length": 35,
-        // "on-click": "bash -c bluetooth_toggle",
-        // "on-click-right": "overskride",
-    },
-
-    "keyboard-state": {
-        "capslock": true,
-        // "numlock": true,
-        "format": "[ {icon} ]",
-        "format-icons": {
-            "locked": "!",
-            "unlocked": " "
-        }
-    },
-
-    "user": {
-        "format": " <span color='#8bd5ca'>{user}</span> (up <span color='#f5bde6'>{work_d} d</span> <span color='#8aadf4'>{work_H} h</span> <span color='#eed49f'>{work_M} min</span> <span color='#a6da95'>↑</span>)",
-        "icon": true,
-    },
-
-    // "wlr/taskbar": {
-    //     "format": "{icon}",
-    //     "icon-size": 20,
-    //     "icon-theme": "Numix-Circle",
-    //     "tooltip-format": "{title}",
-    //     "on-click": "activate",
-    //     "on-click-right": "close",
-    //     "on-click-middle": "fullscreen",
-    // },
-
-    "tray":{
-        "icon-size": 10,
-        "spacing": 2,
-    },
-
-    "cpu": {
-        "format": "CPU: {usage}%",
-        "states": {
-            "high": 90,
-            "upper-medium": 70,
-            "medium": 50,
-            "lower-medium": 30,
-            "low": 10,
-        },
-        "on-click": "foot start btop",
-    },
-
-    "memory": {
-        "format": "MEM: {percentage}%",
-        "tooltip-format": "Main: ({used} GiB/{total} GiB)({percentage}%), available {avail} GiB\nSwap: ({swapUsed} GiB/{swapTotal} GiB)({swapPercentage}%), available {swapAvail} GiB",
-        "states": {
-            "high": 90,
-            "upper-medium": 70,
-            "medium": 50,
-            "lower-medium": 30,
-            "low": 10,
-        },
-        "on-click": "foot start btop",
-        "on-click-right": "foot start btm",
-    },
-
-    "disk": {
-        "format": "DIS: {percentage_used}% ]",  
-        "tooltip-format": "({used}/{total})({percentage_used}%) in '{path}', available {free}({percentage_free}%)",
-        "states": {
-            "high": 90,
-            "upper-medium": 70,
-            "medium": 50,
-            "lower-medium": 30,
-            "low": 10,
-        },
-        "on-click": "foot start btop",
-        "on-click-right": "foot start btm",
-    },
-
-    "temperature": {
-        "tooltip": false,
-        // "thermal-zone": 0,
-        "hwmon-path": "/sys/class/drm/card1/device/hwmon/hwmon6/temp1_input",
-        "critical-threshold": 70,
-        "format": "[ TEM: {temperatureC} *C",
-        "format-critical": "[ !!!! {temperatureC} *C | ",
-    },
-
-    "battery": {
-        "states": {
-            "high": 90,
-            "upper-medium": 70,
-            "medium": 50,
-            "lower-medium": 30,
-            "low": 10,
-        },
-        "format": "[ BAT: {icon} {capacity}% ]",
-        "format-charging": "[ BAT: {icon} {capacity}% ]",
-        "format-plugged": "[ BAT: {icon} {capacity}% ]",
-        "format-icons": [ "[      ]", "[=     ]", "[==   ]", "[====  ]", "[===== ]", "[======]"],
-        "tooltip-format": "{timeTo}",
-    },
-
-    "pulseaudio": {
-        "states": {
-            "high": 90,
-            "upper-medium": 70,
-            "medium": 50,
-            "lower-medium": 30,
-            "low": 10,
-        },
-        "tooltip-format": "{desc}",
-        "format": "[ {volume}%",
-       "format-bluetooth": "[ VOL: {volume}%",
-        "format-bluetooth-muted": "[ VOL: {volume}% ]",
-        "format-muted": "[ MUT: X ]" ,
-        // "format-source": "󰍬{volume}%",
-        // "format-source-muted": "󰍭{volume}%",
-        // "format-icons": {
-        //     "headphone": "󰋋",
-        //     "hands-free": "",
-        //     "headset": "󰋎",
-        //     "phone": "󰄜",
-        //     "portable": "󰦧",
-        //     "car": "󰄋",
-        //     "speaker": "󰓃",
-        //     "hdmi": "󰡁",
-        //     "hifi": "󰋌",
-        //     "default": [
-        //         "󰕿",
-        //         "󰖀",
-        //         "󰕾",
-        //     ],
-        // },
-        "reverse-scrolling": false,
-        "reverse-mouse-scrolling": false,
-    },
-},
+    "scroll-step": 2,
+    "format": "{icon} {volume}%",
+    "format-bluetooth": " {icon} {volume}%",
+    "format-bluetooth-muted": " {icon}  {format_source}",
+    "format-muted": " {format_source}",
+    "format-icons": {
+      "car": "",
+      "default": ["", "", ""],
+      "headphone": "",
+      "phone": "",
+      "portable": ""
+    }
+  },
+  "network": {
+    "format-wifi": " {signalStrength}%",
+    "format-ethernet": "",
+    "format-linked": "",
+    "format-disconnected": "⚠"
+  },
+  "tray": {
+    "show-passive-items": true,
+    "spacing": 5
+  }
+}

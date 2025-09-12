@@ -9,12 +9,12 @@
       wl-clipboard
       gammastep
       xdragon
-      cliphist
       jq
       btop
 
       fzf
       chafa
+      cliphist
 
       gnutar
       gzip
@@ -24,8 +24,8 @@
 
       ffmpeg-full
       vimiv-qt
-      (callPackage ./zen/zen.nix {})
       mpv
+      (callPackage ./zen/zen.nix {})
 
       file
 
@@ -47,7 +47,7 @@
       zathura
       qbittorrent-enhanced
 
-      # word
+      # document
       quarto
       pandoc
       texlive.combined.scheme-full

@@ -4,21 +4,18 @@
   border: none;
 }
 
-/* Фон панели - тёмный фон Gruvbox */
-window.top_bar#waybar {
+window#waybar {
   background-color: #282828;
   border-bottom: 2px solid #222222;
 }
 
-/* Состояние клавиатуры */
 #keyboard-state label.locked {
-  color: #fabd2f; /* желтый акцент */
+  color: #fabd2f;
 }
 #keyboard-state label {
-  color: #928374; /* приглушенный светло-серый */
+  color: #928374;
 }
 
-/* Workspaces */
 #workspaces,
 #workspaces button,
 #workspaces button.empty,
@@ -33,153 +30,128 @@ window.top_bar#waybar {
 }
 
 #workspaces button {
-  color: #ebdbb2; /* основной текст */
+  color: #ebdbb2;
 }
 #workspaces button.empty,
 #workspaces button.special {
-  color: #928374; /* неактивные */
+  color: #928374;
 }
 #workspaces button.focused {
-  color: #282828; /* фон активного workspace */
-  background-color: #fabd2f; /* активный акцент */
+  color: #282828;
+  background-color: #fabd2f;
 }
 
-/* Центр модуля (например, название) */
-window.top_bar .modules-center {
+window .modules-center {
   font-weight: bold;
-  color: #fabd2f;
 }
 
-/* Разделители */
 #custom-separator,
 #custom-separator_dot {
-  color: #8ec07c; /* зелёный */
+  color: #8ec07c;
 }
 
-/* Часы */
 #clock.time {
-  color: #d3869b; /* пурпурный */
+  color: #d3869b;
 }
 #clock.week,
 #clock.month {
-  color: #83a598; /* синий */
+  color: #83a598;
 }
 #clock.calendar {
-  color: #b16286; /* альтернативный тон пурпурного */
+  color: #b16286;
 }
 
-/* Bluetooth */
 #bluetooth.disabled {
   color: #928374;
 }
+
 #bluetooth.on,
-#bluetooth.connected {
+#bluetooth.connected,
+#cpu,
+#memory,
+#bluetooth,
+#custom-weather,
+#network,
+#battery,
+#disk {
+  box-shadow: inset 0 2px #83a598;
   color: #83a598;
 }
 
-/* CPU / память / диск */
-#cpu,
-#memory,
-#disk {
-  color: #83a598; /* базовый синий */
-}
 #cpu.low,
 #memory.low,
 #disk.low,
+#pulseaudio.low,
+#pulseaudio.low,
+#battery.high,
 #temperature {
-  color: #83a598; /* низкая нагрузка – зелёный */
+  box-shadow: inset 0 2px #83a598;
+  color: #83a598;
 }
+
 #cpu.lower-medium,
+#battery.lower-medium,
 #memory.lower-medium,
+#pulseaudio.lower-medium,
+#battery.upper-medium,
 #disk.lower-medium {
-  color: #fabd2f; /* чуть выше – жёлтый */
+  box-shadow: inset 0 2px #fabd2f;
+  color: #fabd2f;
 }
+
 #cpu.medium,
 #memory.medium,
+#pulseaudio.medium,
+#battery.medium,
 #disk.medium {
-  color: #fe8019; /* средний – оранжевый */
+  box-shadow: inset 0 2px #fe8019;
+  color: #fe8019;
 }
+
 #cpu.upper-medium,
 #memory.upper-medium,
+#pulseaudio.upper-medium,
+#battery.lower-medium,
 #disk.upper-medium {
-  color: #fb4934; /* выше среднего – красный */
+  box-shadow: inset 0 2px #fb4934;
+  color: #fb4934;
 }
+
 #cpu.high,
 #memory.high,
 #disk.high,
+#pulseaudio.high,
 #temperature.critical,
 #battery.low,
 #systemd-failed-units {
-  color: #cc241d; /* критический – тёмно-красный */
+  box-shadow: inset 0 2px #cc241d;
+  color: #cc241d;
 }
 
-/* Батарея */
-#battery.low {
-  color: #fb4934; /* нормальный заряд – зелёный */
-}
-#battery.lower-medium {
-  color: #fe8019; /* понижение – жёлтый */
-}
-#battery.medium {
-  color: #fabd2f; /* средний – оранжевый */
-}
-#battery.upper-medium {
-  color: #8ec07c; /* высокий – красный */
-}
-#battery.high {
-  color: #b8bb26; /* почти полный – ярко-зелёный */
-}
-#battery {
-  color: #b8bb26;
-}
-
-/* Подсветка экрана */
-#backlight {
-  color: #928374;
-}
-#backlight.low {
-  color: #928374;
-}
-#backlight.lower-medium {
-  color: #a89984;
-}
-#backlight.medium {
-  color: #ebdbb2;
-}
-#backlight.upper-medium {
-  color: #f2e5bc; /* светлый акцент */
-}
-#backlight.high {
-  color: #fbf1c7; /* почти белый */
-}
-
-/* Pulseaudio */
-#pulseaudio.bluetooth {
-  color: #83a598;
-}
 #pulseaudio.muted {
   color: #928374;
 }
 #pulseaudio {
   color: #ebdbb2;
 }
-#pulseaudio.low {
-  color: #8ec07c;
-}
-#pulseaudio.lower-medium {
-  color: #fabd2f;
-}
-#pulseaudio.medium {
-  color: #fe8019;
-}
-#pulseaudio.upper-medium {
-  color: #fb4934;
-}
-#pulseaudio.high {
-  color: #cc241d;
-}
 
-/* Общий цвет текста в Waybar */
 window#waybar {
   color: #ebdbb2;
+}
+
+#cpu,
+#disk,
+#memory,
+#mode,
+#network,
+#pulseaudio,
+#temperature,
+#bluetooth,
+#custom-weather,
+#tray {
+  margin: 0 0.5rem;
+}
+
+#battery {
+  margin-left: 0.5rem;
 }

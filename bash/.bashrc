@@ -2,8 +2,17 @@ alias na="bluetoothctl connect E4:61:F4:31:88:26"
 alias nrs='nh os switch --ask /home/replica/nix/ && dunstify "  NixOS" "Nix switch done 󰄬" || dunstify -u critical -h string:fgcolor:#f38ba8 "  NixOS" "Home switch failed ❌" -t 4000'
 alias nix-clean='nh clean && dunstify "  NixOS" "Clean done 󰄬" || dunstify -u critical -h string:fgcolor:#f38ba8 "  NixOS" "Clean failed ❌" -t 4000'
 
-alias sh="~/work/shedule/a.out"
-alias shf="~/work/shedule/a.out -f"
+sh() {
+  ~/work/shedule/a.out -w "$(date +%V)"
+}
+
+shf() {
+  ~/work/shedule/a.out -f -w "$(date +%V)"
+}
+
+sha() {
+  ~/work/shedule/a.out -a -w "$(date +%V)"
+}
 
 alias nv="nvim"
 alias nb="nix build ./"
@@ -24,11 +33,9 @@ alias recordVT="~/nix/**/trash_record_voise.sh"
 alias vi="vimiv * --command 'enter thumbnail'"
 alias cdo='cd "$(echo $OLDPWD)"'
 
-word2quarto() {
+w2q() {
   quarto pandoc -f docx -t markdown -o "$2" "$1" --extract-media=./images
 }
-
-alias w2q=word2quarto
 
 ZkDayli() {
   cd ~/note/journal && zk dd "$*" && cdo
@@ -48,7 +55,17 @@ alias work.='work "$PWD"'
 alias book="source ~/nix/**/book_setup.sh"
 alias standart="~/nix/**/standart_setup.sh"
 
-alias timr="~/nix/**/timr-tui -d -n=on --blink=on -c"
+alias timr="~/nix/**/timr.sh"
+alias tr15="timr 15:00"
+alias tr130="timr 1:30:00"
+alias music="source ~/nix/**/music_setup.sh"
+
+timrby() {
+  timr "$1" by
+}
+
+alias qwork="~/nix/**/quarto.sh"
+alias qwork.='~/nix/**/quarto.sh "$PWD"'
 
 # ---
 
@@ -93,3 +110,55 @@ set -o noclobber
 export LESS='-RFiXN'
 alias grep='grep --color=always -n -i'
 alias ls='ls --color=always'
+
+ClangSetup() {
+
+  if [ ! -f .clangd ]; then
+    cat >>.clangd <<EOF
+CompileFlags:
+  Add: [-xc++, -std=c++20, -W*, -pedantic ]
+  # Add: [-xc, -std=c23, -W*, -pedantic ]
+
+Diagnostics:
+  ClangTidy:
+    MissingIncludes: Strict
+    Add: [ clang-diagnostic-*, clang-analyzer-*, readability-*, modernize-*, bugprone-*, misc-*, performance-*, cppcoreguidelines-*, cert-*, google-* ]
+
+Completion:
+  AllScopes: Yes
+  ArgumentLists: FullPlaceholders
+  HeaderInsertion: IWYU
+  CodePatterns: All
+EOF
+  fi
+
+  if [ ! -f .clang-format ]; then
+    cat >>.clang-format <<EOF
+# Google C/C++ Code Style settings
+
+Language: Cpp
+BasedOnStyle: Google
+EOF
+  fi
+
+  if [ ! -f .clang-tidy ]; then
+    cat >>.clang-tidy <<EOF
+  CheckOptions:
+    readability-identifier-naming.ClassMemberCase: lower_case
+    readability-identifier-naming.ClassMemberSuffix: '_'
+    readability-identifier-naming.ClassConstantCase: CamelCase
+    readability-identifier-naming.ClassConstantPrefix: 'k'
+    readability-identifier-naming.FunctionCase: CamelCase
+    readability-identifier-naming.ClassMethodCase: CamelCase
+    readability-identifier-naming.LocalVariableCase: lower_case
+    readability-identifier-naming.ParameterCase: lower_case
+    readability-identifier-naming.GlobalConstantCase: CamelCase
+    readability-identifier-naming.GlobalConstantPrefix: 'k'
+    readability-identifier-naming.ClassCase: CamelCase
+    readability-identifier-naming.StructCase: CamelCase
+    readability-identifier-naming.TypeAliasCase: CamelCase
+    readability-identifier-naming.EnumConstantCase: CamelCase
+    readability-identifier-naming.EnumConstantPrefix: 'k'
+EOF
+  fi
+}

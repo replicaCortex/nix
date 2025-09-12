@@ -21,7 +21,7 @@ M.ui = {
 }
 
 M.nvdash = {
-  load_on_startup = true,
+  load_on_startup = false,
   header = {
     "                    ████████████████                    ",
     "                ████░░░░░░░░░░░░░░░░████                ",
@@ -60,7 +60,7 @@ M.nvdash = {
     "                      ████    ████                      ",
     "",
   },
-  buttons = require "configs.nvdash",
+  -- buttons = require "configs.nvdash",
 }
 
 return M

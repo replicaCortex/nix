@@ -20,14 +20,14 @@ cat <<'EOF'
 | wo                                                     | World                                   |
 | sh                                                     | Shedule                                 |
 | be                                                     | Beline (poor)                           |
-| nb                                                     | Notebook                                |
 | sdo                                                    | Sdo                                     |
 | p                                                      | Photopea                                |
-| ch                                                     | ChatGPT                                 |
+| oc                                                     | OC                                      |
 | 2ch                                                    | 2ch.hk                                  |
 | de                                                     | DeepSeek                                |
 | rutrack                                                | RuTracker                               |
-| timer                                                  | Online timer                            |
+| tulp                                                   | Tulp. tavern                            |
+| tulpWiki                                               | Tulp. wiki                              |
 | shed                                                   | ShareWood                               |
 +--------------------------------------------------------+-----------------------------------------+
 | Enter                                                  | Exit the script                         |
@@ -122,25 +122,34 @@ case "$query" in
   $SWAY 'zen --new-window "https://npi-tu.ru/schedule/schedule.html?for=student&faculty=2&year=3&group=%D0%9F%D0%9E%D0%92%D0%B0"'
   ;;
 "wo" | "цщ") # world
-  $SWAY 'zen --new-window "https://word.cloud.microsoft/"'
+  $SWAY 'zen --new-window "https://docs.google.com/document/u/0/"'
   ;;
-"shed" | "ырув") # world
+"shed" | "ырув") #
   $SWAY 'zen --new-window "https://s1.sharewood.tech/"'
   ;;
-"nb" | "тм") # world
+"nb" | "тм") #
   $SWAY 'zen --new-window "https://notebooklm.google.com/?authuser=1"'
   ;;
-"ch" | "ср") # world
+"ch" | "ср") #
   $SWAY 'zen --new-window "https://chatgpt.com/"'
   ;;
-"be" | "иу") # world
+"be" | "иу") #
   $SWAY 'zen --new-window "https://rostov-na-donu.beeline.ru/customers/products/elk/"'
   ;;
-"du" | "вг") # world
+"du" | "вг") #
   $SWAY 'zen --new-window "https://duckduckgo.com/?q=DuckDuckGo+AI+Chat&ia=chat&duckai=1"'
   ;;
-"sdo" | "ывщ") # world
+"sdo" | "ывщ") #
   $SWAY 'zen --new-window "https://sdo.npi-tu.ru/"'
+  ;;
+"oc" | "щс") #
+  $SWAY 'zen --new-window "https://sdo.srspu.ru/course/view.php?id=40278"'
+  ;;
+"tulp" | "егдз") #
+  $SWAY 'zen --new-window "https://2ch.hk/se/res/140778.html"'
+  ;;
+"tulpwiki" | "егдзцшлш") #
+  $SWAY 'zen --new-window "https://tulpawiki.org/archive/"'
   ;;
 *)
 
