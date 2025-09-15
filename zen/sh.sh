@@ -4,7 +4,6 @@ cat <<'EOF'
 +========================================================+=========================================+
 |                                    PREFIX COMMANDS                                               |
 +--------------------------------------------------------+-----------------------------------------+
-| !<text>                                                | Google Translate                        |
 | @<package>                                             | Search NixOS packages                   |
 | http(s)://...                                          | Open specified URL in browser           |
 +--------------------------------------------------------+-----------------------------------------+
@@ -54,20 +53,27 @@ if [[ "$query" =~ $regex ]]; then
   exit 0
 fi
 
-if [[ "$query" =~ ^\! || "$query" =~ ^\! ]]; then
-
-  query=$(echo "$query" | cut -c 2-)
-
-  if echo "$query" | grep "[a-z]"; then
-    translate="ru"
-  else
-    translate="en"
-  fi
-
-  $SWAY "zen --new-window 'https://translate.google.com/?hl=en&sl=en&tl=$translate&text=$query&op=translate'"
-
-  exit 0
-fi
+# if [[ "$query" =~ ^tr || "$query" =~ ^ек ]]; then
+#
+#   timeout=10
+#
+#   (
+#     result="$(wl-paste | $HOME/nix/**/translate.sh)"
+#
+#     dunstify "${result}"
+#   ) &
+#
+#   pid=$!
+#
+#   (
+#     sleep "$timeout"
+#     if kill -0 "$pid" 2>/dev/null; then
+#       kill "$pid"
+#     fi
+#   ) &
+#
+#   exit 0
+# fi
 
 if [[ "$query" =~ ^\@ ]]; then
 
@@ -110,7 +116,7 @@ case "$query" in
   $SWAY 'zen --new-window "https://www.photopea.com/"'
   ;;
 "2ch" | "2ср") # 2ch
-  $SWAY 'zen --new-window "https://2ch.hk/"'
+  $SWAY 'zen --new-window "https://2ch.su/"'
   ;;
 "arena" | "фкутф") # LM Arena
   $SWAY 'zen --new-window "https://lmarena.ai/?arena=&mode=direct"'
@@ -146,7 +152,7 @@ case "$query" in
   $SWAY 'zen --new-window "https://sdo.srspu.ru/course/view.php?id=40278"'
   ;;
 "tulp" | "егдз") #
-  $SWAY 'zen --new-window "https://2ch.hk/se/res/140778.html"'
+  $SWAY 'zen --new-window "https://2ch.su/se/res/140778.html"'
   ;;
 "tulpwiki" | "егдзцшлш") #
   $SWAY 'zen --new-window "https://tulpawiki.org/archive/"'

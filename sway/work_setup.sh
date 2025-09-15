@@ -1,9 +1,9 @@
 swaymsg splith
-swaymsg exec "footclient --working-directory='$1' -- bash -c 'nix-shell'"
+swaymsg exec "footclient --working-directory='$1' -- bash -c 'nix-shell --argstr mode cmake'"
 sleep 0.2
 swaymsg focus left
 swaymsg splitv
-swaymsg exec "footclient --working-directory='$1' -- bash -c 'nix-shell'"
+swaymsg exec "footclient --working-directory='$1' -- bash -c 'nix-shell --argstr mode cmake'"
 sleep 0.2
 swaymsg resize shrink height 340px
 swaymsg resize grow width 180px

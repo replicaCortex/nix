@@ -17,13 +17,9 @@
     "clock#calendar"
   ],
   "modules-right": [
-    "tray", "custom/weather",  "network", "cpu", "memory", "disk", "temperature",
+    "tray", "network", "cpu", "memory", "disk", "temperature",
     "pulseaudio", "bluetooth", "battery"
   ],
-  "custom/weather": {
-      // "exec": "curl -s 'wttr.in/Moscow?format=1'",
-      "interval": 3600
-  },
   "sway/workspaces": {
     "format": " {name} ",
     "format-icons": {},
@@ -175,7 +171,8 @@
     }
   },
   "network": {
-    "format-wifi": " {signalStrength}%",
+"interval": 2,
+    "format-wifi": " {bandwidthTotalBytes}",
     "format-ethernet": "",
     "format-linked": "",
     "format-disconnected": "⚠"

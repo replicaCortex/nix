@@ -1,16 +1,5 @@
 return {
   {
-    "kevinhwang91/nvim-hlslens",
-    keys = {
-      { "/" },
-      { "?" },
-    },
-    config = function()
-      require "configs.hlslens"
-    end,
-  },
-
-  {
     "nvim-treesitter/nvim-treesitter",
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate",
@@ -126,9 +115,4 @@ return {
     },
     ft = { "quarto", "rmd", "r" },
   },
-
-  -- {
-  --   "R-nvim/R.nvim",
-  --   ft = { "R", "rmd", "quarto" },
-  -- },
 }

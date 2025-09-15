@@ -10,6 +10,7 @@ local servers = {
   "clangd",
   "lua_ls",
   "yamlls",
+  "neocmake",
 
   -- https://github.com/sqls-server/sqls?tab=readme-ov-file
   -- "sqls",

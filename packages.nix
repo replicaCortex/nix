@@ -3,8 +3,6 @@
 
   environment = {
     systemPackages = with pkgs; [
-      git
-
       nh
       wl-clipboard
       gammastep
@@ -25,9 +23,13 @@
       ffmpeg-full
       vimiv-qt
       mpv
+      zathura
       (callPackage ./zen/zen.nix {})
 
       file
+      git
+
+      translatepy
 
       telegram-desktop
 
@@ -44,15 +46,16 @@
       grim
       slurp
 
-      zathura
       qbittorrent-enhanced
 
-      # document
+      # --- document ---
       quarto
       pandoc
       texlive.combined.scheme-full
 
-      # lsp
+      # --- lsp ---
+      inotify-tools
+
       basedpyright
       # ty
       black
@@ -72,6 +75,7 @@
       mbake
 
       clang-tools
+      neocmakelsp
       gdb
 
       tree-sitter

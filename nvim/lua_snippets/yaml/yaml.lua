@@ -26,27 +26,4 @@ local parse = require("luasnip.util.parser").parse_snippet
 local ms = ls.multi_snippet
 local k = require("luasnip.nodes.key_indexer").new_key
 
-return {
-  s(
-    "clangd",
-    fmt(
-      [[
-CompileFlags:
-  Add: [-xc++, -std=c++20, -W*, -pedantic ]
-  # Add: [-xc, -std=c23, -W*, -pedantic ]
-
-Diagnostics:
-  ClangTidy:
-    MissingIncludes: Strict
-    Add: [ clang-diagnostic-*, clang-analyzer-*, readability-*, modernize-*, bugprone-*, misc-*, performance-*, cppcoreguidelines-*, cert-*, google-* ]
-
-Completion:
-  AllScopes: Yes
-  ArgumentLists: FullPlaceholders
-  HeaderInsertion: IWYU
-  CodePatterns: All
-]],
-      {}
-    )
-  ),
-}
+return {}

@@ -37,6 +37,14 @@ w2q() {
   quarto pandoc -f docx -t markdown -o "$2" "$1" --extract-media=./images
 }
 
+d2p() {
+  pandoc --pdf-engine=lualatex \
+    -V documentclass=extarticle \
+    -V fontsize=14pt \
+    -H ~/nix/bash/header.tex \
+    -o "$2" "$1"
+}
+
 ZkDayli() {
   cd ~/note/journal && zk dd "$*" && cdo
 }
@@ -49,15 +57,15 @@ alias sbrc="source ~/.bashrc"
 
 alias yt-dlp='yt-dlp --proxy "$PROXY"'
 
-alias work="~/nix/**/work_setup.sh"
-alias work.='work "$PWD"'
+alias cwork="~/nix/**/work_setup.sh"
+alias cwork.='work "$PWD"'
 
 alias book="source ~/nix/**/book_setup.sh"
 alias standart="~/nix/**/standart_setup.sh"
 
 alias timr="~/nix/**/timr.sh"
-alias tr15="timr 15:00"
-alias tr130="timr 1:30:00"
+alias timr15="timr 15:00"
+alias timr130="timr 1:30:00"
 alias music="source ~/nix/**/music_setup.sh"
 
 timrby() {
@@ -65,7 +73,12 @@ timrby() {
 }
 
 alias qwork="~/nix/**/quarto.sh"
-alias qwork.='~/nix/**/quarto.sh "$PWD"'
+alias qwork.='qwork "$PWD"'
+
+alias weather="curl v2d.wttr.in/47.42,40.09"
+
+alias tr="wl-paste | ~/nix/**/translate.sh"
+alias trc="tr | wl-copy"
 
 # ---
 
