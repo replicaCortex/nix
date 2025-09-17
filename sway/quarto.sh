@@ -1,12 +1,12 @@
 swaymsg splith
-swaymsg exec "footclient --title=exploer --working-directory='$1' -- bash -c 'nix-shell'"
+swaymsg exec "footclient --title=exploer --working-directory='$1' -- bash -c 'nix-shell && exec bash'"
 sleep 0.2
 swaymsg focus left
 swaymsg splitv
-swaymsg exec "footclient --title=preview --working-directory='$1' -- bash -c 'nix-shell --argstr mode preview'"
+swaymsg exec "footclient --title=html --title=preview --working-directory='$1' -- bash -c 'nix-shell --argstr mode preview && exec bash'"
 sleep 0.2
 swaymsg splitv
-swaymsg exec "footclient --title=render --working-directory='$1' -- bash -c 'nix-shell'"
+swaymsg exec "footclient --title=render --working-directory='$1' -- bash -c 'nix-shell && exec bash'"
 sleep 0.2
 swaymsg splith
 swaymsg focus up

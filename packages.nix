@@ -59,6 +59,7 @@
       basedpyright
       # ty
       black
+      # ruff
 
       yaml-language-server
 

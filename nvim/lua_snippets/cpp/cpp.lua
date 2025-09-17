@@ -24,5 +24,20 @@ local postfix = require("luasnip.extras.postfix").postfix
 local types = require "luasnip.util.types"
 local parse = require("luasnip.util.parser").parse_snippet
 local ms = ls.multi_snippet
+local k = require("luasnip.nodes.key_indexer").new_key
 
-return {}
+return {
+  s(
+    "random",
+    t {
+      "auto GetRandomFloat(float min, float max) -> float {",
+      "  static std::random_device rand;",
+      "  static std::mt19937 gen(rand());",
+      "",
+      "  std::uniform_real_distribution<> distrib(min, max);",
+      "",
+      "  return static_cast<float>(distrib(gen));",
+      "}",
+    }
+  ),
+}

@@ -46,7 +46,7 @@ return {
         opts = { history = true, updateevents = "TextChanged" },
         config = function(_, opts)
           require("luasnip").config.set_config(opts)
-          require "configs.luasnip"
+          require "configs.snip"
         end,
       },
     },

@@ -4,6 +4,7 @@ require("conform").setup {
     sh = { "shfmt" },
     nix = { "alejandra" },
     python = { "black" },
+    -- python = { "ruff" },
     css = { "prettier" },
     html = { "prettier" },
     c = { "clang-format " },

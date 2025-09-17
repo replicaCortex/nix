@@ -25,11 +25,6 @@ alias replace="~/nix/**/replace.sh"
 alias bstar="sudo systemctl start bluetooth.service && na"
 alias bstop="sudo systemctl stop bluetooth.service"
 
-alias record="~/nix/**/record.sh"
-alias recordA="~/nix/**/recordA.sh"
-alias recordV="~/nix/**/record_voise.sh"
-alias recordVT="~/nix/**/trash_record_voise.sh"
-
 alias vi="vimiv * --command 'enter thumbnail'"
 alias cdo='cd "$(echo $OLDPWD)"'
 
@@ -57,15 +52,10 @@ alias sbrc="source ~/.bashrc"
 
 alias yt-dlp='yt-dlp --proxy "$PROXY"'
 
-alias cwork="~/nix/**/work_setup.sh"
-alias cwork.='work "$PWD"'
+alias cwork="~/nix/**/cc.sh"
+alias cwork.='cwork "$PWD"'
 
 alias book="source ~/nix/**/book_setup.sh"
-alias standart="~/nix/**/standart_setup.sh"
-
-alias timr="~/nix/**/timr.sh"
-alias timr15="timr 15:00"
-alias timr130="timr 1:30:00"
 alias music="source ~/nix/**/music_setup.sh"
 
 timrby() {
@@ -77,8 +67,11 @@ alias qwork.='qwork "$PWD"'
 
 alias weather="curl v2d.wttr.in/47.42,40.09"
 
-alias tr="wl-paste | ~/nix/**/translate.sh"
-alias trc="tr | wl-copy"
+alias trn="wl-paste | ~/nix/**/translate.sh"
+
+alias csetup="~/nix/**/csetup.sh"
+alias pysetup="~/nix/**/pysetup.sh"
+alias qsetup="~/nix/**/qsetup.sh"
 
 # ---
 
@@ -123,55 +116,3 @@ set -o noclobber
 export LESS='-RFiXN'
 alias grep='grep --color=always -n -i'
 alias ls='ls --color=always'
-
-ClangSetup() {
-
-  if [ ! -f .clangd ]; then
-    cat >>.clangd <<EOF
-CompileFlags:
-  Add: [-xc++, -std=c++20, -W*, -pedantic ]
-  # Add: [-xc, -std=c23, -W*, -pedantic ]
-
-Diagnostics:
-  ClangTidy:
-    MissingIncludes: Strict
-    Add: [ clang-diagnostic-*, clang-analyzer-*, readability-*, modernize-*, bugprone-*, misc-*, performance-*, cppcoreguidelines-*, cert-*, google-* ]
-
-Completion:
-  AllScopes: Yes
-  ArgumentLists: FullPlaceholders
-  HeaderInsertion: IWYU
-  CodePatterns: All
-EOF
-  fi
-
-  if [ ! -f .clang-format ]; then
-    cat >>.clang-format <<EOF
-# Google C/C++ Code Style settings
-
-Language: Cpp
-BasedOnStyle: Google
-EOF
-  fi
-
-  if [ ! -f .clang-tidy ]; then
-    cat >>.clang-tidy <<EOF
-  CheckOptions:
-    readability-identifier-naming.ClassMemberCase: lower_case
-    readability-identifier-naming.ClassMemberSuffix: '_'
-    readability-identifier-naming.ClassConstantCase: CamelCase
-    readability-identifier-naming.ClassConstantPrefix: 'k'
-    readability-identifier-naming.FunctionCase: CamelCase
-    readability-identifier-naming.ClassMethodCase: CamelCase
-    readability-identifier-naming.LocalVariableCase: lower_case
-    readability-identifier-naming.ParameterCase: lower_case
-    readability-identifier-naming.GlobalConstantCase: CamelCase
-    readability-identifier-naming.GlobalConstantPrefix: 'k'
-    readability-identifier-naming.ClassCase: CamelCase
-    readability-identifier-naming.StructCase: CamelCase
-    readability-identifier-naming.TypeAliasCase: CamelCase
-    readability-identifier-naming.EnumConstantCase: CamelCase
-    readability-identifier-naming.EnumConstantPrefix: 'k'
-EOF
-  fi
-}
