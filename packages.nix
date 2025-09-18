@@ -82,6 +82,8 @@
       tree-sitter
 
       texlab
+
+      fixjson
     ];
   };
 }

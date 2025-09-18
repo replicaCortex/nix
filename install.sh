@@ -8,6 +8,7 @@ rm ~/.config/nvim
 rm ~/.bashrc
 rm ~/.inputrc
 
+ln -s ~/nix/**/userChrome.css ~/.zen/**Default*/chrome/
 ln -s ~/nix/**/zathura ~/.config/
 ln -s ~/nix/**/sway ~/.config/
 ln -s ~/nix/**/dunst ~/.config/

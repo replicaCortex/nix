@@ -11,10 +11,11 @@ require("conform").setup {
     make = { "bake" },
     quarto = { "injected" },
     markdown = { "mdformat" },
+    json = { "fixjson" },
   },
   format_on_save = {
-    timeout_ms = 500,
     lsp_format = "fallback",
+    timeout_ms = 500,
   },
 }
 

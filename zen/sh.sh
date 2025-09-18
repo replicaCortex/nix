@@ -43,8 +43,6 @@ if [ -z "$query" ]; then
   exit 0
 fi
 
-bind '"\C-q": "exit\n"'
-
 regex='https?://[-[:alnum:]\+&@#/%?=~_|!:,.;]*[-[:alnum:]\+&@#/%=~_|]'
 
 if [[ "$query" =~ $regex ]]; then
@@ -52,28 +50,6 @@ if [[ "$query" =~ $regex ]]; then
 
   exit 0
 fi
-
-# if [[ "$query" =~ ^tr || "$query" =~ ^ек ]]; then
-#
-#   timeout=10
-#
-#   (
-#     result="$(wl-paste | $HOME/nix/**/translate.sh)"
-#
-#     dunstify "${result}"
-#   ) &
-#
-#   pid=$!
-#
-#   (
-#     sleep "$timeout"
-#     if kill -0 "$pid" 2>/dev/null; then
-#       kill "$pid"
-#     fi
-#   ) &
-#
-#   exit 0
-# fi
 
 if [[ "$query" =~ ^\@ ]]; then
 

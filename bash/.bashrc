@@ -57,6 +57,9 @@ alias cwork.='cwork "$PWD"'
 
 alias book="source ~/nix/**/book_setup.sh"
 alias music="source ~/nix/**/music_setup.sh"
+alias standart="~/nix/**/standart_setup.sh"
+
+alias timr="~/nix/**/timr.sh"
 
 timrby() {
   timr "$1" by

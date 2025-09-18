@@ -79,33 +79,48 @@ fi
 
 if [ ! -f jupyter.css ]; then
   cat >>jupyter.css <<EOF
-execute:
-  echo: false
+#quarto-content {
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
 
-project:
-  type: book
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  border-bottom: 1px solid;
+}
 
-jupyter: quarto
+a {
+  text-decoration: none;
+}
 
-book:
-  chapters:
-    - index.qmd
+a:hover {
+  text-decoration: underline;
+}
 
-format:
-  # docx:
-  #   reference-doc: template.docx
-  #   toc: false
-  html:
-    number-chapters: false
-    toc: false
-    css: jupyter.css
-  pdf:
-    pdf-engine: lualatex
-    mainfont: "Ubuntu"
-    monofont: "Ubuntu mono"
-    sansfont: "Ubuntu"
-    toc: false
-lang: ru
+.cell-output-stdout pre,
+.cell-output-stderr pre {
+  font-family:;
+  font-size: 0.9em;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  padding: 0.5em;
+  background: none;
+  border: none;
+  margin: 0;
+}
+
+#quarto-content p,
+#quarto-content li {
+  text-align: justify;
+
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+}
 EOF
 fi
 

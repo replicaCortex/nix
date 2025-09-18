@@ -65,8 +65,8 @@ local opts = {
     keymap = {
       preset = "default",
       ["<CR>"] = { "accept", "fallback" },
-      ["<Tab>"] = { "snippet_forward", "fallback" },
-      ["<S-Tab>"] = { "snippet_backward", "fallback" },
+      ["<A-l>"] = { "snippet_forward", "fallback" },
+      ["<A-h>"] = { "snippet_backward", "fallback" },
     },
   },
   appearance = { nerd_font_variant = "normal" },
@@ -90,8 +90,8 @@ local opts = {
     ["<CR>"] = { "accept", "fallback" },
     ["<C-b>"] = { "scroll_documentation_up", "fallback" },
     ["<C-f>"] = { "scroll_documentation_down", "fallback" },
-    ["<Tab>"] = { "snippet_forward", "fallback" },
-    ["<S-Tab>"] = { "snippet_backward", "fallback" },
+    ["<A-l>"] = { "snippet_forward", "fallback" },
+    ["<A-h>"] = { "snippet_backward", "fallback" },
   },
 
   completion = {
