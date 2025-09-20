@@ -11,14 +11,16 @@ pkgs.mkShell {
     python312Packages.uv
     zlib
     gcc
+    librsvg
+    graphviz
   ];
 
   shellHook =
     if mode != "preview"
     then ''
       alias m="quarto render index.qmd"
-      alias z="zen http://localhost:8080"
-      alias za="zathura **/*.pdf"
+      alias p="zen http://localhost:8080"
+      alias z="zathura _book/*.pdf"
     ''
     else ''
       export LD_LIBRARY_PATH="\${pkgs.zlib}/lib:\$LD_LIBRARY_PATH"
@@ -53,26 +55,41 @@ project:
 
 jupyter: quarto
 
+fig-pos: "H"
+tbl-pos: "H"
+lst-pos: "H"
+
 book:
   chapters:
     - index.qmd
 
+bibliography: bib.bib
+csl: gost-r-7-0-5-2008-numeric-alphabetical.csl
+
+nocite: |
+  @*
+
+number-sections: false
+highlight-style: github
+code-line-numbers: true
+
 format:
-  # docx:
-  #   reference-doc: template.docx
-  #   toc: false
+  docx:
+    reference-doc: template.docx
+    toc: false
   html:
     number-chapters: false
     toc: false
     css: jupyter.css
-    theme:
-      dark: darkly
-  pdf:
-    pdf-engine: lualatex
-    mainfont: "Ubuntu"
-    monofont: "Ubuntu mono"
-    sansfont: "Ubuntu"
-    toc: false
+  # pdf:
+  #   pdf-engine: lualatex
+  #   mainfont: "Ubuntu"
+  #   monofont: "Ubuntu mono"
+  #   sansfont: "Ubuntu"
+  #   toc: false
+  #   header-includes: |
+  #     \usepackage{etoolbox}
+  #     \patchcmd{\chapter}{\cleardoublepage}{}{}{}
 lang: ru
 EOF
 fi
@@ -116,17 +133,37 @@ a:hover {
 #quarto-content p,
 #quarto-content li {
   text-align: justify;
-
-  -webkit-hyphens: auto;
-  -ms-hyphens: auto;
   hyphens: auto;
 }
 EOF
 fi
 
 echo "ipykernel" >requirements.txt
-
 touch index.qmd
+touch bib.bib
 mkdir resources
 mkdir src
 cp ~/nix/**/template.docx .
+cp ~/nix/**/gost-r-7-0-5-2008-numeric-alphabetical.csl .
+
+# -- git ---
+
+git init -q
+git branch -m main -q
+
+if [ ! -f .gitignore ]; then
+  cat >>.gitignore <<EOF
+.quarto
+__pycache__
+_book
+*.so
+EOF
+fi
+
+git add .
+git commit -m "init commit" -q
+
+if [ "$1" == true ]; then
+  cd ..
+  git submodule add ./report/
+fi

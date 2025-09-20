@@ -70,7 +70,14 @@ alias qwork.='qwork "$PWD"'
 
 alias weather="curl v2d.wttr.in/47.42,40.09"
 
-alias trn="wl-paste | ~/nix/**/translate.sh"
+trn() {
+  TRANSLATE_PATH=$(find "$HOME/nix" -name "translate.sh" -type f | head -n 1)
+  if [ -z "$(wl-paste)" ]; then
+    "$TRANSLATE_PATH"
+  else
+    wl-paste | "$TRANSLATE_PATH"
+  fi
+}
 
 alias csetup="~/nix/**/csetup.sh"
 alias pysetup="~/nix/**/pysetup.sh"
@@ -85,6 +92,8 @@ export BROWSER="zen"
 export PROXY="https://openproxy:2ad5c3cece9f19f6@nl-hub.freeruproxy.ink:443"
 # export http_proxy="$PROXY"
 # export https_proxy="$PROXY"
+
+# ---
 
 export PROMPT_DIRTRIM=2
 
