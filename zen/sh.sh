@@ -62,7 +62,7 @@ fi
 
 case "$query" in
 "r" | "к") # Reddit
-  $SWAY 'zen --new-window "https://www.reddit.com/"'
+  $SWAY 'zen --new-window "https://old.reddit.com/"'
   ;;
 "de" | "ву") # DeepSeek
   $SWAY 'zen --new-window "https://chat.deepseek.com/"'

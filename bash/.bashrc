@@ -52,12 +52,11 @@ alias sbrc="source ~/.bashrc"
 
 alias yt-dlp='yt-dlp --proxy "$PROXY"'
 
-alias cwork="~/nix/**/cc.sh"
-alias cwork.='cwork "$PWD"'
+alias work="~/nix/**/work.sh"
+alias work.="work ."
 
 alias book="source ~/nix/**/book_setup.sh"
 alias music="source ~/nix/**/music_setup.sh"
-alias standart="~/nix/**/standart_setup.sh"
 
 alias timr="~/nix/**/timr.sh"
 
@@ -65,14 +64,11 @@ timrby() {
   timr "$1" by
 }
 
-alias qwork="~/nix/**/quarto.sh"
-alias qwork.='qwork "$PWD"'
-
 alias weather="curl v2d.wttr.in/47.42,40.09"
 
 trn() {
   TRANSLATE_PATH=$(find "$HOME/nix" -name "translate.sh" -type f | head -n 1)
-  if [ -z "$(wl-paste)" ]; then
+  if [ -n "$1" ]; then
     "$TRANSLATE_PATH"
   else
     wl-paste | "$TRANSLATE_PATH"

@@ -1,7 +1,6 @@
 # Sway Config — replicaCortex ✨
 
 # 🧩 Includes & Defaults
-# include /etc/sway/config.d/*
 default_border pixel 2px
 font Ubuntu Mono 14px
 client.focused #FFA500 #FFA500 #282828 #FFf500
@@ -31,7 +30,6 @@ exec wl-paste --watch cliphist store
 exec foot --server
 exec gammastep -O 4000
 exec rm ly-session.log 
-exec rm .python_history*
 
 for_window [app_id="^cliphist$"] floating enable, sticky enable, move position 608 52
 

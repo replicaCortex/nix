@@ -23,26 +23,26 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_SCAN_FOR_MODULES OFF)
 
-# include(FetchContent)
+cmake_policy(SET CMP0135 NEW)
 
-# FetchContent_Declare(
-# name
-# GIT_REPOSITORY https://github.com/
-# )
+set(PYBIND11_FINDPYTHON ON)
 
-# set(BUILD_SHARED_LIBS OFF CACHE BOOL "Build shared libraries" FORCE)
-# set(BUILD_EXAMPLES OFF CACHE BOOL "Build examples" FORCE)
+# --- test ----
 
-# FetchContent_MakeAvailable(name)
+enable_testing()
 
-file(GLOB SRC "src/*.cc")
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip
+)
 
-find_package(pybind11 REQUIRED)
+FetchContent_MakeAvailable(googletest)
 
-pybind11_add_module(${PROJECT_NAME} \${SRC})
+# ---
 
-target_link_options(${PROJECT_NAME} PRIVATE "-flto=auto")
-target_compile_options(${PROJECT_NAME} PRIVATE "-flto")
+add_subdirectory(./src/)
+add_subdirectory(./tests/)
 EOF
   else
     cat >>CMakeLists.txt <<EOF
@@ -58,34 +58,31 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_SCAN_FOR_MODULES OFF)
 
-# include(FetchContent)
+cmake_policy(SET CMP0135 NEW)
 
-# FetchContent_Declare(
-# name
-# GIT_REPOSITORY https://github.com/
-# )
+# --- test ----
 
-# set(BUILD_SHARED_LIBS OFF CACHE BOOL "Build shared libraries" FORCE)
-# set(BUILD_EXAMPLES OFF CACHE BOOL "Build examples" FORCE)
+enable_testing()
 
-# FetchContent_MakeAvailable(name)
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip
+)
 
-file(GLOB SRC "src/*.cc")
+FetchContent_MakeAvailable(googletest)
 
-find_package(pybind11 REQUIRED)
+# ---
 
-pybind11_add_module(${PROJECT_NAME} \${SRC})
-
-target_link_options(${PROJECT_NAME} PRIVATE "-flto=auto")
-target_compile_options(${PROJECT_NAME} PRIVATE "-flto")
+add_subdirectory(./src/)
+add_subdirectory(./tests/)
 EOF
   fi
 fi
 
-read -rp "name python project: " PYPROJECT_NAME
-
 if [ ! -f shell.nix ]; then
   if [ "$PYBIND" == "y" ] || [ "$PYBIND" == "yes" ]; then
+    read -rp "name python project: " PYPROJECT_NAME
 
     mkdir "${PYPROJECT_NAME}"
     cat >>shell.nix <<EOF
@@ -112,10 +109,16 @@ in
     shellHook =
       if mode == "cmake"
       then ''
-        alias m="ninja && mv *.so ../${PYPROJECT_NAME}/ && mv ./compile_commands.json .. 2>/dev/null"
-        alias g="gdb -tui ${PROJECT_NAME}"
+        alias t="ctest"
+        alias tv="ctest --verbose"
 
-        alias c="cmake -G "Ninja" .."
+        alias m="ninja && mv lib/*.so ../${PYPROJECT_NAME}/"
+        alias g="gdb -tui ./app/app"
+        alias gt="pushd tests 1>/dev/null && gdb -tui tests && popd 1>/dev/null"
+
+        alias c="cmake -G "Ninja" .. && mv ./compile_commands.json .. 2>/dev/null"
+        alias ct="cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-O0" -G "Ninja" .. && mv ./compile_commands.json .. 2>/dev/null"
+
         alias nvc="nv ../CMakeLists.txt"
         alias nvs="nv ../shell.nix"
       ''
@@ -143,22 +146,38 @@ in
     shellHook =
       if mode == "cmake"
       then ''
-        alias m="ninja && ./${PROJECT_NAME}"
-        alias g="gdb -tui ${PROJECT_NAME}"
+        alias t="ctest"
+        alias tv="ctest --verbose"
+
+        m(){
+          ninja
+          if [ -f ./app/app ]; then
+            ./app/app
+          fi
+        }
+
+        alias g="gdb -tui ./app/app"
+        alias gt="pushd tests 1>/dev/null && gdb -tui tests && popd 1>/dev/null"
 
         alias c="cmake -G "Ninja" .. && mv ./compile_commands.json .. 2>/dev/null"
+        alias ct="cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-O0" -G "Ninja" .. && mv ./compile_commands.json .. 2>/dev/null"
+
         alias nvc="nv ../CMakeLists.txt"
         alias nvs="nv ../shell.nix"
       ''
       else '''';
   }
 EOF
-    EOF
   fi
 fi
 
-mkdir src
 mkdir build
+
+mkdir src
+mkdir tests
+
+touch src/CMakeLists.txt
+touch tests/CMakeLists.txt
 
 # --- git ---
 
@@ -169,6 +188,7 @@ if [ ! -f .gitignore ]; then
   cat >>.gitignore <<EOF
 .cache
 build
+compile_commands.json
 EOF
 fi
 
