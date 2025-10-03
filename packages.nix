@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   nixpkgs.config.allowUnfree = true;
 
   environment = {
@@ -24,21 +25,17 @@
       vimiv-qt
       mpv
       zathura
-      (callPackage ./zen/zen.nix {})
+      (callPackage ./zen/zen.nix { })
 
       file
       git
 
-      translatepy
-
       telegram-desktop
 
-      (pkgs.python312.withPackages
-        (ps: [
-          ps.mdformat
-          ps.mdformat-frontmatter
-        ]))
-      gcc
+      (pkgs.python312.withPackages (ps: [
+        ps.mdformat
+        ps.mdformat-frontmatter
+      ]))
 
       zk
       neovim
@@ -47,25 +44,14 @@
       slurp
 
       qbittorrent-enhanced
-
-      # --- document ---
-      quarto
-      pandoc
-      texlive.combined.scheme-full
+      wineWowPackages.wayland
 
       # --- lsp ---
       inotify-tools
 
-      basedpyright
-      # ty
-      black
-      # ruff
-
       yaml-language-server
 
       prettier
-
-      alejandra
 
       stylua
       lua-language-server
@@ -75,15 +61,14 @@
 
       mbake
 
-      clang-tools
-      neocmakelsp
-      gdb
-
-      tree-sitter
-
-      texlab
+      nil
 
       fixjson
+
+      sqls
+      sleek
+
+      taplo
     ];
   };
 }

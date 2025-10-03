@@ -1,19 +1,17 @@
 local lspconfig = require "lspconfig"
 
 local servers = {
-  "basedpyright",
-  -- NOTE: сыро
-  -- "ty",
-
+  "ty",
   "bashls",
   "texlab",
   "clangd",
   "lua_ls",
   "yamlls",
   "neocmake",
-
-  -- https://github.com/sqls-server/sqls?tab=readme-ov-file
-  -- "sqls",
+  "nil_ls",
+  "rust_analyzer",
+  "sqls",
+  "taplo",
 }
 
 if vim.lsp.inlay_hint then
@@ -28,15 +26,21 @@ lspconfig.clangd.setup {
   },
 }
 
-vim.lsp.config("yamlls", {
+lspconfig.rust_analyzer.setup {
+  cmd = vim.lsp.rpc.connect("127.0.0.1", 27631),
   settings = {
-    yaml = {
-      schemas = {},
+    ["rust-analyzer"] = {
+      check = {
+        command = "clippy",
+      },
+      lspMux = {
+        version = "1",
+        method = "connect",
+        server = "rust-analyzer",
+      },
     },
   },
-})
-
-vim.lsp.enable(servers)
+}
 
 local signature_help = vim.lsp.buf.signature_help
 vim.lsp.buf.signature_help = function(config)
@@ -96,6 +100,8 @@ else
     settings = lua_lsp_settings,
   }
 end
+
+vim.lsp.enable(servers)
 
 ---
 

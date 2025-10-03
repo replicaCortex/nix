@@ -2,7 +2,8 @@
   appimageTools,
   fetchurl,
   ...
-}: let
+}:
+let
   pname = "zen";
   version = "latest";
 
@@ -10,13 +11,11 @@
     url = "https://github.com/zen-browser/desktop/releases/latest/download/zen-x86_64.AppImage";
     sha256 = "tHQhMxFLbkMZVHfbNBgg5ENqDHOC6ZIcSru4r132ZIg=";
   };
-
-  desktopSrc = ./.;
 in
-  appimageTools.wrapType2 {
-    inherit pname version src;
+appimageTools.wrapType2 {
+  inherit pname version src;
 
-    meta = {
-      platforms = ["x86_64-linux"];
-    };
-  }
+  meta = {
+    platforms = [ "x86_64-linux" ];
+  };
+}

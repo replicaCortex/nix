@@ -9,6 +9,11 @@ if [ ! -f shell.nix ]; then
 pkgs.mkShell {
   buildInputs = with pkgs; [
     python312Packages.uv
+
+    quarto
+    pandoc
+    texlive.combined.scheme-full
+
     zlib
     gcc
     librsvg
@@ -19,8 +24,11 @@ pkgs.mkShell {
     if mode != "preview"
     then ''
       alias m="quarto render index.qmd"
+      alias x="xdragon _book/*.docx"
       alias p="zen http://localhost:8080"
       alias z="zathura _book/*.pdf"
+      alias nvs="nvim shell.nix"
+      alias nvq="nvim _quarto"
     ''
     else ''
       export LD_LIBRARY_PATH="\${pkgs.zlib}/lib:\$LD_LIBRARY_PATH"
@@ -55,10 +63,6 @@ project:
 
 jupyter: quarto
 
-fig-pos: "H"
-tbl-pos: "H"
-lst-pos: "H"
-
 book:
   chapters:
     - index.qmd
@@ -70,8 +74,9 @@ nocite: |
   @*
 
 number-sections: false
-highlight-style: github
+highlight-style: monochrome-light
 code-line-numbers: true
+lst-cap-location: bottom
 
 format:
   docx:
@@ -91,6 +96,9 @@ format:
   #     \usepackage{etoolbox}
   #     \patchcmd{\chapter}{\cleardoublepage}{}{}{}
 lang: ru
+crossref:
+  title-delim: " --- "
+  lst-title: "Листинг"
 EOF
 fi
 
@@ -143,6 +151,7 @@ touch index.qmd
 touch bib.bib
 mkdir resources
 mkdir src
+mkdir fig
 cp ~/nix/**/template.docx .
 cp ~/nix/**/gost-r-7-0-5-2008-numeric-alphabetical.csl .
 

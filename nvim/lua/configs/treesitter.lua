@@ -19,6 +19,11 @@ return {
     "r",
     "yaml",
     "rnoweb",
+
+    "rust",
+
+    "markdown",
+    "markdown_inline",
   },
 
   highlight = {

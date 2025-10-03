@@ -1,0 +1,21 @@
+[project]
+name = "app"
+readme = "README.md"
+version = "0.0.1"
+
+dependencies = [
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest",
+
+  "sphinx",
+  "furo",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "PL"]
+
+[tool.ruff.format]
+quote-style = "double"

@@ -2,9 +2,7 @@ require("conform").setup {
   formatters_by_ft = {
     lua = { "stylua" },
     sh = { "shfmt" },
-    nix = { "alejandra" },
-    python = { "black" },
-    -- python = { "ruff" },
+    python = { "ruff_format", "ruff_organize_imports" },
     css = { "prettier" },
     html = { "prettier" },
     c = { "clang-format " },
@@ -12,6 +10,8 @@ require("conform").setup {
     quarto = { "injected" },
     markdown = { "mdformat" },
     json = { "fixjson" },
+    sql = { "sleek" },
+    rust = { "rustfmt" },
   },
   format_on_save = {
     lsp_format = "fallback",

@@ -4,6 +4,7 @@
 default_border pixel 2px
 font Ubuntu Mono 14px
 client.focused #FFA500 #FFA500 #282828 #FFf500
+seat * hide_cursor when-typing enable
 gaps inner 5
 
 # ⌨️  Mod + Keybindings
@@ -18,7 +19,6 @@ mouse_warping container
 set $term footclient
 set $histClip exec $term --app-id=cliphist -e bash -c "cliphist-fzf-sixel"
 set $screen exec dunstify "󱠏  Screenshot" "Area selection" -t 1500 && grim -g "$(slurp)" - | wl-copy --type image/png
-set $screenSave exec 'd=$(date +%s); dunstify "󱠏  Screenshot" "Area selection and save" -t 1500 && grim -g "$(slurp)" ~/"$(date +%s)".png && dunstify "󱠏  Screenshot" "file saved to ~/$d.png"'
 set $zen_ exec $term --app-id=cliphist -e bash -c ~/nix/zen/sh.sh
 
 exec systemctl --user import-environment XDG_SESSION_TYPE XDG_CURRENT_DESKTOP 
@@ -129,4 +129,3 @@ bindsym --to-code $mod+w exec $zen_
 bindsym --to-code Ctrl+Shift+h $histClip
 
 bindsym --to-code $mod+p $screen
-bindsym --to-code $mod+Shift+p $screenSave

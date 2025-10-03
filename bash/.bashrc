@@ -2,18 +2,6 @@ alias na="bluetoothctl connect E4:61:F4:31:88:26"
 alias nrs='nh os switch --ask /home/replica/nix/ && dunstify "  NixOS" "Nix switch done 󰄬" || dunstify -u critical -h string:fgcolor:#f38ba8 "  NixOS" "Home switch failed ❌" -t 4000'
 alias nix-clean='nh clean && dunstify "  NixOS" "Clean done 󰄬" || dunstify -u critical -h string:fgcolor:#f38ba8 "  NixOS" "Clean failed ❌" -t 4000'
 
-sh() {
-  ~/work/shedule/a.out -w "$(date +%V)"
-}
-
-shf() {
-  ~/work/shedule/a.out -f -w "$(date +%V)"
-}
-
-sha() {
-  ~/work/shedule/a.out -a -w "$(date +%V)"
-}
-
 alias nv="nvim"
 alias nb="nix build ./"
 alias nd="nix develop ./"
@@ -29,15 +17,15 @@ alias vi="vimiv * --command 'enter thumbnail'"
 alias cdo='cd "$(echo $OLDPWD)"'
 
 w2q() {
-  quarto pandoc -f docx -t markdown -o "$2" "$1" --extract-media=./images
+  nix-shell -p quarto pandoc --run "quarto pandoc -f docx -t markdown -o \"$2\" \"$1\" --extract-media=./images"
 }
 
 d2p() {
-  pandoc --pdf-engine=lualatex \
+  nix-shell -p quarto pandoc texlive.combined.scheme-full --run "pandoc --pdf-engine=lualatex \
     -V documentclass=extarticle \
     -V fontsize=14pt \
     -H ~/nix/bash/header.tex \
-    -o "$2" "$1"
+    -o \"$2\" \"$1\""
 }
 
 ZkDayli() {
@@ -50,10 +38,11 @@ alias nvi='nv ~/note/index.md'
 alias nvb='nv ~/nix/**/.bashrc'
 alias sbrc="source ~/.bashrc"
 
-alias yt-dlp='yt-dlp --proxy "$PROXY"'
+yt-dlp() {
+  nix-shell -p yt-dlp --run "yt-dlp --proxy \"$PROXY\" \"$1\""
+}
 
-alias work="~/nix/**/work.sh"
-alias work.="work ."
+alias work="~/nix/**/work.sh ."
 
 alias book="source ~/nix/**/book_setup.sh"
 alias music="source ~/nix/**/music_setup.sh"
@@ -78,6 +67,7 @@ trn() {
 alias csetup="~/nix/**/csetup.sh"
 alias pysetup="~/nix/**/pysetup.sh"
 alias qsetup="~/nix/**/qsetup.sh"
+alias rsetup="~/nix/**/rsetup.sh"
 
 # ---
 

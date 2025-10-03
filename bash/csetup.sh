@@ -95,6 +95,8 @@ if [ ! -f shell.nix ]; then
   ]);
 
   packgs = with pkgs; [
+    clang-tools
+    neocmakelsp
     cmake
     gcc
     ninja
@@ -112,11 +114,13 @@ in
         alias t="ctest"
         alias tv="ctest --verbose"
 
-        alias m="ninja && mv lib/*.so ../${PYPROJECT_NAME}/"
+        alias m="ninja && mv **/*.so ../${PYPROJECT_NAME}/"
+        alias mt="m && tv"
+
         alias g="gdb -tui ./app/app"
         alias gt="pushd tests 1>/dev/null && gdb -tui tests && popd 1>/dev/null"
 
-        alias c="cmake -G "Ninja" .. && mv ./compile_commands.json .. 2>/dev/null"
+        alias c="cmake -G "Ninja" -DCMAKE_BUILD_TYPE=Release .. && mv ./compile_commands.json .. 2>/dev/null"
         alias ct="cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-O0" -G "Ninja" .. && mv ./compile_commands.json .. 2>/dev/null"
 
         alias nvc="nv ../CMakeLists.txt"
@@ -132,6 +136,8 @@ EOF
   mode ? "dev",
 }: let
   packgs = with pkgs; [
+    clang-tools
+    neocmakelsp
     cmake
     gcc
     ninja
@@ -149,17 +155,18 @@ in
         alias t="ctest"
         alias tv="ctest --verbose"
 
-        m(){
+        mr(){
           ninja
           if [ -f ./app/app ]; then
             ./app/app
           fi
         }
+        alias mt="m && tv"
 
         alias g="gdb -tui ./app/app"
         alias gt="pushd tests 1>/dev/null && gdb -tui tests && popd 1>/dev/null"
 
-        alias c="cmake -G "Ninja" .. && mv ./compile_commands.json .. 2>/dev/null"
+        alias c="cmake -G 'Ninja' -DCMAKE_BUILD_TYPE=Release .. && mv ./compile_commands.json .. 2>/dev/null"
         alias ct="cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-O0" -G "Ninja" .. && mv ./compile_commands.json .. 2>/dev/null"
 
         alias nvc="nv ../CMakeLists.txt"
@@ -178,22 +185,6 @@ mkdir tests
 
 touch src/CMakeLists.txt
 touch tests/CMakeLists.txt
-
-# --- git ---
-
-git init -q
-git branch -m main -q
-
-if [ ! -f .gitignore ]; then
-  cat >>.gitignore <<EOF
-.cache
-build
-compile_commands.json
-EOF
-fi
-
-git add .
-git commit -m "init commit" -q
 
 # --- clangd ---
 
@@ -258,6 +249,22 @@ CheckOptions:
 EOF
 fi
 
+# --- git ---
+
+git init -q
+git branch -m main -q
+
+if [ ! -f .gitignore ]; then
+  cat >>.gitignore <<EOF
+.cache
+build
+compile_commands.json
+EOF
+fi
+
+git add .
+git commit -m "init commit" -q
+
 # --- quarto ---
 
 read -rp "quarto?(y/n): " quarto
@@ -268,7 +275,7 @@ fi
 
 if [ "${quarto,,}" == "y" ] || [ "${quarto,,}" == "yes" ]; then
   mkdir -p report
-  cd report
+  cd report || exit
 
   QSETUP_PATH=$(find "$HOME/nix" -name "qsetup.sh" -type f | head -n 1)
   "$QSETUP_PATH" "$submodel"

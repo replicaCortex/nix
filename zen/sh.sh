@@ -127,11 +127,17 @@ case "$query" in
 "oc" | "щс") #
   $SWAY 'zen --new-window "https://sdo.srspu.ru/course/view.php?id=40278"'
   ;;
+"vk" | "мл") #
+  $SWAY 'zen --new-window "https://vk.com/im"'
+  ;;
 "tulp" | "егдз") #
   $SWAY 'zen --new-window "https://2ch.su/se/res/140778.html"'
   ;;
 "tulpwiki" | "егдзцшлш") #
   $SWAY 'zen --new-window "https://tulpawiki.org/archive/"'
+  ;;
+"manga" | "ьфтпф") #
+  $SWAY 'zen --new-window "https://mangadex.org/titles/follows"'
   ;;
 *)
 

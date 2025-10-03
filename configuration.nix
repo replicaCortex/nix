@@ -1,7 +1,8 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   imports = [
     # ./podman.nix
-    ./vbox.nix
+    # ./vbox.nix
     ./packages.nix
     ./sway/sway.nix
     ./bluetooth.nix
@@ -53,7 +54,10 @@
   users.users.replica = {
     isNormalUser = true;
     description = "replica";
-    extraGroups = ["networkmanager" "wheel"];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
   };
 
   services.getty.autologinUser = "replica";
@@ -61,7 +65,10 @@
   nix = {
     settings = {
       auto-optimise-store = true;
-      experimental-features = ["nix-command" "flakes"];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
     };
   };
 

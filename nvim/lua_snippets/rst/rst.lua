@@ -24,20 +24,30 @@ local postfix = require("luasnip.extras.postfix").postfix
 local types = require "luasnip.util.types"
 local parse = require("luasnip.util.parser").parse_snippet
 local ms = ls.multi_snippet
+local k = require("luasnip.nodes.key_indexer").new_key
 
 return {
+  s("h1", fmt([[===]], {})),
+
   s(
-    "shell",
-    t {
-      "{",
-      "  pkgs ? import <nixpkgs> { },",
-      "}:",
-      "pkgs.mkShell {",
-      "  buildInputs = with pkgs; [",
-      "  ];",
-      "",
-      "  shellHook = '''';",
-      "}",
-    }
+    "automodule",
+    fmt(
+      [[
+.. automodule:: {}
+   :members:
+  ]],
+      { i(1, "name_module") }
+    )
+  ),
+
+  s(
+    "diagram",
+    fmt(
+      [[
+.. inheritance-diagram:: {}
+   :parts: 1
+  ]],
+      { i(1, "name_module") }
+    )
   ),
 }

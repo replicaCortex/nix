@@ -1,4 +1,5 @@
-\usepackage[margin=2cm]{geometry}
+% \usepackage[margin=3cm]{geometry}
+\usepackage[left=3cm, right=3cm, top=1.5cm, bottom=1.5cm]{geometry}
 
 \usepackage{setspace}
 \setstretch{1.5}
@@ -6,7 +7,16 @@
 \usepackage[russian]{babel}
 
 \usepackage{fontspec}
-\setmainfont{Ubuntu}
+
+\setmainfont{Bookerly}[
+  Path           = /home/replica/nix/bash/font/,      
+  Extension      = .ttf,          
+  UprightFont    = *,     
+  BoldFont       = * Bold,        
+  ItalicFont     = * Italic,      
+  BoldItalicFont = * Bold Italic   
+]
+% \setmainfont{Ubuntu}
 \setmonofont{Ubuntu mono}
 
 \usepackage{microtype}
