@@ -1,74 +1,82 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: let
+  cli = with pkgs; [
+    nh
+    jq
+    btop
+
+    file
+    git
+
+    fzf
+    wl-clipboard
+
+    zk
+    neovim
+
+    ffmpeg-full
+
+    gemini-cli
+  ];
+
+  other = with pkgs; [
+    cliphist
+    gammastep
+    xdragon
+
+    qbittorrent-enhanced
+
+    pkgs.zen-browser.default
+    telegram-desktop
+  ];
+
+  media = with pkgs; [
+    chafa
+    mpv
+    vimiv-qt
+    zathura
+  ];
+
+  virtual = with pkgs; [
+    wineWowPackages.wayland
+    qemu
+  ];
+
+  fmt = with pkgs; [
+    prettier
+    alejandra
+    typstyle
+    stylua
+    shfmt
+    mbake
+    sleek
+    taplo
+    fixjson
+    (pkgs.python312.withPackages (ps: [
+      ps.mdformat
+      ps.mdformat-frontmatter
+    ]))
+  ];
+
+  lsp = with pkgs; [
+    inotify-tools
+    yaml-language-server
+    lua-language-server
+    bash-language-server
+    nil
+    sqls
+  ];
+
+  compress = with pkgs; [
+    gnutar
+    gzip
+    unzip
+    unrar
+    p7zip
+  ];
+in {
   nixpkgs.config.allowUnfree = true;
 
   environment = {
-    systemPackages = with pkgs; [
-      nh
-      wl-clipboard
-      gammastep
-      xdragon
-      jq
-      btop
-
-      fzf
-      chafa
-      cliphist
-
-      gnutar
-      gzip
-      unzip
-      unrar
-      p7zip
-
-      ffmpeg-full
-      vimiv-qt
-      mpv
-      zathura
-      (callPackage ./zen/zen.nix { })
-
-      file
-      git
-
-      telegram-desktop
-
-      (pkgs.python312.withPackages (ps: [
-        ps.mdformat
-        ps.mdformat-frontmatter
-      ]))
-
-      zk
-      neovim
-
-      grim
-      slurp
-
-      qbittorrent-enhanced
-      wineWowPackages.wayland
-
-      # --- lsp ---
-      inotify-tools
-
-      yaml-language-server
-
-      prettier
-
-      stylua
-      lua-language-server
-
-      bash-language-server
-      shfmt
-
-      mbake
-
-      nil
-
-      fixjson
-
-      sqls
-      sleek
-
-      taplo
-    ];
+    systemPackages = media ++ cli ++ other ++ fmt ++ lsp ++ compress;
   };
 }

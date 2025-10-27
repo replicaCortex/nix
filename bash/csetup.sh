@@ -87,9 +87,10 @@ if [ ! -f shell.nix ]; then
     mkdir "${PYPROJECT_NAME}"
     cat >>shell.nix <<EOF
 {
-  pkgs ? import <nixpkgs> {},
+  pkgs ? import <nixpkgs> { },
   mode ? "dev",
-}: let
+}:
+let
   python-with-packages = pkgs.python312.withPackages (ps: [
     ps.pybind11
   ]);
@@ -103,31 +104,33 @@ if [ ! -f shell.nix ]; then
     python-with-packages
   ];
 in
-  pkgs.mkShell {
-    nativeBuildInputs = with pkgs; [
-      packgs
-    ];
+pkgs.mkShell {
+  nativeBuildInputs = with pkgs; [
+    packgs
+  ];
 
-    shellHook =
-      if mode == "cmake"
-      then ''
+  shellHook =
+    if mode != "cmake" then
+      ''''
+    else
+      ''
+
         alias t="ctest"
         alias tv="ctest --verbose"
 
-        alias m="ninja && mv **/*.so ../${PYPROJECT_NAME}/"
+        alias m="ninja && mv **/*.so ../report/"
         alias mt="m && tv"
 
-        alias g="gdb -tui ./app/app"
-        alias gt="pushd tests 1>/dev/null && gdb -tui tests && popd 1>/dev/null"
+        alias g="gdb -tui lab"
+        alias gt="pushd tests 1>/dev/null && gdb -tui runTests && popd 1>/dev/null"
 
-        alias c="cmake -G "Ninja" -DCMAKE_BUILD_TYPE=Release .. && mv ./compile_commands.json .. 2>/dev/null"
-        alias ct="cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-O0" -G "Ninja" .. && mv ./compile_commands.json .. 2>/dev/null"
+        alias c="cmake -G 'Ninja' -DCMAKE_BUILD_TYPE=Release .. && mv ./compile_commands.json .. 2>/dev/null"
+        alias ct="cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-O0" -G "Ninja" .."
 
         alias nvc="nv ../CMakeLists.txt"
         alias nvs="nv ../shell.nix"
-      ''
-      else '''';
-  }
+      '';
+}
 EOF
   else
     cat >>shell.nix <<EOF

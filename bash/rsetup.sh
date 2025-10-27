@@ -24,7 +24,7 @@ let
     ra-multiplex
     wayland
     pkg-config
-  ];
+  ] ++ rust;
 
   server_start = ''
     alias kr="pgrep 'ra-multiplex' | xargs kill"
@@ -38,10 +38,11 @@ let
     alias ct="cargo test"
     alias cc="cargo-clippy"
     alias g="rust-gdb -tui ./target/debug/${PROJECT_NAME}"
+    alias mv="mv -n"
   '';
 in
 pkgs.mkShell {
-  buildInputs = if mode == "server" then rust ++ multiplex else rust;
+  buildInputs = if mode == "server" then multiplex else rust;
 
   shellHook = if mode == "server" then server_start else aliases;
 }

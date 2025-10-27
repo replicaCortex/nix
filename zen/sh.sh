@@ -4,6 +4,7 @@ cat <<'EOF'
 +========================================================+=========================================+
 |                                    PREFIX COMMANDS                                               |
 +--------------------------------------------------------+-----------------------------------------+
+| !<text>                                                | Google Translate                        |
 | @<package>                                             | Search NixOS packages                   |
 | http(s)://...                                          | Open specified URL in browser           |
 +--------------------------------------------------------+-----------------------------------------+
@@ -11,7 +12,6 @@ cat <<'EOF'
 +--------------------------------------------------------+-----------------------------------------+
 | r                                                      | Reddit                                  |
 | du                                                     | Duck.ai                                 |
-| go                                                     | Google AI Studio                        |
 | git                                                    | GitHub                                  |
 | y                                                      | YouTube                                 |
 | ym                                                     | YouTube Music                           |
@@ -38,15 +38,33 @@ prompt="prompt: "
 read -rep "$prompt" query
 
 SWAY="swaymsg exec"
+# BROWSER="vimb"
+# BROWSER="librewolf --new-window"
+BROWSER="zen --new-window"
 
 if [ -z "$query" ]; then
+  exit 0
+fi
+
+if [[ "$query" =~ ^\! || "$query" =~ ^\! ]]; then
+
+  query=$(echo "$query" | cut -c 2-)
+
+  if echo "$query" | grep "[a-z]"; then
+    translate="ru"
+  else
+    translate="en"
+  fi
+
+  $SWAY "$BROWSER 'https://translate.google.com/?hl=en&sl=en&tl=$translate&text=$query&op=translate'"
+
   exit 0
 fi
 
 regex='https?://[-[:alnum:]\+&@#/%?=~_|!:,.;]*[-[:alnum:]\+&@#/%=~_|]'
 
 if [[ "$query" =~ $regex ]]; then
-  $SWAY "zen --new-window \"$query\""
+  $SWAY "$BROWSER \"$query\""
 
   exit 0
 fi
@@ -55,89 +73,90 @@ if [[ "$query" =~ ^\@ ]]; then
 
   query=$(echo "$query" | cut -c 2-)
 
-  $SWAY "zen --new-window 'https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=$query'"
+  $SWAY "$BROWSER 'https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=$query'"
 
   exit 0
 fi
 
 case "$query" in
 "r" | "к") # Reddit
-  $SWAY 'zen --new-window "https://old.reddit.com/"'
+  $SWAY "$BROWSER 'https://old.reddit.com/'"
   ;;
 "de" | "ву") # DeepSeek
-  $SWAY 'zen --new-window "https://chat.deepseek.com/"'
+  $SWAY "$BROWSER 'https://chat.deepseek.com/'"
   ;;
 "go" | "пщ") # Google AI Studio
-  $SWAY 'zen --new-window "https://aistudio.google.com/prompts/new_chat"'
+  export http_proxy=$PROXY
+  $SWAY "$BROWSER 'https://aistudio.google.com/prompts/new_chat'"
   ;;
 "timer" | "ьшсук") # Таймер
-  $SWAY 'zen --new-window "https://budilki.ru/timer/#countdown=00:00:00&enabled=0&seconds=0&sound=xylophone&loop=1"'
+  $SWAY "$BROWSER 'https://budilki.ru/timer/#countdown=00:00:00&enabled=0&seconds=0&sound=xylophone&loop=1'"
   ;;
-"y" | "н") # YouTube
-  $SWAY 'zen --new-window "https://www.youtube.com/"'
-  ;;
-"ym" | "нь") # YouTube Music
-  $SWAY 'zen --new-window "https://music.youtube.com/"'
-  ;;
-"grok" | "пкщл") # Grok
-  $SWAY 'zen --new-window "https://grok.com/"'
-  ;;
+# "y" | "н") # YouTube
+#   $SWAY "$BROWSER 'https://www.youtube.com/'"
+#   ;;
+# "ym" | "нь") # YouTube Music
+#   $SWAY '$BROWSER "https://music.youtube.com/"'
+#   ;;
+# "grok" | "пкщл") # Grok
+#   $SWAY '$BROWSER "https://grok.com/"'
+#   ;;
 "git" | "пше") # GitHub
-  $SWAY 'zen --new-window "https://github.com/"'
+  $SWAY "$BROWSER 'https://github.com/'"
   ;;
 "w" | "ц") # WhatsApp Web
-  $SWAY 'zen --new-window "https://web.whatsapp.com/"'
+  $SWAY "$BROWSER 'https://web.whatsapp.com/'"
   ;;
 "p" | "з") # WhatsApp Web
-  $SWAY 'zen --new-window "https://www.photopea.com/"'
+  $SWAY "$BROWSER 'https://www.photopea.com/'"
   ;;
 "2ch" | "2ср") # 2ch
-  $SWAY 'zen --new-window "https://2ch.su/"'
+  $SWAY "$BROWSER 'https://2ch.su/'"
   ;;
-"arena" | "фкутф") # LM Arena
-  $SWAY 'zen --new-window "https://lmarena.ai/?arena=&mode=direct"'
-  ;;
-"rutrack" | "кенрсфл") # Rutracker
-  $SWAY 'zen --new-window "https://rutracker.org/forum/tracker.php?nm=bruh"'
-  ;;
+# "arena" | "фкутф") # LM Arena
+#   $SWAY '$BROWSER "https://lmarena.ai/?arena=&mode=direct"'
+#   ;;
+# "rutrack" | "кенрсфл") # Rutracker
+#   $SWAY '$BROWSER "https://rutracker.org/forum/tracker.php?nm=bruh"'
+#   ;;
 "sh" | "ыр") # Google Translate
-  $SWAY 'zen --new-window "https://npi-tu.ru/schedule/schedule.html?for=student&faculty=2&year=3&group=%D0%9F%D0%9E%D0%92%D0%B0"'
+  $SWAY "$BROWSER 'https://npi-tu.ru/schedule/schedule.html?for=student&faculty=2&year=3&group=%D0%9F%D0%9E%D0%92%D0%B0'"
   ;;
 "wo" | "цщ") # world
-  $SWAY 'zen --new-window "https://docs.google.com/document/u/0/"'
+  $SWAY "$BROWSER 'https://docs.google.com/document/u/0/'"
   ;;
 "shed" | "ырув") #
-  $SWAY 'zen --new-window "https://s1.sharewood.tech/"'
+  $SWAY "$BROWSER 'https://s1.sharewood.tech/'"
   ;;
 "nb" | "тм") #
-  $SWAY 'zen --new-window "https://notebooklm.google.com/?authuser=1"'
+  $SWAY "$BROWSER 'https://notebooklm.google.com/?authuser=1'"
   ;;
-"ch" | "ср") #
-  $SWAY 'zen --new-window "https://chatgpt.com/"'
-  ;;
+# "ch" | "ср") #
+#   $SWAY "$BROWSER 'https://chatgpt.com/'"
+#   ;;
 "be" | "иу") #
-  $SWAY 'zen --new-window "https://rostov-na-donu.beeline.ru/customers/products/elk/"'
+  $SWAY "$BROWSER 'https://rostov-na-donu.beeline.ru/customers/products/elk/'"
   ;;
 "du" | "вг") #
-  $SWAY 'zen --new-window "https://duckduckgo.com/?q=DuckDuckGo+AI+Chat&ia=chat&duckai=1"'
+  $SWAY "$BROWSER 'https://duckduckgo.com/?q=DuckDuckGo+AI+Chat&ia=chat&duckai=1'"
   ;;
 "sdo" | "ывщ") #
-  $SWAY 'zen --new-window "https://sdo.npi-tu.ru/"'
+  $SWAY "$BROWSER 'https://sdo.npi-tu.ru/'"
   ;;
 "oc" | "щс") #
-  $SWAY 'zen --new-window "https://sdo.srspu.ru/course/view.php?id=40278"'
+  $SWAY "$BROWSER 'https://sdo.srspu.ru/course/view.php?id=40278'"
   ;;
 "vk" | "мл") #
-  $SWAY 'zen --new-window "https://vk.com/im"'
+  $SWAY "$BROWSER 'https://vk.com/im'"
   ;;
 "tulp" | "егдз") #
-  $SWAY 'zen --new-window "https://2ch.su/se/res/140778.html"'
+  $SWAY "$BROWSER 'https://2ch.su/se/res/140778.html'"
   ;;
 "tulpwiki" | "егдзцшлш") #
-  $SWAY 'zen --new-window "https://tulpawiki.org/archive/"'
+  $SWAY "$BROWSER 'https://tulpawiki.org/archive/'"
   ;;
 "manga" | "ьфтпф") #
-  $SWAY 'zen --new-window "https://mangadex.org/titles/follows"'
+  $SWAY "$BROWSER 'https://mangadex.org/titles/follows'"
   ;;
 *)
 
@@ -148,6 +167,6 @@ case "$query" in
     -e 's| |+|g' \
     <<<"$query")
 
-  $SWAY "zen --new-window 'https://www.google.com/search?q=$query'"
+  $SWAY "$BROWSER 'https://www.duckduckgo.com/search?q=$query'"
   ;;
 esac

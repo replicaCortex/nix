@@ -2,9 +2,8 @@
 {
   imports = [
     # ./podman.nix
-    # ./vbox.nix
     ./packages.nix
-    ./sway/sway.nix
+    ./niri/niri.nix
     ./bluetooth.nix
     ./hardware-configuration.nix
   ];
@@ -19,7 +18,6 @@
     packages = with pkgs; [
       nerd-fonts.ubuntu
       ubuntu_font_family
-      # times-newer-roman
     ];
   };
 
@@ -31,6 +29,8 @@
   #     "--dpi-desync-autottl=2"
   #   ];
   # };
+
+  services.auto-cpufreq.enable = true;
 
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;

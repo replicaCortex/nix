@@ -1,0 +1,74 @@
+body::-webkit-scrollbar {
+  display: none;
+}
+
+*,
+div,
+pre,
+textarea,
+body,
+input,
+td,
+tr,
+p {
+  background-color: #282828 !important;
+  background-image: none !important;
+  color: #ebdbb2 !important;
+}
+h1,
+h2,
+h3,
+h4 {
+  background-color: #282828 !important;
+  color: #83a598 !important;
+}
+a {
+  color: #b8bb26 !important;
+}
+a:hover,
+a:focus {
+  color: #83a598 !important;
+}
+a:visited {
+  color: #fb4934 !important;
+}
+img {
+  opacity: 1;
+}
+img:hover {
+  opacity: 1;
+}
+
+span[vimbhint^="label"] {
+  background-color: #ebdbb2 !important;
+  border: 1px solid #3c3836 !important;
+  color: #282828 !important;
+  font: bold 10pt monospace !important;
+  opacity: 1 !important;
+  padding: 0.1em 0.4em !important;
+  text-transform: uppercase !important;
+}
+span[vimbhint="label focus"] {
+  font: bold 13pt monospace !important;
+}
+*[vimbhint^="hint"] {
+  background-color: #fabd2f !important;
+  color: #2d2d2d !important;
+}
+*[vimbhint="hint focus"] {
+  background-color: #83a598 !important;
+  color: #282828 !important;
+}
+
+* {
+  font-family: "Ubuntu mono" !important;
+  overflow-wrap: break-word !important;
+  text-align: justify !important;
+  hyphens: auto !important;
+  /* -webkit-font-smoothing: antialiased; */
+  -webkit-font-smoothing: none !important;
+  image-rendering: optimize-contrast !important;
+
+  font-weight: normal !important;
+  font-style: normal !important;
+}

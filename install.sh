@@ -5,6 +5,7 @@ rm ~/.config/vimiv
 rm ~/.config/foot
 rm ~/.config/waybar
 rm ~/.config/nvim
+rm ~/.config/vimb
 rm ~/.bashrc
 rm ~/.inputrc
 
@@ -15,6 +16,7 @@ ln -s ~/nix/**/dunst ~/.config/
 ln -s ~/nix/**/vimiv ~/.config/
 ln -s ~/nix/**/foot ~/.config/
 ln -s ~/nix/**/nvim ~/.config/
+ln -s ~/nix/**/vimb ~/.config/
 ln -s ~/nix/**/waybar ~/.config/
 ln -s ~/nix/**/bash/.bashrc ~/
 ln -s ~/nix/.inputrc ~/

@@ -2,6 +2,18 @@ set selection-clipboard clipboard
 
 set font "Ubuntu Mono 10"
 
+set adjust-open "best-fit"
+set pages-per-row 1
+
+#stop at page boundries
+set scroll-page-aware "true"
+set scroll-full-overlap 0.01
+
+set render-loading "false"
+set scroll-step 50
+
+# -- color ---
+
 set notification-error-bg       "rgba(40,40,40,1)"     # bg
 set notification-error-fg       "rgba(251,73,52,1)"    # bright:red
 set notification-warning-bg     "rgba(40,40,40,1)"     # bg
@@ -44,15 +56,3 @@ set recolor                     "true"
 set recolor-keephue             "true"                 # keep original color
 
 set database sqlite
-
-# ---
-
-set adjust-open "best-fit"
-set pages-per-row 1
-
-#stop at page boundries
-set scroll-page-aware "true"
-set scroll-full-overlap 0.01
-
-set render-loading "false"
-set scroll-step 50

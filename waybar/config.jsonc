@@ -3,9 +3,8 @@
   "position": "top",
   "spacing": 6,
   "modules-left": [
-    "sway/workspaces",
-    "sway/language",
-    "sway/mode"
+    "niri/workspaces",
+    "niri/language"
   ],
   "modules-center": [
     "clock#time",
@@ -20,20 +19,22 @@
     "tray", "network", "cpu", "memory", "disk", "temperature",
     "pulseaudio", "bluetooth", "battery"
   ],
-  "sway/workspaces": {
-    "format": " {name} ",
-    "format-icons": {},
-    "show-special": true
+  "niri/workspaces": {
+    "format": " {icon} ",
+	"format-icons": {
+		"chat": "",
+		"main": "",
+    "dev": "",
+    "temp": "󰨑",
+		"default": "󰜋"
+	}
   },
-  "sway/language": {
+  "niri/language": {
     "format": "{short}"
-  },
-  "sway/mode": {
-      "format": "<span style=\"italic\">{}</span>"
   },
   "clock#time": {
     "format": "  {:%H:%M:%S}",
-   "interval": 1
+    "interval": 1
   },
   "custom/separator": {
     "format": " | ",
@@ -151,11 +152,11 @@
   },
   "pulseaudio": {
     "states": {
-        "high": 90,
-        "upper-medium": 70,
-        "medium": 50,
-        "lower-medium": 30,
-        "low": 10
+      "high": 90,
+      "upper-medium": 70,
+      "medium": 50,
+      "lower-medium": 30,
+      "low": 10
     },
     "scroll-step": 2,
     "format": "{icon} {volume}%",
@@ -171,7 +172,7 @@
     }
   },
   "network": {
-"interval": 2,
+    "interval": 2,
     "format-wifi": " {bandwidthTotalBytes}",
     "format-ethernet": "",
     "format-linked": "",

@@ -22,9 +22,10 @@ w2q() {
 
 d2p() {
   nix-shell -p quarto pandoc texlive.combined.scheme-full --run "pandoc --pdf-engine=lualatex \
-    -V documentclass=extarticle \
+    -V documentclass=scrartcl \
     -V fontsize=14pt \
-    -H ~/nix/bash/header.tex \
+    --lua-filter=$HOME/nix/bash/lua_filters_for_pandoc.lua \
+    -H $HOME/nix/bash/header.tex \
     -o \"$2\" \"$1\""
 }
 
@@ -39,19 +40,16 @@ alias nvb='nv ~/nix/**/.bashrc'
 alias sbrc="source ~/.bashrc"
 
 yt-dlp() {
-  nix-shell -p yt-dlp --run "yt-dlp --proxy \"$PROXY\" \"$1\""
+  nix-shell -p yt-dlp --run "yt-dlp --proxy=\"$PROXY\" \"$1\""
 }
 
 alias work="~/nix/**/work.sh ."
 
-alias book="source ~/nix/**/book_setup.sh"
+alias book="source ~/nix/**/niri_book_setup.sh"
 alias music="source ~/nix/**/music_setup.sh"
 
-alias timr="~/nix/**/timr.sh"
-
-timrby() {
-  timr "$1" by
-}
+alias timr="~/work/timer/target/release/timer -s '󰀠  Alarm!' -b 'Timeout' -d"
+alias alrm="~/work/timer/target/release/timer -m alarm -s '󰀠  Alarm!' -b 'Timeout' -d"
 
 alias weather="curl v2d.wttr.in/47.42,40.09"
 
@@ -65,7 +63,7 @@ trn() {
 }
 
 alias csetup="~/nix/**/csetup.sh"
-alias pysetup="~/nix/**/pysetup.sh"
+alias psetup="~/nix/**/psetup.sh"
 alias qsetup="~/nix/**/qsetup.sh"
 alias rsetup="~/nix/**/rsetup.sh"
 
@@ -75,7 +73,13 @@ export EDITOR="nvim"
 export VISUAL="nvim"
 export TERMINAL="foot"
 export BROWSER="zen"
-export PROXY="https://openproxy:2ad5c3cece9f19f6@nl-hub.freeruproxy.ink:443"
+export PROXY="http://c32ec17997961bcd87241ba05d14bcbd:c32ec17997961bcd87241ba05d14bcbd@5.199.143.188:5598"
+
+export GEMINI_API_KEY="AIzaSyCXFt0cyBDlnhILKeeKt6uhN4r12O7nrmE"
+alias go='gemini --proxy "$PROXY"'
+alias gop='gemini --proxy "$PROXY -i"'
+alias gof='gemini -m gemini-2.5-flash-lite --proxy "$PROXY"'
+alias gofp='gemini -m gemini-2.5-flash-lite --proxy "$PROXY" -i'
 # export http_proxy="$PROXY"
 # export https_proxy="$PROXY"
 
@@ -112,5 +116,5 @@ set -o noclobber
 # ---
 
 export LESS='-RFiXN'
-alias grep='grep --color=always -n -i'
-alias ls='ls --color=always'
+# alias grep='grep --color=always -n -i'
+# alias ls='ls --color=always'
