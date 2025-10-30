@@ -67,6 +67,10 @@ alias psetup="~/nix/**/psetup.sh"
 alias qsetup="~/nix/**/qsetup.sh"
 alias rsetup="~/nix/**/rsetup.sh"
 
+alias t="task"
+alias tw="timew"
+alias tt="taskwarrior-tui"
+
 # ---
 
 export EDITOR="nvim"

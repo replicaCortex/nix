@@ -1,4 +1,5 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   cli = with pkgs; [
     nh
     jq
@@ -8,14 +9,19 @@
     git
 
     fzf
+    fd
+    ripgrep
     wl-clipboard
 
     zk
+    taskwarrior3
+    timewarrior
+    taskwarrior-tui
+
     neovim
 
     ffmpeg-full
 
-    gemini-cli
   ];
 
   other = with pkgs; [
@@ -73,7 +79,8 @@
     unrar
     p7zip
   ];
-in {
+in
+{
   nixpkgs.config.allowUnfree = true;
 
   environment = {
