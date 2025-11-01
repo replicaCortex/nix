@@ -1,5 +1,5 @@
 local map = vim.keymap.set
-local mapd = vim.keymap.del
+-- local mapd = vim.keymap.del
 
 map("i", "<C-h>", "<Left>")
 map("i", "<C-l>", "<Right>")
@@ -19,5 +19,5 @@ map("v", "<leader>/", "gc", { remap = true })
 map("c", "<TAB>", "")
 map("n", "q:", "")
 
-mapd("n", "q")
-mapd("n", "Q")
+-- mapd("n", "q")
+-- mapd("n", "Q")

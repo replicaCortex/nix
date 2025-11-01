@@ -2,12 +2,6 @@ local M = {}
 
 M.base46 = {
   theme = "gruvbox",
-
-  hl_override = {
-    Comment = { italic = true },
-    ["@comment"] = { italic = true },
-    ["LspInlayHint"] = { bg = "#282828" },
-  },
 }
 
 M.ui = {
@@ -60,7 +54,7 @@ M.nvdash = {
     "                      ████    ████                      ",
     "",
   },
-  -- buttons = require "configs.nvdash",
+  buttons = require "configs.nvdash",
 }
 
 return M

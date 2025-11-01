@@ -10,6 +10,7 @@ local servers = {
   "rust_analyzer",
   "sqls",
   "taplo",
+  "tinymist",
 }
 
 if vim.lsp.inlay_hint then
@@ -33,14 +34,6 @@ vim.lsp.config("rust_analyzer", {
     },
   },
 })
-
--- local signature_help = vim.lsp.buf.signature_help
--- vim.lsp.buf.signature_help = function(config)
---   config = config or {}
---   config.border = config.border or "rounded"
---   config.title = ""
---   return signature_help(config)
--- end
 
 -- disable semanticTokens
 local function on_init(client, _)
@@ -81,17 +74,12 @@ local lua_lsp_settings = {
   },
 }
 
-if vim.lsp.config then
-  vim.lsp.config("*", { capabilities = capabilities, on_init = on_init })
-  vim.lsp.config("lua_ls", { settings = lua_lsp_settings })
-  vim.lsp.enable "lua_ls"
-else
-  require("lspconfig").lua_ls.setup {
-    capabilities = capabilities,
-    on_init = on_init,
-    settings = lua_lsp_settings,
-  }
-end
+vim.lsp.config("*", { capabilities = capabilities, on_init = on_init })
+-- vim.lsp.config("lua_ls", {
+--   capabilities = capabilities,
+--   on_init = on_init,
+--   settings = lua_lsp_settings,
+-- })
 
 vim.lsp.enable(servers)
 

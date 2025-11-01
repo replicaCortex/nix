@@ -12,6 +12,7 @@ require("conform").setup {
     json = { "fixjson" },
     sql = { "sleek" },
     rust = { "rustfmt" },
+    typst = { "typstyle" },
   },
   format_on_save = {
     lsp_format = "fallback",

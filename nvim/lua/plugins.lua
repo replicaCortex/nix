@@ -31,11 +31,19 @@ return {
     "folke/snacks.nvim",
     priority = 1000,
     lazy = false,
+    dependencies = { "praczet/little-taskwarrior.nvim" },
     keys = {
+      {
+        "<leader>sH",
+        function()
+          require("snacks.picker").highlights()
+        end,
+        desc = "Highlights",
+      },
       {
         "<leader>ff",
         function()
-          require("snacks.picker").smart()
+          require("snacks.picker").files()
         end,
       },
       {
@@ -93,6 +101,12 @@ return {
         end,
       },
       {
+        "<leader>fS",
+        function()
+          require("snacks.picker").lsp_workspace_symbols()
+        end,
+      },
+      {
         "<leader>fn",
         function()
           require("snacks.picker").notifications()
@@ -104,9 +118,105 @@ return {
           require("snacks.picker").command_history()
         end,
       },
+
+      {
+        "/",
+        function()
+          require("snacks.picker").lines {
+            layout = {
+              preview = "preview",
+              preset = "dropdown",
+            },
+          }
+        end,
+      },
+      {
+        "?",
+        function()
+          require("snacks.picker").lines {
+            layout = {
+              preview = "preview",
+              preset = "dropdown",
+            },
+          }
+        end,
+      },
+      {
+        ",",
+        function()
+          require("snacks.picker").lines {
+            layout = {
+              preview = "preview",
+              preset = "dropdown",
+            },
+          }
+        end,
+      },
+      {
+        ".",
+        function()
+          require("snacks.picker").lines {
+            layout = {
+              preview = "preview",
+              preset = "dropdown",
+            },
+          }
+        end,
+      },
     },
     opts = {
       picker = {
+        sources = {
+          explorer = {
+            actions = {
+              bufadd = function(_, item)
+                if vim.fn.bufexists(item.file) == 0 then
+                  local buf = vim.api.nvim_create_buf(true, false)
+                  vim.api.nvim_buf_set_name(buf, item.file)
+                  vim.api.nvim_buf_call(buf, vim.cmd.edit)
+                end
+              end,
+              confirm_nofocus = function(picker, item)
+                if item.dir then
+                  picker:action "confirm"
+                else
+                  picker:action "bufadd"
+                end
+              end,
+            },
+            win = {
+              list = {
+                keys = {
+                  ["l"] = "confirm_nofocus",
+                  ["L"] = "confirm",
+                },
+              },
+            },
+            auto_close = true,
+            layout = {
+              cycle = true,
+              preview = true,
+              layout = {
+                backdrop = false,
+                row = 1,
+                width = 0.4,
+                min_width = 80,
+                height = 0.8,
+                border = "none",
+                box = "vertical",
+                { win = "preview", title = "{preview}", height = 0.4, border = true },
+                {
+                  box = "vertical",
+                  border = true,
+                  title = "{title} {live} {flags}",
+                  title_pos = "center",
+                  { win = "input", height = 1, border = "bottom" },
+                  { win = "list", border = "none" },
+                },
+              },
+            },
+          },
+        },
         layout = {
           preset = "dropdown",
         },
@@ -124,26 +234,58 @@ return {
       input = {},
       scope = {},
       dashboard = {
-        preset = {
-          header = [[
-(( ))
-( 0 0)    "ghost offers fragile
-///> 🌸-  flower do you take?"
- v v       (y/n)]],
-        },
         formats = {
-          header = { "%s", align = "left" },
+          header = { "%s", align = "center" },
+          sections = { "%s", align = "center" },
         },
-        width = 30,
-        sections = {
-          { section = "header" },
-          -- {
-          --   title = "Task Warrior",
-          --   icon = "󰓥",
-          --   height = 7,
-          -- },
-          { section = "startup" },
-        },
+        width = 50,
+        sections = function()
+          local header = [[
+            ___            
+           /\  \           
+          /  \/ \          
+     ___  \   O /  ___     
+    /    \ \   / /    \    
+   /   __ -    -  __   \   
+  /___/ | <>   <> | \___\  
+  O  ___|    ^    |___  O  
+   /     \   ~   /    \    
+  /   /\  \_____/ /\   \   
+  \_ / /          \ \_ /   
+  O   /   /\   /\  \  O    
+       \ /  \ /  \ /       
+        O    O    O        
+                ]]
+          local function greeting()
+            local hour = tonumber(vim.fn.strftime "%H")
+            -- [02:00, 10:00) - morning, [10:00, 18:00) - day, [18:00, 02:00) - evening
+            local part_id = math.floor((hour + 6) / 8) + 1
+            local day_part = ({ "evening", "morning", "afternoon", "evening" })[part_id]
+            local username = os.getenv "USER" or os.getenv "USERNAME" or "user"
+            return ("Good %s, %s"):format(day_part, username)
+          end
+
+          local ltw = require "little-taskwarrior"
+
+          return {
+            { align = "center", text = { header, hl = "header" } },
+            { align = "center", text = { greeting(), hl = "header" } },
+            { padding = 1 },
+            { icon = " ", key = "i", desc = "New File", action = ":ene | startinsert" },
+            { icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
+            { padding = 1 },
+            {
+              title = "TaskWarrior",
+              icon = "󰓥 ",
+            },
+            {
+              text = ltw.get_snacks_dashboard_tasks(45, "dir", "special"),
+              align = "center",
+            },
+            { padding = 1 },
+            { section = "startup" },
+          }
+        end,
       },
     },
   },
@@ -171,17 +313,24 @@ return {
     end,
   },
 
-  { "windwp/nvim-autopairs", event = "InsertEnter", opts = {} },
-
   {
-    "Wansmer/langmapper.nvim",
-    lazy = false,
-    priority = 1,
+    "nvim-mini/mini.pairs",
+    event = "InsertEnter",
 
     config = function()
-      require "configs.langmapper"
+      require("mini.pairs").setup {}
     end,
   },
+
+  -- {
+  --   "Wansmer/langmapper.nvim",
+  --   lazy = false,
+  --   priority = 1,
+  --
+  --   config = function()
+  --     require "configs.langmapper"
+  --   end,
+  -- },
 
   --- UI ---
 
@@ -190,6 +339,10 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons", "nvchad/base46" },
     config = function()
       require "nvchad"
+      vim.api.nvim_set_hl(0, "SnacksDashboardHeader", { fg = "#83A598", bold = true })
+      vim.api.nvim_set_hl(0, "Comment", { fg = "#656565", italic = true })
+      vim.api.nvim_set_hl(0, "@comment", { fg = "#4E4E4E", italic = true })
+      vim.api.nvim_set_hl(0, "LspInlayHint", { bg = "#282828", fg = "#656565" })
     end,
   },
 
@@ -213,11 +366,17 @@ return {
   },
 
   {
-    "quarto-dev/quarto-nvim",
-    dependencies = {
-      "jmbuhr/otter.nvim",
-      "nvim-treesitter/nvim-treesitter",
-    },
-    ft = { "quarto", "rmd", "r" },
+    "praczet/little-taskwarrior.nvim",
+    config = function()
+      require("little-taskwarrior").setup {
+        dashboard = {
+          limit = 10,
+          project_replacements = {
+            ["home."] = "h.",
+            ["work."] = "w.",
+          },
+        },
+      }
+    end,
   },
 }

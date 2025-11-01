@@ -17,7 +17,7 @@
     };
     packages = with pkgs; [
       nerd-fonts.ubuntu
-      ubuntu_font_family
+      ubuntu-classic
     ];
   };
 

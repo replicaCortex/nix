@@ -27,7 +27,7 @@ let
   other = with pkgs; [
     cliphist
     gammastep
-    xdragon
+    dragon-drop
 
     qbittorrent-enhanced
 
@@ -50,7 +50,6 @@ let
   fmt = with pkgs; [
     prettier
     alejandra
-    typstyle
     stylua
     shfmt
     mbake

@@ -1,0 +1,217 @@
+input {
+  workspace-auto-back-and-forth
+  warp-mouse-to-focus mode="center-xy-always"
+  keyboard {
+    repeat-delay 500
+    repeat-rate 25
+
+    xkb {
+      layout "us,ru"
+      options "grp:caps_toggle,shift:both_capslock"
+    }
+    numlock
+  }
+
+  touchpad {
+    tap
+    dwt
+    // drag false
+    drag-lock
+    accel-profile "adaptive"
+    scroll-method "two-finger"
+    // click-method "clickfinger"
+  }
+}
+
+environment {
+  CLUTTER_BACKEND "wayland"
+  GDK_BACKEND "wayland,x11,*"
+  GDK_DPI_SCALE "1"
+  GDK_SCALE "1"
+  QT_AUTO_SCREEN_SCALE_FACTOR "1"
+  QT_QPA_PLATFORM "wayland;xcb"
+  QT_QPA_PLATFORMTHEME "gtk3"
+  QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
+  SDL_VIDEODRIVER "wayland"
+  GSK_RENDERER "ngl"
+  ELECTRON_OZONE_PLATFORM_HINT "auto"
+  WLR_NO_HARDWARE_CURSORS "1"
+  // Force vaapi backend to prevent using the dGPU
+  QT_MEDIA_BACKEND "ffmpeg"
+  QT_FFMPEG_DECODING_HW_DEVICE_TYPES "vaapi"
+  QT_FFMPEG_ENCODING_HW_DEVICE_TYPES "vaapi"
+}
+
+cursor {
+  xcursor-size 12
+  hide-when-typing
+  hide-after-inactive-ms 10000
+}
+
+output "eDP-1" {
+  mode "1920x1080@120.030"
+}
+
+layout {
+  gaps 6
+  center-focused-column "never"
+  // center-focused-column "always"
+  // always-center-single-column
+  background-color "transparent"
+  empty-workspace-above-first
+
+  preset-column-widths {
+    proportion 0.333
+    // proportion 0.5
+    proportion 0.667
+  }
+
+  // default-column-width { proportion 0.333; }
+  default-column-width { proportion 1.0; }
+
+  focus-ring {
+    off
+    width 2
+  }
+
+  border {
+    // off
+    width 2
+    active-color "#222222"
+    inactive-color "#222222"
+    urgent-color "#cc241d"
+  }
+
+  shadow {
+  }
+}
+
+prefer-no-csd
+
+overview {
+  backdrop-color "#282828"
+  workspace-shadow {
+    softness 50
+    spread 20
+    offset x=0 y=10
+    color "#0007"
+  }
+}
+
+clipboard {
+  disable-primary
+}
+
+spawn-sh-at-startup "swaybg -i ~/nix/wallpapers/starry-sky.png"
+spawn-at-startup "waybar"
+spawn-at-startup "dunst"
+spawn-sh-at-startup "wl-paste --watch cliphist store"
+
+spawn-sh-at-startup "foot --server"
+
+spawn-sh-at-startup "gammastep -O 3500"
+
+spawn-sh-at-startup "rm ~/ly-session.log"
+spawn-sh-at-startup "rm ~/.python_history*"
+
+hotkey-overlay {
+  skip-at-startup
+}
+
+screenshot-path null
+
+window-rule {
+  match app-id="float"
+
+  default-floating-position x=710 y=190 
+
+  open-floating true
+  default-column-width { fixed 500; }
+  default-window-height { fixed 250; }
+}
+
+layer-rule {
+    match namespace="^wallpaper$"
+
+    place-within-backdrop true
+}
+
+workspace "chat"
+workspace "main"
+workspace "dev"
+workspace "temp"
+
+binds {
+  Mod+Return     { spawn "footclient"; }
+  Mod+Shift+Return     { spawn "~/nix/niri/cwd.sh"; }
+  Mod+W          { spawn-sh "footclient --app-id=float -e ~/work/browser_shedule/target/release/browser_shedule"; }
+  Ctrl+Shift+H   { spawn-sh "footclient --app-id=float -e cliphist-fzf-sixel"; }
+  Mod+P          { screenshot; }
+  Mod+Shift+P          { screenshot-window; }
+
+  Mod+O repeat=false { toggle-overview; }
+  Mod+Q repeat=false { close-window; }
+
+  Mod+H     { focus-column-left; }
+  Mod+J     { focus-window-or-workspace-down; }
+  Mod+K     { focus-window-or-workspace-up; }
+  Mod+L     { focus-column-right; }
+
+  Mod+Shift+H     { move-column-left; }
+  Mod+Shift+J     { move-window-down-or-to-workspace-down; }
+  Mod+Shift+K     { move-window-up-or-to-workspace-up; }
+  Mod+Shift+L     { move-column-right; }
+
+  Mod+Ctrl+Shift+J     { move-workspace-down; }
+  Mod+Ctrl+Shift+K     { move-workspace-up; }
+
+  Mod+Ctrl+H     { focus-column-first; }
+  Mod+Ctrl+L     { focus-column-last; }
+  Mod+Ctrl+Shift+H   { move-column-to-first; }
+  Mod+Ctrl+Shift+L  { move-column-to-last; }
+
+  Mod+1 { focus-workspace 1; }
+  Mod+2 { focus-workspace 2; }
+  Mod+3 { focus-workspace 3; }
+  Mod+4 { focus-workspace 4; }
+  Mod+5 { focus-workspace 5; }
+  Mod+6 { focus-workspace 6; }
+  Mod+7 { focus-workspace 7; }
+  Mod+8 { focus-workspace 8; }
+  Mod+9 { focus-workspace 9; }
+
+  Mod+Shift+1 { move-column-to-workspace 1; }
+  Mod+Shift+2 { move-column-to-workspace 2; }
+  Mod+Shift+3 { move-column-to-workspace 3; }
+  Mod+Shift+4 { move-column-to-workspace 4; }
+  Mod+Shift+5 { move-column-to-workspace 5; }
+  Mod+Shift+6 { move-column-to-workspace 6; }
+  Mod+Shift+7 { move-column-to-workspace 7; }
+  Mod+Shift+8 { move-column-to-workspace 8; }
+  Mod+Shift+9 { move-column-to-workspace 9; }
+
+  Mod+Comma  { consume-or-expel-window-left; }
+  Mod+Period { consume-or-expel-window-right; }
+
+  Mod+R          { switch-preset-column-width; }
+  Mod+U          { maximize-column; }  
+  Mod+Shift+U    { expand-column-to-available-width; }
+  Mod+M          { fullscreen-window; }
+  Mod+Z          { center-column; }
+  Mod+Shift+Z      { center-visible-columns; }
+  Mod+Minus      { set-column-width "-10%"; }
+  Mod+Equal      { set-column-width "+10%"; }
+  Mod+Alt+Minus  { set-window-height "-10%"; }
+  Mod+Alt+Equal  { set-window-height "+10%"; }
+  Mod+I          { toggle-window-floating; }
+  Mod+Space      { switch-focus-between-floating-and-tiling; }
+  Mod+S          { toggle-column-tabbed-display; }
+
+  Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+}
+
+
+animations {
+  // off
+  // slowdown 0.5
+}
