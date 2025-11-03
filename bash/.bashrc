@@ -54,15 +54,6 @@ alias alrm="~/work/timer/target/release/timer -m alarm -s '󰀠  Alarm!' -b 'Tim
 
 alias weather="curl v2d.wttr.in/47.42,40.09"
 
-trn() {
-  TRANSLATE_PATH=$(find "$HOME/nix" -name "translate.sh" -type f | head -n 1)
-  if [ -n "$1" ]; then
-    "$TRANSLATE_PATH"
-  else
-    wl-paste | "$TRANSLATE_PATH"
-  fi
-}
-
 alias csetup="~/nix/**/csetup.sh"
 alias psetup="~/nix/**/psetup.sh"
 alias qsetup="~/nix/**/qsetup.sh"
@@ -71,6 +62,8 @@ alias rsetup="~/nix/**/rsetup.sh"
 alias t="task"
 alias tw="timew"
 alias tt="taskwarrior-tui"
+alias h="task rc.data.location=~/.habit"
+alias tth="tt --taskdata ~/.habit"
 
 # ---
 
@@ -80,11 +73,6 @@ export TERMINAL="foot"
 export BROWSER="zen"
 export PROXY="http://c32ec17997961bcd87241ba05d14bcbd:c32ec17997961bcd87241ba05d14bcbd@5.199.143.188:5598"
 
-export GEMINI_API_KEY="AIzaSyCXFt0cyBDlnhILKeeKt6uhN4r12O7nrmE"
-alias go='gemini --proxy "$PROXY"'
-alias gop='gemini --proxy "$PROXY -i"'
-alias gof='gemini -m gemini-2.5-flash-lite --proxy "$PROXY"'
-alias gofp='gemini -m gemini-2.5-flash-lite --proxy "$PROXY" -i'
 # export http_proxy="$PROXY"
 # export https_proxy="$PROXY"
 

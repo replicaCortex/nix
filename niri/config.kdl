@@ -102,7 +102,7 @@ clipboard {
   disable-primary
 }
 
-spawn-sh-at-startup "swaybg -i ~/nix/wallpapers/starry-sky.png"
+spawn-sh-at-startup "swaybg -i ~/nix/wallpapers/casete_wallpaper.jpg"
 spawn-at-startup "waybar"
 spawn-at-startup "dunst"
 spawn-sh-at-startup "wl-paste --watch cliphist store"

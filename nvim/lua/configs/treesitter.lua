@@ -5,8 +5,6 @@ return {
     "html",
     "css",
 
-    "latex",
-
     "python",
     "nix",
 
@@ -15,10 +13,6 @@ return {
 
     "make",
     "cmake",
-
-    "r",
-    "yaml",
-    "rnoweb",
 
     "rust",
 
