@@ -6,7 +6,8 @@
     waybar
     brightnessctl
     dunst
-    swaybg
+    # swaybg
+    swww
     foot
   ];
 }

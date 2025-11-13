@@ -1,54 +1,35 @@
--- vim.api.nvim_create_autocmd("CmdlineEnter", {
---   callback = function()
---     local cmd =
---       [[swaymsg -t get_inputs | jq -r '.[] | select(.type=="keyboard") | .xkb_active_layout_name' | tail -n 1]]
---     local handle = io.popen(cmd)
---     if not handle then
---       return
---     end
---
---     local layout = vim.trim(handle:read "a")
---     handle:close()
---
---     if layout == "Russian" then
---       io.popen([[swaymsg input "*" xkb_switch_layout next]]):close()
---     end
---
---     _G.LAYOUT = layout
---   end,
--- })
---
--- vim.api.nvim_create_autocmd("CmdlineLeave", {
---   callback = function()
---     if _G.LAYOUT == "Russian" then
---       io.popen([[swaymsg input "*" xkb_switch_layout next]]):close()
---     end
---   end,
--- })
-
-vim.api.nvim_create_autocmd("TextYankPost", {
-  pattern = "*",
+vim.api.nvim_create_autocmd("CmdlineEnter", {
   callback = function()
-    vim.highlight.on_yank {
-      higroup = "IncSearch",
-      timeout = 200,
-    }
+    local cmd = [[niri msg -j keyboard-layouts | jq '.current_idx']]
+    local handle = io.popen(cmd)
+    if not handle then
+      return
+    end
+
+    local layout = vim.trim(handle:read "a")
+    handle:close()
+
+    if layout == "1" then
+      io.popen([[niri msg action switch-layout next]]):close()
+    end
+
+    _G.LAYOUT = layout
   end,
 })
 
-vim.api.nvim_create_autocmd("VimEnter", {
+vim.api.nvim_create_autocmd("CmdlineLeave", {
   callback = function()
-    vim.cmd [[set fo-=o]]
+    if _G.LAYOUT == "1" then
+      io.popen([[niri msg action switch-layout next]]):close()
+    end
   end,
 })
 
----@type table<number, {token:lsp.ProgressToken, msg:string, done:boolean}[]>
 local progress = vim.defaulttable()
 vim.api.nvim_create_autocmd("LspProgress", {
-  ---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
   callback = function(ev)
     local client = vim.lsp.get_client_by_id(ev.data.client_id)
-    local value = ev.data.params.value --[[@as {percentage?: number, title?: string, message?: string, kind: "begin" | "report" | "end"}]]
+    local value = ev.data.params.value
     if not client or type(value) ~= "table" then
       return
     end
@@ -69,7 +50,7 @@ vim.api.nvim_create_autocmd("LspProgress", {
       end
     end
 
-    local msg = {} ---@type string[]
+    local msg = {}
     progress[client.id] = vim.tbl_filter(function(v)
       return table.insert(msg, v.msg) or not v.done
     end, p)

@@ -12,7 +12,7 @@ set scroll-full-overlap 0.01
 set render-loading "false"
 set scroll-step 50
 
-# -- color ---
+# -- color  ---
 
 set notification-error-bg       "rgba(40,40,40,1)"     # bg
 set notification-error-fg       "rgba(251,73,52,1)"    # bright:red
@@ -56,3 +56,15 @@ set recolor                     "true"
 set recolor-keephue             "true"                 # keep original color
 
 set database sqlite
+
+# map w scroll up
+# map a scroll left
+# map s scroll down
+# map d scroll right
+#
+# map <S-s> navigate next
+# map <S-w> navigate previous
+#
+# map r zoom 100
+# map q zoom out
+# map e zoom in

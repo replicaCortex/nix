@@ -10,6 +10,7 @@ require("conform").setup {
     quarto = { "injected" },
     markdown = { "mdformat" },
     json = { "fixjson" },
+    jsonc = { "fixjson" },
     sql = { "sleek" },
     rust = { "rustfmt" },
     typst = { "typstyle" },

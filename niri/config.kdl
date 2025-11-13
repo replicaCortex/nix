@@ -61,17 +61,18 @@ layout {
   empty-workspace-above-first
 
   preset-column-widths {
-    proportion 0.333
+    proportion 0.3333333333333333
     // proportion 0.5
-    proportion 0.667
+    proportion 0.66667
   }
 
-  // default-column-width { proportion 0.333; }
-  default-column-width { proportion 1.0; }
+  default-column-width { proportion 0.3333333333333333; }
+  // default-column-width { proportion 1.0; }
 
   focus-ring {
-    off
+    // off
     width 2
+    active-color "#d79921"
   }
 
   border {
@@ -83,6 +84,14 @@ layout {
   }
 
   shadow {
+    // off
+  }
+
+  tab-indicator {
+    width 2
+    gap 4
+    gaps-between-tabs 2
+    inactive-color "#585b70"
   }
 }
 
@@ -102,7 +111,8 @@ clipboard {
   disable-primary
 }
 
-spawn-sh-at-startup "swaybg -i ~/nix/wallpapers/casete_wallpaper.jpg"
+// spawn-sh-at-startup "swaybg -i ~/nix/wallpapers/casete_wallpaper.jpg"
+spawn-sh-at-startup "swww-daemon"
 spawn-at-startup "waybar"
 spawn-at-startup "dunst"
 spawn-sh-at-startup "wl-paste --watch cliphist store"
@@ -121,6 +131,12 @@ hotkey-overlay {
 screenshot-path null
 
 window-rule {
+  match app-id="^gimp" title="^GIMP Startup$"
+
+  open-focused false
+}
+
+window-rule {
   match app-id="float"
 
   default-floating-position x=710 y=190 
@@ -128,12 +144,19 @@ window-rule {
   open-floating true
   default-column-width { fixed 500; }
   default-window-height { fixed 250; }
+
+  border { off; }
+  focus-ring {
+    active-color "#222222";
+  }
+  shadow { on; }
 }
 
 layer-rule {
-    match namespace="^wallpaper$"
+  match namespace="^wallpaper$"
+  match namespace="swww-daemon"
 
-    place-within-backdrop true
+  place-within-backdrop true
 }
 
 workspace "chat"
@@ -144,7 +167,7 @@ workspace "temp"
 binds {
   Mod+Return     { spawn "footclient"; }
   Mod+Shift+Return     { spawn "~/nix/niri/cwd.sh"; }
-  Mod+W          { spawn-sh "footclient --app-id=float -e ~/work/browser_shedule/target/release/browser_shedule"; }
+  Mod+F          { spawn-sh "footclient --app-id=float -e ~/work/browser_shedule/target/release/browser_shedule"; }
   Ctrl+Shift+H   { spawn-sh "footclient --app-id=float -e cliphist-fzf-sixel"; }
   Mod+P          { screenshot; }
   Mod+Shift+P          { screenshot-window; }
@@ -157,18 +180,36 @@ binds {
   Mod+K     { focus-window-or-workspace-up; }
   Mod+L     { focus-column-right; }
 
+  Mod+A     { focus-column-left; }
+  Mod+S     { focus-window-or-workspace-down; }
+  Mod+W     { focus-window-or-workspace-up; }
+  Mod+D     { focus-column-right; }
+
   Mod+Shift+H     { move-column-left; }
   Mod+Shift+J     { move-window-down-or-to-workspace-down; }
   Mod+Shift+K     { move-window-up-or-to-workspace-up; }
   Mod+Shift+L     { move-column-right; }
 
+  Mod+Shift+A     { move-column-left; }
+  Mod+Shift+S     { move-window-down-or-to-workspace-down; }
+  Mod+Shift+W     { move-window-up-or-to-workspace-up; }
+  Mod+Shift+D     { move-column-right; }
+
   Mod+Ctrl+Shift+J     { move-workspace-down; }
   Mod+Ctrl+Shift+K     { move-workspace-up; }
+
+  Mod+Ctrl+Shift+S     { move-workspace-down; }
+  Mod+Ctrl+Shift+W     { move-workspace-up; }
 
   Mod+Ctrl+H     { focus-column-first; }
   Mod+Ctrl+L     { focus-column-last; }
   Mod+Ctrl+Shift+H   { move-column-to-first; }
   Mod+Ctrl+Shift+L  { move-column-to-last; }
+
+  Mod+Ctrl+A     { focus-column-first; }
+  Mod+Ctrl+D     { focus-column-last; }
+  Mod+Ctrl+Shift+A   { move-column-to-first; }
+  Mod+Ctrl+Shift+D  { move-column-to-last; }
 
   Mod+1 { focus-workspace 1; }
   Mod+2 { focus-workspace 2; }
@@ -205,13 +246,72 @@ binds {
   Mod+Alt+Equal  { set-window-height "+10%"; }
   Mod+I          { toggle-window-floating; }
   Mod+Space      { switch-focus-between-floating-and-tiling; }
-  Mod+S          { toggle-column-tabbed-display; }
+  Mod+C          { toggle-column-tabbed-display; }
 
   Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+
+
+  Mod+TouchpadScrollUp   allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.02+"; }
+  Mod+TouchpadScrollDown allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.02-"; }
+
 }
 
 
 animations {
-  // off
-  // slowdown 0.5
+  window-close {
+    duration-ms 250
+    curve "linear"
+
+    custom-shader r"
+    mat2 rotate(float angle) {
+      return mat2(cos(angle), -sin(angle), sin(angle), cos(angle));
+    }
+
+    vec4 close_color(vec3 coords_geo, vec3 size_geo) {
+      float progress = 1.0 - pow(1.0 - niri_clamped_progress, 2.0);
+
+      vec2 coords = (coords_geo.xy - vec2(0.5, 1.0)) * size_geo.xy;
+
+      coords.x -= progress * 150.0;
+
+      float random = (niri_random_seed - 0.5) / 2.0;
+      random = sign(random) - random;
+      float max_angle = 0.05 * random;
+
+      float angle = progress * max_angle;
+      coords = rotate(angle) * coords;
+
+      coords_geo = vec3(coords / size_geo.xy + vec2(0.5, 1.0), 1.0);
+
+      vec3 coords_tex = niri_geo_to_tex * coords_geo;
+      vec4 color = texture2D(niri_tex, coords_tex.st);
+
+      return color * (1.0 - niri_clamped_progress);
+    }
+    "
+  }
+
+  window-open {
+    duration-ms 250
+    curve "linear"
+
+    custom-shader r"
+    vec4 open_color(vec3 coords_geo, vec3 size_geo) {
+      float progress = 1.0 - pow(1.0 - niri_clamped_progress, 4.0);
+
+      float offset = (1.0 - progress) * 0.5; // 0.5 = 50%
+
+      vec2 coords = coords_geo.xy;
+      coords.x += offset;
+
+      vec3 coords_tex = niri_geo_to_tex * vec3(coords, 1.0);
+      if (coords_tex.x < 0.0 || coords_tex.x > 1.0 || coords_tex.y < 0.0 || coords_tex.y > 1.0) {
+        return vec4(0.0);
+      }
+      vec4 color = texture2D(niri_tex, coords_tex.st);
+
+      return color * min(1.0, niri_clamped_progress * 2.0);
+    }
+    "
+  }
 }

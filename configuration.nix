@@ -2,10 +2,10 @@
 {
   imports = [
     # ./podman.nix
-    ./packages.nix
-    ./niri/niri.nix
     ./bluetooth.nix
     ./hardware-configuration.nix
+    ./niri/niri.nix
+    ./packages.nix
   ];
 
   boot.loader.systemd-boot.enable = true;

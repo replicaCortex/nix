@@ -24,28 +24,12 @@ local postfix = require("luasnip.extras.postfix").postfix
 local types = require "luasnip.util.types"
 local parse = require("luasnip.util.parser").parse_snippet
 local ms = ls.multi_snippet
+local k = require("luasnip.nodes.key_indexer").new_key
 
 return {
-  s(
-    "shell",
-    t {
-      "{",
-      "  pkgs ? import <nixpkgs> { },",
-      "}:",
-      "pkgs.mkShell {",
-      "  buildInputs = with pkgs; [",
-      "  ];",
-      "",
-      "  shellHook = '''';",
-      "}",
-    }
-  ),
-
-  s(
-    "LD_LIB",
-    t {
-      'export LD_LIBRARY_PATH="${pkgs.zlib}/lib:$LD_LIBRARY_PATH"',
-      'export LD_LIBRARY_PATH="${pkgs.stdenv.cc.cc.lib.outPath}/lib:$LD_LIBRARY_PATH"',
-    }
-  ),
+  s("book", {
+    t { '#set text(size: 14pt, font: "Bookerly")', "", "" },
+    t { "#set par( leading: 1.5em - 0.75em, justify: true, first-line-indent: 1.5em, spacing: 0.65em,)", "", "" },
+    t "#show heading: set align(center)",
+  }),
 }

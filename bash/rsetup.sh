@@ -41,19 +41,3 @@ fi
 git branch -m main
 git add .
 git commit -m "init commit"
-
-# --- quarto ---
-
-read -rp "quarto?(y/n): " quarto
-
-if [ -n "$quarto" ]; then
-  submodel=true
-fi
-
-if [ "${quarto,,}" == "y" ] || [ "${quarto,,}" == "yes" ]; then
-  mkdir -p report
-  cd report || exit
-
-  QSETUP_PATH=$(find "$HOME/nix" -name "qsetup.sh" -type f | head -n 1)
-  "$QSETUP_PATH" "$submodel"
-fi

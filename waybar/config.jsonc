@@ -1,7 +1,7 @@
 {
   "layer": "top",
-  "position": "top",
-  "spacing": 6,
+  "position": "left",
+  "spacing": 0,
   "modules-left": [
     "niri/workspaces",
     "niri/language"
@@ -16,28 +16,32 @@
     "clock#calendar"
   ],
   "modules-right": [
-    "tray", "network", "cpu", "memory", "disk", "temperature",
-    "pulseaudio", "bluetooth", "battery"
+    "tray",
+    "network",
+    "pulseaudio",
+    "cpu",
+    "memory",
+    "temperature",
+    "battery"
   ],
   "niri/workspaces": {
-    "format": " {icon} ",
-	"format-icons": {
-		"chat": "",
-		"main": "",
-    "dev": "",
-    "temp": "󰨑",
-		"default": "󰜋"
-	}
+    "format": "{icon}",
+    "format-icons": {
+      "chat": "",
+      "main": "",
+      "dev": "",
+      "temp": "󰨑",
+      "default": "󰜋"
+    }
   },
   "niri/language": {
-    "format": "{short}"
+    "format": "{shortDescription}"
   },
   "clock#time": {
-    "format": "  {:%H:%M:%S}",
-    "interval": 1
+    "format": "{:%Hh\n\n%Mm}"
   },
   "custom/separator": {
-    "format": " | ",
+    "format": "---",
     "tooltip": false
   },
   "custom/separator_space": {
@@ -55,7 +59,7 @@
     "format": "{:%h}"
   },
   "clock#calendar": {
-    "format": "{:%F}",
+    "format": "{:%yy\n\n%dd}",
     "tooltip-format": "<tt><small>{calendar}</small></tt>",
     "actions": {
       "on-click-right": "mode"
@@ -85,7 +89,7 @@
     },
     "format": "",
     "format-disabled": "X",
-    "format-connected-battery":"󰂅 {device_battery_percentage}%",
+    "format-connected-battery": "󰂅 {device_battery_percentage}%",
     "max-length": 35
   },
   "keyboard-state": {
@@ -97,24 +101,14 @@
     }
   },
   "cpu": {
-    "format": " {usage}%",
-    "states": {
-      "high": 90,
-      "upper-medium": 70,
-      "medium": 50,
-      "lower-medium": 30,
-      "low": 10
-    }
+    "format": "{usage}",
+    "tooltip": false
   },
   "memory": {
-    "format": " {percentage}%",
-    "states": {
-      "high": 90,
-      "upper-medium": 70,
-      "medium": 50,
-      "lower-medium": 30,
-      "low": 10
-    }
+    "format": "{}"
+  },
+  "pulseaudio": {
+    "format": "{volume}"
   },
   "disk": {
     "format": " {percentage_used}%",
@@ -129,57 +123,26 @@
   "temperature": {
     "hwmon-path": "/sys/class/drm/card1/device/hwmon/hwmon6/temp1_input",
     "critical-threshold": 70,
-    "format": " {temperatureC}°C"
+    "format": "{temperatureC}"
   },
   "battery": {
     "states": {
-      "high": 90,
-      "upper-medium": 70,
-      "medium": 50,
-      "lower-medium": 30,
-      "low": 10
+      "normal": 80,
+      "warning": 30,
+      "critical": 10
     },
-    "format": "{icon} {capacity}%",
-    "format-plugged": " {capacity}%",
-    "format-icons": [
-      "[      ]",
-      "[=     ]",
-      "[==    ]",
-      "[====  ]",
-      "[===== ]",
-      "[======]"
-    ]
-  },
-  "pulseaudio": {
-    "states": {
-      "high": 90,
-      "upper-medium": 70,
-      "medium": 50,
-      "lower-medium": 30,
-      "low": 10
-    },
-    "scroll-step": 2,
-    "format": "{icon} {volume}%",
-    "format-bluetooth": " {icon} {volume}%",
-    "format-bluetooth-muted": " {icon}  {format_source}",
-    "format-muted": " {format_source}",
-    "format-icons": {
-      "car": "",
-      "default": ["", "", ""],
-      "headphone": "",
-      "phone": "",
-      "portable": ""
-    }
+    "format": "{capacity}",
+    "format-charging": "{capacity}",
+    "format-plugged": "{capacity}"
   },
   "network": {
-    "interval": 2,
-    "format-wifi": " {bandwidthTotalBytes}",
-    "format-ethernet": "",
-    "format-linked": "",
+    "format-wifi": "",
+    "format-ethernet": "",
+    "tooltip-format": "{ifname} via {gwaddr} ",
+    "format-linked": "",
     "format-disconnected": "⚠"
   },
   "tray": {
-    "show-passive-items": true,
-    "spacing": 5
+    "spacing": 10
   }
 }

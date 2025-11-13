@@ -1,4 +1,3 @@
-export PATH="$PATH:/home/replica/.cargo/bin"
 alias na="bluetoothctl connect E4:61:F4:31:88:26"
 alias nrs='nh os switch --ask /home/replica/nix/ && dunstify "  NixOS" "Nix switch done 󰄬" || dunstify -u critical -h string:fgcolor:#f38ba8 "  NixOS" "Home switch failed ❌" -t 4000'
 alias nix-clean='nh clean && dunstify "  NixOS" "Clean done 󰄬" || dunstify -u critical -h string:fgcolor:#f38ba8 "  NixOS" "Clean failed ❌" -t 4000'
@@ -40,13 +39,22 @@ alias nvi='nv ~/note/index.md'
 alias nvb='nv ~/nix/**/.bashrc'
 alias sbrc="source ~/.bashrc"
 
-yt-dlp() {
-  nix-shell -p yt-dlp --run "yt-dlp --proxy=\"$PROXY\" \"$1\""
+# yt-dlp() {
+#   nix-shell -p yt-dlp --run "yt-dlp --proxy=\"$PROXY\" \"$1\""
+# }
+
+pdf2text() {
+  nix-shell -p poppler-utils --run "pdftotext \"$1\" \"$2\""
 }
 
 alias work="~/nix/**/work.sh ."
 
 alias book="source ~/nix/**/niri_book_setup.sh"
+
+zathura() {
+  niri msg action spawn -- zathura "$PWD/$1"
+}
+
 alias music="source ~/nix/**/music_setup.sh"
 
 alias timr="~/work/timer/target/release/timer -s '󰀠  Alarm!' -b 'Timeout' -d"
@@ -60,7 +68,6 @@ alias qsetup="~/nix/**/qsetup.sh"
 alias rsetup="~/nix/**/rsetup.sh"
 
 alias t="task"
-alias tw="timew"
 alias tt="taskwarrior-tui"
 alias h="task rc.data.location=~/.habit"
 alias tth="tt --taskdata ~/.habit"
@@ -109,5 +116,6 @@ set -o noclobber
 # ---
 
 export LESS='-RFiXN'
+alias less="less --use-color --status-line"
 # alias grep='grep --color=always -n -i'
 # alias ls='ls --color=always'

@@ -1,37 +1,29 @@
 { pkgs, ... }:
 let
   cli = with pkgs; [
-    nh
-    jq
     btop
-
-    file
-    git
-
-    fzf
     fd
-    ripgrep
-    wl-clipboard
-
-    zk
-    taskwarrior3
-    timewarrior
-    taskwarrior-tui
-
-    neovim
-
     ffmpeg-full
-
+    file
+    fzf
+    git
+    jq
+    neovim
+    nh
+    ripgrep
+    taskwarrior-tui
+    taskwarrior3
+    wl-clipboard
+    zk
   ];
 
   other = with pkgs; [
+    aseprite
+    xwayland-satellite
     cliphist
     gammastep
-    dragon-drop
-
-    qbittorrent-enhanced
-
     pkgs.zen-browser.default
+    qbittorrent-enhanced
     telegram-desktop
   ];
 
@@ -48,35 +40,35 @@ let
   ];
 
   fmt = with pkgs; [
-    prettier
-    alejandra
-    stylua
-    shfmt
-    mbake
-    sleek
-    taplo
-    fixjson
     (pkgs.python312.withPackages (ps: [
       ps.mdformat
       ps.mdformat-frontmatter
     ]))
+    alejandra
+    fixjson
+    mbake
+    prettier
+    shfmt
+    sleek
+    stylua
+    taplo
   ];
 
   lsp = with pkgs; [
-    inotify-tools
-    yaml-language-server
-    lua-language-server
     bash-language-server
+    inotify-tools
+    lua-language-server
     nil
     sqls
+    yaml-language-server
   ];
 
   compress = with pkgs; [
     gnutar
     gzip
-    unzip
-    unrar
     p7zip
+    unrar
+    unzip
   ];
 in
 {

@@ -3,64 +3,50 @@ local o = vim.o
 local g = vim.g
 
 -------------------------------------- options ------------------------------------------
-o.laststatus = 3
-o.showmode = false
-o.splitkeep = "screen"
-
+g.loaded_node_provider = 0
+g.loaded_perl_provider = 0
+g.loaded_python_provider = 0
+g.loaded_ruby_provider = 0
+g.markdown_recommended_style = 0
 o.clipboard = "unnamedplus"
+-- o.conceallevel = 2
+-- o.confirm = true
 o.cursorline = true
 o.cursorlineopt = "both"
-o.winborder = "single"
-o.virtualedit = "block"
-o.title = true
-
--- Indenting
 o.expandtab = true
-o.shiftwidth = 2
-o.smartindent = true
-o.tabstop = 2
-o.softtabstop = 2
-
-opt.fillchars = { eob = " " }
 o.ignorecase = true
-o.smartcase = true
-o.mouse = "a"
-
--- Numbers
+o.inccommand = "nosplit"
+o.laststatus = 3
+o.list = true
+o.mouse = ""
 o.number = true
 o.numberwidth = 2
 o.relativenumber = true
 o.ruler = false
-
+-- o.scrolloff = 4
+o.shiftwidth = 2
+o.showmode = false
+o.sidescrolloff = 8
 o.signcolumn = "yes"
+o.smartcase = true
+o.smartindent = true
+o.softtabstop = 2
 o.splitbelow = true
+o.splitkeep = "screen"
 o.splitright = true
+o.swapfile = false
+o.tabstop = 2
+o.termguicolors = true
 o.timeoutlen = 400
+o.title = true
 o.undofile = true
-
-vim.opt.shortmess:append "cI"
-
+o.undolevels = 10000
+o.updatetime = 250
+o.virtualedit = "block"
+o.winborder = "single"
+opt.fillchars = { eob = " " }
+opt.whichwrap:append "<>[]hl"
+opt.fillchars = { foldopen = "", foldclose = "", fold = " ", foldsep = " ", diff = "╱", eob = " " }
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
-
--- interval for writing swap file to disk, also used by gitsigns
-o.updatetime = 250
-o.swapfile = false
-
--- go to previous/next line with h,l,left arrow and right arrow
--- when cursor reaches end/beginning of line
-opt.whichwrap:append "<>[]hl"
-
--- disable some default providers
-g.loaded_node_provider = 0
-g.loaded_perl_provider = 0
-g.loaded_ruby_provider = 0
-
--- bruh
--- o.foldenable = true
--- o.foldcolumn = "0"
--- o.foldlevel = 0
--- o.foldmethod = "indent"
--- o.foldclose = "all"
--- o.foldmethod = "expr"
--- o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.shortmess:append "cI"

@@ -20,13 +20,12 @@ return {
     "neovim/nvim-lspconfig",
 
     dependencies = { "nvim-treesitter/nvim-treesitter" },
-    ft = { "python", "markdown", "rust", "tex", "lua", "typst", "nix" },
+    ft = { "python", "markdown", "rust", "tex", "lua", "typst", "nix", "sh" },
     config = function()
       require "configs.lspconfig"
     end,
   },
 
-  -- lazy.nvim
   {
     "folke/snacks.nvim",
     priority = 1000,
@@ -119,50 +118,50 @@ return {
         end,
       },
 
-      {
-        "/",
-        function()
-          require("snacks.picker").lines {
-            layout = {
-              preview = "preview",
-              preset = "dropdown",
-            },
-          }
-        end,
-      },
-      {
-        "?",
-        function()
-          require("snacks.picker").lines {
-            layout = {
-              preview = "preview",
-              preset = "dropdown",
-            },
-          }
-        end,
-      },
-      {
-        ",",
-        function()
-          require("snacks.picker").lines {
-            layout = {
-              preview = "preview",
-              preset = "dropdown",
-            },
-          }
-        end,
-      },
-      {
-        ".",
-        function()
-          require("snacks.picker").lines {
-            layout = {
-              preview = "preview",
-              preset = "dropdown",
-            },
-          }
-        end,
-      },
+      -- {
+      --   "/",
+      --   function()
+      --     require("snacks.picker").lines {
+      --       layout = {
+      --         preview = "preview",
+      --         preset = "dropdown",
+      --       },
+      --     }
+      --   end,
+      -- },
+      -- {
+      --   "?",
+      --   function()
+      --     require("snacks.picker").lines {
+      --       layout = {
+      --         preview = "preview",
+      --         preset = "dropdown",
+      --       },
+      --     }
+      --   end,
+      -- },
+      -- {
+      --   ",",
+      --   function()
+      --     require("snacks.picker").lines {
+      --       layout = {
+      --         preview = "preview",
+      --         preset = "dropdown",
+      --       },
+      --     }
+      --   end,
+      -- },
+      -- {
+      --   ".",
+      --   function()
+      --     require("snacks.picker").lines {
+      --       layout = {
+      --         preview = "preview",
+      --         preset = "dropdown",
+      --       },
+      --     }
+      --   end,
+      -- },
     },
     opts = {
       picker = {
@@ -314,12 +313,9 @@ return {
   },
 
   {
-    "nvim-mini/mini.pairs",
+    "windwp/nvim-autopairs",
     event = "InsertEnter",
-
-    config = function()
-      require("mini.pairs").setup {}
-    end,
+    config = true,
   },
 
   -- {
@@ -331,7 +327,7 @@ return {
   --     require "configs.langmapper"
   --   end,
   -- },
-
+  --
   --- UI ---
 
   {
@@ -339,10 +335,10 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons", "nvchad/base46" },
     config = function()
       require "nvchad"
-      vim.api.nvim_set_hl(0, "SnacksDashboardHeader", { fg = "#83A598", bold = true })
-      vim.api.nvim_set_hl(0, "Comment", { fg = "#656565", italic = true })
       vim.api.nvim_set_hl(0, "@comment", { fg = "#4E4E4E", italic = true })
+      vim.api.nvim_set_hl(0, "Comment", { fg = "#656565", italic = true })
       vim.api.nvim_set_hl(0, "LspInlayHint", { bg = "#282828", fg = "#656565" })
+      vim.api.nvim_set_hl(0, "SnacksDashboardHeader", { fg = "#83A598", bold = true })
     end,
   },
 
@@ -352,6 +348,56 @@ return {
     lazy = true,
     build = function()
       require("base46").load_all_highlights()
+    end,
+  },
+
+  {
+    "rachartier/tiny-glimmer.nvim",
+    keys = { "y", "yy", "u", "r", "U", "R", "p", "P" },
+    config = function()
+      require("tiny-glimmer").setup {
+        overwrite = {
+          undo = {
+            enabled = true,
+            default_animation = {
+              name = "fade",
+              settings = {
+                from_color = "#FB4934",
+                max_duration = 500,
+                min_duration = 500,
+              },
+            },
+            undo_mapping = "u",
+          },
+
+          redo = {
+            enabled = true,
+            default_animation = {
+              name = "fade",
+              settings = {
+                from_color = "#B8BB26",
+                max_duration = 500,
+                min_duration = 500,
+              },
+            },
+            redo_mapping = "<c-r>",
+          },
+
+          paste = {
+            enabled = true,
+            default_animation = "fade",
+            paste_mapping = "p",
+            Paste_mapping = "P",
+          },
+        },
+
+        animations = {
+          fade = {
+            from_color = "#FE8019",
+            to_color = "#282828",
+          },
+        },
+      }
     end,
   },
 
