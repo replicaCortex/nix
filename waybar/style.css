@@ -114,17 +114,12 @@ button:hover {
 
 #battery {
   border-right: 2px solid #b8bb26;
-  background-color: #d3869b;
+  background-color: #b8bb26;
 }
 
 #battery.normal {
   border-right: 2px solid #b8bb26;
   color: #ebdbb2;
-}
-
-#battery.warning {
-  background-color: #fabd2f;
-  border-right: 2px solid #b8bb26;
 }
 
 #battery.critical {

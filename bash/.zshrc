@@ -1,13 +1,12 @@
+
 alias na="bluetoothctl connect E4:61:F4:31:88:26"
 alias nix-clean='nh clean && dunstify "  NixOS" "Clean done 󰄬" || dunstify -u critical -h string:fgcolor:#f38ba8 "  NixOS" "Clean failed ❌" -t 4000'
 alias nrs='nh os switch --ask /home/replica/nix/ && dunstify "  NixOS" "Nix switch done 󰄬" || dunstify -u critical -h string:fgcolor:#f38ba8 "  NixOS" "Home switch failed ❌" -t 4000'
 
-ns() {
-  nix-shell "$@" --run 'exec bash'
-}
 alias nb="nix build ./"
 alias nd="nix develop ./"
 alias nr="nix run"
+alias ns="nix-shell"
 alias nv="nvim"
 
 alias bstar="sudo systemctl start bluetooth.service && na"
@@ -18,7 +17,6 @@ alias replace="~/nix/**/replace.sh"
 alias vi="vimiv * --command 'enter thumbnail'"
 alias cdo='cd "$(echo $OLDPWD)"'
 
-alias cat="bat --theme-dark gruvbox-dark nix/flake.nix"
 alias l="lsd -al"
 alias ls="lsd"
 alias lt='ls --tree'
@@ -94,38 +92,32 @@ export VISUAL="nvim"
 
 export PROMPT_DIRTRIM=2
 
-PROMPT_COMMAND="history -a${PROMPT_COMMAND:+;}$PROMPT_COMMAND"
-
 export HISTCONTROL="erasedups:ignoreboth:ignoredups"
 export HISTIGNORE="&:[ ]*:exit:ls:l:cdf:mpvf:hf:zf:bg:fg:history:clear:nv:nvf:find:fzf:history:vi:cd:nix-shell:ды:св:n:s"
-
-export HISTFILESIZE=100000
-export HISTSIZE=10000
-
-stty -ixon
-
-shopt -s histappend
-shopt -s checkwinsize
-shopt -s extglob
-shopt -s globstar
-shopt -s checkjobs
-shopt -s cmdhist
-
-shopt -s autocd 2>/dev/null
-shopt -s dirspell 2>/dev/null
-shopt -s cdspell 2>/dev/null
 
 set -o noclobber
 
 # Commands that should be applied only for interactive shells.
 [[ $- == *i* ]] || return
 
-# ---
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
 
-. ~/nix/bash/git-prompt.sh
-PROMPT_COMMAND='PS1_CMD1=$(__git_ps1 "(%s)")'
-PS1='\n\[\e[93m\]\u\[\e[93m\]@\[\e[93m\]\h\[\e[93m\][\[\e[93m\]$?\[\e[93m\]]\[\e[95m\]${PS1_CMD1}\[\e[93m\]:\n\[\e[38;5;110m\]\w\[\e[0m\] '
+# ---
 
 export LESS='-RFiXN'
 alias less="less --use-color --status-line"
-export MANPAGER="sh -c 'awk '\''{ gsub(/\x1B\[[0-9;]*m/, \"\", \$0); gsub(/.\x08/, \"\", \$0); print }'\'' | bat -p -lman'"
+# alias grep='grep --color=always -n -i'
+# alias ls='ls --color=always'
+source ~/powerlevel10k/powerlevel10k.zsh-theme
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi

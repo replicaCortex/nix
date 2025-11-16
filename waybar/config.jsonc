@@ -128,7 +128,6 @@
   "battery": {
     "states": {
       "normal": 80,
-      "warning": 30,
       "critical": 10
     },
     "format": "{capacity}",

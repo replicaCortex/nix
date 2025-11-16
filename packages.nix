@@ -2,14 +2,19 @@
 let
   cli = with pkgs; [
     btop
+    dragon-drop
     fd
     ffmpeg-full
     file
     fzf
     git
     jq
+    lsd
+    bat
     neovim
     nh
+    pandoc
+    qwen-code
     ripgrep
     taskwarrior-tui
     taskwarrior3
