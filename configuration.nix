@@ -21,6 +21,8 @@
     ];
   };
 
+  programs.fish.enable = true;
+
   # services.zapret = {
   #   enable = true;
   #   params = [
@@ -54,6 +56,7 @@
   users.users.replica = {
     isNormalUser = true;
     description = "replica";
+    shell = pkgs.fish;
     extraGroups = [
       "networkmanager"
       "wheel"

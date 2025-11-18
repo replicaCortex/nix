@@ -11,6 +11,8 @@ local servers = {
   "sqls",
   "taplo",
   "tinymist",
+  "fish_lsp",
+  "just",
 }
 
 if vim.lsp.inlay_hint then

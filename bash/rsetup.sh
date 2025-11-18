@@ -11,29 +11,51 @@ let
   rust = with pkgs; [
     cargo
     rustc
-
     rustfmt
     clippy
-
     gdb
     rust-analyzer
   ];
 
-  aliases = ''
-    alias cr="cargo run"
-    alias cb="cargo build"
-    alias ct="cargo test"
-    alias cc="cargo-clippy"
-    alias g="rust-gdb -tui ./target/debug/browser_shedule"
-    alias mv="mv -n"
-  '';
+  utils = with pkgs; [
+    just
+    just-lsp
+  ];
 in
 pkgs.mkShell {
-  buildInputs = rust;
-
-  shellHook = aliases;
+  buildInputs = rust ++ utils;
 }
 EOF
+fi
+
+if [ ! -f justfile ]; then
+  cat >>justfile <<EOF
+default:
+    @just --list
+
+build:
+    cargo build 
+
+test:
+    cargo test
+
+run:
+    cargo run 
+
+clippy:
+    cargo-clippy
+
+debug:
+    rust-gdb -tui ./target/debug/$PROJECT_NAME
+EOF
+fi
+
+if [ ! -f .envrc ]; then
+  cat >>.envrc <<EOF
+use nix 
+EOF
+
+  direnv allow
 fi
 
 # --- git ---

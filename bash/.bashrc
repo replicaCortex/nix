@@ -3,7 +3,7 @@ alias nix-clean='nh clean && dunstify "  NixOS" "Clean done 󰄬" || dunstify
 alias nrs='nh os switch --ask /home/replica/nix/ && dunstify "  NixOS" "Nix switch done 󰄬" || dunstify -u critical -h string:fgcolor:#f38ba8 "  NixOS" "Home switch failed ❌" -t 4000'
 
 ns() {
-  nix-shell "$@" --run 'exec bash'
+  nix-shell "$@" --run "exec bash"
 }
 alias nb="nix build ./"
 alias nd="nix develop ./"
@@ -18,7 +18,7 @@ alias replace="~/nix/**/replace.sh"
 alias vi="vimiv * --command 'enter thumbnail'"
 alias cdo='cd "$(echo $OLDPWD)"'
 
-alias cat="bat --theme-dark gruvbox-dark nix/flake.nix"
+alias cat="bat --theme-dark gruvbox-dark"
 alias l="lsd -al"
 alias ls="lsd"
 alias lt='ls --tree'
@@ -83,7 +83,6 @@ alias tth="tt --taskdata ~/.habit"
 
 export BROWSER="zen"
 export EDITOR="nvim"
-export PROXY="http://c32ec17997961bcd87241ba05d14bcbd:c32ec17997961bcd87241ba05d14bcbd@5.199.143.188:5598"
 export TERMINAL="foot"
 export VISUAL="nvim"
 
@@ -126,6 +125,5 @@ set -o noclobber
 PROMPT_COMMAND='PS1_CMD1=$(__git_ps1 "(%s)")'
 PS1='\n\[\e[93m\]\u\[\e[93m\]@\[\e[93m\]\h\[\e[93m\][\[\e[93m\]$?\[\e[93m\]]\[\e[95m\]${PS1_CMD1}\[\e[93m\]:\n\[\e[38;5;110m\]\w\[\e[0m\] '
 
-export LESS='-RFiXN'
-alias less="less --use-color --status-line"
+# export LESS='-RFiXN'
 export MANPAGER="sh -c 'awk '\''{ gsub(/\x1B\[[0-9;]*m/, \"\", \$0); gsub(/.\x08/, \"\", \$0); print }'\'' | bat -p -lman'"

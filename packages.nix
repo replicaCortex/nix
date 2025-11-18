@@ -1,7 +1,10 @@
 { pkgs, ... }:
 let
   cli = with pkgs; [
+    any-nix-shell
+    bat
     btop
+    direnv
     dragon-drop
     fd
     ffmpeg-full
@@ -10,9 +13,9 @@ let
     git
     jq
     lsd
-    bat
     neovim
     nh
+    nix-direnv
     pandoc
     qwen-code
     ripgrep
@@ -24,7 +27,7 @@ let
 
   other = with pkgs; [
     aseprite
-    xwayland-satellite
+    # xwayland-satellite
     cliphist
     gammastep
     pkgs.zen-browser.default
@@ -61,6 +64,7 @@ let
 
   lsp = with pkgs; [
     bash-language-server
+    fish-lsp
     inotify-tools
     lua-language-server
     nil

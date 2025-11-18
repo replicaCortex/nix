@@ -25,21 +25,21 @@ input {
 
 environment {
   CLUTTER_BACKEND "wayland"
+  ELECTRON_OZONE_PLATFORM_HINT "auto"
   GDK_BACKEND "wayland,x11,*"
   GDK_DPI_SCALE "1"
   GDK_SCALE "1"
+  GSK_RENDERER "ngl"
   QT_AUTO_SCREEN_SCALE_FACTOR "1"
   QT_QPA_PLATFORM "wayland;xcb"
   QT_QPA_PLATFORMTHEME "gtk3"
   QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
   SDL_VIDEODRIVER "wayland"
-  GSK_RENDERER "ngl"
-  ELECTRON_OZONE_PLATFORM_HINT "auto"
   WLR_NO_HARDWARE_CURSORS "1"
   // Force vaapi backend to prevent using the dGPU
-  QT_MEDIA_BACKEND "ffmpeg"
   QT_FFMPEG_DECODING_HW_DEVICE_TYPES "vaapi"
   QT_FFMPEG_ENCODING_HW_DEVICE_TYPES "vaapi"
+  QT_MEDIA_BACKEND "ffmpeg"
 }
 
 cursor {
@@ -100,10 +100,10 @@ prefer-no-csd
 overview {
   backdrop-color "#282828"
   workspace-shadow {
+    color "#0007"
+    offset x=0 y=10
     softness 50
     spread 20
-    offset x=0 y=10
-    color "#0007"
   }
 }
 
@@ -112,17 +112,14 @@ clipboard {
 }
 
 // spawn-sh-at-startup "swaybg -i ~/nix/wallpapers/casete_wallpaper.jpg"
-spawn-sh-at-startup "swww-daemon"
-spawn-at-startup "waybar"
 spawn-at-startup "dunst"
-spawn-sh-at-startup "wl-paste --watch cliphist store"
-
+spawn-at-startup "waybar"
 spawn-sh-at-startup "foot --server"
-
 spawn-sh-at-startup "gammastep -O 3500"
-
-spawn-sh-at-startup "rm ~/ly-session.log"
 spawn-sh-at-startup "rm ~/.python_history*"
+spawn-sh-at-startup "rm ~/ly-session.log"
+spawn-sh-at-startup "swww-daemon"
+spawn-sh-at-startup "wl-paste --watch cliphist store"
 
 hotkey-overlay {
   skip-at-startup
@@ -166,7 +163,7 @@ workspace "temp"
 
 binds {
   Mod+Return     { spawn "footclient"; }
-  Mod+Shift+Return     { spawn "~/nix/niri/cwd.sh"; }
+  Mod+Shift+Return     { spawn-sh "footclient --working-directory $(~/nix/bash/cwd.sh)"; }
   Mod+F          { spawn-sh "footclient --app-id=float -e ~/work/browser_shedule/target/release/browser_shedule"; }
   Ctrl+Shift+H   { spawn-sh "footclient --app-id=float -e cliphist-fzf-sixel"; }
   Mod+P          { screenshot; }
