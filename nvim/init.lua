@@ -29,6 +29,7 @@ require("lazy").setup "plugins"
 
 require "autocmds"
 require "options"
+require "commands"
 
 vim.schedule(function()
   require "mappings"

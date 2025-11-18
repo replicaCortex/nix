@@ -13,6 +13,7 @@ local servers = {
   "tinymist",
   "fish_lsp",
   "just",
+  "nushell",
 }
 
 if vim.lsp.inlay_hint then
@@ -77,14 +78,12 @@ local lua_lsp_settings = {
 }
 
 vim.lsp.config("*", { capabilities = capabilities, on_init = on_init })
--- vim.lsp.config("lua_ls", {
---   capabilities = capabilities,
---   on_init = on_init,
---   settings = lua_lsp_settings,
--- })
+vim.lsp.config("lua_ls", {
+  capabilities = capabilities,
+  on_init = on_init,
+  settings = lua_lsp_settings,
+})
 
 vim.lsp.enable(servers)
-
----
 
 require "configs.diagnostic"

@@ -1,17 +1,3 @@
 {
-  "LuaSnip": { "branch": "master", "commit": "ccf25a5452b8697a823de3e5ecda63ed3d723b79" },
-  "base46": { "branch": "v3.0", "commit": "db58475d3fd2a16f9b1467d6895e3c4c195ed7dd" },
-  "blink.cmp": { "branch": "main", "commit": "327fff91fe6af358e990be7be1ec8b78037d2138" },
-  "conform.nvim": { "branch": "master", "commit": "9fd3d5e0b689ec1bf400c53cbbec72c6fdf24081" },
-  "lazy.nvim": { "branch": "main", "commit": "f0f5bbb9e5bfae5e6468f9359ffea3d151418176" },
-  "little-taskwarrior.nvim": { "branch": "main", "commit": "af3d0466f95236c2aeb75166cbaf51db42f99a80" },
-  "nvim-autopairs": { "branch": "master", "commit": "7a2c97cccd60abc559344042fefb1d5a85b3e33b" },
-  "nvim-lspconfig": { "branch": "master", "commit": "a89bfcfd0e44f898341ac8a80ba83ccf6218bef3" },
-  "nvim-treesitter": { "branch": "master", "commit": "42fc28ba918343ebfd5565147a42a26580579482" },
-  "nvim-web-devicons": { "branch": "master", "commit": "8dcb311b0c92d460fac00eac706abd43d94d68af" },
-  "plenary.nvim": { "branch": "master", "commit": "b9fd5226c2f76c951fc8ed5923d85e4de065e509" },
-  "snacks.nvim": { "branch": "main", "commit": "dec29f55666f8f4545835636077a86b150faf630" },
-  "tiny-glimmer.nvim": { "branch": "main", "commit": "d42902711d6f7708661b4badb7095efed610146a" },
-  "ui": { "branch": "v3.0", "commit": "bea2af0a76c1098fac0988ad296aa028cad2a333" },
-  "zk-nvim": { "branch": "main", "commit": "575c3e8242d925c87e9a11fd7d304bc223d2f096" }
+  "lazy.nvim": { "branch": "main", "commit": "85c7ff3711b730b4030d03144f6db6375044ae82" }
 }

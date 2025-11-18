@@ -61,12 +61,12 @@ layout {
   empty-workspace-above-first
 
   preset-column-widths {
-    proportion 0.3333333333333333
+    proportion 0.333
     // proportion 0.5
-    proportion 0.66667
+    proportion 0.666
   }
 
-  default-column-width { proportion 0.3333333333333333; }
+  default-column-width { proportion 0.333; }
   // default-column-width { proportion 1.0; }
 
   focus-ring {
@@ -85,6 +85,7 @@ layout {
 
   shadow {
     // off
+    // on
   }
 
   tab-indicator {
@@ -163,8 +164,8 @@ workspace "temp"
 
 binds {
   Mod+Return     { spawn "footclient"; }
-  Mod+Shift+Return     { spawn-sh "footclient --working-directory $(~/nix/bash/cwd.sh)"; }
-  Mod+F          { spawn-sh "footclient --app-id=float -e ~/work/browser_shedule/target/release/browser_shedule"; }
+  Mod+Shift+Return     { spawn-sh "footclient --working-directory $(~/nix/scripts/cwd.sh)"; }
+  Mod+F          { spawn-sh "footclient --app-id=float -e ~/.cargo/bin/browser_shedule"; }
   Ctrl+Shift+H   { spawn-sh "footclient --app-id=float -e cliphist-fzf-sixel"; }
   Mod+P          { screenshot; }
   Mod+Shift+P          { screenshot-window; }

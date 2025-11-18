@@ -1,8 +1,33 @@
+# NixOS Configuration
+
+This repository contains my personal NixOS configuration for a modern Wayland desktop environment.
+
+## Overview
+
+My system is configured with:
+
+- **Window Manager**: [Niri](https://github.com/YaLTeR/niri)
+- **Shell**: [Fish](https://fishshell.com/)
+- **Editor**: [Neovim](https://neovim.io/)
+- **Terminal**: [Foot](https://codeberg.org/dnkl/foot)
+- **Status Bar**: [Waybar](https://github.com/Alexays/Waybar)
+- **Notifications**: [Dunst](https://dunst-project.org/)
+- **Image Viewer**: [Vimiv](https://github.com/karlch/vimiv-qt)
+- **PDF Viewer**: [Zathura](https://pwmt.org/projects/zathura/)
+- **Media Player**: [MPV](https://mpv.io/)
+
+## Setup
+
+To install these configurations:
+
+1. Clone this repository to `~/nix`
+2. Run the installation script: `./install.sh`
+
+______________________________________________________________________
+
 <p align="center">
 Do you remember your promise?
 </p>
-
-______________________________________________________________________
 
 <p align="center">
   Ну типа

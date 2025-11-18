@@ -1,0 +1,36 @@
+name:
+  .Justfile: 
+  .envrc: 
+  .justfile: 
+  Justfile: 
+  justfile: 
+  media: 
+  target: 
+extension:
+  aseprite: 󰽉
+  bib: 
+  cbz: 󰉏
+  djvu: 
+  doc: 
+  docx: 
+  fb2: 
+  part: 
+  gif: 󰋯
+  gz: 󰗄
+  jpeg: 
+  jpg: 
+  m4a: 󰝚
+  md: 
+  mkv: 
+  mp3: 󰝚
+  mp4: 
+  pdf: 
+  png: 
+  tar: 󰗄
+  tex: 
+  typ: 
+  xlsx: 
+  zip: 󰗄
+  zst: 󰗄
+filetype:
+  # special: 

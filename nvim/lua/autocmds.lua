@@ -36,6 +36,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "*",
   callback = function()
+    -- ???
     vim.cmd [[set fo-=o]]
   end,
 })
@@ -81,3 +82,42 @@ vim.api.nvim_create_autocmd("LspProgress", {
     })
   end,
 })
+
+vim.api.nvim_create_autocmd("BufReadPost", {
+  callback = function(event)
+    local exclude = { "gitcommit" }
+    local buf = event.buf
+    if vim.tbl_contains(exclude, vim.bo[buf].filetype) or vim.b[buf].lazyvim_last_loc then
+      return
+    end
+    vim.b[buf].lazyvim_last_loc = true
+    local mark = vim.api.nvim_buf_get_mark(buf, '"')
+    local lcount = vim.api.nvim_buf_line_count(buf)
+    if mark[1] > 0 and mark[1] <= lcount then
+      pcall(vim.api.nvim_win_set_cursor, 0, mark)
+    end
+  end,
+})
+
+--- auto compile ---
+
+vim.api.nvim_create_autocmd("BufWritePost", {
+  pattern = "main.typ",
+  callback = function()
+    local file = vim.fn.expand "%"
+    vim.system { "typst", "compile", file }
+  end,
+})
+
+-- vim.api.nvim_create_autocmd("BufEnter", {
+--   pattern = { "*.md", "*.typ", "*.tex", "*.txt" },
+--   callback = function()
+--     local opts = { noremap = true, silent = true, buffer = true }
+--
+--     vim.keymap.set("n", "j", "gj", opts)
+--     vim.keymap.set("n", "k", "gk", opts)
+--     vim.keymap.set("n", "0", "g0", opts)
+--     vim.keymap.set("n", "$", "g$", opts)
+--     vim.keymap.set("n", "^", "g^", opts)
+--   end,
+-- })

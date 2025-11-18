@@ -2,15 +2,13 @@ local opt = vim.opt
 local o = vim.o
 local g = vim.g
 
--------------------------------------- options ------------------------------------------
+--- options ---
 g.loaded_node_provider = 0
 g.loaded_perl_provider = 0
 g.loaded_python_provider = 0
 g.loaded_ruby_provider = 0
 g.markdown_recommended_style = 0
 o.clipboard = "unnamedplus"
--- o.conceallevel = 2
--- o.confirm = true
 o.cursorline = true
 o.cursorlineopt = "both"
 o.expandtab = true
@@ -23,7 +21,6 @@ o.number = true
 o.numberwidth = 2
 o.relativenumber = true
 o.ruler = false
--- o.scrolloff = 4
 o.shiftwidth = 2
 o.showmode = false
 o.sidescrolloff = 8
@@ -45,8 +42,11 @@ o.updatetime = 250
 o.virtualedit = "block"
 o.winborder = "single"
 opt.fillchars = { eob = " " }
-opt.whichwrap:append "<>[]hl"
 opt.fillchars = { foldopen = "", foldclose = "", fold = " ", foldsep = " ", diff = "╱", eob = " " }
+opt.whichwrap:append "<>[]hl"
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.opt.shortmess:append "cI"
+-- o.conceallevel = 2
+-- o.confirm = true
+-- o.scrolloff = 4

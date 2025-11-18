@@ -25,6 +25,7 @@ abbr -a cp 'cp -v'
 
 abbr -a bstop "sudo systemctl stop bluetooth.service"
 
+abbr -a sl lsd
 abbr -a ls lsd
 abbr -a l 'lsd -al'
 abbr -a tree "lsd --tree"
@@ -33,17 +34,20 @@ alias cat 'bat --theme-dark gruvbox-dark'
 
 abbr -a gp 'git push'
 abbr -a gsw 'git switch'
-abbr -a gch 'git checkout'
+abbr -a gc 'git checkout'
 abbr -a ga 'git add .'
 abbr -a gs 'git status'
 abbr -a gl 'git log'
-abbr -a gc 'git commit -m'
+abbr -a gm 'git commit -m'
 
 abbr -a j just
 abbr -a jr "just run"
 abbr -a jt "just test"
 abbr -a jb "just build"
 abbr -a jg "just debug"
+abbr -a jc "just clippy"
+
+abbr -a book "$HOME/note/book"
 
 alias gitmainormaster="printf '%s\n' (git branch --format '%(refname:short)' --sort=-committerdate --list master main)  main | head -n 1"
 alias main="git checkout (gitmainormaster)"
@@ -76,8 +80,6 @@ alias timr "~/work/timer/target/release/timer -s '󰀠  Alarm!' -b 'Timeout' -d"
 alias alrm "~/work/timer/target/release/timer -m alarm -s '󰀠  Alarm!' -b 'Timeout' -d"
 
 abbr -a weather "curl v2d.wttr.in/47.42,40.09"
-
-abbr -a rsetup "bash -c ~/nix/bash/rsetup.sh"
 
 abbr -a t task
 abbr -a tt taskwarrior-tui

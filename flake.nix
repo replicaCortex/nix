@@ -7,6 +7,10 @@
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # nix-search = {
+    #   url = "github:diamondburned/nix-search";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
   outputs =
@@ -14,6 +18,7 @@
       self,
       nixpkgs,
       zen-browser,
+      # nix-search,
       ...
     }@inputs:
     let
@@ -26,8 +31,13 @@
         system = "x86_64-linux";
 
         modules = [
-          { nixpkgs.overlays = [ zen-overlay ]; }
-          ./configuration.nix
+          {
+            nixpkgs.overlays = [
+              zen-overlay
+              # nix-search
+            ];
+          }
+          ./configuration/configuration.nix
         ];
       };
     };
