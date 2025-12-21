@@ -26,10 +26,12 @@ let
   ];
 
   other = with pkgs; [
-    aseprite
+    # aseprite
     # xwayland-satellite
+    blender
     cliphist
     gammastep
+    gimp
     pkgs.zen-browser.default
     qbittorrent-enhanced
     telegram-desktop
@@ -79,6 +81,7 @@ let
     p7zip
     unrar
     unzip
+    zstd
   ];
 in
 {

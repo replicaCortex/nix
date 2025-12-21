@@ -47,8 +47,6 @@ abbr -a jb "just build"
 abbr -a jg "just debug"
 abbr -a jc "just clippy"
 
-abbr -a book "$HOME/note/book"
-
 alias gitmainormaster="printf '%s\n' (git branch --format '%(refname:short)' --sort=-committerdate --list master main)  main | head -n 1"
 alias main="git checkout (gitmainormaster)"
 
@@ -74,7 +72,6 @@ function pdf2text
 end
 
 abbr -a swork "~/nix/**/work.sh ."
-alias book "source ~/nix/niri/niri_book_setup.fish"
 
 alias timr "~/work/timer/target/release/timer -s '󰀠  Alarm!' -b 'Timeout' -d"
 alias alrm "~/work/timer/target/release/timer -m alarm -s '󰀠  Alarm!' -b 'Timeout' -d"

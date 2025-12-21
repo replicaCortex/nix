@@ -50,3 +50,8 @@ vim.opt.shortmess:append "cI"
 -- o.conceallevel = 2
 -- o.confirm = true
 -- o.scrolloff = 4
+
+local keys = { ",", ".", "!", "?", ";", ":" }
+for _, key in ipairs(keys) do
+  vim.keymap.set("i", key, key .. "<C-g>u")
+end

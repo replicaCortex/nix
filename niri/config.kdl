@@ -252,6 +252,9 @@ binds {
   Mod+TouchpadScrollUp   allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.02+"; }
   Mod+TouchpadScrollDown allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.02-"; }
 
+  Mod+F4   allow-when-locked=true repeat=false { spawn-sh "brightnessctl  --class=backlight set 10%+"; }
+  Mod+F5 allow-when-locked=true repeat=false { spawn-sh "brightnessctl  --class=backlight set 10%-"; }
+
 }
 
 

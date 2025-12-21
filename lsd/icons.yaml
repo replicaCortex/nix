@@ -6,9 +6,10 @@ name:
   justfile: 
   media: 
   target: 
+  report: 󰙏
 extension:
   aseprite: 󰽉
-  bib: 
+  bib: 󱉟
   cbz: 󰉏
   djvu: 
   doc: 

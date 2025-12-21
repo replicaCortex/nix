@@ -48,4 +48,22 @@ return {
       'export LD_LIBRARY_PATH="${pkgs.stdenv.cc.cc.lib.outPath}/lib:$LD_LIBRARY_PATH"',
     }
   ),
+
+  s(
+    "typst",
+    t {
+      "{                              ",
+      "  pkgs ? import <nixpkgs> { }, ",
+      "}:                             ",
+      "pkgs.mkShell {                 ",
+      "  buildInputs = with pkgs; [",
+      "    typst                      ",
+      "    tinymist                   ",
+      "    typstyle                   ",
+      "  ];                           ",
+      "                               ",
+      "  shellHook = '''';",
+      "}                              ",
+    }
+  ),
 }
