@@ -147,21 +147,21 @@ return {
   --   end,
   -- },
 
-  {
-    "nvim-mini/mini.cmdline",
-    event = { "CmdLineEnter" },
-
-    config = function()
-      require("mini.cmdline").setup {
-        autocomplete = {
-          enable = false,
-        },
-        autocorrect = {
-          enable = false,
-        },
-      }
-    end,
-  },
+  -- {
+  --   "nvim-mini/mini.cmdline",
+  --   event = { "CmdLineEnter" },
+  --
+  --   config = function()
+  --     require("mini.cmdline").setup {
+  --       autocomplete = {
+  --         enable = false,
+  --       },
+  --       autocorrect = {
+  --         enable = false,
+  --       },
+  --     }
+  --   end,
+  -- },
 
   -- {
   --   "saxon1964/neovim-tips",

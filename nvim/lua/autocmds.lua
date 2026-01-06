@@ -25,13 +25,23 @@ vim.api.nvim_create_autocmd("CmdlineLeave", {
   end,
 })
 
-vim.api.nvim_create_autocmd("VimEnter", {
-  callback = function()
-    if vim.fn.argc() == 0 then
-      require("snacks.picker").files()
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd("VimEnter", {
+--   callback = function()
+--     if vim.fn.argc() == 0 then
+--       require("snacks.picker").files()
+--     end
+--   end,
+-- })
+
+-- vim.api.nvim_create_autocmd("VimEnter", {
+--   callback = function()
+--     if vim.fn.argc() == 0 then
+--       require("snacks.terminal").open()
+--       vim.cmd "wincmd k"
+--       vim.cmd "stopinsert"
+--     end
+--   end,
+-- })
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "*",

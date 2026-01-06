@@ -66,7 +66,32 @@ return {
   indent = {},
   bigfile = {},
   input = {},
+  gitbrowse = {},
   scope = {},
+  quickfile = {},
+  terminal = {
+    {
+      bo = {
+        filetype = "snacks_terminal",
+      },
+      wo = {},
+      stack = true, -- when enabled, multiple split windows with the same position will be stacked together (useful for terminals)
+      keys = {
+        q = "hide",
+        gf = function(self)
+          local f = vim.fn.findfile(vim.fn.expand "<cfile>", "**")
+          if f == "" then
+            require("snacks.notifer").warn "No file under cursor"
+          else
+            self:hide()
+            vim.schedule(function()
+              vim.cmd("e " .. f)
+            end)
+          end
+        end,
+      },
+    },
+  },
   dashboard = {
     formats = {
       header = { "%s", align = "center" },

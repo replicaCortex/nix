@@ -20,15 +20,15 @@ function zathura
 end
 
 abbr -a mv 'mv -v'
-abbr -a rm 'rm -v'
-abbr -a cp 'cp -v'
+# abbr -a rm 'rm -v'
+# abbr -a cp 'cp -v'
 
 abbr -a bstop "sudo systemctl stop bluetooth.service"
 
 abbr -a sl lsd
 abbr -a ls lsd
 abbr -a l 'lsd -al'
-abbr -a tree "lsd --tree"
+abbr -a tree "br -c :pt ."
 
 alias cat 'bat --theme-dark gruvbox-dark'
 
@@ -36,7 +36,7 @@ abbr -a gp 'git push'
 abbr -a gsw 'git switch'
 abbr -a gc 'git checkout'
 abbr -a ga 'git add .'
-abbr -a gs 'git status'
+abbr -a gs 'br --git-status -ghc :pt'
 abbr -a gl 'git log'
 abbr -a gm 'git commit -m'
 
@@ -57,7 +57,9 @@ abbr -a nd "nix develop ./"
 abbr -a nr "nix run"
 abbr -a nv nvim
 
-alias vi "vimiv * --command 'enter thumbnail'"
+function vi
+    nohup vimiv * --command 'enter thumbnail' >/dev/null 2>&1 &
+end
 
 function d
     pushd .
@@ -78,10 +80,26 @@ alias alrm "~/work/timer/target/release/timer -m alarm -s '󰀠  Alarm!' -b 'Tim
 
 abbr -a weather "curl v2d.wttr.in/47.42,40.09"
 
-abbr -a t task
+# abbr -a t task
 abbr -a tt taskwarrior-tui
-abbr -a h "task rc.data.location=~/.habit"
+# abbr -a h "task rc.data.location=~/.habit"
 abbr -a tth "taskwarrior-tui --taskdata ~/.habit"
+
+abbr -a f br
+abbr -a fh br ~/
+abbr -a ft br /tmp
+# abbr -a gb "br --git-status -ghc :pt"
+
+function z
+    cd & br --only-folders --cmd "$argv[1];:cd"
+end
+
+function size
+    br -c :pt $argv -w
+end
+
+abbr -a rm "Use 'rip' instead of rm"
+abbr -a cp xcp
 
 alias na "bluetoothctl connect E4:61:F4:31:88:26"
 alias nrs 'nh os switch --ask /home/replica/nix/ && dunstify "  NixOS" "Nix switch done 󰄬" || dunstify -u critical -h string:fgcolor:#f38ba8 "  NixOS" "Home switch failed ❌" -t 4000'

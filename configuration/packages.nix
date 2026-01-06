@@ -3,35 +3,45 @@ let
   cli = with pkgs; [
     any-nix-shell
     bat
+    broot
     btop
+    ddgr
+    delta
     direnv
     dragon-drop
     fd
     file
     fzf
+    gallery-dl
     git
+    imagemagick
     jq
     lsd
     neovim
     nh
     nix-direnv
-    # nix-search
     pandoc
     qwen-code
+    rip2
     ripgrep
+    sqlite
     taskwarrior-tui
     taskwarrior3
     wl-clipboard
+    wtype
+    xcp
+    xwayland-satellite
+    yt-dlp
     zk
   ];
 
   other = with pkgs; [
     # aseprite
     # xwayland-satellite
-    blender
+    # blender
     cliphist
     gammastep
-    gimp
+    # gimp
     pkgs.zen-browser.default
     qbittorrent-enhanced
     telegram-desktop
