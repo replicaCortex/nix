@@ -1,4 +1,4 @@
-local Element = require('elements/Element')
+local Element = require("elements/Element")
 
 ---@alias MenuAction {name: string; icon: string; label?: string; filter_hidden?: boolean;}
 
@@ -50,12 +50,14 @@ end
 ---@param callback? fun() Called after the animation (if any) ends and element is removed and destroyed.
 ---@overload fun(callback: fun())
 function Menu:close(immediate, callback)
-	if type(immediate) ~= 'boolean' then callback = immediate end
+	if type(immediate) ~= "boolean" then
+		callback = immediate
+	end
 
 	local menu = self == Menu and Elements.menu or self
 
-	if state.ime_active == false and mp.get_property_bool('input-ime') then
-		mp.set_property_bool('input-ime', false)
+	if state.ime_active == false and mp.get_property_bool("input-ime") then
+		mp.set_property_bool("input-ime", false)
 	end
 
 	if menu and not menu.destroyed then
@@ -66,16 +68,18 @@ function Menu:close(immediate, callback)
 
 		local function close()
 			local on_close = menu.root.on_close -- removed in menu:destroy()
-			Elements:remove('menu') -- calls menu:destroy() under the hood
+			Elements:remove("menu") -- calls menu:destroy() under the hood
 			Elements:update_proximities()
 			cursor:queue_autohide()
 
 			-- Call :close() callback
-			if callback then callback() end
+			if callback then
+				callback()
+			end
 
 			-- Call callbacks/events defined on menu config
-			local close_event = {type = 'close'}
-			if not on_close or menu:command_or_event(on_close, {}, close_event) ~= 'event' then
+			local close_event = { type = "close" }
+			if not on_close or menu:command_or_event(on_close, {}, close_event) ~= "event" then
 				menu.callback(close_event)
 			end
 
@@ -96,12 +100,14 @@ end
 ---@param callback MenuCallback
 ---@param opts? MenuOptions
 ---@return Menu
-function Menu:new(data, callback, opts) return Class.new(self, data, callback, opts) --[[@as Menu]] end
+function Menu:new(data, callback, opts)
+	return Class.new(self, data, callback, opts) --[[@as Menu]]
+end
 ---@param data MenuData
 ---@param callback MenuCallback
 ---@param opts? MenuOptions
 function Menu:init(data, callback, opts)
-	Element.init(self, 'menu', {render_order = 1001})
+	Element.init(self, "menu", { render_order = 1001 })
 
 	-----@type fun()
 	self.callback = callback
@@ -136,17 +142,21 @@ function Menu:init(data, callback, opts)
 	self.is_dragging = false
 
 	if utils.shared_script_property_set then
-		utils.shared_script_property_set('uosc-menu-type', self.type or 'undefined')
+		utils.shared_script_property_set("uosc-menu-type", self.type or "undefined")
 	end
-	mp.set_property_native('user-data/uosc/menu/type', self.type or 'undefined')
+	mp.set_property_native("user-data/uosc/menu/type", self.type or "undefined")
 	self:update(data)
 
-	for _, menu in ipairs(self.all) do self:scroll_to_index(menu.selected_index, menu.id) end
-	if self.mouse_nav then self.current.selected_index = nil end
+	for _, menu in ipairs(self.all) do
+		self:scroll_to_index(menu.selected_index, menu.id)
+	end
+	if self.mouse_nav then
+		self.current.selected_index = nil
+	end
 
-	self:tween_property('opacity', 0, 1)
+	self:tween_property("opacity", 0, 1)
 	self:enable_key_bindings()
-	Elements:maybe('curtain', 'register', self.id)
+	Elements:maybe("curtain", "register", self.id)
 
 	if data.search_submit then
 		-- We have to defer this so that menu callbacks don't fire before the menu
@@ -160,23 +170,25 @@ end
 function Menu:destroy()
 	Element.destroy(self)
 	self.is_closing = false
-	if not self.is_being_replaced then Elements:maybe('curtain', 'unregister', self.id) end
-	if utils.shared_script_property_set then
-		utils.shared_script_property_set('uosc-menu-type', nil)
+	if not self.is_being_replaced then
+		Elements:maybe("curtain", "unregister", self.id)
 	end
-	mp.set_property_native('user-data/uosc/menu/type', nil)
+	if utils.shared_script_property_set then
+		utils.shared_script_property_set("uosc-menu-type", nil)
+	end
+	mp.set_property_native("user-data/uosc/menu/type", nil)
 end
 
 ---@param data MenuData
 function Menu:update(data)
-	local new_root = {is_root = true, submenu_path = {}}
+	local new_root = { is_root = true, submenu_path = {} }
 	local new_all = {}
 	local new_menus = {} -- menus that didn't exist before this `update()`
 	local new_by_id = {}
-	local menus_to_serialize = {{new_root, data}}
+	local menus_to_serialize = { { new_root, data } }
 	local old_current_id = self.current and self.current.id
-	local menu_state_props = {'selected_index', 'action_index', 'scroll_y', 'fling', 'search'}
-	local internal_props_set = create_set(itable_append({'is_root', 'submenu_path', 'id', 'items'}, menu_state_props))
+	local menu_state_props = { "selected_index", "action_index", "scroll_y", "fling", "search" }
+	local internal_props_set = create_set(itable_append({ "is_root", "submenu_path", "id", "items" }, menu_state_props))
 
 	table_assign_exclude(new_root, data, internal_props_set)
 
@@ -188,17 +200,17 @@ function Menu:update(data)
 		if menu_data.id then
 			menu.id = menu_data.id
 		elseif not menu.is_root then
-			menu.id = (parent_id and parent_id .. ' > ' or '') .. (menu_data.title or i)
+			menu.id = (parent_id and parent_id .. " > " or "") .. (menu_data.title or i)
 		else
-			menu.id = '{root}'
+			menu.id = "{root}"
 		end
-		menu.icon = 'chevron_right'
+		menu.icon = "chevron_right"
 
 		-- Normalize `search_debounce`
-		if type(menu_data.search_debounce) == 'number' then
+		if type(menu_data.search_debounce) == "number" then
 			menu.search_debounce = math.max(0, menu_data.search_debounce --[[@as number]])
-		elseif menu_data.search_debounce == 'submit' then
-			menu.search_debounce = 'submit'
+		elseif menu_data.search_debounce == "submit" then
+			menu.search_debounce = "submit"
 		else
 			menu.search_debounce = menu.on_search and 300 or 0
 		end
@@ -206,27 +218,40 @@ function Menu:update(data)
 		-- Update items
 		local first_active_index = nil
 		menu.items = {
-			{title = t('Empty'), value = 'ignore', italic = 'true', muted = 'true', selectable = false, align = 'center'},
+			{
+				title = t("Empty"),
+				value = "ignore",
+				italic = "true",
+				muted = "true",
+				selectable = false,
+				align = "center",
+			},
 		}
 
 		for i, item_data in ipairs(menu_data.items or {}) do
-			if item_data.active and not first_active_index then first_active_index = i end
+			if item_data.active and not first_active_index then
+				first_active_index = i
+			end
 
 			local item = {}
 			table_assign_exclude(item, item_data, internal_props_set)
-			if item.keep_open == nil then item.keep_open = menu.keep_open end
+			if item.keep_open == nil then
+				item.keep_open = menu.keep_open
+			end
 
 			-- Submenu
 			if item_data.items then
 				item.parent_menu = menu
-				item.submenu_path = itable_join(menu.submenu_path, {i})
-				menus_to_serialize[#menus_to_serialize + 1] = {item, item_data}
+				item.submenu_path = itable_join(menu.submenu_path, { i })
+				menus_to_serialize[#menus_to_serialize + 1] = { item, item_data }
 			end
 
 			menu.items[i] = item
 		end
 
-		if menu.is_root then menu.selected_index = menu_data.selected_index or first_active_index end
+		if menu.is_root then
+			menu.selected_index = menu_data.selected_index or first_active_index
+		end
 
 		-- Retain old state
 		local old_menu = self.by_id[menu.id]
@@ -249,11 +274,11 @@ function Menu:update(data)
 	-- Ensure palette menus have active searches, and clean empty searches from menus that lost the `palette` flag
 	local update_dimensions_again = false
 	for _, menu in ipairs(self.all) do
-		local is_palette = menu.search_style == 'palette'
+		local is_palette = menu.search_style == "palette"
 		if not menu.search and (is_palette or (menu.search_suggestion and itable_index_of(new_menus, menu))) then
 			update_dimensions_again = true
 			self:search_init(menu.id)
-		elseif not is_palette and menu.search and menu.search.query == '' then
+		elseif not is_palette and menu.search and menu.search.query == "" then
 			update_dimensions_again = true
 			menu.search = nil
 		end
@@ -276,10 +301,14 @@ function Menu:update(data)
 			-- the menu items are new objects and the search needs to contain those
 			menu.search.source.items = not menu.on_search and menu.items or nil
 			-- Only internal searches are immediately submitted
-			if not menu.on_search then self:search_internal(menu.id, true) end
+			if not menu.on_search then
+				self:search_internal(menu.id, true)
+			end
 		end
 
-		if menu.selected_index then self:select_by_offset(0, menu) end
+		if menu.selected_index then
+			self:select_by_offset(0, menu)
+		end
 	end
 
 	self:search_ensure_key_bindings()
@@ -304,8 +333,8 @@ function Menu:update_content_dimensions()
 	self.item_padding = round((self.item_height - self.font_size) * 0.6)
 	self.scroll_step = self.item_height + self.item_spacing
 
-	local title_opts = {size = self.font_size, italic = false, bold = false}
-	local hint_opts = {size = self.font_size_hint}
+	local title_opts = { size = self.font_size, italic = false, bold = false }
+	local hint_opts = { size = self.font_size_hint }
 
 	for _, menu in ipairs(self.all) do
 		title_opts.bold, title_opts.italic = true, false
@@ -316,11 +345,17 @@ function Menu:update_content_dimensions()
 			local icon_width = item.icon and self.font_size or 0
 			item.title_width = text_width(item.title, title_opts)
 			item.hint_width = text_width(item.hint, hint_opts)
-			local spacings_in_item = 1 + (item.title_width > 0 and 1 or 0)
-				+ (item.hint_width > 0 and 1 or 0) + (icon_width > 0 and 1 or 0)
-			local estimated_width = item.title_width + item.hint_width + icon_width
+			local spacings_in_item = 1
+				+ (item.title_width > 0 and 1 or 0)
+				+ (item.hint_width > 0 and 1 or 0)
+				+ (icon_width > 0 and 1 or 0)
+			local estimated_width = item.title_width
+				+ item.hint_width
+				+ icon_width
 				+ (self.item_padding * spacings_in_item)
-			if estimated_width > max_width then max_width = estimated_width end
+			if estimated_width > max_width then
+				max_width = estimated_width
+			end
 		end
 
 		menu.max_width = max_width
@@ -343,8 +378,8 @@ function Menu:update_dimensions()
 	for _, menu in ipairs(self.all) do
 		local width = math.max(menu.search and menu.search.max_width or 0, menu.max_width)
 		menu.width = round(clamp(min_width, width, width_available))
-		local title_height = (menu.is_root and menu.title or menu.search) and
-			self.scroll_step + self.separator_size + 1 or 0
+		local title_height = (menu.is_root and menu.title or menu.search) and self.scroll_step + self.separator_size + 1
+			or 0
 		local footnote_height = self.font_size * 1.5
 		local max_height = height_available - title_height - footnote_height
 		local content_height = self.scroll_step * #menu.items
@@ -369,8 +404,10 @@ end
 function Menu:update_coordinates()
 	local ax = round((display.width - self.current.width) / 2 - self.padding) + self.offset_x
 	self:set_coordinates(
-		ax, self.current.top - self.padding,
-		ax + self.current.width + self.padding * 2, self.current.top + self.current.height + self.padding
+		ax,
+		self.current.top - self.padding,
+		ax + self.current.width + self.padding * 2,
+		self.current.top + self.current.height + self.padding
 	)
 end
 
@@ -404,18 +441,26 @@ function Menu:set_offset_x(offset)
 	self:set_coordinates(self.ax + delta, self.ay, self.bx + delta, self.by)
 end
 
-function Menu:fadeout(callback) self:tween_property('opacity', 1, 0, callback) end
+function Menu:fadeout(callback)
+	self:tween_property("opacity", 1, 0, callback)
+end
 
 -- If `menu_id` is provided, will return menu with that id or `nil`. If `menu_id` is `nil`, will return current menu.
 ---@param menu_id? string
 ---@return MenuStack | nil
-function Menu:get_menu(menu_id) return menu_id == nil and self.current or self.by_id[menu_id] end
+function Menu:get_menu(menu_id)
+	return menu_id == nil and self.current or self.by_id[menu_id]
+end
 
 function Menu:get_first_active_index(menu_id)
 	local menu = self:get_menu(menu_id)
-	if not menu then return end
+	if not menu then
+		return
+	end
 	for index, item in ipairs(menu.items) do
-		if item.active then return index end
+		if item.active then
+			return index
+		end
 	end
 end
 
@@ -423,7 +468,9 @@ end
 ---@param menu_id? string
 function Menu:set_scroll_to(pos, menu_id)
 	local menu = self:get_menu(menu_id)
-	if not menu then return end
+	if not menu then
+		return
+	end
 	menu.scroll_y = clamp(0, pos or 0, menu.scroll_height)
 	request_render()
 end
@@ -432,7 +479,9 @@ end
 ---@param menu_id? string
 function Menu:set_scroll_by(delta, menu_id)
 	local menu = self:get_menu(menu_id)
-	if not menu then return end
+	if not menu then
+		return
+	end
 	self:set_scroll_to(menu.scroll_y + delta, menu_id)
 end
 
@@ -441,7 +490,9 @@ end
 ---@param fling_options? table
 function Menu:scroll_to(pos, menu_id, fling_options)
 	local menu = self:get_menu(menu_id)
-	if not menu then return end
+	if not menu then
+		return
+	end
 	menu.fling = {
 		y = menu.scroll_y,
 		distance = clamp(-menu.scroll_y, pos - menu.scroll_y, menu.scroll_height - menu.scroll_y),
@@ -449,7 +500,9 @@ function Menu:scroll_to(pos, menu_id, fling_options)
 		duration = 0.1,
 		easing = ease_out_sext,
 	}
-	if fling_options then table_assign(menu.fling, fling_options) end
+	if fling_options then
+		table_assign(menu.fling, fling_options)
+	end
 	request_render()
 end
 
@@ -458,8 +511,14 @@ end
 ---@param fling_options? Fling
 function Menu:scroll_by(delta, menu_id, fling_options)
 	local menu = self:get_menu(menu_id)
-	if not menu then return end
-	self:scroll_to((menu.fling and (menu.fling.y + menu.fling.distance) or menu.scroll_y) + delta, menu_id, fling_options)
+	if not menu then
+		return
+	end
+	self:scroll_to(
+		(menu.fling and (menu.fling.y + menu.fling.distance) or menu.scroll_y) + delta,
+		menu_id,
+		fling_options
+	)
 end
 
 ---@param index? integer
@@ -467,8 +526,10 @@ end
 ---@param immediate? boolean
 function Menu:scroll_to_index(index, menu_id, immediate)
 	local menu = self:get_menu(menu_id)
-	if not menu then return end
-	if (index and index >= 1 and index <= #menu.items) then
+	if not menu then
+		return
+	end
+	if index and index >= 1 and index <= #menu.items then
 		local position = round((self.scroll_step * (index - 1)) - ((menu.height - self.scroll_step) / 2))
 		if immediate then
 			self:set_scroll_to(position, menu_id)
@@ -482,7 +543,9 @@ end
 ---@param menu_id? string
 function Menu:select_index(index, menu_id)
 	local menu = self:get_menu(menu_id)
-	if not menu then return end
+	if not menu then
+		return
+	end
 	menu.selected_index = (index and index >= 1 and index <= #menu.items) and index or nil
 	self:select_action(menu.action_index, menu_id) -- normalize selected action index
 	request_render()
@@ -492,9 +555,11 @@ end
 ---@param menu_id? string
 function Menu:select_action(index, menu_id)
 	local menu = self:get_menu(menu_id)
-	if not menu then return end
+	if not menu then
+		return
+	end
 	local actions = menu.items[menu.selected_index] and menu.items[menu.selected_index].actions or menu.item_actions
-	if not index or not actions or type(actions) ~= 'table' or index < 1 or index > #actions then
+	if not index or not actions or type(actions) ~= "table" or index < 1 or index > #actions then
 		menu.action_index = nil
 		return
 	end
@@ -506,7 +571,9 @@ end
 ---@param menu_id? string
 function Menu:navigate_action(delta, menu_id)
 	local menu = self:get_menu(menu_id)
-	if not menu then return end
+	if not menu then
+		return
+	end
 	local actions = menu.items[menu.selected_index] and menu.items[menu.selected_index].actions or menu.item_actions
 	if actions and delta ~= 0 then
 		-- Circular navigation where zero gets converted to nil
@@ -518,23 +585,35 @@ function Menu:navigate_action(delta, menu_id)
 	request_render()
 end
 
-function Menu:next_action() self:navigate_action(1) end
-function Menu:prev_action() self:navigate_action(-1) end
+function Menu:next_action()
+	self:navigate_action(1)
+end
+function Menu:prev_action()
+	self:navigate_action(-1)
+end
 
 ---@param value? any
 ---@param menu_id? string
 function Menu:select_value(value, menu_id)
 	local menu = self:get_menu(menu_id)
-	if not menu then return end
-	local index = itable_find(menu.items, function(item) return item.value == value end)
+	if not menu then
+		return
+	end
+	local index = itable_find(menu.items, function(item)
+		return item.value == value
+	end)
 	self:select_index(index)
 end
 
 ---@param menu_id? string
 function Menu:deactivate_items(menu_id)
 	local menu = self:get_menu(menu_id)
-	if not menu then return end
-	for _, item in ipairs(menu.items) do item.active = false end
+	if not menu then
+		return
+	end
+	for _, item in ipairs(menu.items) do
+		item.active = false
+	end
 	request_render()
 end
 
@@ -542,8 +621,12 @@ end
 ---@param menu_id? string
 function Menu:activate_index(index, menu_id)
 	local menu = self:get_menu(menu_id)
-	if not menu then return end
-	if index and index >= 1 and index <= #menu.items then menu.items[index].active = true end
+	if not menu then
+		return
+	end
+	if index and index >= 1 and index <= #menu.items then
+		menu.items[index].active = true
+	end
 	request_render()
 end
 
@@ -551,8 +634,12 @@ end
 ---@param menu_id? string
 function Menu:activate_value(value, menu_id)
 	local menu = self:get_menu(menu_id)
-	if not menu then return end
-	local index = itable_find(menu.items, function(item) return item.value == value end)
+	if not menu then
+		return
+	end
+	local index = itable_find(menu.items, function(item)
+		return item.value == value
+	end)
 	self:activate_index(index, menu_id)
 end
 
@@ -560,8 +647,12 @@ end
 ---@param menu_id? string
 function Menu:activate_one_value(value, menu_id)
 	local menu = self:get_menu(menu_id)
-	if not menu then return end
-	local index = itable_find(menu.items, function(item) return item.value == value end)
+	if not menu then
+		return
+	end
+	local index = itable_find(menu.items, function(item)
+		return item.value == value
+	end)
 	self:activate_index(index, menu_id)
 end
 
@@ -587,8 +678,10 @@ end
 ---@param menu_id? string
 function Menu:delete_index(index, menu_id)
 	local menu = self:get_menu(menu_id)
-	if not menu then return end
-	if (index and index >= 1 and index <= #menu.items) then
+	if not menu then
+		return
+	end
+	if index and index >= 1 and index <= #menu.items then
 		table.remove(menu.items, index)
 		self:update_content_dimensions()
 		self:scroll_to_index(menu.selected_index, menu_id)
@@ -599,8 +692,12 @@ end
 ---@param menu_id? string
 function Menu:delete_value(value, menu_id)
 	local menu = self:get_menu(menu_id)
-	if not menu then return end
-	local index = itable_find(menu.items, function(item) return item.value == value end)
+	if not menu then
+		return
+	end
+	local index = itable_find(menu.items, function(item)
+		return item.value == value
+	end)
 	self:delete_index(index)
 end
 
@@ -608,14 +705,20 @@ end
 ---@param x number `x` coordinate to slide from.
 function Menu:slide_in_menu(id, x)
 	local menu = self:get_menu(id)
-	if not menu then return end
+	if not menu then
+		return
+	end
 	self:activate_menu(id)
-	self:tween(-(display.width / 2 - menu.width / 2 - x), 0, function(offset) self:set_offset_x(offset) end)
+	self:tween(-(display.width / 2 - menu.width / 2 - x), 0, function(offset)
+		self:set_offset_x(offset)
+	end)
 	self.opacity = 1 -- in case tween above canceled fade in animation
 end
 
 function Menu:back()
-	if not self:is_alive() then return end
+	if not self:is_alive() then
+		return
+	end
 
 	local current = self.current
 	local parent = current.parent_menu
@@ -623,7 +726,7 @@ function Menu:back()
 	if parent then
 		self:slide_in_menu(parent.id, display.width / 2 - current.width / 2 - parent.width / 2 + self.offset_x)
 	else
-		self.callback({type = 'back'})
+		self.callback({ type = "back" })
 	end
 end
 
@@ -639,13 +742,15 @@ function Menu:activate_selected_item(shortcut, is_pointer)
 				self:select_index(1, item.id)
 			end
 			self:activate_menu(item.id)
-			self:tween(self.offset_x + menu.width / 2, 0, function(offset) self:set_offset_x(offset) end)
+			self:tween(self.offset_x + menu.width / 2, 0, function(offset)
+				self:set_offset_x(offset)
+			end)
 			self.opacity = 1 -- in case tween above canceled fade in animation
 		else
 			local actions = item.actions or menu.item_actions
 			local action = actions and actions[menu.action_index]
 			self.callback({
-				type = 'activate',
+				type = "activate",
 				index = menu.selected_index,
 				value = item.value,
 				is_pointer = is_pointer == true,
@@ -663,12 +768,14 @@ end
 
 ---@param index integer
 function Menu:move_selected_item_to(index)
-	if self.current.search then return end -- Moving filtered items is an undefined behavior
+	if self.current.search then
+		return
+	end -- Moving filtered items is an undefined behavior
 	local callback = self.current.on_move
 	local from, items_count = self.current.selected_index, self.current.items and #self.current.items or 0
 	if callback and from and from ~= index and index >= 1 and index <= items_count then
-		local event = {type = 'move', from_index = from, to_index = index, menu_id = self.current.id}
-		self:command_or_event(callback, {from, index, self.current.id}, event)
+		local event = { type = "move", from_index = from, to_index = index, menu_id = self.current.id }
+		self:command_or_event(callback, { from, index, self.current.id }, event)
 		self:select_index(index, self.current.id)
 		self:scroll_to_index(index, self.current.id, true)
 	end
@@ -685,9 +792,15 @@ function Menu:move_selected_item_by(delta)
 	end
 end
 
-function Menu:on_display() self:update_dimensions() end
-function Menu:on_prop_fullormaxed() self:update_content_dimensions() end
-function Menu:on_options() self:update_content_dimensions() end
+function Menu:on_display()
+	self:update_dimensions()
+end
+function Menu:on_prop_fullormaxed()
+	self:update_content_dimensions()
+end
+function Menu:on_options()
+	self:update_content_dimensions()
+end
 
 function Menu:handle_cursor_down()
 	if self.proximity_raw <= 0 then
@@ -727,15 +840,21 @@ function Menu:on_global_mouse_move()
 		self.is_dragging = self.is_dragging or math.abs(cursor.y - self.drag_last_y) >= 10
 		if self.is_dragging then
 			local distance = self.drag_last_y - cursor.y
-			if distance ~= 0 then self:set_scroll_by(distance) end
+			if distance ~= 0 then
+				self:set_scroll_by(distance)
+			end
 			self.drag_last_y = cursor.y
 		end
 	end
 	request_render()
 end
 
-function Menu:handle_wheel_up() self:scroll_by(self.scroll_step * -3, nil, {update_cursor = true}) end
-function Menu:handle_wheel_down() self:scroll_by(self.scroll_step * 3, nil, {update_cursor = true}) end
+function Menu:handle_wheel_up()
+	self:scroll_by(self.scroll_step * -3, nil, { update_cursor = true })
+end
+function Menu:handle_wheel_down()
+	self:scroll_by(self.scroll_step * 3, nil, { update_cursor = true })
+end
 
 ---@param offset integer
 ---@param menu? MenuStack
@@ -744,14 +863,20 @@ function Menu:select_by_offset(offset, menu)
 
 	-- Blur selected_index when navigating off bounds and submittable search is active.
 	-- Blurred selected_index is an implied focused input, so enter can submit it.
-	if menu.search and menu.search_debounce == 'submit' and (
-			(menu.selected_index == 1 and offset < 0) or (menu.selected_index == #menu.items and offset > 0)
-		) then
+	if
+		menu.search
+		and menu.search_debounce == "submit"
+		and ((menu.selected_index == 1 and offset < 0) or (menu.selected_index == #menu.items and offset > 0))
+	then
 		self:select_index(nil, menu.id)
 	else
 		local index = clamp(1, (menu.selected_index or offset >= 0 and 0 or #menu.items + 1) + offset, #menu.items)
-		local prev_index = itable_find(menu.items, function(item) return item.selectable ~= false end, index, 1)
-		local next_index = itable_find(menu.items, function(item) return item.selectable ~= false end, index)
+		local prev_index = itable_find(menu.items, function(item)
+			return item.selectable ~= false
+		end, index, 1)
+		local next_index = itable_find(menu.items, function(item)
+			return item.selectable ~= false
+		end, index)
 		if prev_index and next_index then
 			if offset == 0 then
 				self:select_index(index - prev_index <= next_index - index and prev_index or next_index, menu.id)
@@ -787,22 +912,26 @@ end
 function Menu:paste()
 	local menu = self.current
 	local payload = get_clipboard()
-	if not payload then return end
+	if not payload then
+		return
+	end
 	if menu.search then
 		self:search_query_insert(payload)
 	elseif menu.on_paste then
 		local selected_item = menu.items and menu.selected_index and menu.items[menu.selected_index]
 		local actions = selected_item and selected_item.actions or menu.item_actions
 		local selected_action = actions and menu.action_index and actions[menu.action_index]
-		self:command_or_event(menu.on_paste, {payload, menu.id}, {
-			type = 'paste',
+		self:command_or_event(menu.on_paste, { payload, menu.id }, {
+			type = "paste",
 			value = payload,
 			menu_id = menu.id,
 			selected_item = selected_item and {
-				index = menu.selected_index, value = selected_item.value, action = selected_action,
+				index = menu.selected_index,
+				value = selected_item.value,
+				action = selected_action,
 			},
 		})
-	elseif menu.search_style ~= 'disabled' then
+	elseif menu.search_style ~= "disabled" then
 		self:search_start(menu.id)
 		self:search_query_replace(payload, menu.id)
 	end
@@ -812,11 +941,15 @@ end
 ---@param no_select_first? boolean
 function Menu:search_internal(menu_id, no_select_first)
 	local menu = self:get_menu(menu_id)
-	if not menu then return end
+	if not menu then
+		return
+	end
 	local query = menu.search.query:lower()
-	if query == '' then
+	if query == "" then
 		-- Reset menu state to what it was before search
-		for key, value in pairs(menu.search.source) do menu[key] = value end
+		for key, value in pairs(menu.search.source) do
+			menu[key] = value
+		end
 	else
 		-- Inherit `search_submenus` from parent menus
 		local search_submenus, parent_menu = menu.search_submenus, menu.parent_menu
@@ -847,7 +980,7 @@ function search_items(items, query, recursive, prefix)
 
 	for _, item in ipairs(items) do
 		if item.selectable ~= false then
-			local prefixed_title = prefix and prefix .. ' / ' .. (item.title or '') or item.title
+			local prefixed_title = prefix and prefix .. " / " .. (item.title or "") or item.title
 			haystacks[#haystacks + 1] = item.title
 			flat_items[#flat_items + 1] = item
 
@@ -864,7 +997,7 @@ function search_items(items, query, recursive, prefix)
 		local idx, positions, score = match[1], match[2], match[3]
 		local matched_title = haystacks[idx]
 		local item = flat_items[idx]
-		local prefixed_title = prefix and prefix .. ' / ' .. (item.title or '') or item.title
+		local prefixed_title = prefix and prefix .. " / " .. (item.title or "") or item.title
 
 		if item.selectable ~= false and not (item.items and recursive) and not seen[item] then
 			local bold = item.bold or options.font_bold
@@ -872,7 +1005,7 @@ function search_items(items, query, recursive, prefix)
 			local ass_safe_title = highlight_match(matched_title, positions, font_color, bold) or nil
 			local new_item = table_assign({}, item)
 			new_item.title = prefixed_title
-			new_item.ass_safe_title = prefix and prefix .. ' / ' .. (ass_safe_title or '') or ass_safe_title
+			new_item.ass_safe_title = prefix and prefix .. " / " .. (ass_safe_title or "") or ass_safe_title
 			new_item.score = score
 			result[#result + 1] = new_item
 			seen[item] = true
@@ -885,7 +1018,7 @@ function search_items(items, query, recursive, prefix)
 		local bold = item.bold or options.font_bold
 		local font_color = item.active and fgt or bgt
 		local ass_safe_title = nil
-		local prefixed_title = prefix and prefix .. ' / ' .. (item.title or '') or item.title
+		local prefixed_title = prefix and prefix .. " / " .. (item.title or "") or item.title
 		if item.selectable ~= false and not (item.items and recursive) and not seen[item] then
 			local score = 0
 			local match = false
@@ -897,14 +1030,14 @@ function search_items(items, query, recursive, prefix)
 				if ligature_conv_title:find(query, 1, true) then
 					match = true
 					score = 1000
-					local pos = get_roman_match_positions(title, query, 'ligature', ligature_roman)
+					local pos = get_roman_match_positions(title, query, "ligature", ligature_roman)
 					if pos then
 						ass_safe_title = highlight_match(item.title, pos, font_color, bold)
 					end
 				elseif initials_conv_title:find(query, 1, true) then
 					match = true
 					score = 900
-					local pos = get_roman_match_positions(title, query, 'initial', initials_roman)
+					local pos = get_roman_match_positions(title, query, "initial", initials_roman)
 					if pos then
 						ass_safe_title = highlight_match(item.title, pos, font_color, bold)
 					end
@@ -924,14 +1057,16 @@ function search_items(items, query, recursive, prefix)
 			if match then
 				local new_item = table_assign({}, item)
 				new_item.title = prefixed_title
-				new_item.ass_safe_title = prefix and prefix .. ' / ' .. (ass_safe_title or '') or ass_safe_title
+				new_item.ass_safe_title = prefix and prefix .. " / " .. (ass_safe_title or "") or ass_safe_title
 				new_item.score = score
 				result[#result + 1] = new_item
 			end
 		end
 	end
 
-	table.sort(result, function(a, b) return a.score > b.score end)
+	table.sort(result, function(a, b)
+		return a.score > b.score
+	end)
 
 	return result
 end
@@ -939,10 +1074,12 @@ end
 ---@param menu_id? string
 function Menu:search_submit(menu_id)
 	local menu = self:get_menu(menu_id)
-	if not menu or not menu.search then return end
+	if not menu or not menu.search then
+		return
+	end
 	local callback, query = menu.on_search, menu.search.query
 	if callback then
-		self:command_or_event(callback, {query, menu.id}, {type = 'search', query = query, menu_id = menu.id})
+		self:command_or_event(callback, { query, menu.id }, { type = "search", query = query, menu_id = menu.id })
 	else
 		self:search_internal(menu.id)
 	end
@@ -953,7 +1090,9 @@ end
 ---@param word_mode? boolean Move by words/segments. Overwrites amount, but respects its direction.
 function Menu:search_cursor_move(amount, word_mode)
 	local menu = self:get_menu()
-	if not menu or not menu.search then return end
+	if not menu or not menu.search then
+		return
+	end
 	local query, cursor = menu.search.query, menu.search.cursor
 	if word_mode then
 		menu.search.cursor = find_string_segment_bound(query, cursor, amount) + (amount < 0 and -1 or 0)
@@ -964,7 +1103,9 @@ function Menu:search_cursor_move(amount, word_mode)
 
 		while step_count < limit do
 			local next_cursor = move(query, cursor)
-			if next_cursor == cursor then break end
+			if next_cursor == cursor then
+				break
+			end
 			cursor = next_cursor
 			step_count = step_count + 1
 		end
@@ -979,7 +1120,9 @@ end
 ---@param immediate? boolean
 function Menu:search_query_replace(query, menu_id, immediate)
 	local menu = self:get_menu(menu_id)
-	if not menu or not menu.search then return end
+	if not menu or not menu.search then
+		return
+	end
 	menu.search.query = query
 	menu.search.cursor = #query
 	self:search_trigger(menu_id, immediate)
@@ -990,7 +1133,9 @@ end
 ---@param menu_id? string
 function Menu:search_query_insert(str, menu_id)
 	local menu = self:get_menu(menu_id)
-	if not menu or not menu.search then return end
+	if not menu or not menu.search then
+		return
+	end
 	local query, cursor = menu.search.query, menu.search.cursor
 	local head, tail = string.sub(query, 1, cursor), string.sub(query, cursor + 1)
 	menu.search.query = head .. str .. tail
@@ -1001,9 +1146,13 @@ end
 -- Trigger menu search callbacks, should be called after any query changes.
 function Menu:search_trigger(menu_id, immediate)
 	local menu = self:get_menu(menu_id)
-	if not menu or not menu.search then return end
-	if menu.search_debounce ~= 'submit' then
-		if menu.search.timeout then menu.search.timeout:kill() end
+	if not menu or not menu.search then
+		return
+	end
+	if menu.search_debounce ~= "submit" then
+		if menu.search.timeout then
+			menu.search.timeout:kill()
+		end
 		if menu.search.timeout and not immediate then
 			menu.search.timeout:resume()
 		else
@@ -1021,7 +1170,9 @@ end
 ---@param word_mode? boolean Delete by words.
 function Menu:search_query_backspace(event, word_mode)
 	local search = self.current.search
-	if not search then return end
+	if not search then
+		return
+	end
 
 	local cursor, old_query = search.cursor, search.query
 	local head, tail = string.sub(old_query, 1, cursor), string.sub(old_query, cursor + 1)
@@ -1044,10 +1195,10 @@ function Menu:search_query_backspace(event, word_mode)
 	end
 
 	if #new_query == 0 then
-		local is_palette = self.current.search_style == 'palette'
+		local is_palette = self.current.search_style == "palette"
 		if not is_palette and self.type_to_search then
 			self:search_cancel()
-		elseif is_palette and event ~= 'repeat' then
+		elseif is_palette and event ~= "repeat" then
 			self:back()
 		end
 	end
@@ -1057,7 +1208,9 @@ end
 ---@param word_mode? boolean Delete by words.
 function Menu:search_query_delete(event, word_mode)
 	local search = self.current.search
-	if not search then return end
+	if not search then
+		return
+	end
 
 	local cursor, old_query = search.cursor, search.query
 	local head, tail = string.sub(old_query, 1, cursor), string.sub(old_query, cursor + 1)
@@ -1081,10 +1234,10 @@ function Menu:search_query_delete(event, word_mode)
 	end
 
 	if #new_query == 0 then
-		local is_palette = self.current.search_style == 'palette'
+		local is_palette = self.current.search_style == "palette"
 		if not is_palette and self.type_to_search then
 			self:search_cancel()
-		elseif is_palette and event ~= 'repeat' then
+		elseif is_palette and event ~= "repeat" then
 			self:back()
 		end
 	end
@@ -1092,16 +1245,24 @@ end
 
 function Menu:search_text_input(info)
 	local menu = self.current
-	if not menu.search and menu.search_style == 'disabled' then return end
-	if info.event ~= 'up' then
+	if not menu.search and menu.search_style == "disabled" then
+		return
+	end
+	if info.event ~= "up" then
 		local key_text = info.key_text
 		if not key_text then
 			-- might be KP0 to KP9 or KP_DEC
-			key_text = info.key_name:match('KP_?(.+)')
-			if not key_text then return end
-			if key_text == 'DEC' then key_text = '.' end
+			key_text = info.key_name:match("KP_?(.+)")
+			if not key_text then
+				return
+			end
+			if key_text == "DEC" then
+				key_text = "."
+			end
 		end
-		if not menu.search then self:search_start() end
+		if not menu.search then
+			self:search_start()
+		end
 		self:search_query_insert(key_text)
 	end
 end
@@ -1109,14 +1270,14 @@ end
 ---@param menu_id? string
 function Menu:search_cancel(menu_id)
 	local menu = self:get_menu(menu_id)
-	if not menu or not menu.search or menu.search_style == 'palette' then
-		self:search_query_replace('', menu_id)
+	if not menu or not menu.search or menu.search_style == "palette" then
+		self:search_query_replace("", menu_id)
 		return
 	end
 	if state.ime_active == false then
-		mp.set_property_bool('input-ime', false)
+		mp.set_property_bool("input-ime", false)
 	end
-	self:search_query_replace('', menu_id, true)
+	self:search_query_replace("", menu_id, true)
 	menu.search = nil
 	self:search_ensure_key_bindings()
 	self:update_dimensions()
@@ -1126,20 +1287,27 @@ end
 ---@param menu_id? string
 function Menu:search_init(menu_id)
 	local menu = self:get_menu(menu_id)
-	if not menu then return end
-	if menu.search then return end
+	if not menu then
+		return
+	end
+	if menu.search then
+		return
+	end
 	if state.ime_active == false then
-		mp.set_property_bool('input-ime', true)
+		mp.set_property_bool("input-ime", true)
 	end
 	local timeout
-	if menu.search_debounce ~= 'submit' and menu.search_debounce > 0 then
-		timeout = mp.add_timeout(menu.search_debounce / 1000, self:create_action(function()
-			self:search_submit(menu.id)
-		end))
+	if menu.search_debounce ~= "submit" and menu.search_debounce > 0 then
+		timeout = mp.add_timeout(
+			menu.search_debounce / 1000,
+			self:create_action(function()
+				self:search_submit(menu.id)
+			end)
+		)
 		timeout:kill()
 	end
 	menu.search = {
-		query = '',
+		query = "",
 		cursor = 0,
 		timeout = timeout,
 		min_top = menu.top,
@@ -1157,7 +1325,9 @@ end
 ---@param menu_id? string
 function Menu:search_start(menu_id)
 	local menu = self:get_menu(menu_id)
-	if not menu or menu.search_style == 'disabled' then return end
+	if not menu or menu.search_style == "disabled" then
+		return
+	end
 	self:search_init(menu_id)
 	self:search_ensure_key_bindings()
 	self:update_dimensions()
@@ -1166,57 +1336,79 @@ end
 ---@param menu_id? string
 function Menu:search_clear_query(menu_id)
 	local menu = self:get_menu(menu_id)
-	if not menu then return end
-	if not self.current.search_style == 'palette' and self.type_to_search then
+	if not menu then
+		return
+	end
+	if not self.current.search_style == "palette" and self.type_to_search then
 		self:search_cancel(menu_id)
 	else
-		self:search_query_replace('', menu_id)
+		self:search_query_replace("", menu_id)
 	end
 end
 
 function Menu:search_enable_key_bindings()
-	if self:has_keybindings('search') then return end
-	local flags = {repeatable = true, complex = true}
-	self:add_key_binding('any_unicode', {self:create_key_handler('search_text_input'), flags}, 'search')
+	if self:has_keybindings("search") then
+		return
+	end
+	local flags = { repeatable = true, complex = true }
+	self:add_key_binding("any_unicode", { self:create_key_handler("search_text_input"), flags }, "search")
 	-- KP0 to KP9 and KP_DEC are not included in any_unicode
 	-- despite typically producing characters, they don't have a info.key_text
-	self:add_key_binding('kp_dec', {self:create_key_handler('search_text_input'), flags}, 'search')
+	self:add_key_binding("kp_dec", { self:create_key_handler("search_text_input"), flags }, "search")
 	for i = 0, 9 do
-		self:add_key_binding('kp' .. i, {self:create_key_handler('search_text_input'), flags}, 'search')
+		self:add_key_binding("kp" .. i, { self:create_key_handler("search_text_input"), flags }, "search")
 	end
 end
 
 function Menu:search_ensure_key_bindings()
-	if self.current.search or (self.type_to_search and self.current.search_style ~= 'disabled') then
+	if self.current.search or (self.type_to_search and self.current.search_style ~= "disabled") then
 		self:search_enable_key_bindings()
 	else
-		self:remove_key_bindings('search')
+		self:remove_key_bindings("search")
 	end
 end
 
 function Menu:enable_key_bindings()
-	local standalone_keys = {'/', 'kp_divide', 'mbtn_back', 'ctrl+f', 'ctrl+v', 'ctrl+c'}
-	if type(self.root.bind_keys) == 'table' then itable_append(standalone_keys, self.root.bind_keys) end
+	local standalone_keys = { "/", "kp_divide", "mbtn_back", "ctrl+f", "ctrl+v", "ctrl+c" }
+	if type(self.root.bind_keys) == "table" then
+		itable_append(standalone_keys, self.root.bind_keys)
+	end
 	-- `+` at the end enables `repeatable` flag
-	local modifiable_keys = {'up+', 'down+', 'left', 'right', 'enter', 'kp_enter', 'bs', 'tab', 'esc', 'pgup+',
-		'pgdwn+', 'home', 'end', 'del'}
-	local modifiers = {nil, 'alt', 'alt+ctrl', 'alt+shift', 'alt+ctrl+shift', 'ctrl', 'ctrl+shift', 'shift'}
+	local modifiable_keys = {
+		"up+",
+		"down+",
+		"left",
+		"right",
+		"enter",
+		"kp_enter",
+		"bs",
+		"tab",
+		"esc",
+		"pgup+",
+		"pgdwn+",
+		"home",
+		"end",
+		"del",
+	}
+	local modifiers = { nil, "alt", "alt+ctrl", "alt+shift", "alt+ctrl+shift", "ctrl", "ctrl+shift", "shift" }
 
 	---@param shortcut Shortcut
 	---@param flags table<string, boolean>
 	local function bind(shortcut, flags)
-		local handler = self:create_action(function(info) self:handle_shortcut(shortcut, info) end)
-		self:add_key_binding(shortcut.id, {handler, flags})
+		local handler = self:create_action(function(info)
+			self:handle_shortcut(shortcut, info)
+		end)
+		self:add_key_binding(shortcut.id, { handler, flags })
 	end
 
 	for i, key in ipairs(standalone_keys) do
-		bind(create_shortcut(key), {repeatable = false, complex = true})
+		bind(create_shortcut(key), { repeatable = false, complex = true })
 	end
 
 	for i, key in ipairs(modifiable_keys) do
-		local flags = {repeatable = false, complex = true}
+		local flags = { repeatable = false, complex = true }
 
-		if key:sub(-1) == '+' then
+		if key:sub(-1) == "+" then
 			key = key:sub(1, -2)
 			flags.repeatable = true
 		end
@@ -1233,7 +1425,9 @@ end
 ---@param shortcut Shortcut
 ---@param info ComplexBindingInfo
 function Menu:handle_shortcut(shortcut, info)
-	if not self:is_alive() then return end
+	if not self:is_alive() then
+		return
+	end
 
 	self.mouse_nav = info.is_mouse
 	local menu, id, key, modifiers = self.current, shortcut.id, shortcut.key, shortcut.modifiers
@@ -1243,83 +1437,87 @@ function Menu:handle_shortcut(shortcut, info)
 	local actions = selected_item and selected_item.actions or menu.item_actions
 	local selected_action = actions and menu.action_index and actions[menu.action_index]
 
-	if info.event == 'up' then return end
+	if info.event == "up" then
+		return
+	end
 
 	function trigger_shortcut(shortcut)
 		self.callback(table_assign({}, shortcut, {
-			type = 'key',
+			type = "key",
 			menu_id = menu.id,
 			selected_item = selected_item and {
-				index = selected_index, value = selected_item.value, action = selected_action,
+				index = selected_index,
+				value = selected_item.value,
+				action = selected_action,
 			},
 		}))
 	end
 
-	if (key == 'enter' and selected_item) or (id == 'right' and is_submenu and not menu.search) then
+	if (key == "enter" and selected_item) or (id == "right" and is_submenu and not menu.search) then
 		self:activate_selected_item(shortcut)
-	elseif id == 'enter' and menu.search and menu.search_debounce == 'submit' then
+	elseif id == "enter" and menu.search and menu.search_debounce == "submit" then
 		self:search_submit()
-	elseif id == 'up' or id == 'down' then
-		self:navigate_by_items(id == 'up' and -1 or 1, true)
-	elseif id == 'pgup' or id == 'pgdwn' then
-		self:navigate_by_page(id == 'pgup' and -1 or 1)
-	elseif menu.search and (id == 'left' or id == 'ctrl+left') then
-		self:search_cursor_move(-1, modifiers == 'ctrl')
-	elseif menu.search and (id == 'right' or id == 'ctrl+right') then
-		self:search_cursor_move(1, modifiers == 'ctrl')
-	elseif menu.search and id == 'home' then
+	elseif id == "up" or id == "down" then
+		self:navigate_by_items(id == "up" and -1 or 1, true)
+	elseif id == "pgup" or id == "pgdwn" then
+		self:navigate_by_page(id == "pgup" and -1 or 1)
+	elseif menu.search and (id == "left" or id == "ctrl+left") then
+		self:search_cursor_move(-1, modifiers == "ctrl")
+	elseif menu.search and (id == "right" or id == "ctrl+right") then
+		self:search_cursor_move(1, modifiers == "ctrl")
+	elseif menu.search and id == "home" then
 		self:search_cursor_move(-math.huge)
-	elseif menu.search and id == 'end' then
+	elseif menu.search and id == "end" then
 		self:search_cursor_move(math.huge)
-	elseif id == 'home' or id == 'end' then
-		self:navigate_by_items(id == 'home' and -math.huge or math.huge)
-	elseif id == 'shift+tab' then
+	elseif id == "home" or id == "end" then
+		self:navigate_by_items(id == "home" and -math.huge or math.huge)
+	elseif id == "shift+tab" then
 		self:prev_action()
-	elseif id == 'tab' then
+	elseif id == "tab" then
 		self:next_action()
-	elseif id == 'ctrl+up' then
+	elseif id == "ctrl+up" then
 		self:move_selected_item_by(-1)
-	elseif id == 'ctrl+down' then
+	elseif id == "ctrl+down" then
 		self:move_selected_item_by(1)
-	elseif id == 'ctrl+pgup' then
+	elseif id == "ctrl+pgup" then
 		self:move_selected_item_by(-round((menu.height / self.scroll_step) * 0.4))
-	elseif id == 'ctrl+pgdwn' then
+	elseif id == "ctrl+pgdwn" then
 		self:move_selected_item_by(round((menu.height / self.scroll_step) * 0.4))
-	elseif id == 'ctrl+home' then
+	elseif id == "ctrl+home" then
 		self:move_selected_item_by(-math.huge)
-	elseif id == 'ctrl+end' then
+	elseif id == "ctrl+end" then
 		self:move_selected_item_by(math.huge)
-	elseif id == '/' or id == 'kp_divide' or id == 'ctrl+f' then
+	elseif id == "/" or id == "kp_divide" or id == "ctrl+f" then
 		self:search_start()
-	elseif key == 'esc' then
-		if menu.search and menu.search_style ~= 'palette' then
+	elseif key == "esc" then
+		if menu.search and menu.search_style ~= "palette" then
 			self:search_cancel()
 		else
 			self:close()
 		end
-	elseif id == 'left' and menu.parent_menu then
+	elseif id == "left" and menu.parent_menu then
 		self:back()
-	elseif key == 'bs' then
+	elseif key == "bs" then
 		if menu.search then
-			if modifiers == 'shift' then
+			if modifiers == "shift" then
 				self:search_clear_query()
-			elseif not modifiers or modifiers == 'ctrl' then
-				self:search_query_backspace(info.event, modifiers == 'ctrl')
+			elseif not modifiers or modifiers == "ctrl" then
+				self:search_query_backspace(info.event, modifiers == "ctrl")
 			end
-		elseif not modifiers and info.event ~= 'repeat' then
+		elseif not modifiers and info.event ~= "repeat" then
 			self:back()
 		end
-	elseif menu.search and (id == 'del' or id == 'ctrl+del' or id == 'shift+del') then
-		if id == 'shift+del' then
+	elseif menu.search and (id == "del" or id == "ctrl+del" or id == "shift+del") then
+		if id == "shift+del" then
 			-- During search `del` edits the string. We convert `shift+del` to
 			-- `del` to have a way to trigger menu callbacks bound to `del`.
-			trigger_shortcut(create_shortcut('del'))
+			trigger_shortcut(create_shortcut("del"))
 		else
-			self:search_query_delete(info.event, modifiers == 'ctrl')
+			self:search_query_delete(info.event, modifiers == "ctrl")
 		end
-	elseif key == 'mbtn_back' then
+	elseif key == "mbtn_back" then
 		self:back()
-	elseif id == 'ctrl+v' then
+	elseif id == "ctrl+v" then
 		self:paste()
 	else
 		trigger_shortcut(shortcut)
@@ -1327,7 +1525,9 @@ function Menu:handle_shortcut(shortcut, info)
 end
 
 -- Check if menu is not closed or closing.
-function Menu:is_alive() return not self.is_closing and not self.destroyed end
+function Menu:is_alive()
+	return not self.is_closing and not self.destroyed
+end
 
 ---@param name string
 function Menu:create_key_handler(name)
@@ -1345,16 +1545,16 @@ end
 ---@param event MenuEvent
 ---@return 'event' | 'command' | nil
 function Menu:command_or_event(command, params, event)
-	if command == 'callback' then
+	if command == "callback" then
 		self.callback(event)
-		return 'event'
-	elseif type(command) == 'table' then
+		return "event"
+	elseif type(command) == "table" then
 		---@diagnostic disable-next-line: deprecated
 		mp.command_native(itable_join(command, params))
-		return 'command'
-	elseif type(command) == 'string' then
-		mp.command(command .. ' ' .. table.concat(params, ' '))
-		return 'command'
+		return "command"
+	elseif type(command) == "string" then
+		mp.command(command .. " " .. table.concat(params, " "))
+		return "command"
 	end
 	return nil
 end
@@ -1365,14 +1565,34 @@ function Menu:render()
 			local time_delta = state.render_last_time - menu.fling.time
 			local progress = menu.fling.easing(math.min(time_delta / menu.fling.duration, 1))
 			self:set_scroll_to(round(menu.fling.y + menu.fling.distance * progress), menu.id)
-			if progress < 1 then request_render() else menu.fling = nil end
+			if progress < 1 then
+				request_render()
+			else
+				menu.fling = nil
+			end
 		end
 	end
 
-	cursor:zone('primary_down', display, self:create_action(function() self:handle_cursor_down() end))
-	cursor:zone('primary_up', display, self:create_action(function(shortcut) self:handle_cursor_up(shortcut) end))
-	cursor:zone('wheel_down', self, function() self:handle_wheel_down() end)
-	cursor:zone('wheel_up', self, function() self:handle_wheel_up() end)
+	cursor:zone(
+		"primary_down",
+		display,
+		self:create_action(function()
+			self:handle_cursor_down()
+		end)
+	)
+	cursor:zone(
+		"primary_up",
+		display,
+		self:create_action(function(shortcut)
+			self:handle_cursor_up(shortcut)
+		end)
+	)
+	cursor:zone("wheel_down", self, function()
+		self:handle_wheel_down()
+	end)
+	cursor:zone("wheel_up", self, function()
+		self:handle_wheel_up()
+	end)
 
 	local ass = assdraw.ass_new()
 	local icon_size = self.font_size
@@ -1392,7 +1612,7 @@ function Menu:render()
 		}
 		-- local ax, ay, bx, by = x + self.padding, menu.top, x + menu.width + self.padding, menu.top + menu.height
 		local draw_title = menu.is_root and menu.title or menu.search
-		local scroll_clip = '\\clip(0,' .. content_rect.ay .. ',' .. display.width .. ',' .. content_rect.by .. ')'
+		local scroll_clip = "\\clip(0," .. content_rect.ay .. "," .. display.width .. "," .. content_rect.by .. ")"
 		local start_index = math.floor(menu.scroll_y / self.scroll_step) + 1
 		local end_index = math.ceil((menu.scroll_y + menu.height) / self.scroll_step)
 		local bg_rect = {
@@ -1411,17 +1631,25 @@ function Menu:render()
 		})
 
 		if is_parent then
-			cursor:zone('primary_down', bg_rect, self:create_action(function() self:slide_in_menu(menu.id, x) end))
+			cursor:zone(
+				"primary_down",
+				bg_rect,
+				self:create_action(function()
+					self:slide_in_menu(menu.id, x)
+				end)
+			)
 		end
 
 		-- Scrollbar
 		if menu.scroll_height > 0 then
 			local groove_height = menu.height - 2
 			local thumb_height = math.max((menu.height / (menu.scroll_height + menu.height)) * groove_height, 40)
-			local thumb_y = content_rect.ay + 1 + ((menu.scroll_y / menu.scroll_height) * (groove_height - thumb_height))
+			local thumb_y = content_rect.ay
+				+ 1
+				+ ((menu.scroll_y / menu.scroll_height) * (groove_height - thumb_height))
 			local sax = content_rect.bx - round(self.scrollbar_size / 2)
 			local sbx = sax + self.scrollbar_size
-			ass:rect(sax, thumb_y, sbx, thumb_y + thumb_height, {color = fg, opacity = menu_opacity * 0.8})
+			ass:rect(sax, thumb_y, sbx, thumb_y + thumb_height, { color = fg, opacity = menu_opacity * 0.8 })
 		end
 
 		-- Draw submenu if selected
@@ -1429,9 +1657,13 @@ function Menu:render()
 		local submenu_is_hovered = false
 		if current_item and current_item.items then
 			submenu_rect = draw_menu(current_item --[[@as MenuStack]], bg_rect.bx + self.gap, 1)
-			cursor:zone('primary_down', submenu_rect, self:create_action(function(shortcut)
-				self:activate_selected_item(shortcut, true)
-			end))
+			cursor:zone(
+				"primary_down",
+				submenu_rect,
+				self:create_action(function(shortcut)
+					self:activate_selected_item(shortcut, true)
+				end)
+			)
 		end
 
 		---@type MenuAction|nil
@@ -1439,14 +1671,15 @@ function Menu:render()
 		for index = start_index, end_index, 1 do
 			local item = menu.items[index]
 
-			if not item then break end
+			if not item then
+				break
+			end
 
 			local item_ay = content_rect.ay - menu.scroll_y + self.scroll_step * (index - 1)
 			local item_by = item_ay + self.item_height
 			local item_center_y = item_ay + (self.item_height / 2)
 			local item_clip = (item_ay < content_rect.ay or item_by > content_rect.by) and scroll_clip or nil
-			local content_ax, content_bx = content_rect.ax + self.item_padding,
-				content_rect.bx - self.item_padding
+			local content_ax, content_bx = content_rect.ax + self.item_padding, content_rect.bx - self.item_padding
 			local is_selected = menu.selected_index == index
 			local item_rect_hitbox = {
 				ax = content_rect.ax,
@@ -1456,10 +1689,14 @@ function Menu:render()
 			}
 
 			-- Select hovered item
-			if is_current and self.mouse_nav and item.selectable ~= false
+			if
+				is_current
+				and self.mouse_nav
+				and item.selectable ~= false
 				-- Do not select items if cursor is moving towards a submenu
 				and (not submenu_rect or not cursor:direction_to_rectangle_distance(submenu_rect))
-				and (submenu_is_hovered or get_point_to_rectangle_proximity(cursor, item_rect_hitbox) <= 0) then
+				and (submenu_is_hovered or get_point_to_rectangle_proximity(cursor, item_rect_hitbox) <= 0)
+			then
 				menu.selected_index = index
 				if not is_selected then
 					is_selected = true
@@ -1475,7 +1712,9 @@ function Menu:render()
 			local actions = is_selected and (item.actions or menu.item_actions) -- not nil = actions are visible
 			local action = actions and actions[menu.action_index] -- not nil = action is selected
 
-			if action then selected_action = action end
+			if action then
+				selected_action = action
+			end
 
 			-- Separator
 			if item_by < content_rect.by and ((not has_background and not next_has_background) or item.separator) then
@@ -1486,8 +1725,11 @@ function Menu:render()
 					ay, by = ay - self.separator_size, by - self.separator_size
 				end
 				ass:rect(
-					content_rect.ax + self.item_padding, ay, content_rect.bx - self.item_padding, by,
-					{color = fg, opacity = menu_opacity * (item.separator and 0.13 or 0.04)}
+					content_rect.ax + self.item_padding,
+					ay,
+					content_rect.bx - self.item_padding,
+					by,
+					{ color = fg, opacity = menu_opacity * (item.separator and 0.13 or 0.04) }
 				)
 			end
 
@@ -1516,10 +1758,10 @@ function Menu:render()
 				actions_rect = {
 					ay = item_ay + margin,
 					by = item_by - margin,
-					is_outside = place == 'outside' and display.width - bg_rect.bx + margin * 2 > rect_width,
+					is_outside = place == "outside" and display.width - bg_rect.bx + margin * 2 > rect_width,
 				}
-				actions_rect.bx = actions_rect.is_outside and bg_rect.bx + margin + rect_width or
-					content_rect.bx - margin
+				actions_rect.bx = actions_rect.is_outside and bg_rect.bx + margin + rect_width
+					or content_rect.bx - margin
 				actions_rect.ax = actions_rect.bx
 
 				for i = 1, #actions, 1 do
@@ -1547,7 +1789,9 @@ function Menu:render()
 							clip = item_clip,
 						})
 						ass:icon(rect.ax + size / 2, rect.ay + size / 2, size * 0.66, action.icon, {
-							color = is_active and bg or fg, opacity = menu_opacity, clip = item_clip,
+							color = is_active and bg or fg,
+							opacity = menu_opacity,
+							clip = item_clip,
 						})
 
 						-- Re-use rect as a hitbox by growing it so it bridges gaps to prevent flickering
@@ -1555,9 +1799,13 @@ function Menu:render()
 
 						-- Select action on cursor hover
 						if self.mouse_nav and get_point_to_rectangle_proximity(cursor, rect) <= 0 then
-							cursor:zone('primary_down', rect, self:create_action(function(shortcut)
-								self:activate_selected_item(shortcut, true)
-							end))
+							cursor:zone(
+								"primary_down",
+								rect,
+								self:create_action(function(shortcut)
+									self:activate_selected_item(shortcut, true)
+								end)
+							)
 							blur_action_index = false
 							if not is_active then
 								menu.action_index = action_index
@@ -1576,23 +1824,32 @@ function Menu:render()
 				local size = round(2 * state.scale)
 				local v_padding = math.min(state.radius, math.ceil(self.item_height / 3))
 				ass:rect(
-					content_rect.ax - size - 1, item_ay + v_padding,
-					content_rect.ax - 1, item_by - v_padding,
-					{radius = 1 * state.scale, color = fg, opacity = menu_opacity, clip = item_clip}
+					content_rect.ax - size - 1,
+					item_ay + v_padding,
+					content_rect.ax - 1,
+					item_by - v_padding,
+					{ radius = 1 * state.scale, color = fg, opacity = menu_opacity, clip = item_clip }
 				)
 			end
 
 			-- Icon
 			if item.icon then
 				if not actions_rect or actions_rect.is_outside then
-					local x = (not item.title and not item.hint and item.align == 'center')
-						and bg_rect.ax + (bg_rect.bx - bg_rect.ax) / 2
+					local x = (not item.title and not item.hint and item.align == "center")
+							and bg_rect.ax + (bg_rect.bx - bg_rect.ax) / 2
 						or content_bx - (icon_size / 2)
-					if item.icon == 'spinner' then
-						ass:spinner(x, item_center_y, icon_size * 1.5, {color = font_color, opacity = menu_opacity * 0.8})
+					if item.icon == "spinner" then
+						ass:spinner(
+							x,
+							item_center_y,
+							icon_size * 1.5,
+							{ color = font_color, opacity = menu_opacity * 0.8 }
+						)
 					else
 						ass:icon(x, item_center_y, icon_size * 1.5, item.icon, {
-							color = font_color, opacity = menu_opacity, clip = item_clip,
+							color = font_color,
+							opacity = menu_opacity,
+							clip = item_clip,
 						})
 					end
 				end
@@ -1608,18 +1865,22 @@ function Menu:render()
 				local title_min = math.min(item.title_width, width * 0.5)
 				local hint_min = math.min(item.hint_width, width * 0.5)
 				local title_ratio = item.title_width / (item.title_width + item.hint_width)
-				title_clip_bx = math.min(
-					title_clip_bx,
-					round(content_ax + clamp(title_min, width * title_ratio, width - hint_min))
-				)
+				title_clip_bx =
+					math.min(title_clip_bx, round(content_ax + clamp(title_min, width * title_ratio, width - hint_min)))
 			end
 
 			-- Hint
 			if item.hint then
 				item.ass_safe_hint = item.ass_safe_hint or ass_escape(item.hint)
-				local clip = '\\clip(' .. title_clip_bx + self.item_padding .. ','
-					.. math.max(item_ay, content_rect.ay) .. ',' .. hint_clip_bx .. ','
-					.. math.min(item_by, content_rect.by) .. ')'
+				local clip = "\\clip("
+					.. title_clip_bx + self.item_padding
+					.. ","
+					.. math.max(item_ay, content_rect.ay)
+					.. ","
+					.. hint_clip_bx
+					.. ","
+					.. math.min(item_by, content_rect.by)
+					.. ")"
 				ass:txt(content_bx, item_center_y, 6, item.ass_safe_hint, {
 					size = self.font_size_hint,
 					color = font_color,
@@ -1632,12 +1893,19 @@ function Menu:render()
 			-- Title
 			if item.title then
 				item.ass_safe_title = item.ass_safe_title or ass_escape(item.title)
-				local clip = '\\clip(' .. content_rect.ax .. ',' .. math.max(item_ay, content_rect.ay) .. ','
-					.. title_clip_bx .. ',' .. math.min(item_by, content_rect.by) .. ')'
+				local clip = "\\clip("
+					.. content_rect.ax
+					.. ","
+					.. math.max(item_ay, content_rect.ay)
+					.. ","
+					.. title_clip_bx
+					.. ","
+					.. math.min(item_by, content_rect.by)
+					.. ")"
 				local title_x, align = content_ax, 4
-				if item.align == 'right' then
+				if item.align == "right" then
 					title_x, align = title_clip_bx, 6
-				elseif item.align == 'center' then
+				elseif item.align == "center" then
 					title_x, align = content_ax + (title_clip_bx - content_ax) / 2, 5
 				end
 				ass:txt(title_x, item_center_y, align, item.ass_safe_title, {
@@ -1666,8 +1934,11 @@ function Menu:render()
 			is_icon_hovered = get_point_to_rectangle_proximity(cursor, icon_hitbox) <= 0
 			local text = selected_action and selected_action.label or is_icon_hovered and menu.footnote
 			local opacity = (is_icon_hovered and 1 or 0.5) * menu_opacity
-			ass:icon(icon_x, icon_y, self.font_size, is_icon_hovered and 'help' or 'help_outline', {
-				color = fg, border = state.scale, border_color = bg, opacity = opacity,
+			ass:icon(icon_x, icon_y, self.font_size, is_icon_hovered and "help" or "help_outline", {
+				color = fg,
+				border = state.scale,
+				border_color = bg,
+				opacity = opacity,
 			})
 			if text then
 				ass:txt(icon_x + self.font_size * 0.75, icon_y, 4, text, {
@@ -1683,7 +1954,7 @@ function Menu:render()
 
 		-- Menu title
 		if draw_title then
-			local requires_submit = menu.search_debounce == 'submit'
+			local requires_submit = menu.search_debounce == "submit"
 			local rect = {
 				ax = content_rect.ax,
 				ay = content_rect.ay - self.scroll_step - self.separator_size - 1,
@@ -1699,12 +1970,16 @@ function Menu:render()
 
 			-- Separator
 			ass:rect(
-				rect.ax, rect.by, rect.bx, rect.by + self.separator_size, {color = fg, opacity = menu_opacity * 0.2}
+				rect.ax,
+				rect.by,
+				rect.bx,
+				rect.by + self.separator_size,
+				{ color = fg, opacity = menu_opacity * 0.2 }
 			)
 
 			-- Blur selection (also activates search input) when user clicks title
 			if is_current then
-				cursor:zone('primary_down', rect, function()
+				cursor:zone("primary_down", rect, function()
 					self:select_index(nil)
 				end)
 			end
@@ -1721,69 +1996,80 @@ function Menu:render()
 				}
 
 				if is_current and requires_submit then
-					cursor:zone('primary_down', icon_rect, function() self:search_submit() end)
+					cursor:zone("primary_down", icon_rect, function()
+						self:search_submit()
+					end)
 					if get_point_to_rectangle_proximity(cursor, icon_rect) <= 0 then
 						icon_opacity = menu_opacity
 					end
 				end
 
-				ass:icon(rect.ax + icon_size / 2, rect.cy, icon_size, 'search', {
+				ass:icon(rect.ax + icon_size / 2, rect.cy, icon_size, "search", {
 					color = fg,
 					opacity = icon_opacity,
-					clip = '\\clip(' ..
-						icon_rect.ax .. ',' .. icon_rect.ay .. ',' .. icon_rect.bx .. ',' .. icon_rect.by .. ')',
+					clip = "\\clip("
+						.. icon_rect.ax
+						.. ","
+						.. icon_rect.ay
+						.. ","
+						.. icon_rect.bx
+						.. ","
+						.. icon_rect.by
+						.. ")",
 				})
 
 				-- Query/Placeholder
 				local cursor_height_half, cursor_thickness = round(self.font_size * 0.6), round(self.font_size / 12)
 				local cursor_ax = rect.bx + 1
-				if menu.search.query ~= '' then
+				if menu.search.query ~= "" then
 					local opts = {
 						size = self.font_size,
 						color = bgt,
 						wrap = 2,
 						opacity = menu_opacity,
-						clip = '\\clip(' .. icon_rect.bx .. ',' .. rect.ay .. ',' .. rect.bx .. ',' .. rect.by .. ')',
+						clip = "\\clip(" .. icon_rect.bx .. "," .. rect.ay .. "," .. rect.bx .. "," .. rect.by .. ")",
 					}
 					local query, cursor = menu.search.query, menu.search.cursor
 					-- Add a ZWNBSP suffix to prevent libass from trimming trailing spaces
-					local head = ass_escape(string.sub(query, 1, cursor)) .. '\239\187\191'
+					local head = ass_escape(string.sub(query, 1, cursor)) .. "\239\187\191"
 					local tail_no_escape = string.sub(query, cursor + 1)
-					local tail = ass_escape(tail_no_escape) .. '\239\187\191'
+					local tail = ass_escape(tail_no_escape) .. "\239\187\191"
 					cursor_ax = math.max(round(cursor_ax - text_width(tail_no_escape, opts)), rect.cx)
 					ass:txt(cursor_ax, rect.cy, 6, head, opts)
 					ass:txt(cursor_ax, rect.cy, 4, tail, opts)
 				else
-					local placeholder = (menu.search_style == 'palette' and menu.ass_safe_title)
-						and menu.ass_safe_title
-						or (requires_submit and t('type & ctrl+enter to search') or t('type to search'))
+					local placeholder = (menu.search_style == "palette" and menu.ass_safe_title) and menu.ass_safe_title
+						or (requires_submit and t("type & ctrl+enter to search") or t("type to search"))
 					ass:txt(rect.bx, rect.cy, 6, placeholder, {
 						size = self.font_size,
 						italic = true,
 						color = bgt,
 						wrap = 2,
 						opacity = menu_opacity * 0.4,
-						clip = '\\clip(' .. rect.ax .. ',' .. rect.ay .. ',' .. rect.bx .. ',' .. rect.by .. ')',
+						clip = "\\clip(" .. rect.ax .. "," .. rect.ay .. "," .. rect.bx .. "," .. rect.by .. ")",
 					})
 				end
 
 				-- Selected input indicator for submittable searches.
 				-- (input is selected when `selected_index` is `nil`)
-				if menu.search_debounce == 'submit' and not menu.selected_index then
+				if menu.search_debounce == "submit" and not menu.selected_index then
 					local size_half = round(1 * state.scale)
 					ass:rect(
-						content_rect.ax, rect.by - size_half, content_rect.bx, rect.by + size_half,
-						{color = fg, opacity = menu_opacity}
+						content_rect.ax,
+						rect.by - size_half,
+						content_rect.bx,
+						rect.by + size_half,
+						{ color = fg, opacity = menu_opacity }
 					)
 				end
-				local input_is_blurred = menu.search_debounce == 'submit' and menu.selected_index
+				local input_is_blurred = menu.search_debounce == "submit" and menu.selected_index
 
 				-- Cursor
 				local cursor_bx = cursor_ax + cursor_thickness
 				ass:rect(cursor_ax, rect.cy - cursor_height_half, cursor_bx, rect.cy + cursor_height_half, {
 					color = fg,
 					opacity = menu_opacity * (input_is_blurred and 0.5 or 1),
-					clip = '\\clip(' .. cursor_ax .. ',' .. rect.ay .. ',' .. cursor_bx .. ',' .. rect.by .. ')',
+					clip = "\\clip(" .. cursor_ax .. "," .. rect.ay .. "," .. cursor_bx .. "," .. rect.by .. ")",
 				})
 			else
 				ass:txt(rect.cx, rect.cy, 5, menu.ass_safe_title, {
@@ -1792,7 +2078,7 @@ function Menu:render()
 					color = bgt,
 					wrap = 2,
 					opacity = menu_opacity,
-					clip = '\\clip(' .. rect.ax .. ',' .. rect.ay .. ',' .. rect.bx .. ',' .. rect.by .. ')',
+					clip = "\\clip(" .. rect.ax .. "," .. rect.ay .. "," .. rect.bx .. "," .. rect.by .. ")",
 				})
 			end
 		end

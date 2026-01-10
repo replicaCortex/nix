@@ -1,61 +1,69 @@
-function ..
-    cd ..
-end
-function ...
-    cd ../..
-end
-function ....
-    cd ../../..
-end
-function .....
-    cd ../../../..
-end
+### --- [ ОСНОВНЫЕ УТИЛИТЫ  ] ---
 
-function grep
-    command grep --color=auto $argv
-end
-
-function zathura
-    command niri msg action spawn -- zathura "$PWD/$argv"
-end
-
-abbr -a mv 'mv -v'
-# abbr -a rm 'rm -v'
-# abbr -a cp 'cp -v'
-
-abbr -a bstop "sudo systemctl stop bluetooth.service"
-
-abbr -a sl lsd
 abbr -a ls lsd
+abbr -a sl lsd
 abbr -a l 'lsd -al'
+alias cat 'bat --theme-dark gruvbox-dark'
+abbr -a mv 'mv -v'
+abbr -a cp xcp
+abbr -a rm "echo Use 'rip' instead of rm" # Безопасное удаление
+alias wget "curl -L -O"
+
+### --- [ НАВИГАЦИЯ И ПОИСК ] ---
+
+abbr -a f br
+abbr -a fh br ~/
+abbr -a ft br /tmp
 abbr -a tree "br -c :pt ."
 
-alias cat 'bat --theme-dark gruvbox-dark'
+function z
+    cd & br --only-folders --cmd "$argv[1];:cd"
+end
 
-abbr -a gp 'git push'
-abbr -a gsw 'git switch'
-abbr -a gc 'git checkout'
-abbr -a ga 'git add .'
-abbr -a gs 'br --git-status -ghc :pt'
-abbr -a gl 'git log'
-abbr -a gm 'git commit -m'
+function size
+    br -c :pt $argv -w
+end
+
+### --- [ РАЗРАБОТКА: JUST ] ---
 
 abbr -a j just
+abbr -a jd "just --dry-run"
+abbr -a jl 'just --list'
 abbr -a jr "just run"
 abbr -a jt "just test"
 abbr -a jb "just build"
 abbr -a jg "just debug"
-abbr -a jc "just clippy"
 
-alias gitmainormaster="printf '%s\n' (git branch --format '%(refname:short)' --sort=-committerdate --list master main)  main | head -n 1"
-alias main="git checkout (gitmainormaster)"
+### --- [ РАЗРАБОТКА: GIT ] ---
 
-alias wget="curl -L -O"
+abbr -a gs 'br --git-status -ghc :pt'
+abbr -a ga 'git add .'
+abbr -a gc 'git checkout'
+abbr -a gm 'git commit -m'
+abbr -a gp 'git push'
+abbr -a gl 'git log'
+abbr -a gsw 'git switch'
 
-abbr -a ns nix-shell
-abbr -a nd "nix develop ./"
-abbr -a nr "nix run"
+### --- [ РАЗРАБОТКА: NIX & EDITORS ] ---
+
 abbr -a nv nvim
+abbr -a nvi 'nvim ~/note/index.md'
+abbr -a ns nix-shell
+abbr -a nr "nix run"
+abbr -a nd "nix develop ./"
+
+### --- [ СИСТЕМА И ЖЕЛЕЗО ] ---
+
+abbr -a bstop "sudo systemctl stop bluetooth.service"
+alias na "bluetoothctl connect E4:61:F4:31:88:26"
+abbr -a weather "curl v2d.wttr.in/47.42,40.09"
+abbr -a tt taskwarrior-tui
+
+### --- [ МУЛЬТИМЕДИА И ДОКУМЕНТЫ ] ---
+
+function zathura
+    command niri msg action spawn -- zathura "$PWD/$argv"
+end
 
 function vi
     nohup vimiv * --command 'enter thumbnail' >/dev/null 2>&1 &
@@ -66,40 +74,11 @@ function d
     cd ~/note/journal && zk dd "$argv" && popd
 end
 
-abbr -a nvi 'nvim ~/note/index.md'
-abbr -a nvf 'nvim ~/nix/fish/config.fish'
-
 function pdf2text
-    nix-shell -p poppler-utils --run "pdftotext "$argv[1]" "$argv[2]""
+    nix-shell -p poppler-utils --run "pdftotext \"$argv[1]\" \"$argv[2]\""
 end
 
-abbr -a swork "~/nix/**/work.sh ."
+### --- [ СКРИПТЫ ] ---
 
 alias timr "~/work/timer/target/release/timer -s '󰀠  Alarm!' -b 'Timeout' -d"
 alias alrm "~/work/timer/target/release/timer -m alarm -s '󰀠  Alarm!' -b 'Timeout' -d"
-
-abbr -a weather "curl v2d.wttr.in/47.42,40.09"
-
-# abbr -a t task
-abbr -a tt taskwarrior-tui
-# abbr -a h "task rc.data.location=~/.habit"
-abbr -a tth "taskwarrior-tui --taskdata ~/.habit"
-
-abbr -a f br
-abbr -a fh br ~/
-abbr -a ft br /tmp
-# abbr -a gb "br --git-status -ghc :pt"
-
-function z
-    cd & br --only-folders --cmd "$argv[1];:cd"
-end
-
-function size
-    br -c :pt $argv -w
-end
-
-abbr -a rm "Use 'rip' instead of rm"
-abbr -a cp xcp
-
-alias na "bluetoothctl connect E4:61:F4:31:88:26"
-alias nrs 'nh os switch --ask /home/replica/nix/ && dunstify "  NixOS" "Nix switch done 󰄬" || dunstify -u critical -h string:fgcolor:#f38ba8 "  NixOS" "Home switch failed ❌" -t 4000'

@@ -1,4 +1,4 @@
-local Button = require('elements/Button')
+local Button = require("elements/Button")
 
 ---@alias ManagedButtonProps {name: string; anchor_id?: string; render_order?: number; hide?: boolean}
 
@@ -7,7 +7,9 @@ local ManagedButton = class(Button)
 
 ---@param id string
 ---@param props ManagedButtonProps
-function ManagedButton:new(id, props) return Class.new(self, id, props) --[[@as ManagedButton]] end
+function ManagedButton:new(id, props)
+	return Class.new(self, id, props) --[[@as ManagedButton]]
+end
 ---@param id string
 ---@param props ManagedButtonProps
 function ManagedButton:init(id, props)
@@ -17,14 +19,24 @@ function ManagedButton:init(id, props)
 	self.hide = nil
 	---@type fun(hide: boolean) | nil
 	self.on_hide = nil
-	Button.init(self, id, table_assign({}, props, {on_click = function() execute_command(self.command) end}))
+	Button.init(
+		self,
+		id,
+		table_assign({}, props, {
+			on_click = function()
+				execute_command(self.command)
+			end,
+		})
+	)
 	self:update(buttons:get(props.name))
-	self:register_disposer(buttons:subscribe(props.name, function(data) self:update(data) end))
+	self:register_disposer(buttons:subscribe(props.name, function(data)
+		self:update(data)
+	end))
 end
 
 function ManagedButton:update(data)
 	local hide_before = self.hide
-	for _, prop in ipairs({'icon', 'active', 'badge', 'command', 'tooltip', 'hide'}) do
+	for _, prop in ipairs({ "icon", "active", "badge", "command", "tooltip", "hide" }) do
 		self[prop] = data[prop]
 	end
 	self.is_clickable = self.command ~= nil

@@ -1,6 +1,7 @@
 # NixOS Configuration
 
-This repository contains my personal NixOS configuration for a modern Wayland desktop environment.
+This repository contains my personal NixOS configuration for a modern Wayland
+desktop environment.
 
 ## Overview
 
@@ -21,7 +22,7 @@ My system is configured with:
 To install these configurations:
 
 1. Clone this repository to `~/nix`
-2. Run the installation script: `./install.sh`
+1. Run the installation script: `./install.sh`
 
 ______________________________________________________________________
 

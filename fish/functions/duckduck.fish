@@ -23,7 +23,7 @@ function duckduck
         case tr ек
             set url "https://translate.google.com/?hl=en"
         case an фт
-            set url "https://annas-archive.org/"
+            set url "https://annas-archive.li/"
         case im шь
             set url "https://gelbooru.com/index.php?page=post&s=list&tags=all"
         case re ку

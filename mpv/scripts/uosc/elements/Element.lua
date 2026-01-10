@@ -30,14 +30,20 @@ function Element:init(id, props)
 	---@type table<string,table<string, boolean>> Namespaced active key bindings. Default namespace is `_`.
 	self._key_bindings = {}
 
-	if props then table_assign(self, props) end
+	if props then
+		table_assign(self, props)
+	end
 
 	-- Flash timer
 	self._flash_out_timer = mp.add_timeout(options.flash_duration / 1000, function()
-		local function getTo() return self.proximity end
-		local function onTweenEnd() self.forced_visibility = nil end
+		local function getTo()
+			return self.proximity
+		end
+		local function onTweenEnd()
+			self.forced_visibility = nil
+		end
 		if self.enabled then
-			self:tween_property('forced_visibility', self:get_visibility(), getTo, onTweenEnd)
+			self:tween_property("forced_visibility", self:get_visibility(), getTo, onTweenEnd)
 		else
 			onTweenEnd()
 		end
@@ -56,10 +62,14 @@ end
 
 -- Calls all disposers registered for this element (usually mpv events/prop observers).
 function Element:dispose()
-	for _, disposer in ipairs(self._disposers) do disposer() end
+	for _, disposer in ipairs(self._disposers) do
+		disposer()
+	end
 end
 
-function Element:reset_proximity() self.proximity, self.proximity_raw = 0, math.huge end
+function Element:reset_proximity()
+	self.proximity, self.proximity_raw = 0, math.huge
+end
 
 ---@param ax number
 ---@param ay number
@@ -68,7 +78,7 @@ function Element:reset_proximity() self.proximity, self.proximity_raw = 0, math.
 function Element:set_coordinates(ax, ay, bx, by)
 	self.ax, self.ay, self.bx, self.by = ax, ay, bx, by
 	Elements:update_proximities()
-	self:maybe('on_coordinates')
+	self:maybe("on_coordinates")
 end
 
 function Element:update_proximity()
@@ -82,32 +92,36 @@ function Element:update_proximity()
 end
 
 function Element:is_persistent()
-	local persist = config[self.id .. '_persistency']
-	return persist and (
-		(persist.audio and state.is_audio)
-		or (
-			persist.paused and state.pause
-			and (not Elements.timeline or not Elements.timeline.pressed or Elements.timeline.pressed.pause)
+	local persist = config[self.id .. "_persistency"]
+	return persist
+		and (
+			(persist.audio and state.is_audio)
+			or (persist.paused and state.pause and (not Elements.timeline or not Elements.timeline.pressed or Elements.timeline.pressed.pause))
+			or (persist.video and state.is_video)
+			or (persist.image and state.is_image)
+			or (persist.idle and state.is_idle)
+			or (persist.windowed and not state.fullormaxed)
+			or (persist.fullscreen and state.fullormaxed)
 		)
-		or (persist.video and state.is_video)
-		or (persist.image and state.is_image)
-		or (persist.idle and state.is_idle)
-		or (persist.windowed and not state.fullormaxed)
-		or (persist.fullscreen and state.fullormaxed)
-	)
 end
 
 -- Decide elements visibility based on proximity and various other factors
 function Element:get_visibility()
 	-- Hide when curtain is visible, unless this elements ignores it
 	local min_order = (Elements.curtain.opacity > 0 and not self.ignores_curtain) and Elements.curtain.render_order or 0
-	if self.render_order < min_order then return 0 end
+	if self.render_order < min_order then
+		return 0
+	end
 
 	-- Persistency
-	if self:is_persistent() then return 1 end
+	if self:is_persistent() then
+		return 1
+	end
 
 	-- Forced visibility
-	if self.forced_visibility then return math.max(self.forced_visibility, self.min_visibility) end
+	if self.forced_visibility then
+		return math.max(self.forced_visibility, self.min_visibility)
+	end
 
 	-- Anchor inheritance
 	-- If anchor returns -1, it means all attached elements should force hide.
@@ -119,7 +133,9 @@ end
 
 -- Call method if it exists
 function Element:maybe(name, ...)
-	if self[name] then return self[name](self, ...) end
+	if self[name] then
+		return self[name](self, ...)
+	end
 end
 
 -- Attach a tweening animation to this element
@@ -130,17 +146,21 @@ end
 ---@param callback? fun() Called either on animation end, or when animation is killed.
 function Element:tween(from, to, setter, duration_or_callback, callback)
 	self:tween_stop()
-	self._kill_tween = self.enabled and tween(
-		from, to, setter, duration_or_callback,
-		function()
+	self._kill_tween = self.enabled
+		and tween(from, to, setter, duration_or_callback, function()
 			self._kill_tween = nil
-			if callback then callback() end
-		end
-	)
+			if callback then
+				callback()
+			end
+		end)
 end
 
-function Element:is_tweening() return self and self._kill_tween end
-function Element:tween_stop() self:maybe('_kill_tween') end
+function Element:is_tweening()
+	return self and self._kill_tween
+end
+function Element:tween_stop()
+	self:maybe("_kill_tween")
+end
 
 -- Animate an element property between 2 values.
 ---@param prop string
@@ -149,12 +169,14 @@ function Element:tween_stop() self:maybe('_kill_tween') end
 ---@param duration_or_callback? number|fun() Duration in milliseconds or a callback function.
 ---@param callback? fun() Called either on animation end, or when animation is killed.
 function Element:tween_property(prop, from, to, duration_or_callback, callback)
-	self:tween(from, to, function(value) self[prop] = value end, duration_or_callback, callback)
+	self:tween(from, to, function(value)
+		self[prop] = value
+	end, duration_or_callback, callback)
 end
 
 ---@param name string
 function Element:trigger(name, ...)
-	local result = self:maybe('on_' .. name, ...)
+	local result = self:maybe("on_" .. name, ...)
 	request_render()
 	return result
 end
@@ -185,7 +207,9 @@ end
 ---@param callback fun()
 function Element:register_mp_event(event, callback)
 	mp.register_event(event, callback)
-	self:register_disposer(function() mp.unregister_event(callback) end)
+	self:register_disposer(function()
+		mp.unregister_event(callback)
+	end)
 end
 
 -- Automatically registers disposer for the observer.
@@ -193,10 +217,12 @@ end
 ---@param type_or_callback string|fun(name: string, value: any)
 ---@param callback_maybe nil|fun(name: string, value: any)
 function Element:observe_mp_property(name, type_or_callback, callback_maybe)
-	local callback = type(type_or_callback) == 'function' and type_or_callback or callback_maybe
-	local prop_type = type(type_or_callback) == 'string' and type_or_callback or 'native'
+	local callback = type(type_or_callback) == "function" and type_or_callback or callback_maybe
+	local prop_type = type(type_or_callback) == "string" and type_or_callback or "native"
 	mp.observe_property(name, prop_type, callback)
-	self:register_disposer(function() mp.unobserve_property(callback) end)
+	self:register_disposer(function()
+		mp.unobserve_property(callback)
+	end)
 end
 
 -- Adds a keybinding for the lifetime of the element, or until removed manually.
@@ -204,18 +230,18 @@ end
 ---@param fnFlags fun()|string|table<fun()|string> Callback, or `{callback, flags}` tuple. Callback can be just a method name, in which case it'll be wrapped in `create_action(callback)`.
 ---@param namespace? string Keybinding namespace. Default is `_`.
 function Element:add_key_binding(key, fnFlags, namespace)
-	local name = self.id .. '-' .. key
-	local isTuple = type(fnFlags) == 'table'
+	local name = self.id .. "-" .. key
+	local isTuple = type(fnFlags) == "table"
 	local fn = (isTuple and fnFlags[1] or fnFlags)
 	local flags = isTuple and fnFlags[2] or nil
-	namespace = namespace or '_'
+	namespace = namespace or "_"
 	local names = self._key_bindings[namespace]
 	if not names then
 		names = {}
 		self._key_bindings[namespace] = names
 	end
 	names[name] = true
-	if type(fn) == 'string' then
+	if type(fn) == "string" then
 		fn = self:create_action(fn)
 	end
 	mp.add_forced_key_binding(key, name, fn, flags)
@@ -224,7 +250,7 @@ end
 -- Remove all or only keybindings belonging to a specific namespace.
 ---@param namespace? string Optional keybinding namespace to remove.
 function Element:remove_key_bindings(namespace)
-	local namespaces = namespace and {namespace} or table_keys(self._key_bindings)
+	local namespaces = namespace and { namespace } or table_keys(self._key_bindings)
 	for _, namespace in ipairs(namespaces) do
 		local names = self._key_bindings[namespace]
 		if names then
@@ -248,17 +274,23 @@ end
 
 -- Check if element is not destroyed or otherwise disabled.
 -- Intended to be overridden by inheriting elements to add more checks.
-function Element:is_alive() return not self.destroyed end
+function Element:is_alive()
+	return not self.destroyed
+end
 
 -- Wraps a function into a callback that won't run if element is destroyed or otherwise disabled.
 ---@param fn fun(...)|string Function or a name of a method on this class to call.
 function Element:create_action(fn)
-	if type(fn) == 'string' then
+	if type(fn) == "string" then
 		local method = fn
-		fn = function(...) self[method](self, ...) end
+		fn = function(...)
+			self[method](self, ...)
+		end
 	end
 	return function(...)
-		if self:is_alive() then fn(...) end
+		if self:is_alive() then
+			fn(...)
+		end
 	end
 end
 

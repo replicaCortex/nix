@@ -13,32 +13,29 @@
     # };
   };
 
-  outputs =
-    {
-      self,
-      nixpkgs,
-      zen-browser,
-      # nix-search,
-      ...
-    }@inputs:
-    let
-      zen-overlay = final: prev: {
-        zen-browser = inputs.zen-browser.packages.${prev.system};
-      };
-    in
-    {
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-
-        modules = [
-          {
-            nixpkgs.overlays = [
-              zen-overlay
-              # nix-search
-            ];
-          }
-          ./configuration/configuration.nix
-        ];
-      };
+  outputs = {
+    self,
+    nixpkgs,
+    zen-browser,
+    # nix-search,
+    ...
+  } @ inputs: let
+    zen-overlay = final: prev: {
+      zen-browser = inputs.zen-browser.packages.${prev.system};
     };
+  in {
+    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+
+      modules = [
+        {
+          nixpkgs.overlays = [
+            zen-overlay
+            # nix-search
+          ];
+        }
+        ./configuration/configuration.nix
+      ];
+    };
+  };
 }

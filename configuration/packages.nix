@@ -1,6 +1,6 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   cli = with pkgs; [
+    # xwayland-satellite
     any-nix-shell
     bat
     broot
@@ -16,6 +16,7 @@ let
     git
     imagemagick
     jq
+    just
     lsd
     neovim
     nh
@@ -30,7 +31,6 @@ let
     wl-clipboard
     wtype
     xcp
-    xwayland-satellite
     yt-dlp
     zk
   ];
@@ -55,11 +55,6 @@ let
     zathura
   ];
 
-  virtual = with pkgs; [
-    wineWowPackages.wayland
-    qemu
-  ];
-
   fmt = with pkgs; [
     (pkgs.python312.withPackages (ps: [
       ps.mdformat
@@ -79,6 +74,7 @@ let
     bash-language-server
     fish-lsp
     inotify-tools
+    just-lsp
     lua-language-server
     nil
     sqls
@@ -93,8 +89,7 @@ let
     unzip
     zstd
   ];
-in
-{
+in {
   nixpkgs.config.allowUnfree = true;
 
   environment = {
