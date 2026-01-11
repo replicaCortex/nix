@@ -22,11 +22,15 @@ install_config:
     rm -rf ~/.config/vimiv
     rm -rf ~/.config/waybar
     rm -rf ~/.config/zathura
+    rm -rf ~/.config/xdg-desktop-portal-termfilechooser
+    rm -rf ~/.config/xdg-desktop-portal
     rm ~/.inputrc
     rm ~/.zen/**Default*/chrome/userChrome.css
 
     ln -s ~/nix/.inputrc ~/
     ln -s ~/nix/dunst ~/.config/
+    ln -s ~/nix/xdg-desktop-portal-termfilechooser/ ~/.config/
+    ln -s ~/nix/xdg-desktop-portal/ ~/.config/
     ln -s ~/nix/fish ~/.config/
     ln -s ~/nix/foot ~/.config/
     ln -s ~/nix/lsd ~/.config/

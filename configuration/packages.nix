@@ -8,7 +8,7 @@
     ddgr
     delta
     direnv
-    dragon-drop
+    # dragon-drop
     fd
     file
     fzf
@@ -37,6 +37,7 @@
 
   other = with pkgs; [
     # aseprite
+    xdg-desktop-portal-termfilechooser
     # xwayland-satellite
     # blender
     cliphist
