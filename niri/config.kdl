@@ -15,7 +15,7 @@ input {
   touchpad {
     tap
     dwt
-    // drag false
+    drag false
     drag-lock
     accel-profile "adaptive"
     scroll-method "two-finger"

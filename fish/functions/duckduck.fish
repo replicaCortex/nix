@@ -60,7 +60,7 @@ function duckduck
             set url "https://mangadex.org/titles/follows"
 
         case '*'
-            set -l selected (ddgr --json --noprompt $input_text | \
+            set -l selected (ddgr -n 25 --noua --json --noprompt $input_text | \
                              jq -r '.[] | "\(.title) \t \(.url)"' | \
                              fzf --delimiter \t --with-nth 1 --reverse --layout=reverse --header "Searching for: $input_text")
 

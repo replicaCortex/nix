@@ -82,3 +82,4 @@ end
 
 alias timr "~/work/timer/target/release/timer -s '󰀠  Alarm!' -b 'Timeout' -d"
 alias alrm "~/work/timer/target/release/timer -m alarm -s '󰀠  Alarm!' -b 'Timeout' -d"
+abbr tg "QT_QPA_PLATFORMTHEME=xdgdesktopportal Telegram"
