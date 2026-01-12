@@ -65,6 +65,10 @@ function zathura
     command niri msg action spawn -- zathura "$PWD/$argv"
 end
 
+# function mpv
+#     niri msg action spawn-sh -- "mpv $PWD/$argv"
+# end
+
 function vi
     nohup vimiv * --command 'enter thumbnail' >/dev/null 2>&1 &
 end

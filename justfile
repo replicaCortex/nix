@@ -19,6 +19,7 @@ install_config:
     rm -rf ~/.config/mpv
     rm -rf ~/.config/niri
     rm -rf ~/.config/nvim
+    rm -rf ~/.config/broot
     rm -rf ~/.config/vimiv
     rm -rf ~/.config/waybar
     rm -rf ~/.config/zathura
@@ -35,6 +36,7 @@ install_config:
     ln -s ~/nix/foot ~/.config/
     ln -s ~/nix/lsd ~/.config/
     ln -s ~/nix/mpv ~/.config/
+    ln -s ~/nix/broot/ ~/.config/
     ln -s ~/nix/niri ~/.config/
     ln -s ~/nix/nvim ~/.config/
     ln -s ~/nix/vimiv ~/.config/
