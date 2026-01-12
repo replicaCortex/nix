@@ -15,7 +15,7 @@ input {
   touchpad {
     tap
     dwt
-    drag false
+    // drag false
     drag-lock
     accel-profile "adaptive"
     scroll-method "two-finger"
@@ -169,7 +169,8 @@ binds {
   Mod+Shift+Return     { spawn-sh "footclient --working-directory $(~/nix/scripts/cwd.sh)"; }
   Mod+Shift+Ctrl+Return     { spawn "foot"; }
   // Mod+F          { spawn-sh "footclient --app-id=float -e ~/.cargo/bin/browser_shedule"; }
-  Mod+F          { spawn-sh "footclient --app-id=float -e fish -c 'source ~/nix/fish/functions/duckduck.fish; duckduck'"; }
+  Mod+Shift+F          { spawn-sh "footclient --app-id=float -e fish -c 'source ~/nix/fish/functions/duckduck.fish; duckduck'"; }
+  Mod+F          { spawn-sh "footclient --app-id=float -e fish -c 'br'"; }
   Mod+B          { spawn-sh "footclient --app-id=float -e fish -c 'source ~/nix/fish/functions/browser_history.fish; browser_history'"; }
   Mod+Y { spawn-sh "footclient --app-id=float -e fish -c 'set -x FZF_DEFAULT_OPTS \"--layout=reverse\"; cliphist-fzf-sixel'"; }
   Mod+P          { screenshot; }

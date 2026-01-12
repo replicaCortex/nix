@@ -66,4 +66,60 @@ return {
       "}                              ",
     }
   ),
+  s(
+    "rust-zig",
+    fmt(
+      [[
+{{
+  pkgs ? import <nixpkgs> {{
+    overlays = [
+      (import (fetchTarball "https://github.com/oxalica/rust-overlay/archive/master.tar.gz"))
+    ];
+  }},
+}}:
+
+let
+  rustWithTargets = pkgs.rust-bin.stable.latest.default.override {{
+    extensions = [
+      "rust-src"
+      "rust-analyzer"
+      "rustfmt"
+      "clippy"
+    ];
+    targets = [
+      # "x86_64-pc-windows-gnu"
+      # "x86_64-unknown-linux-musl"
+    ];
+  }};
+
+  zigpkgs = with pkgs; [
+    zig
+    cargo-zigbuild
+  ];
+
+  other = with pkgs; [
+    pkg-config
+    just
+
+    {}
+  ];
+in
+pkgs.mkShell {{
+  nativeBuildInputs = [
+    rustWithTargets
+    zigpkgs
+    other
+  ];
+
+  shellHook = ''
+    {}
+  '';
+}}
+]],
+      {
+        i(1, ""),
+        i(2, ""),
+      }
+    )
+  ),
 }

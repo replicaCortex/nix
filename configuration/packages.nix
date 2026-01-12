@@ -50,7 +50,7 @@
 
   media = with pkgs; [
     chafa
-    ffmpeg-full
+    ffmpeg
     mpv
     vimiv-qt
     zathura
