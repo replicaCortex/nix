@@ -12,7 +12,7 @@ verbs: [
         invocation: copy_file
         leave_broot: true
         from_shell: true
-        execution: "cat {file} | wl-copy"
+        execution: "wl-copy < {file}"
     }
 
     {
