@@ -8,7 +8,7 @@ require("conform").setup {
     c = { "clang-format " },
     make = { "bake" },
     quarto = { "injected" },
-    markdown = { "mdformat" },
+    -- markdown = { "mdformat" },
     json = { "fixjson" },
     jsonc = { "fixjson" },
     sql = { "sleek" },
