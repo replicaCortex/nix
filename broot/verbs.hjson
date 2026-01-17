@@ -75,8 +75,8 @@ verbs: [
     {
         invocation: terminal
         key: enter
-        execution: "$SHELL"
-        set_working_dir: true
+        execution: "cd {file}"
+        from_shell: true
         leave_broot: true
     }
 

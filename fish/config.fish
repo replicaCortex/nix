@@ -11,8 +11,4 @@ end
 
 sfrc
 
-# krita)))
-set -x DISPLAY :0
-
 # direnv hook fish | source
-any-nix-shell fish --info-right | source

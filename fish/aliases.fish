@@ -6,7 +6,7 @@ abbr -a l 'lsd -al'
 alias cat 'bat --theme-dark gruvbox-dark'
 abbr -a mv 'mv -v'
 abbr -a cp xcp
-abbr -a rm "echo Use 'rip' instead of rm" # Безопасное удаление
+abbr -a rm "rm -v" 
 alias wget "curl -L -O"
 
 ### --- [ НАВИГАЦИЯ И ПОИСК ] ---
@@ -44,45 +44,8 @@ abbr -a gp 'git push'
 abbr -a gl 'git log'
 abbr -a gsw 'git switch'
 
-### --- [ РАЗРАБОТКА: NIX & EDITORS ] ---
-
 abbr -a nv nvim
-abbr -a nvi 'nvim ~/note/index.md'
-abbr -a ns nix-shell
-abbr -a nr "nix run"
-abbr -a nd "nix develop ./"
+abbr -a world 'sudo nvim /var/lib/portage/world'
+abbr -a pmake 'sudo nvim /etc/portage/make.conf'
 
-### --- [ СИСТЕМА И ЖЕЛЕЗО ] ---
-
-abbr -a bstop "sudo systemctl stop bluetooth.service"
-alias na "bluetoothctl connect E4:61:F4:31:88:26"
-abbr -a weather "curl v2d.wttr.in/47.42,40.09"
-abbr -a tt taskwarrior-tui
-
-### --- [ МУЛЬТИМЕДИА И ДОКУМЕНТЫ ] ---
-
-function zathura
-    command niri msg action spawn -- zathura "$PWD/$argv"
-end
-
-# function mpv
-#     niri msg action spawn-sh -- "mpv $PWD/$argv"
-# end
-
-function vi
-    nohup vimiv * --command 'enter thumbnail' >/dev/null 2>&1 &
-end
-
-function d
-    pushd .
-    cd ~/note/journal && zk dd "$argv" && popd
-end
-
-function pdf2text
-    nix-shell -p poppler-utils --run "pdftotext \"$argv[1]\" \"$argv[2]\""
-end
-
-### --- [ СКРИПТЫ ] ---
-
-alias timr "~/work/timer/target/release/timer -s '󰀠  Alarm!' -b 'Timeout' -d"
-alias alrm "~/work/timer/target/release/timer -m alarm -s '󰀠  Alarm!' -b 'Timeout' -d"
+abbr -a em 'sudo emerge --ask'

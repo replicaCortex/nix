@@ -1,7 +1,7 @@
 # Gruvbox color scheme for Hydro prompt
 
 # Set Hydro color variables to use gruvbox colors (as string values for Hydro's color functions)
-set -g hydro_color_pwd "#458588" # gruvbox green - directory name color
+set -g hydro_color_pwd "#D3869B" # gruvbox green - directory name color
 set -g hydro_color_git "#98971a" # gruvbox blue - git info color
 set -g hydro_color_error "#cc241d" # gruvbox red - error color
 set -g hydro_color_prompt "#d79921" # gruvbox yellow - prompt symbol color
