@@ -7,13 +7,13 @@ function fish_mode_prompt
                 set vi_mode_color (set_color --background=blue black)
                 set vi_mode_symbol N
             case insert
-                set vi_mode_color (set_color --background=magenta black)
+                set vi_mode_color (set_color --background=cyan black)
                 set vi_mode_symbol I
             case replace replace_one
                 set vi_mode_color (set_color --background=yellow black)
                 set vi_mode_symbol R
             case visual
-                set vi_mode_color (set_color --background=brblue black)
+                set vi_mode_color (set_color --background=brcyan black)
                 set vi_mode_symbol V
         end
         echo -e "$vi_mode_color $vi_mode_symbol \x1b[0m "

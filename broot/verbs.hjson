@@ -5,7 +5,7 @@ verbs: [
         apply_to: file
         from_shell: true
         leave_broot: true
-        execution: "cd '{git-root}' && direnv exec . nvim '{file}'"
+        execution: "cd '{git-root}' && nvim '{file}'"
     }
 
     {

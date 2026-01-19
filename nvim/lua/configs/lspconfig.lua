@@ -1,19 +1,13 @@
 local servers = {
   "ty",
   "bashls",
-  "texlab",
   "clangd",
   "lua_ls",
-  "yamlls",
   "neocmake",
-  "nil_ls",
   "rust_analyzer",
-  "sqls",
   "taplo",
-  "tinymist",
   "fish_lsp",
   "just",
-  "nushell",
 }
 
 if vim.lsp.inlay_hint then

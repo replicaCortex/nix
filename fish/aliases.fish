@@ -6,7 +6,7 @@ abbr -a l 'lsd -al'
 alias cat 'bat --theme-dark gruvbox-dark'
 abbr -a mv 'mv -v'
 abbr -a cp xcp
-abbr -a rm "rm -v" 
+abbr -a rm "echo Use 'rip' instead of rm" 
 alias wget "curl -L -O"
 
 ### --- [ НАВИГАЦИЯ И ПОИСК ] ---
