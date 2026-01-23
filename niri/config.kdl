@@ -173,6 +173,7 @@ binds {
   Mod+Shift+F { spawn-sh "footclient --app-id=float -e fish ~/nix/scripts/broot_picker_fast.fish"; }
   Mod+B          { spawn-sh "footclient --app-id=float -e fish -c 'source ~/nix/fish/functions/browser_history.fish; browser_history'"; }
   Mod+Y { spawn-sh "footclient --app-id=float -e fish -c 'set -x FZF_DEFAULT_OPTS \"--layout=reverse\"; cliphist-fzf-sixel'"; }
+  Mod+V { spawn-sh "footclient -e fish -c 'btop'"; }
   Mod+T          { spawn-sh "Telegram"; }
   Mod+P          { screenshot; }
   Mod+Shift+P          { screenshot-window; }

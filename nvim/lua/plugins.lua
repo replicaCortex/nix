@@ -19,8 +19,8 @@ return {
   {
     "neovim/nvim-lspconfig",
 
-    dependencies = { "nvim-treesitter/nvim-treesitter", "m4xshen/hardtime.nvim", "lewis6991/gitsigns.nvim" },
-    ft = { "python", "markdown", "rust", "tex", "lua", "typst", "nix", "sh", "fish", "just", "nu" },
+    dependencies = { "nvim-treesitter/nvim-treesitter", "lewis6991/gitsigns.nvim" },
+    ft = { "python", "markdown", "rust", "lua", "nix", "sh", "fish", "just", "toml" },
     config = function()
       require "configs.lspconfig"
     end,
@@ -137,48 +137,4 @@ return {
       require "configs.zk"
     end,
   },
-
-  -- {
-  --   "m4xshen/hardtime.nvim",
-  --   lazy = true,
-  --   dependencies = { "MunifTanjim/nui.nvim" },
-  --   config = function()
-  --     require("hardtime").setup()
-  --   end,
-  -- },
-
-  -- {
-  --   "nvim-mini/mini.cmdline",
-  --   event = { "CmdLineEnter" },
-  --
-  --   config = function()
-  --     require("mini.cmdline").setup {
-  --       autocomplete = {
-  --         enable = false,
-  --       },
-  --       autocorrect = {
-  --         enable = false,
-  --       },
-  --     }
-  --   end,
-  -- },
-
-  -- {
-  --   "saxon1964/neovim-tips",
-  --   version = "*",
-  --   lazy = true,
-  --   dependencies = {
-  --     "MunifTanjim/nui.nvim",
-  --   },
-  --   opts = {
-  --     daily_tip = 0, -- 0 = off, 1 = once per day, 2 = every startup
-  --   },
-  --   keys = {
-  --     { "<leader>nto", ":NeovimTips<CR>", desc = "Neovim tips" },
-  --     { "<leader>ntr", ":NeovimTipsRandom<CR>", desc = "Show random tip" },
-  --     { "<leader>nte", ":NeovimTipsEdit<CR>", desc = "Edit your tips" },
-  --     { "<leader>nta", ":NeovimTipsAdd<CR>", desc = "Add your tip" },
-  --     { "<leader>ntp", ":NeovimTipsPdf<CR>", desc = "Open tips PDF" },
-  --   },
-  -- },
 }

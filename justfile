@@ -1,5 +1,5 @@
 # nix switch done
-nrs: ni
+run: ni
     nh os switch --ask /home/replica/nix/ && dunstify "  NixOS" "Nix switch done 󰄬" || dunstify -u critical -h string:fgcolor:#f38ba8 "  NixOS" "Home switch failed ❌" -t 4000
 
 # nix-instantiate
@@ -45,14 +45,7 @@ install_config:
     ln -s ~/nix/zen/userChrome.css ~/.zen/**Default*/chrome/
 
 # fast up commit
-fup: fmt
+fup:
     git add .
     git commit -m "up"
     git push
-
-fmt:
-    @alejandra . > /dev/null
-    @stylua . > /dev/null
-    @mdformat --wrap 80 . > /dev/null
-    @fixjson *.json > /dev/null 2>&1 || true
-    @fish-lsp . > /dev/null

@@ -32,13 +32,23 @@ verbs: [
     }
 
     {
-        invocation: open_img
+        invocation: open_video
         key: enter
-        extensions: ["png", "jpg", "jpeg"]
+        extensions: ["mkv", "mp4", "avi", "webm", "mp3"]
         from_shell: true
-        execution: "nohup vimiv {file} >/dev/null 2>&1 &" 
+        execution: "niri msg action spawn-sh -- 'mpv {file}'"
         leave_broot: true
     }
+
+    {
+        invocation: open_bee
+        key: enter
+        extensions: ["bee"]
+        from_shell: true
+        execution: "niri msg action spawn-sh -- 'beeref {file}'" 
+        leave_broot: true
+    }
+
     {
         invocation: open_video
         key: enter
