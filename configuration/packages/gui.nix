@@ -2,7 +2,6 @@
 {
   imports = [
     ./gui/media_editors.nix
-    ./gui/gesture-drawing.nix
   ];
 
   environment = {
@@ -12,6 +11,7 @@
       telegram-desktop
       xdg-desktop-portal-termfilechooser
       xwayland-satellite
+      (pkgs.callPackage ./gui/gesture-drawing/default.nix { })
     ];
   };
 }

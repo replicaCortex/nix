@@ -1,0 +1,8 @@
+NIRI := "niri msg action spawn-sh"
+PATH := "~/work/krita/pygui"
+
+s:
+    steam-run uv run {{ PATH }}/main.py -t 30 -c 20 -d 3 -s
+
+m:
+    {{ NIRI }} -- 'steam-run uv run main.py -t 60 -c 10 -d 3 -s'
