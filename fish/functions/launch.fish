@@ -1,5 +1,14 @@
-function duckduck
+function niri_spawn $argv
+    niri msg action spawn -- $argv
+end
+
+function niri_spawn_sh
+    niri msg action spawn-sh -- $argv
+end
+
+function launch
     set -l input_text $argv
+    set -l path_to_justfile_poses $HOME/work/krita/poses/justfile
 
     if test -z "$input_text"
         read -P (set_color green)"Search: "(set_color normal) -l user_input
@@ -22,9 +31,11 @@ function duckduck
             set url "https://search.nixos.org/packages?channel=unstable"
         case tr ек
             set url "https://translate.google.com/?hl=en"
+        case ytr нек
+            set url "https://translate.yandex.com/?source_lang=en&target_lang=ru&text="
         case an фт
             set url "https://annas-archive.li/"
-        case im шь
+        case img шьп
             set url "https://gelbooru.com/index.php?page=post&s=list&tags=all"
         case re ку
             set url "https://old.reddit.com/"
@@ -58,6 +69,31 @@ function duckduck
             set url "https://vk.com/im"
         case manga ьфтпф
             set url "https://mangadex.org/titles/follows"
+        case qp йз
+            set url "https://posemy.art/quick-poses/"
+        case al фд
+            set url "https://alice.yandex.ru/"
+        case ar фк
+            set url "https://arena.ai/?mode=direct"
+        case krita лкшеф
+            niri_spawn krita
+        case pkrita злкшеф
+            set -l file $(mktemp)
+            wl-paste >$file
+            niri_spawn krita $file
+        case beeref иуукуа
+            niri_spawn beeref
+        case pp
+            niri_spawn_sh "just -f $path_to_justfile_poses p"
+        case sp
+            sleep 2
+            niri_spawn_sh "just -f $path_to_justfile_poses s"
+        case mp
+            sleep 2
+            niri_spawn_sh "just -f $path_to_justfile_poses m"
+        case lp
+            sleep 2
+            niri_spawn_sh "just -f $path_to_justfile_poses l"
 
         case '*'
             set -l selected (ddgr -n 25 --noua --json --noprompt $input_text | \
@@ -72,6 +108,6 @@ function duckduck
     end
 
     if test -n "$url"
-        xdg-open "$url"
+        niri_spawn_sh "zen \"$url\""
     end
 end

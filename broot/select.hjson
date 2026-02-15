@@ -33,4 +33,10 @@ verbs: [
         execution: ":print_path"
         apply_to: "directory"
     }
+    {
+        invocation: "krita"
+        execution: "niri msg action spawn-sh -- \"krita {file}\""
+        leave_broot: true
+        from_shell: true
+    }
 ]

@@ -129,6 +129,12 @@ verbs: [
         from_shell: true
     }
     {
+        invocation: "krita"
+        execution: "niri msg action spawn-sh -- \"krita {file}\""
+        leave_broot: true
+        from_shell: true
+    }
+    {
         invocation: "copy_here"
         execution: "xcp {file} ."
         leave_broot: true

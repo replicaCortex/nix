@@ -5,7 +5,7 @@ function browser_history
 
     cp "$db_path" "$tmp_db"
 
-    set -l query "SELECT title || ' ||| ' || url FROM moz_places WHERE title != '' ORDER BY last_visit_date DESC LIMIT 2000;"
+    set -l query "SELECT title || ' ||| ' || url FROM moz_places WHERE title != '' ORDER BY last_visit_date DESC LIMIT 20000;"
 
     set -l selected (sqlite3 "$tmp_db" "$query" | fzf --reverse --query="$argv")
 
@@ -13,7 +13,7 @@ function browser_history
         set -l parts (string split " ||| " $selected)
         set -l url $parts[-1]
 
-        xdg-open "$url"
+        niri msg action spawn-sh -- "zen \"$url\""
     end
 
     rm "$tmp_db"

@@ -23,27 +23,6 @@ input {
   }
 }
 
-environment {
-  CLUTTER_BACKEND "wayland"
-  ELECTRON_OZONE_PLATFORM_HINT "auto"
-  GDK_BACKEND "wayland,x11,*"
-  QT_QPA_PLATFORMTHEME "xdgdesktopportal"
-  GDK_DPI_SCALE "1"
-  GDK_SCALE "1"
-  GTK_USE_PORTAL "1"
-  GSK_RENDERER "ngl"
-  QT_AUTO_SCREEN_SCALE_FACTOR "1"
-  QT_QPA_PLATFORM "wayland;xcb"
-  // QT_QPA_PLATFORMTHEME "gtk3"
-  QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
-  SDL_VIDEODRIVER "wayland"
-  WLR_NO_HARDWARE_CURSORS "1"
-  // Force vaapi backend to prevent using the dGPU
-  QT_FFMPEG_DECODING_HW_DEVICE_TYPES "vaapi"
-  QT_FFMPEG_ENCODING_HW_DEVICE_TYPES "vaapi"
-  QT_MEDIA_BACKEND "ffmpeg"
-}
-
 cursor {
   xcursor-size 12
   hide-when-typing
@@ -116,7 +95,6 @@ clipboard {
 
 // spawn-sh-at-startup "swaybg -i ~/nix/wallpapers/casete_wallpaper.jpg"
 spawn-at-startup "dunst"
-spawn-at-startup "Telegram"
 spawn-at-startup "waybar"
 spawn-sh-at-startup "foot --server"
 spawn-sh-at-startup "gammastep -O 3500"
@@ -124,6 +102,7 @@ spawn-sh-at-startup "rm ~/.python_history*"
 spawn-sh-at-startup "rm ~/ly-session.log"
 spawn-sh-at-startup "swww-daemon"
 spawn-sh-at-startup "wl-paste --watch cliphist store"
+spawn-sh-at-startup "batsignal -w 10 -f 80"
 
 hotkey-overlay {
   skip-at-startup
@@ -135,6 +114,20 @@ window-rule {
   match app-id="^gimp" title="^GIMP Startup$"
 
   open-focused false
+}
+
+window-rule {
+  match app-id="^feh"
+
+  open-focused false
+}
+
+window-rule {
+  match app-id="^krita"
+
+    focus-ring {
+    active-color "#d3869b";
+  }
 }
 
 window-rule {
@@ -169,11 +162,12 @@ binds {
   Mod+Return     { spawn "footclient"; }
   Mod+Shift+Return     { spawn-sh "footclient --working-directory $(~/nix/scripts/cwd.sh)"; }
   Mod+Shift+Ctrl+Return     { spawn "foot"; }
-  Mod+F          { spawn-sh "footclient --app-id=float -e fish -c 'source ~/nix/fish/functions/duckduck.fish; duckduck'"; }
+  Mod+F          { spawn-sh "footclient --app-id=float -e fish -c 'source ~/nix/fish/functions/launch.fish; launch'"; }
   Mod+Shift+F { spawn-sh "footclient --app-id=float -e fish ~/nix/scripts/broot_picker_fast.fish"; }
   Mod+B          { spawn-sh "footclient --app-id=float -e fish -c 'source ~/nix/fish/functions/browser_history.fish; browser_history'"; }
   Mod+Y { spawn-sh "footclient --app-id=float -e fish -c 'set -x FZF_DEFAULT_OPTS \"--layout=reverse\"; cliphist-fzf-sixel'"; }
   Mod+V { spawn-sh "footclient -e fish -c 'btop'"; }
+  Mod+N { spawn-sh "zen"; }
   Mod+T          { spawn-sh "Telegram"; }
   Mod+P          { screenshot; }
   Mod+Shift+P          { screenshot-window; }
@@ -254,137 +248,9 @@ binds {
   Mod+Space      { switch-focus-between-floating-and-tiling; }
   Mod+C          { toggle-column-tabbed-display; }
 
-  // Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
-
-  // Mod+TouchpadScrollUp   allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.02+"; }
-  // Mod+TouchpadScrollDown allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.02-"; }
-
   Mod+F4   allow-when-locked=true repeat=false { spawn-sh "brightnessctl  --class=backlight set 10%+"; }
   Mod+F5 allow-when-locked=true repeat=false { spawn-sh "brightnessctl  --class=backlight set 10%-"; }
-
-  // Alt+J { spawn "wtype" "-k" "down"; }
-  // Alt+K { spawn "wtype" "-k" "up"; }
-  //
-  // Alt+Ctrl+D { spawn "sh" "-c" "for i in {1..10}; do wtype -k down; done"; }
-  // Alt+Ctrl+U { spawn "sh" "-c" "for i in {1..10}; do wtype -k up; done"; }
-  //
-  // Alt+Ctrl+O { spawn "wtype" "-M" "Alt" "-k" "left" "&&" "wtype" "-m" "alt"; }
-  // Alt+Ctrl+I { spawn "wtype" "-M" "Alt" "-k" "right" "&&" "wtype" "-m" "alt"; }
-
 }
 
 
-// animations {
-//   window-close {
-//     duration-ms 250
-//     curve "linear"
-//
-//     custom-shader r"
-//     mat2 rotate(float angle) {
-//       return mat2(cos(angle), -sin(angle), sin(angle), cos(angle));
-//     }
-//
-//     vec4 close_color(vec3 coords_geo, vec3 size_geo) {
-//       float progress = 1.0 - pow(1.0 - niri_clamped_progress, 2.0);
-//
-//       vec2 coords = (coords_geo.xy - vec2(0.5, 1.0)) * size_geo.xy;
-//
-//       coords.x -= progress * 150.0;
-//
-//       float random = (niri_random_seed - 0.5) / 2.0;
-//       random = sign(random) - random;
-//       float max_angle = 0.05 * random;
-//
-//       float angle = progress * max_angle;
-//       coords = rotate(angle) * coords;
-//
-//       coords_geo = vec3(coords / size_geo.xy + vec2(0.5, 1.0), 1.0);
-//
-//       vec3 coords_tex = niri_geo_to_tex * coords_geo;
-//       vec4 color = texture2D(niri_tex, coords_tex.st);
-//
-//       return color * (1.0 - niri_clamped_progress);
-//     }
-//     "
-//   }
-//
-//   window-open {
-//     duration-ms 250
-//     curve "linear"
-//
-//     custom-shader r"
-//     vec4 open_color(vec3 coords_geo, vec3 size_geo) {
-//       float progress = 1.0 - pow(1.0 - niri_clamped_progress, 4.0);
-//
-//       float offset = (1.0 - progress) * 0.5; // 0.5 = 50%
-//
-//       vec2 coords = coords_geo.xy;
-//       coords.x += offset;
-//
-//       vec3 coords_tex = niri_geo_to_tex * vec3(coords, 1.0);
-//       if (coords_tex.x < 0.0 || coords_tex.x > 1.0 || coords_tex.y < 0.0 || coords_tex.y > 1.0) {
-//         return vec4(0.0);
-//       }
-//       vec4 color = texture2D(niri_tex, coords_tex.st);
-//
-//       return color * min(1.0, niri_clamped_progress * 2.0);
-//     }
-//     "
-//   }
-// }
 
-// animations {
-//   window-open {
-//     duration-ms 250
-//     curve "ease-out-cubic" 
-//
-//     custom-shader r"
-//     vec4 open_color(vec3 coords_geo, vec3 size_geo) {
-//       float progress = niri_clamped_progress;
-//
-//       float offset = (1.0 - progress) * 0.5;
-//
-//       vec2 coords = coords_geo.xy;
-//
-//       coords.y += offset;
-//
-//       vec3 coords_tex = niri_geo_to_tex * vec3(coords, 1.0);
-//
-//       if (coords_tex.x < 0.0 || coords_tex.x > 1.0 || coords_tex.y < 0.0 || coords_tex.y > 1.0) {
-//         return vec4(0.0);
-//       }
-//
-//       vec4 color = texture2D(niri_tex, coords_tex.st);
-//
-//       return color * progress;
-//     }
-//     "
-//   }
-//
-//   window-close {
-//     duration-ms 250
-//     curve "linear"
-//
-//     custom-shader r"
-//     vec4 close_color(vec3 coords_geo, vec3 size_geo) {
-//       float progress = niri_clamped_progress;
-//
-//       float offset = progress * 0.5;
-//
-//       vec2 coords = coords_geo.xy;
-//
-//       coords.y -= offset;
-//
-//       vec3 coords_tex = niri_geo_to_tex * vec3(coords, 1.0);
-//
-//       if (coords_tex.x < 0.0 || coords_tex.x > 1.0 || coords_tex.y < 0.0 || coords_tex.y > 1.0) {
-//         return vec4(0.0);
-//       }
-//
-//       vec4 color = texture2D(niri_tex, coords_tex.st);
-//
-//       return color * (1.0 - progress);
-//     }
-//     "
-//   }
-// }

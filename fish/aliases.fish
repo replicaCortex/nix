@@ -55,7 +55,7 @@ abbr -a nd "nix develop ./"
 ### --- [ СИСТЕМА И ЖЕЛЕЗО ] ---
 
 abbr -a bstop "sudo systemctl stop bluetooth.service"
-alias na "bluetoothctl connect E4:61:F4:31:88:26"
+abbr -a na "bluetoothctl connect E4:61:F4:31:88:26"
 abbr -a weather "curl v2d.wttr.in/47.42,40.09"
 abbr -a tt taskwarrior-tui
 
@@ -82,7 +82,41 @@ function pdf2text
     nix-shell -p poppler-utils --run "pdftotext \"$argv[1]\" \"$argv[2]\""
 end
 
+function docx2pdfp
+    pandoc "$argv[1]" -o "$argv[2]" --pdf-engine=typst --extract-media=./typst_media -V mainfont="DejaVu Sans" && rm -rf ./typst_media
+end
+
+function docx2pdf
+    pandoc "$argv[1]" -o "$argv[2]" --pdf-engine=typst --extract-media=./typst_media -V mainfont="DejaVu Sans" && rm -rf ./typst_media
+end
+
 ### --- [ СКРИПТЫ ] ---
 
-alias timr "~/work/timer/target/release/timer -s '󰀠  Alarm!' -b 'Timeout' -d"
-alias alrm "~/work/timer/target/release/timer -m alarm -s '󰀠  Alarm!' -b 'Timeout' -d"
+alias timr "timer -s '󰀠  Alarm!' -b 'Timeout' -d"
+alias alrm "timer -m alarm -s '󰀠  Alarm!' -b 'Timeout' -d"
+
+function open
+    set -l app $argv[1]
+    set -l file_path $argv[2]
+
+    function niri_open
+        niri msg action spawn-sh -- $argv
+    end
+
+    if not count $file_path
+        niri_open $app
+    else
+        niri_open "$app $PWD/$file_path"
+    end
+
+end
+
+function beeref
+    open beeref $argv
+end
+
+function krita
+    open krita $argv
+end
+
+abbr aria "aria2c -x 16 -s 16 -c -o"
