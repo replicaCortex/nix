@@ -4,7 +4,7 @@
   services.displayManager.ly.enable = true;
 
   environment.systemPackages = with pkgs; [
-    wayland
+    # wayland
     waybar
     brightnessctl
     dunst

@@ -1,31 +1,29 @@
 """
-Gesture Drawing Practice App (PyQt6)
+Gesture Drawing Practice App (PyQt6) - Gruvbox Theme
 Минималистичное приложение для практики рисования жестов
 
 CLI:
-    python main.py                     # Обычный запуск
-    python main.py -t 60               # 60 секунд на рисунок
-    python main.py -c 10               # 10 фото в сессии
-    python main.py -t 30 -c 20         # 30 сек, 20 фото
-    python main.py -t 120 -c 5 -d 5    # 2 мин, 5 фото, 5 сек подготовка
-    python main.py --start             # Автостарт с задержкой
+    python main.py                          # Обычный запуск
+    python main.py -p /path/to/images       # Путь к изображениям
+    python main.py -t 60                    # 60 секунд на рисунок
+    python main.py -t 45 -c 15              # 45 сек, 15 фото
+    python main.py -p ./refs -t 30 -s       # Путь, 30 сек, автостарт
+    python main.py -t 120 -c 5 -d 5 -s      # 2 мин, 5 фото, 5 сек подготовка
+    python main.py -p ./refs -m -s          # Минималистичный режим с автостартом
 """
 
 import argparse
 import array
-import json
 import math
-import os
 import random
 import sys
 from pathlib import Path
 
-from PyQt6.QtCore import QRect, Qt, QTimer
+from PyQt6.QtCore import Qt, QTimer
 from PyQt6.QtGui import QColor, QFont, QPainter, QPixmap
 from PyQt6.QtWidgets import (
     QApplication,
     QCheckBox,
-    QComboBox,
     QFileDialog,
     QHBoxLayout,
     QLabel,
@@ -46,65 +44,61 @@ try:
 except ImportError:
     SOUND_AVAILABLE = False
 
-CONFIG_FILE = Path(__file__).parent / "gesture_config.json"
+
+# =============================================================================
+# Настройки по умолчанию
+# =============================================================================
+DEFAULT_TIME = 30
+DEFAULT_DELAY = 3
+DEFAULT_SOUND = True
+DEFAULT_SHUFFLE = True
+
+SESSION_COUNTS = {
+    30: 20,
+    60: 10,
+    120: 5,
+}
 
 
-class ConfigManager:
-    DEFAULT = {
-        "last_folder": "",
-        "last_files": [],
-        "session_counts": {"30": 20, "60": 15, "120": 10, "300": 5},
-        "sound_enabled": True,
-        "shuffle_enabled": True,
-        "last_time": "30с",
-        "countdown_seconds": 3,
-    }
+# =============================================================================
+# Gruvbox Color Palette
+# =============================================================================
+class Gruvbox:
+    BG_HARD = "#1d2021"
+    BG = "#282828"
+    BG_SOFT = "#32302f"
+    BG1 = "#3c3836"
+    BG2 = "#504945"
+    BG3 = "#665c54"
+    BG4 = "#7c6f64"
 
-    def __init__(self, path):
-        self.path = Path(path)
-        self.data = self._load()
+    FG = "#ebdbb2"
+    FG0 = "#fbf1c7"
+    FG1 = "#ebdbb2"
+    FG2 = "#d5c4a1"
+    FG3 = "#bdae93"
+    FG4 = "#a89984"
 
-    def _load(self):
-        try:
-            if self.path.exists():
-                with open(self.path, "r", encoding="utf-8") as f:
-                    loaded = json.load(f)
-                    config = self.DEFAULT.copy()
-                    config.update(loaded)
-                    for k in self.DEFAULT["session_counts"]:
-                        if k not in config.get("session_counts", {}):
-                            config.setdefault("session_counts", {})[k] = self.DEFAULT[
-                                "session_counts"
-                            ][k]
-                    return config
-        except:
-            pass
-        return self.DEFAULT.copy()
-
-    def save(self):
-        try:
-            with open(self.path, "w", encoding="utf-8") as f:
-                json.dump(self.data, f, ensure_ascii=False, indent=2)
-        except:
-            pass
-
-    def get(self, key, default=None):
-        return self.data.get(key, default)
-
-    def set(self, key, value):
-        self.data[key] = value
-        self.save()
-
-    def get_session_count(self, time_sec):
-        return self.data.get("session_counts", {}).get(str(time_sec), 10)
-
-    def set_session_count(self, time_sec, count):
-        if "session_counts" not in self.data:
-            self.data["session_counts"] = {}
-        self.data["session_counts"][str(time_sec)] = count
-        self.save()
+    RED = "#fb4934"
+    RED_DIM = "#cc241d"
+    GREEN = "#b8bb26"
+    GREEN_DIM = "#98971a"
+    YELLOW = "#fabd2f"
+    YELLOW_DIM = "#d79921"
+    BLUE = "#83a598"
+    BLUE_DIM = "#458588"
+    PURPLE = "#d3869b"
+    PURPLE_DIM = "#b16286"
+    AQUA = "#8ec07c"
+    AQUA_DIM = "#689d6a"
+    ORANGE = "#fe8019"
+    ORANGE_DIM = "#d65d0e"
+    GRAY = "#928374"
 
 
+# =============================================================================
+# Sound Manager
+# =============================================================================
 class SoundManager:
     def __init__(self):
         self.enabled = SOUND_AVAILABLE
@@ -123,32 +117,30 @@ class SoundManager:
         return pygame.mixer.Sound(buffer=buf)
 
     def play_start(self):
-        s = self._beep(880, 150, 0.3)
-        if s:
+        if s := self._beep(880, 150, 0.3):
             s.play()
 
     def play_warning(self):
-        s = self._beep(660, 100, 0.3)
-        if s:
+        if s := self._beep(660, 100, 0.3):
             s.play()
 
     def play_end(self):
-        s = self._beep(440, 200, 0.4)
-        if s:
+        if s := self._beep(440, 200, 0.4):
             s.play()
             QTimer.singleShot(250, lambda: s.play())
 
     def play_tick(self):
-        s = self._beep(1000, 50, 0.2)
-        if s:
+        if s := self._beep(1000, 50, 0.2):
             s.play()
 
     def play_countdown(self):
-        s = self._beep(550, 100, 0.25)
-        if s:
+        if s := self._beep(550, 100, 0.25):
             s.play()
 
 
+# =============================================================================
+# Image Viewer
+# =============================================================================
 class ImageViewer(QLabel):
     def __init__(self):
         super().__init__()
@@ -162,14 +154,14 @@ class ImageViewer(QLabel):
     def _show_placeholder(self, text="📁 Загрузите изображения"):
         self.original_pixmap = None
         self.setText(text)
-        self.setStyleSheet("""
-            QLabel {
-                background-color: #2b2b2b;
-                border: 2px solid #404040;
+        self.setStyleSheet(f"""
+            QLabel {{
+                background-color: {Gruvbox.BG};
+                border: 2px solid {Gruvbox.BG2};
                 border-radius: 8px;
-                color: #666;
+                color: {Gruvbox.FG4};
                 font-size: 16px;
-            }
+            }}
         """)
 
     def set_image(self, path):
@@ -179,12 +171,12 @@ class ImageViewer(QLabel):
                 return False
             self.original_pixmap = px
             self._update_scaled()
-            self.setStyleSheet("""
-                QLabel {
-                    background-color: #2b2b2b;
-                    border: 2px solid #404040;
-                    border-radius: 8px;
-                }
+            self.setStyleSheet(f"""
+                QLabel {{
+                    background-color: {Gruvbox.BG_HARD};
+                    border: none;
+                    border-radius: 0px;
+                }}
             """)
             return True
         except:
@@ -200,27 +192,17 @@ class ImageViewer(QLabel):
             self.setPixmap(scaled)
 
     def hide_image(self):
-        """Скрыть изображение, показать чёрный фон"""
         self.clear()
-        self.setStyleSheet("""
-            QLabel {
-                background-color: #1a1a1a;
-                border: 2px solid #404040;
-                border-radius: 8px;
-            }
+        self.setStyleSheet(f"""
+            QLabel {{
+                background-color: {Gruvbox.BG_HARD};
+                border: none;
+            }}
         """)
 
     def show_image(self):
-        """Показать изображение обратно"""
         if self.original_pixmap:
             self._update_scaled()
-            self.setStyleSheet("""
-                QLabel {
-                    background-color: #2b2b2b;
-                    border: 2px solid #404040;
-                    border-radius: 8px;
-                }
-            """)
 
     def resizeEvent(self, e):
         super().resizeEvent(e)
@@ -228,6 +210,9 @@ class ImageViewer(QLabel):
             self._update_scaled()
 
 
+# =============================================================================
+# Countdown Overlay
+# =============================================================================
 class CountdownOverlay(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -252,20 +237,17 @@ class CountdownOverlay(QWidget):
             return
         painter = QPainter(self)
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
-        painter.fillRect(self.rect(), QColor(0, 0, 0, 220))
-        painter.setPen(QColor("#3498db"))
-        font = QFont("Arial", 100, QFont.Weight.Bold)
+        painter.fillRect(self.rect(), QColor(29, 32, 33, 230))
+        painter.setPen(QColor(Gruvbox.AQUA))
+        font = QFont("monospace", 100, QFont.Weight.Bold)
         painter.setFont(font)
         painter.drawText(self.rect(), Qt.AlignmentFlag.AlignCenter, str(self.count))
 
 
+# =============================================================================
+# No Focus Widgets
+# =============================================================================
 class NFButton(QPushButton):
-    def __init__(self, *a, **kw):
-        super().__init__(*a, **kw)
-        self.setFocusPolicy(Qt.FocusPolicy.NoFocus)
-
-
-class NFComboBox(QComboBox):
     def __init__(self, *a, **kw):
         super().__init__(*a, **kw)
         self.setFocusPolicy(Qt.FocusPolicy.NoFocus)
@@ -283,6 +265,35 @@ class NFCheckBox(QCheckBox):
         self.setFocusPolicy(Qt.FocusPolicy.NoFocus)
 
 
+# =============================================================================
+# Вспомогательные функции
+# =============================================================================
+def get_session_count(time_sec: int) -> int:
+    if time_sec in SESSION_COUNTS:
+        return SESSION_COUNTS[time_sec]
+    if time_sec <= 30:
+        return 20
+    elif time_sec <= 60:
+        return 10
+    elif time_sec <= 120:
+        return 5
+    else:
+        return 3
+
+
+def load_images_from_path(path: Path) -> list:
+    valid_ext = {".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp"}
+    images = []
+    if path.is_dir():
+        for f in path.iterdir():
+            if f.is_file() and f.suffix.lower() in valid_ext:
+                images.append(str(f))
+    return images
+
+
+# =============================================================================
+# Main Application
+# =============================================================================
 class GestureApp(QMainWindow):
     COMPACT = 500
     MOBILE = 380
@@ -291,22 +302,25 @@ class GestureApp(QMainWindow):
         super().__init__()
 
         self.cli_args = cli_args or {}
-        self.config = ConfigManager(CONFIG_FILE)
+        self.minimal_mode = self.cli_args.get("minimal", False)
+        self.auto_close = self.minimal_mode  # Автозакрытие в минимальном режиме
 
         self.images = []
         self.session_images = []
         self.current_idx = 0
-        self.times = {"30с": 30, "1м": 60, "2м": 120, "5м": 300}
-        self.times_reverse = {30: "30с", 60: "1м", 120: "2м", 300: "5м"}
-        self.sel_time = 30
-        self.remain = 30
+
+        self.sel_time = self.cli_args.get("time") or DEFAULT_TIME
+        self.remain = self.sel_time
+        self.per_session = self.cli_args.get("count") or get_session_count(
+            self.sel_time
+        )
+        self.countdown_seconds = self.cli_args.get("delay") or DEFAULT_DELAY
+
         self.running = False
         self.paused = False
         self.done_count = 0
-        self.per_session = self.config.get_session_count(30)
         self.mode = "desktop"
 
-        self.countdown_seconds = self.config.get("countdown_seconds", 3)
         self.countdown_active = False
         self.countdown_value = self.countdown_seconds
         self.countdown_timer = QTimer()
@@ -318,10 +332,10 @@ class GestureApp(QMainWindow):
         self.timer.timeout.connect(self._tick)
 
         self._init_ui()
-        self._apply_cli_args()
-        self._load_last_images()
 
-        # Автостарт если указан в CLI
+        if path := self.cli_args.get("path"):
+            self._load_from_path(Path(path))
+
         if self.cli_args.get("start") and self.images:
             QTimer.singleShot(100, self._start_with_countdown)
 
@@ -336,156 +350,205 @@ class GestureApp(QMainWindow):
         self.setCentralWidget(central)
 
         layout = QVBoxLayout(central)
-        layout.setContentsMargins(8, 8, 8, 8)
-        layout.setSpacing(6)
+        layout.setContentsMargins(
+            0 if self.minimal_mode else 8,
+            0 if self.minimal_mode else 8,
+            0 if self.minimal_mode else 8,
+            0 if self.minimal_mode else 8,
+        )
+        layout.setSpacing(0 if self.minimal_mode else 6)
 
-        self._create_top_bar(layout)
+        if not self.minimal_mode:
+            self._create_top_bar(layout)
+
         self._create_image_area(layout)
-        self._create_bottom_bar(layout)
+
+        # Оверлей с информацией (для минимального режима поверх изображения)
+        if self.minimal_mode:
+            self._create_minimal_overlay()
+        else:
+            self._create_bottom_bar(layout)
 
         self.setFocus()
         QTimer.singleShot(50, self._adapt)
 
     def _styles(self):
-        return """
-            QMainWindow, QWidget {
-                background-color: #1e1e1e;
-                color: #fff;
-                font-family: 'Segoe UI', Arial;
-            }
-            QPushButton {
-                background-color: #3498db;
-                color: white;
-                border: none;
-                padding: 6px 10px;
-                border-radius: 5px;
+        return f"""
+            QMainWindow, QWidget {{
+                background-color: {Gruvbox.BG_HARD if self.minimal_mode else Gruvbox.BG};
+                color: {Gruvbox.FG};
+                font-family: 'Ubuntu mono', 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+            }}
+            
+            QPushButton {{
+                background-color: {Gruvbox.BG1};
+                color: {Gruvbox.FG};
+                border: 1px solid {Gruvbox.BG3};
+                padding: 6px 12px;
+                border-radius: 4px;
                 font-size: 13px;
                 font-weight: bold;
-            }
-            QPushButton:hover { background-color: #2980b9; }
-            QPushButton:pressed { background-color: #21618c; }
-            QPushButton:disabled { background-color: #444; color: #777; }
-            QComboBox, QSpinBox {
-                background-color: #2b2b2b;
-                border: 1px solid #404040;
+            }}
+            QPushButton:hover {{
+                background-color: {Gruvbox.BG2};
+                border-color: {Gruvbox.AQUA};
+            }}
+            QPushButton:pressed {{
+                background-color: {Gruvbox.BG3};
+            }}
+            QPushButton:disabled {{
+                background-color: {Gruvbox.BG1};
+                color: {Gruvbox.BG4};
+                border-color: {Gruvbox.BG2};
+            }}
+            
+            QSpinBox {{
+                background-color: {Gruvbox.BG1};
+                color: {Gruvbox.FG};
+                border: 1px solid {Gruvbox.BG3};
                 border-radius: 4px;
-                padding: 4px 6px;
+                padding: 4px 8px;
                 font-size: 12px;
-                min-width: 45px;
-            }
-            QComboBox:hover, QSpinBox:hover { border-color: #3498db; }
-            QComboBox::drop-down { border: none; width: 18px; }
-            QComboBox QAbstractItemView {
-                background-color: #2b2b2b;
-                selection-background-color: #3498db;
-            }
-            QCheckBox { font-size: 13px; }
-            QCheckBox::indicator {
-                width: 16px; height: 16px;
+                min-width: 50px;
+            }}
+            QSpinBox:hover {{
+                border-color: {Gruvbox.AQUA};
+            }}
+            QSpinBox:focus {{
+                border-color: {Gruvbox.YELLOW};
+            }}
+            QSpinBox::up-button, QSpinBox::down-button {{
+                background-color: {Gruvbox.BG2};
+                border: none;
+                width: 16px;
+            }}
+            QSpinBox::up-button:hover, QSpinBox::down-button:hover {{
+                background-color: {Gruvbox.BG3};
+            }}
+            QSpinBox::up-arrow {{
+                border-left: 4px solid transparent;
+                border-right: 4px solid transparent;
+                border-bottom: 5px solid {Gruvbox.FG4};
+            }}
+            QSpinBox::down-arrow {{
+                border-left: 4px solid transparent;
+                border-right: 4px solid transparent;
+                border-top: 5px solid {Gruvbox.FG4};
+            }}
+            
+            QCheckBox {{
+                font-size: 13px;
+                spacing: 6px;
+            }}
+            QCheckBox::indicator {{
+                width: 16px;
+                height: 16px;
                 border-radius: 3px;
-                border: 1px solid #404040;
-                background-color: #2b2b2b;
-            }
-            QCheckBox::indicator:checked {
-                background-color: #3498db;
-                border-color: #3498db;
-            }
+                border: 1px solid {Gruvbox.BG3};
+                background-color: {Gruvbox.BG1};
+            }}
+            QCheckBox::indicator:hover {{
+                border-color: {Gruvbox.AQUA};
+            }}
+            QCheckBox::indicator:checked {{
+                background-color: {Gruvbox.AQUA_DIM};
+                border-color: {Gruvbox.AQUA};
+            }}
+            
+            QMessageBox {{
+                background-color: {Gruvbox.BG};
+            }}
+            QMessageBox QLabel {{
+                color: {Gruvbox.FG};
+            }}
+            QMessageBox QPushButton {{
+                min-width: 80px;
+            }}
         """
 
     def _create_top_bar(self, parent_layout):
         bar = QWidget()
-        bar.setStyleSheet("background-color: #252525; border-radius: 6px;")
+        bar.setStyleSheet(f"background-color: {Gruvbox.BG_SOFT}; border-radius: 6px;")
         bar.setFixedHeight(44)
         lay = QHBoxLayout(bar)
         lay.setContentsMargins(8, 4, 8, 4)
-        lay.setSpacing(4)
+        lay.setSpacing(6)
 
-        # Загрузка
         self.btn_folder = NFButton("📁")
-        self.btn_folder.setToolTip("Папка")
+        self.btn_folder.setToolTip("Открыть папку")
         self.btn_folder.setFixedSize(32, 32)
         self.btn_folder.clicked.connect(self._load_folder)
         lay.addWidget(self.btn_folder)
 
-        self.btn_files = NFButton("🖼")
-        self.btn_files.setToolTip("Файлы")
-        self.btn_files.setFixedSize(32, 32)
-        self.btn_files.clicked.connect(self._load_files)
-        lay.addWidget(self.btn_files)
+        lay.addSpacing(8)
 
-        lay.addSpacing(4)
+        lbl_time = QLabel("⏱")
+        lbl_time.setStyleSheet(f"color: {Gruvbox.FG3};")
+        lay.addWidget(lbl_time)
 
-        # Время
-        self.combo_time = NFComboBox()
-        self.combo_time.addItems(list(self.times.keys()))
-        self.combo_time.setToolTip("Время")
-        self.combo_time.setFixedWidth(52)
-        self.combo_time.currentTextChanged.connect(self._on_time_change)
-        lay.addWidget(self.combo_time)
+        self.spin_time = NFSpinBox()
+        self.spin_time.setRange(5, 600)
+        self.spin_time.setValue(self.sel_time)
+        self.spin_time.setSuffix("с")
+        self.spin_time.setToolTip("Время на жест (секунды)")
+        self.spin_time.setFixedWidth(70)
+        self.spin_time.valueChanged.connect(self._on_time_change)
+        lay.addWidget(self.spin_time)
 
-        # Количество фото
+        lbl_count = QLabel("📷")
+        lbl_count.setStyleSheet(f"color: {Gruvbox.FG3};")
+        lay.addWidget(lbl_count)
+
         self.spin_count = NFSpinBox()
         self.spin_count.setRange(0, 999)
+        self.spin_count.setValue(self.per_session)
         self.spin_count.setSpecialValueText("∞")
-        self.spin_count.setToolTip("Фото в сессии (0=все)")
-        self.spin_count.setFixedWidth(48)
+        self.spin_count.setToolTip("Количество жестов (0 = все)")
+        self.spin_count.setFixedWidth(55)
         self.spin_count.valueChanged.connect(self._on_count_change)
         lay.addWidget(self.spin_count)
 
-        # Задержка
         self.spin_delay = NFSpinBox()
         self.spin_delay.setRange(1, 30)
         self.spin_delay.setValue(self.countdown_seconds)
         self.spin_delay.setToolTip("Секунды подготовки")
-        self.spin_delay.setFixedWidth(40)
+        self.spin_delay.setFixedWidth(45)
         self.spin_delay.setPrefix("⏱")
         self.spin_delay.valueChanged.connect(self._on_delay_change)
         lay.addWidget(self.spin_delay)
 
-        # Чекбоксы
         self.chk_sound = NFCheckBox("🔊")
         self.chk_sound.setToolTip("Звук")
-        self.chk_sound.setChecked(self.config.get("sound_enabled", True))
-        self.chk_sound.stateChanged.connect(
-            lambda s: self.config.set("sound_enabled", s == 2)
-        )
+        self.chk_sound.setChecked(DEFAULT_SOUND)
         lay.addWidget(self.chk_sound)
 
         self.chk_shuffle = NFCheckBox("🔀")
         self.chk_shuffle.setToolTip("Перемешать")
-        self.chk_shuffle.setChecked(self.config.get("shuffle_enabled", True))
-        self.chk_shuffle.stateChanged.connect(
-            lambda s: self.config.set("shuffle_enabled", s == 2)
-        )
+        self.chk_shuffle.setChecked(DEFAULT_SHUFFLE)
         lay.addWidget(self.chk_shuffle)
 
         lay.addStretch()
 
-        # Таймер
         self.lbl_timer = QLabel("00:30")
-        self.lbl_timer.setStyleSheet("""
-            font-size: 26px; font-weight: bold;
-            font-family: 'Consolas', monospace;
-            color: #2ecc71; padding: 0 8px;
+        self.lbl_timer.setStyleSheet(f"""
+            font-size: 26px;
+            font-weight: bold;
+                font-family: 'Ubuntu mono', 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+            color: {Gruvbox.GREEN};
+            padding: 0 8px;
         """)
         lay.addWidget(self.lbl_timer)
 
         lay.addStretch()
 
-        # Счётчик
         self.lbl_counter = QLabel("0/0")
         self.lbl_counter.setStyleSheet(
-            "font-size: 13px; font-weight: bold; color: #3498db;"
+            f"font-size: 14px; font-weight: bold; color: {Gruvbox.BLUE};"
         )
         lay.addWidget(self.lbl_counter)
 
-        lay.addSpacing(4)
-
-        self.lbl_done = QLabel("✓0")
-        self.lbl_done.setStyleSheet("font-size: 12px; color: #27ae60;")
-        lay.addWidget(self.lbl_done)
-
         parent_layout.addWidget(bar)
+        self._update_timer_display()
 
     def _create_image_area(self, parent_layout):
         self.image_container = QWidget()
@@ -502,9 +565,78 @@ class GestureApp(QMainWindow):
 
         parent_layout.addWidget(self.image_container, stretch=1)
 
+    def _create_minimal_overlay(self):
+        """Создание оверлея для минимального режима"""
+        self.minimal_overlay = QWidget(self.image_container)
+        self.minimal_overlay.setStyleSheet("background-color: transparent;")
+        self.minimal_overlay.setAttribute(
+            Qt.WidgetAttribute.WA_TransparentForMouseEvents
+        )
+
+        layout = QVBoxLayout(self.minimal_overlay)
+        layout.setContentsMargins(10, 10, 10, 10)
+
+        # Верхняя панель с таймером и счётчиком
+        top_bar = QWidget()
+        top_bar.setStyleSheet(f"""
+            # background-color: rgba(29, 32, 33, 200);
+            # border-radius: 8px;
+        """)
+        top_bar.setFixedHeight(50)
+        top_layout = QHBoxLayout(top_bar)
+        top_layout.setContentsMargins(15, 5, 15, 5)
+
+        # Счётчик
+        self.lbl_counter = QLabel("0/0")
+        self.lbl_counter.setStyleSheet(f"""
+            font-size: 20px;
+            font-weight: bold;
+            color: {Gruvbox.BLUE};
+            background: transparent;
+        """)
+        top_layout.addWidget(self.lbl_counter)
+
+        top_layout.addStretch()
+
+        # Таймер
+        self.lbl_timer = QLabel("00:30")
+        self.lbl_timer.setStyleSheet(f"""
+            font-size: 28px;
+            font-weight: bold;
+                font-family: 'Ubuntu mono', 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+            color: {Gruvbox.GREEN};
+            background: transparent;
+        """)
+        top_layout.addWidget(self.lbl_timer)
+
+        layout.addWidget(top_bar)
+        layout.addStretch()
+
+        # Подсказка внизу (пауза)
+        self.lbl_hint = QLabel("Space: пауза | Esc: выход")
+        self.lbl_hint.setStyleSheet(f"""
+            font-size: 12px;
+            color: {Gruvbox.FG4};
+            background-color: rgba(29, 32, 33, 150);
+            padding: 5px 10px;
+            border-radius: 4px;
+        """)
+        self.lbl_hint.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(self.lbl_hint, alignment=Qt.AlignmentFlag.AlignCenter)
+
+        self._update_timer_display()
+
+        # Для минимального режима создаём фиктивные виджеты
+        self.chk_sound = type(
+            "obj", (object,), {"isChecked": lambda self: DEFAULT_SOUND}
+        )()
+        self.chk_shuffle = type(
+            "obj", (object,), {"isChecked": lambda self: DEFAULT_SHUFFLE}
+        )()
+
     def _create_bottom_bar(self, parent_layout):
         bar = QWidget()
-        bar.setStyleSheet("background-color: #252525; border-radius: 6px;")
+        bar.setStyleSheet(f"background-color: {Gruvbox.BG_SOFT}; border-radius: 6px;")
         bar.setFixedHeight(50)
         lay = QHBoxLayout(bar)
         lay.setContentsMargins(10, 6, 10, 6)
@@ -514,28 +646,39 @@ class GestureApp(QMainWindow):
         self.btn_prev.setToolTip("Предыдущее (←)")
         self.btn_prev.setEnabled(False)
         self.btn_prev.clicked.connect(self._prev)
-        self.btn_prev.setStyleSheet("background-color: #555; padding: 8px 14px;")
+        self.btn_prev.setStyleSheet(f"""
+            QPushButton {{
+                background-color: {Gruvbox.BG2};
+                padding: 8px 14px;
+            }}
+            QPushButton:hover {{
+                background-color: {Gruvbox.BG3};
+                border-color: {Gruvbox.PURPLE};
+            }}
+        """)
         lay.addWidget(self.btn_prev)
 
         lay.addStretch()
 
         self.btn_start = NFButton("▶")
-        self.btn_start.setToolTip("Space=старт | Shift+Space=с подготовкой")
-        self.btn_start.setStyleSheet("""
-            QPushButton {
-                font-size: 18px; padding: 10px 28px;
-                background-color: #27ae60;
-            }
-            QPushButton:hover { background-color: #219a52; }
-        """)
+        self.btn_start.setToolTip("Space = старт/пауза | Shift+Space = с подготовкой")
+        self._style_start_button(running=False)
         self.btn_start.clicked.connect(self._on_start_click)
         lay.addWidget(self.btn_start)
 
         self.btn_reset = NFButton("🔄")
-        self.btn_reset.setToolTip("Сброс (R) | Shift+R=с подготовкой")
+        self.btn_reset.setToolTip("Сброс (R) | Shift+R = с подготовкой")
         self.btn_reset.setFixedSize(36, 36)
         self.btn_reset.clicked.connect(self._on_reset_click)
-        self.btn_reset.setStyleSheet("background-color: #7f8c8d;")
+        self.btn_reset.setStyleSheet(f"""
+            QPushButton {{
+                background-color: {Gruvbox.BG3};
+            }}
+            QPushButton:hover {{
+                background-color: {Gruvbox.BG4};
+                border-color: {Gruvbox.ORANGE};
+            }}
+        """)
         lay.addWidget(self.btn_reset)
 
         lay.addStretch()
@@ -544,69 +687,120 @@ class GestureApp(QMainWindow):
         self.btn_skip.setToolTip("Пропустить (→)")
         self.btn_skip.setEnabled(False)
         self.btn_skip.clicked.connect(self._skip)
-        self.btn_skip.setStyleSheet("background-color: #555; padding: 8px 14px;")
+        self.btn_skip.setStyleSheet(f"""
+            QPushButton {{
+                background-color: {Gruvbox.BG2};
+                padding: 8px 14px;
+            }}
+            QPushButton:hover {{
+                background-color: {Gruvbox.BG3};
+                border-color: {Gruvbox.PURPLE};
+            }}
+        """)
         lay.addWidget(self.btn_skip)
 
         parent_layout.addWidget(bar)
 
-    def _apply_cli_args(self):
-        """Применить аргументы командной строки"""
-        # Время
-        if "time" in self.cli_args and self.cli_args["time"]:
-            t = self.cli_args["time"]
-            if t in self.times_reverse:
-                self.sel_time = t
-                self.remain = t
-                self.combo_time.setCurrentText(self.times_reverse[t])
+    def _style_start_button(self, running=False):
+        if not hasattr(self, "btn_start"):
+            return
+        if running:
+            self.btn_start.setText("⏸")
+            self.btn_start.setStyleSheet(f"""
+                QPushButton {{
+                    font-size: 18px;
+                    padding: 10px 28px;
+                    background-color: {Gruvbox.ORANGE_DIM};
+                    border-color: {Gruvbox.ORANGE};
+                }}
+                QPushButton:hover {{
+                    background-color: {Gruvbox.ORANGE};
+                }}
+            """)
+        else:
+            self.btn_start.setText("▶")
+            self.btn_start.setStyleSheet(f"""
+                QPushButton {{
+                    font-size: 18px;
+                    padding: 10px 28px;
+                    background-color: {Gruvbox.GREEN_DIM};
+                    border-color: {Gruvbox.GREEN};
+                }}
+                QPushButton:hover {{
+                    background-color: {Gruvbox.GREEN};
+                    color: {Gruvbox.BG};
+                }}
+            """)
 
-        # Количество
-        if "count" in self.cli_args and self.cli_args["count"] is not None:
-            self.per_session = self.cli_args["count"]
-            self.spin_count.setValue(self.per_session)
+    def _load_from_path(self, path: Path):
+        if not path.exists():
+            if not self.minimal_mode:
+                QMessageBox.warning(self, "Ошибка", f"Путь не найден: {path}")
+            return
 
-        # Задержка
-        if "delay" in self.cli_args and self.cli_args["delay"]:
-            self.countdown_seconds = self.cli_args["delay"]
-            self.spin_delay.setValue(self.countdown_seconds)
+        self.images = load_images_from_path(path)
 
-    def _load_last_images(self):
-        """Загрузить последние изображения при старте"""
-        # Сначала загружаем настройки времени
-        last = self.config.get("last_time", "30с")
-        if last in self.times and "time" not in self.cli_args:
-            self.combo_time.setCurrentText(last)
-            self.sel_time = self.times[last]
-            self.remain = self.sel_time
+        if self.images:
+            self._process_images(silent=True)
+        elif not self.minimal_mode:
+            QMessageBox.warning(self, "Ошибка", f"Нет изображений в: {path}")
 
-        # Загружаем количество для текущего времени
-        if "count" not in self.cli_args:
-            self.per_session = self.config.get_session_count(self.sel_time)
-            self.spin_count.setValue(self.per_session)
-
-        self._update_timer_display()
-
-        # Пробуем загрузить изображения
-        last_folder = self.config.get("last_folder", "")
-        last_files = self.config.get("last_files", [])
-
-        if last_folder and Path(last_folder).exists():
-            self.images = []
-            valid = {".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp"}
-            for f in Path(last_folder).iterdir():
-                if f.suffix.lower() in valid:
-                    self.images.append(str(f))
+    def _load_folder(self):
+        folder = QFileDialog.getExistingDirectory(
+            self, "Выберите папку с изображениями"
+        )
+        if folder:
+            self.images = load_images_from_path(Path(folder))
             if self.images:
-                self._process_images(save=False, silent=True)
-                return
+                self._process_images()
+            else:
+                QMessageBox.warning(self, "Ошибка", "Нет изображений в папке!")
 
-        if last_files:
-            self.images = [f for f in last_files if Path(f).exists()]
-            if self.images:
-                self._process_images(save=False, silent=True)
+    def _process_images(self, silent=False):
+        if not self.images:
+            return
+
+        if self.chk_shuffle.isChecked():
+            random.shuffle(self.images)
+
+        self._prepare_session()
+        self._show_current()
+
+        if not silent and not self.minimal_mode:
+            QMessageBox.information(self, "✓", f"Загружено: {len(self.images)}")
+
+    def _prepare_session(self):
+        if 0 < self.per_session < len(self.images):
+            self.session_images = self.images[: self.per_session]
+        else:
+            self.session_images = self.images.copy()
+
+        self.current_idx = 0
+        self.done_count = 0
+        self._update_counter()
+
+    def _show_current(self):
+        if not self.session_images:
+            return
+
+        path = self.session_images[self.current_idx]
+        if not self.viewer.set_image(path):
+            if self.current_idx < len(self.session_images) - 1:
+                self.current_idx += 1
+                self._show_current()
+
+        self._update_counter()
+
+    def _update_counter(self):
+        total = len(self.session_images)
+        cur = self.current_idx + 1 if self.session_images else 0
+        self.lbl_counter.setText(f"{cur}/{total}")
 
     def resizeEvent(self, e):
         super().resizeEvent(e)
         self.countdown_overlay.setGeometry(self.viewer.geometry())
+        if self.minimal_mode and hasattr(self, "minimal_overlay"):
+            self.minimal_overlay.setGeometry(self.viewer.geometry())
         self._adapt()
 
     def _adapt(self):
@@ -623,41 +817,31 @@ class GestureApp(QMainWindow):
             return
         self.mode = mode
 
+        if self.minimal_mode:
+            return
+
         if mode == "mobile":
             self.spin_delay.hide()
             self.chk_sound.setText("")
             self.chk_shuffle.setText("")
-            self.lbl_timer.setStyleSheet("""
-                font-size: 20px; font-weight: bold;
-                font-family: 'Consolas', monospace;
-                color: #2ecc71; padding: 0 4px;
-            """)
         elif mode == "compact":
             self.spin_delay.show()
             self.chk_sound.setText("")
             self.chk_shuffle.setText("")
-            self.lbl_timer.setStyleSheet("""
-                font-size: 24px; font-weight: bold;
-                font-family: 'Consolas', monospace;
-                color: #2ecc71; padding: 0 6px;
-            """)
         else:
             self.spin_delay.show()
             self.chk_sound.setText("🔊")
             self.chk_shuffle.setText("🔀")
-            self.lbl_timer.setStyleSheet("""
-                font-size: 26px; font-weight: bold;
-                font-family: 'Consolas', monospace;
-                color: #2ecc71; padding: 0 8px;
-            """)
+
         self._update_timer_display()
 
     def keyPressEvent(self, e):
         shift = e.modifiers() & Qt.KeyboardModifier.ShiftModifier
+        ctrl = e.modifiers() & Qt.KeyboardModifier.ControlModifier
 
         if e.key() == Qt.Key.Key_Space:
             e.accept()
-            if shift:
+            if shift and not self.minimal_mode:
                 self._start_with_countdown()
             else:
                 self._toggle()
@@ -669,15 +853,23 @@ class GestureApp(QMainWindow):
             self._prev()
         elif e.key() == Qt.Key.Key_R:
             e.accept()
-            if shift:
+            if shift and not self.minimal_mode:
                 self._reset_with_countdown()
             else:
                 self._do_reset()
+        elif e.key() == Qt.Key.Key_Escape:
+            e.accept()
+            self.close()
+        elif e.key() == Qt.Key.Key_Q:
+            e.accept()
+            self.close()
+        elif ctrl and e.key() == Qt.Key.Key_BracketLeft:
+            e.accept()
+            self.close()
         else:
             super().keyPressEvent(e)
 
     def _on_start_click(self):
-        """Клик по кнопке старт"""
         modifiers = QApplication.keyboardModifiers()
         if modifiers & Qt.KeyboardModifier.ShiftModifier:
             self._start_with_countdown()
@@ -685,16 +877,26 @@ class GestureApp(QMainWindow):
             self._toggle()
 
     def _on_reset_click(self):
-        """Клик по кнопке сброс"""
         modifiers = QApplication.keyboardModifiers()
         if modifiers & Qt.KeyboardModifier.ShiftModifier:
             self._reset_with_countdown()
         else:
             self._do_reset()
 
+    def _on_time_change(self, val):
+        self.sel_time = val
+        self.remain = val
+        if not self.running:
+            suggested = get_session_count(val)
+            self.spin_count.setValue(suggested)
+            self.per_session = suggested
+        self._update_timer_display()
+
+    def _on_count_change(self, val):
+        self.per_session = val
+
     def _on_delay_change(self, val):
         self.countdown_seconds = val
-        self.config.set("countdown_seconds", val)
 
     def _start_with_countdown(self):
         if self.countdown_active:
@@ -702,7 +904,8 @@ class GestureApp(QMainWindow):
 
         if not self.session_images:
             if not self.images:
-                QMessageBox.warning(self, "Ошибка", "Загрузите изображения!")
+                if not self.minimal_mode:
+                    QMessageBox.warning(self, "Ошибка", "Загрузите изображения!")
                 return
             self._prepare_session()
             self._show_current()
@@ -710,10 +913,7 @@ class GestureApp(QMainWindow):
         self.countdown_active = True
         self.countdown_value = self.countdown_seconds
 
-        # Скрываем изображение
         self.viewer.hide_image()
-
-        # Показываем оверлей
         self.countdown_overlay.setGeometry(self.viewer.geometry())
         self.countdown_overlay.start(self.countdown_value)
 
@@ -733,93 +933,12 @@ class GestureApp(QMainWindow):
             self.countdown_timer.stop()
             self.countdown_overlay.hide_overlay()
             self.countdown_active = False
-            # Показываем изображение обратно
             self.viewer.show_image()
             self._start()
 
     def _reset_with_countdown(self):
         self._do_reset()
         self._start_with_countdown()
-
-    def _on_time_change(self, text):
-        self.sel_time = self.times[text]
-        self.remain = self.sel_time
-        self.per_session = self.config.get_session_count(self.sel_time)
-        self.spin_count.blockSignals(True)
-        self.spin_count.setValue(self.per_session)
-        self.spin_count.blockSignals(False)
-        self.config.set("last_time", text)
-        self._update_timer_display()
-
-    def _on_count_change(self, val):
-        self.per_session = val
-        self.config.set_session_count(self.sel_time, val)
-
-    def _load_folder(self):
-        last = self.config.get("last_folder", "")
-        start = last if last and Path(last).parent.exists() else ""
-        folder = QFileDialog.getExistingDirectory(self, "Папка", start)
-        if folder:
-            self.images = []
-            valid = {".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp"}
-            for f in Path(folder).iterdir():
-                if f.suffix.lower() in valid:
-                    self.images.append(str(f))
-            if self.images:
-                self.config.set("last_folder", folder)
-                self.config.set("last_files", [])
-            self._process_images()
-
-    def _load_files(self):
-        last = self.config.get("last_folder", "")
-        start = last if last and Path(last).exists() else ""
-        files, _ = QFileDialog.getOpenFileNames(
-            self,
-            "Файлы",
-            start,
-            "Изображения (*.jpg *.jpeg *.png *.gif *.bmp *.webp);;Все (*.*)",
-        )
-        if files:
-            self.images = files
-            self.config.set("last_files", files)
-            self.config.set("last_folder", str(Path(files[0]).parent))
-            self._process_images()
-
-    def _process_images(self, save=True, silent=False):
-        if not self.images:
-            if not silent:
-                QMessageBox.warning(self, "Ошибка", "Нет изображений!")
-            return
-        if self.chk_shuffle.isChecked():
-            random.shuffle(self.images)
-        self._prepare_session()
-        self._show_current()
-        if not silent:
-            QMessageBox.information(self, "✓", f"Загружено: {len(self.images)}")
-
-    def _prepare_session(self):
-        if 0 < self.per_session < len(self.images):
-            self.session_images = self.images[: self.per_session]
-        else:
-            self.session_images = self.images.copy()
-        self.current_idx = 0
-        self.done_count = 0
-        self._update_counter()
-
-    def _show_current(self):
-        if not self.session_images:
-            return
-        path = self.session_images[self.current_idx]
-        if not self.viewer.set_image(path):
-            if self.current_idx < len(self.session_images) - 1:
-                self.current_idx += 1
-                self._show_current()
-        self._update_counter()
-
-    def _update_counter(self):
-        total = len(self.session_images)
-        cur = self.current_idx + 1 if self.session_images else 0
-        self.lbl_counter.setText(f"{cur}/{total}")
 
     def _toggle(self):
         if self.countdown_active:
@@ -831,7 +950,8 @@ class GestureApp(QMainWindow):
 
         if not self.session_images:
             if not self.images:
-                QMessageBox.warning(self, "Ошибка", "Загрузите изображения!")
+                if not self.minimal_mode:
+                    QMessageBox.warning(self, "Ошибка", "Загрузите изображения!")
                 return
             self._prepare_session()
             self._show_current()
@@ -849,53 +969,52 @@ class GestureApp(QMainWindow):
         self.remain = self.sel_time
 
         self._update_btn()
-        self.btn_skip.setEnabled(True)
-        self.btn_prev.setEnabled(True)
-        self.combo_time.setEnabled(False)
-        self.spin_count.setEnabled(False)
+
+        if not self.minimal_mode:
+            self.btn_skip.setEnabled(True)
+            self.btn_prev.setEnabled(True)
+            self.spin_time.setEnabled(False)
+            self.spin_count.setEnabled(False)
 
         if self.chk_sound.isChecked():
             self.sound.play_start()
 
         self.timer.start(1000)
 
+        # Скрыть подсказку в минимальном режиме
+        if self.minimal_mode and hasattr(self, "lbl_hint"):
+            self.lbl_hint.hide()
+
     def _pause(self):
         self.paused = True
         self.timer.stop()
         self._update_btn()
+
+        # Показать подсказку при паузе
+        if self.minimal_mode and hasattr(self, "lbl_hint"):
+            self.lbl_hint.setText("Space: продолжить | Esc: выход")
+            self.lbl_hint.show()
 
     def _resume(self):
         self.paused = False
         self.timer.start(1000)
         self._update_btn()
 
+        if self.minimal_mode and hasattr(self, "lbl_hint"):
+            self.lbl_hint.hide()
+
     def _stop(self):
         self.running = False
         self.paused = False
         self.timer.stop()
         self._update_btn()
-        self.combo_time.setEnabled(True)
-        self.spin_count.setEnabled(True)
+
+        if not self.minimal_mode:
+            self.spin_time.setEnabled(True)
+            self.spin_count.setEnabled(True)
 
     def _update_btn(self):
-        if self.running and not self.paused:
-            self.btn_start.setText("⏸")
-            self.btn_start.setStyleSheet("""
-                QPushButton {
-                    font-size: 18px; padding: 10px 28px;
-                    background-color: #e67e22;
-                }
-                QPushButton:hover { background-color: #d35400; }
-            """)
-        else:
-            self.btn_start.setText("▶")
-            self.btn_start.setStyleSheet("""
-                QPushButton {
-                    font-size: 18px; padding: 10px 28px;
-                    background-color: #27ae60;
-                }
-                QPushButton:hover { background-color: #219a52; }
-            """)
+        self._style_start_button(running=self.running and not self.paused)
 
     def _tick(self):
         self.remain -= 1
@@ -915,26 +1034,33 @@ class GestureApp(QMainWindow):
         self.lbl_timer.setText(f"{m:02d}:{s:02d}")
 
         if self.remain <= 5:
-            c = "#e74c3c"
+            color = Gruvbox.RED
         elif self.remain <= 10:
-            c = "#f39c12"
+            color = Gruvbox.YELLOW
         else:
-            c = "#2ecc71"
+            color = Gruvbox.GREEN
 
-        sizes = {"desktop": "26px", "compact": "24px", "mobile": "20px"}
-        sz = sizes.get(self.mode, "26px")
-        pads = {"desktop": "8px", "compact": "6px", "mobile": "4px"}
-        pad = pads.get(self.mode, "8px")
-
-        self.lbl_timer.setStyleSheet(f"""
-            font-size: {sz}; font-weight: bold;
-            font-family: 'Consolas', monospace;
-            color: {c}; padding: 0 {pad};
-        """)
+        if self.minimal_mode:
+            self.lbl_timer.setStyleSheet(f"""
+                font-size: 28px;
+                font-weight: bold;
+                font-family: 'Ubuntu mono', 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+                color: {color};
+                background: transparent;
+            """)
+        else:
+            sizes = {"desktop": "26px", "compact": "24px", "mobile": "20px"}
+            sz = sizes.get(self.mode, "26px")
+            self.lbl_timer.setStyleSheet(f"""
+                font-size: {sz};
+                font-weight: bold;
+                font-family: 'Ubuntu mono', 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+                color: {color};
+                padding: 0 8px;
+            """)
 
     def _on_end(self):
         self.done_count += 1
-        self.lbl_done.setText(f"✓{self.done_count}")
 
         if self.chk_sound.isChecked():
             self.sound.play_end()
@@ -951,7 +1077,13 @@ class GestureApp(QMainWindow):
                 self.sound.play_start()
         else:
             self._stop()
-            QMessageBox.information(self, "🎉", f"Готово: {self.done_count}")
+            if self.auto_close:
+                # Автозакрытие через небольшую задержку
+                QTimer.singleShot(500, self.close)
+            else:
+                QMessageBox.information(
+                    self, "🎉", f"Сессия завершена!\nНарисовано: {self.done_count}"
+                )
 
     def _skip(self):
         if self.session_images and self.running:
@@ -974,53 +1106,80 @@ class GestureApp(QMainWindow):
 
         self._prepare_session()
         self._update_timer_display()
-        self.lbl_done.setText("✓0")
 
         if self.session_images:
             self._show_current()
 
-        self.btn_skip.setEnabled(False)
-        self.btn_prev.setEnabled(False)
-
-    def closeEvent(self, e):
-        self.config.save()
-        super().closeEvent(e)
+        if not self.minimal_mode:
+            self.btn_skip.setEnabled(False)
+            self.btn_prev.setEnabled(False)
 
 
+# =============================================================================
+# CLI
+# =============================================================================
 def parse_args():
     parser = argparse.ArgumentParser(
         description="Gesture Drawing Practice App",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Примеры:
-  python main.py                    Обычный запуск
-  python main.py -t 60              60 секунд на рисунок
-  python main.py -c 10              10 фото в сессии
-  python main.py -t 30 -c 20 -s     30 сек, 20 фото, автостарт
-  python main.py -t 120 -d 5 -s     2 мин, 5 сек подготовка, автостарт
+  %(prog)s                              Обычный запуск
+  %(prog)s -p ~/Pictures/refs           Загрузить из папки
+  %(prog)s -t 60                        60 секунд на жест
+  %(prog)s -t 45 -c 15                  45 сек, 15 жестов
+  %(prog)s -p ./refs -t 30 -s           Путь, 30 сек, автостарт
+  %(prog)s -p ./refs -m -s              Минимальный режим, автостарт
+  %(prog)s -p ./refs -t 60 -c 5 -m -s   Полная настройка, минимальный режим
+
+Минимальный режим (-m):
+  • Скрывает весь интерфейс, кроме таймера и счётчика
+  • Автоматически закрывается после завершения сессии
+  • Управление: Space (пауза), Esc (выход), ←/→ (навигация)
+
+Настройки по умолчанию:
+  30 секунд  →  20 жестов
+  60 секунд  →  10 жестов
+  120 секунд →  5 жестов
         """,
+    )
+    parser.add_argument(
+        "-p",
+        "--path",
+        type=str,
+        help="Путь к директории с изображениями",
     )
     parser.add_argument(
         "-t",
         "--time",
         type=int,
-        choices=[30, 60, 120, 300],
-        help="Время на рисунок (30, 60, 120, 300 секунд)",
+        help="Время на жест в секундах (5-600)",
     )
     parser.add_argument(
-        "-c", "--count", type=int, help="Количество фото в сессии (0 = все)"
+        "-c",
+        "--count",
+        type=int,
+        help="Количество жестов в сессии (0 = все)",
     )
     parser.add_argument(
         "-d",
         "--delay",
         type=int,
         default=None,
-        help="Секунды подготовки перед стартом (по умолчанию из настроек)",
+        help="Секунды подготовки перед стартом",
     )
     parser.add_argument(
-        "-s", "--start", action="store_true", help="Автоматический старт с задержкой"
+        "-s",
+        "--start",
+        action="store_true",
+        help="Автоматический старт с подготовкой",
     )
-
+    parser.add_argument(
+        "-m",
+        "--minimal",
+        action="store_true",
+        help="Минимальный режим (только таймер и счётчик, автозакрытие)",
+    )
     return parser.parse_args()
 
 
@@ -1028,10 +1187,12 @@ def main():
     args = parse_args()
 
     cli_args = {
+        "path": args.path,
         "time": args.time,
         "count": args.count,
         "delay": args.delay,
         "start": args.start,
+        "minimal": args.minimal,
     }
 
     app = QApplication(sys.argv)

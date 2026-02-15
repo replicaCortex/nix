@@ -2,6 +2,7 @@
 {
   imports = [
     ./gui/media_editors.nix
+    ./gui/table_helper.nix
   ];
 
   environment = {

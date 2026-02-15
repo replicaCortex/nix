@@ -8,7 +8,7 @@ end
 
 function launch
     set -l input_text $argv
-    set -l path_to_justfile_poses $HOME/work/krita/poses/justfile
+    set -l path_to_poses $HOME/work/krita/poses/
 
     if test -z "$input_text"
         read -P (set_color green)"Search: "(set_color normal) -l user_input
@@ -83,17 +83,12 @@ function launch
             niri_spawn krita $file
         case beeref иуукуа
             niri_spawn beeref
-        case pp
-            niri_spawn_sh "just -f $path_to_justfile_poses p"
         case sp
-            sleep 2
-            niri_spawn_sh "just -f $path_to_justfile_poses s"
+            niri_spawn_sh "gesture-drawing -p $path_to_poses -m -t 30 -c 20 -d 5 -s "
         case mp
-            sleep 2
-            niri_spawn_sh "just -f $path_to_justfile_poses m"
+            niri_spawn_sh "gesture-drawing -p $path_to_poses -t 60 -c 10 -d 5 -s -m"
         case lp
-            sleep 2
-            niri_spawn_sh "just -f $path_to_justfile_poses l"
+            niri_spawn_sh "gesture-drawing -p $path_to_poses -t 120 -c 5 -d 5 -s -m"
 
         case '*'
             set -l selected (ddgr -n 25 --noua --json --noprompt $input_text | \
