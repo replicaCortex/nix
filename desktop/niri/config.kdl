@@ -1,0 +1,232 @@
+input {
+  workspace-auto-back-and-forth
+  warp-mouse-to-focus mode="center-xy-always"
+  keyboard {
+    repeat-delay 500
+    repeat-rate 25
+
+    xkb {
+      layout "us,ru"
+      options "grp:caps_toggle,shift:both_capslock"
+    }
+    numlock
+  }
+
+  touchpad {
+    tap
+    dwt
+    // drag false
+    drag-lock
+    accel-profile "adaptive"
+    scroll-method "two-finger"
+    // click-method "clickfinger"
+  }
+}
+
+cursor {
+  hide-when-typing
+  hide-after-inactive-ms 10000
+}
+
+output "eDP-1" {
+  mode "1920x1080@120.030"
+}
+
+layout {
+  gaps 6
+  center-focused-column "never"
+  // center-focused-column "always"
+  // always-center-single-column
+  background-color "transparent"
+  empty-workspace-above-first
+
+  preset-column-widths {
+    proportion 0.333
+    // proportion 0.5
+    proportion 0.666
+  }
+
+  default-column-width { proportion 0.333; }
+  // default-column-width { proportion 1.0; }
+
+  focus-ring {
+    // off
+    width 2
+    active-color "#d79921"
+  }
+
+  border {
+    // off
+    width 2
+    active-color "#222222"
+    inactive-color "#222222"
+    urgent-color "#cc241d"
+  }
+
+  shadow {
+    // off
+    // on
+  }
+
+  tab-indicator {
+    width 2
+    gap 4
+    gaps-between-tabs 2
+    inactive-color "#585b70"
+  }
+}
+
+prefer-no-csd
+
+overview {
+  backdrop-color "#282828"
+  workspace-shadow {
+    color "#0007"
+    offset x=0 y=10
+    softness 50
+    spread 20
+  }
+}
+
+clipboard {
+  disable-primary
+}
+
+// spawn-sh-at-startup "swaybg -i ~/nix/wallpapers/casete_wallpaper.jpg"
+spawn-at-startup "dunst"
+spawn-at-startup "waybar"
+spawn-sh-at-startup "foot --server"
+spawn-sh-at-startup "gammastep -O 3500"
+spawn-sh-at-startup "rm ~/.python_history*"
+spawn-sh-at-startup "rm ~/ly-session.log"
+spawn-sh-at-startup "swww-daemon"
+spawn-sh-at-startup "wl-paste --watch cliphist store"
+spawn-sh-at-startup "batsignal -w 10 -f 80"
+
+hotkey-overlay {
+  skip-at-startup
+}
+
+screenshot-path null
+
+window-rule {
+  match app-id="float"
+
+  default-floating-position x=710 y=190 
+
+  open-floating true
+  default-column-width { fixed 500; }
+  default-window-height { fixed 450; }
+
+  border { off; }
+  focus-ring {
+    active-color "#222222";
+  }
+  shadow { on; }
+}
+
+layer-rule {
+  match namespace="^wallpaper$"
+  match namespace="swww-daemon"
+
+  place-within-backdrop true
+}
+
+workspace "chat"
+workspace "main"
+workspace "dev"
+workspace "temp"
+
+binds {
+  Mod+Return     { spawn "footclient"; }
+  Mod+Shift+Return     { spawn-sh "footclient --working-directory $(~/sys/nix/terminal/scripts/cwd.sh)"; }
+  Mod+Shift+Ctrl+Return     { spawn "foot"; }
+  Mod+F          { spawn-sh "footclient --app-id=float -e fish -c 'source ~/sys/nix/terminal/fish/functions/launch.fish; launch'"; }
+  Mod+Shift+F { spawn-sh "footclient --app-id=float -e fish ~/sys/nix/terminal/scripts/broot_picker_fast.fish"; }
+  Mod+B          { spawn-sh "footclient --app-id=float -e fish -c 'source ~/sys/nix/terminal/fish/functions/browser_history.fish; browser_history'"; }
+  Mod+Y { spawn-sh "footclient --app-id=float -e fish -c 'set -x FZF_DEFAULT_OPTS \"--layout=reverse\"; cliphist-fzf-sixel'"; }
+  Mod+V { spawn-sh "footclient -e fish -c 'btop'"; }
+  Mod+N { spawn-sh "zen"; }
+  Mod+T          { spawn-sh "Telegram"; }
+  Mod+P          { screenshot; }
+  Mod+Shift+P          { screenshot-window; }
+
+  Mod+O repeat=false { toggle-overview; }
+  Mod+Q repeat=false { close-window; }
+
+  Mod+H     { focus-column-left; }
+  Mod+J     { focus-window-or-workspace-down; }
+  Mod+K     { focus-window-or-workspace-up; }
+  Mod+L     { focus-column-right; }
+
+  Mod+A     { focus-column-left; }
+  Mod+S     { focus-window-or-workspace-down; }
+  Mod+W     { focus-window-or-workspace-up; }
+  Mod+D     { focus-column-right; }
+
+  Mod+Shift+H     { move-column-left; }
+  Mod+Shift+J     { move-window-down-or-to-workspace-down; }
+  Mod+Shift+K     { move-window-up-or-to-workspace-up; }
+  Mod+Shift+L     { move-column-right; }
+
+  Mod+Shift+A     { move-column-left; }
+  Mod+Shift+S     { move-window-down-or-to-workspace-down; }
+  Mod+Shift+W     { move-window-up-or-to-workspace-up; }
+  Mod+Shift+D     { move-column-right; }
+
+  Mod+Ctrl+Shift+J     { move-workspace-down; }
+  Mod+Ctrl+Shift+K     { move-workspace-up; }
+
+  Mod+Ctrl+Shift+S     { move-workspace-down; }
+  Mod+Ctrl+Shift+W     { move-workspace-up; }
+
+  Mod+Ctrl+H     { focus-column-first; }
+  Mod+Ctrl+L     { focus-column-last; }
+  Mod+Ctrl+Shift+H   { move-column-to-first; }
+  Mod+Ctrl+Shift+L  { move-column-to-last; }
+
+  Mod+Ctrl+A     { focus-column-first; }
+  Mod+Ctrl+D     { focus-column-last; }
+  Mod+Ctrl+Shift+A   { move-column-to-first; }
+  Mod+Ctrl+Shift+D  { move-column-to-last; }
+
+  Mod+1 { focus-workspace 1; }
+  Mod+2 { focus-workspace 2; }
+  Mod+3 { focus-workspace 3; }
+  Mod+4 { focus-workspace 4; }
+  Mod+5 { focus-workspace 5; }
+  Mod+6 { focus-workspace 6; }
+  Mod+7 { focus-workspace 7; }
+  Mod+8 { focus-workspace 8; }
+  Mod+9 { focus-workspace 9; }
+
+  Mod+Shift+1 { move-column-to-workspace 1; }
+  Mod+Shift+2 { move-column-to-workspace 2; }
+  Mod+Shift+3 { move-column-to-workspace 3; }
+  Mod+Shift+4 { move-column-to-workspace 4; }
+  Mod+Shift+5 { move-column-to-workspace 5; }
+  Mod+Shift+6 { move-column-to-workspace 6; }
+  Mod+Shift+7 { move-column-to-workspace 7; }
+  Mod+Shift+8 { move-column-to-workspace 8; }
+  Mod+Shift+9 { move-column-to-workspace 9; }
+
+  Mod+Comma  { consume-or-expel-window-left; }
+  Mod+Period { consume-or-expel-window-right; }
+
+  Mod+R          { switch-preset-column-width; }
+  Mod+U          { maximize-column; }  
+  Mod+Shift+U    { expand-column-to-available-width; }
+  Mod+M          { fullscreen-window; }
+  Mod+Z          { center-column; }
+  Mod+Shift+Z      { center-visible-columns; }
+  Mod+Minus      { set-column-width "-10%"; }
+  Mod+Equal      { set-column-width "+10%"; }
+  Mod+Alt+Minus  { set-window-height "-10%"; }
+  Mod+Alt+Equal  { set-window-height "+10%"; }
+  Mod+I          { toggle-window-floating; }
+  Mod+Space      { switch-focus-between-floating-and-tiling; }
+  Mod+C          { toggle-column-tabbed-display; }
+
+  Mod+F4   allow-when-locked=true repeat=false { spawn-sh "brightnessctl  --class=backlight set 10%+"; }
+  Mod+F5 allow-when-locked=true repeat=false { spawn-sh "brightnessctl  --class=backlight set 10%-"; }
+}

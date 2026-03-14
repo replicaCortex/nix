@@ -1,6 +1,0 @@
-run:
-    uv run main.py
-
-test:
-    nix-build 
-    ./result/bin/pie

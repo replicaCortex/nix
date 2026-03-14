@@ -1,0 +1,16 @@
+# This file contains fish universal variable definitions.
+# VERSION: 3.0
+SETUVAR __fish_initialized:4300
+SETUVAR _hydro_git_18683:master\u2022\x20
+SETUVAR _hydro_git_19011:master\u2022\x20
+SETUVAR _hydro_git_19973:niri\u2022\x20
+SETUVAR _hydro_git_2639:master\u2022\x20
+SETUVAR _hydro_git_42787:master\u2022\x20
+SETUVAR _hydro_git_42956:master\u2022\x20
+SETUVAR _hydro_git_43615:Playerbot\u2022\x20
+SETUVAR _hydro_git_527350:niri\u2022\x20
+SETUVAR _hydro_git_528665:niri\u2022\x20
+SETUVAR _hydro_git_530898:niri\u2022\x20\u21912\x20
+SETUVAR _hydro_git_57402:niri\u2022\x20
+SETUVAR _hydro_git_65835:niri\u2022\x20
+SETUVAR fish_user_paths:/home/replica/sys/nix/bin

@@ -1,7 +1,0 @@
-run:
-    nix-build ./default.nix 
-    ./result/bin/gesture-drawing
-
-test:
-    nix-build ./default.nix 
-    ./result/bin/gesture-drawing -p ~/note/media/ -t 30 -c 20 -d 5 -s -m

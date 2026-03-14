@@ -1,51 +1,22 @@
-# nix switch done
-run: ni
-    nh os switch --ask /home/replica/sys/nix/ && dunstify "  NixOS" "Nix switch done 󰄬" || dunstify -u critical -h string:fgcolor:#f38ba8 "  NixOS" "Home switch failed ❌" -t 4000
+run:
+    nh os switch --ask /home/replica/sys/nix/nixos/ && dunstify "  NixOS" "Nix switch done 󰄬" || dunstify -u critical -h string:fgcolor:#f38ba8 "  NixOS" "Home switch failed ❌" -t 4000
 
-# nix-instantiate
-ni:
-    nix-instantiate --parse ./configuration/**/*.nix > /dev/null 
+sync:
+    @echo "🔗 Создаем симлинки в ~/.var/.config..."
+    @mkdir -p ~/.var/.config
+    @ln -sfn ~/sys/nix/terminal/fish $XDG_CONFIG_HOME/fish
+    @ln -sfn ~/sys/nix/terminal/foot $XDG_CONFIG_HOME/foot
+    @ln -sfn ~/sys/nix/terminal/broot $XDG_CONFIG_HOME/broot
+    @ln -sfn ~/sys/nix/terminal/lsd $XDG_CONFIG_HOME/lsd
+    @ln -sfn ~/sys/nix/desktop/niri $XDG_CONFIG_HOME/niri
+    @ln -sfn ~/sys/nix/desktop/waybar $XDG_CONFIG_HOME/waybar
+    @ln -sfn ~/sys/nix/desktop/dunst $XDG_CONFIG_HOME/dunst
+    @ln -sfn ~/sys/nix/editor/nvim $XDG_CONFIG_HOME/nvim
+    @ln -sfn ~/sys/nix/apps/mpv $XDG_CONFIG_HOME/mpv
+    @ln -sfn ~/sys/nix/apps/vimiv $XDG_CONFIG_HOME/vimiv
+    @ln -sfn ~/sys/nix/apps/zathura $XDG_CONFIG_HOME/zathura
+    @echo "✅ Конфиги успешно синхронизированы!"
 
-# nix-collect-garbage
-ncg:
-    nix-collect-garbage
-    nix-store --optimise
-
-install_config:
-    rm -rf ~/.config/dunst
-    rm -rf ~/.config/fish
-    rm -rf ~/.config/foot
-    rm -rf ~/.config/lsd
-    rm -rf ~/.config/mpv
-    rm -rf ~/.config/niri
-    rm -rf ~/.config/nvim
-    rm -rf ~/.config/broot
-    rm -rf ~/.config/vimiv
-    rm -rf ~/.config/waybar
-    rm -rf ~/.config/zathura
-    rm -rf ~/.config/xdg-desktop-portal-termfilechooser
-    rm -rf ~/.config/xdg-desktop-portal
-    rm ~/.inputrc
-    rm ~/.zen/**Default*/chrome/userChrome.css
-
-    ln -s ~/sys/nix/.inputrc ~/
-    ln -s ~/sys/nix/dunst ~/.config/
-    ln -s ~/sys/nix/xdg-desktop-portal-termfilechooser/ ~/.config/
-    ln -s ~/sys/nix/xdg-desktop-portal/ ~/.config/
-    ln -s ~/sys/nix/fish ~/.config/
-    ln -s ~/sys/nix/foot ~/.config/
-    ln -s ~/sys/nix/lsd ~/.config/
-    ln -s ~/sys/nix/mpv ~/.config/
-    ln -s ~/sys/nix/broot/ ~/.config/
-    ln -s ~/sys/nix/niri ~/.config/
-    ln -s ~/sys/nix/nvim ~/.config/
-    ln -s ~/sys/nix/vimiv ~/.config/
-    ln -s ~/sys/nix/waybar ~/.config/
-    ln -s ~/sys/nix/zathura ~/.config/
-    ln -s ~/sys/nix/zen/userChrome.css ~/.zen/**Default*/chrome/
-
-# fast up commit
-fup:
-    git add .
-    git commit -m "up"
-    git push
+dev:
+    @echo "🐳 Собираем Dev-контейнер..."
+    distrobox-assemble create --file ~/sys/nix/containers/distrobox.ini
