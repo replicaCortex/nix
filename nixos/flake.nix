@@ -37,7 +37,7 @@
               # nix-search
             ];
           }
-          ./configuration/configuration.nix
+          ./configuration.nix
         ];
       };
     };
