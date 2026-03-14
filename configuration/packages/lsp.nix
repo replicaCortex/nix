@@ -8,8 +8,7 @@
       just-lsp
       lua-language-server
       nil
-      rust-analyzer
-      ty
+      omnisharp-roslyn
     ];
   };
 }

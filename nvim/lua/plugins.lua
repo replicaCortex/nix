@@ -20,7 +20,7 @@ return {
     "neovim/nvim-lspconfig",
 
     dependencies = { "nvim-treesitter/nvim-treesitter", "lewis6991/gitsigns.nvim" },
-    ft = { "python", "markdown", "rust", "lua", "nix", "sh", "fish", "just", "toml" },
+    ft = { "python", "markdown", "rust", "lua", "nix", "sh", "fish", "just", "toml", "cs", "typst" },
     config = function()
       require "configs.lspconfig"
     end,

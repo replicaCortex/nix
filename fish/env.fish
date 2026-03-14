@@ -21,7 +21,6 @@ set -gx WLR_NO_HARDWARE_CURSORS 1
 set -gx QT_FFMPEG_DECODING_HW_DEVICE_TYPES vaapi
 set -gx QT_FFMPEG_ENCODING_HW_DEVICE_TYPES vaapi
 set -gx QT_MEDIA_BACKEND ffmpeg
+set -gx DISPLAY :0
 
-set -gx GTK_THEME "Adwaita:dark"
-
-fish_add_path ~/.cargo/bin
+fish_add_path ~/sys/nix/bin

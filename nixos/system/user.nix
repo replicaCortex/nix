@@ -6,6 +6,9 @@
     extraGroups = [
       "networkmanager"
       "wheel"
+      "kvm"
     ];
   };
+  programs.fish.enable = true;
+  services.getty.autologinUser = "replica";
 }

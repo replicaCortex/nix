@@ -47,7 +47,6 @@ abbr -a gsw 'git switch'
 ### --- [ РАЗРАБОТКА: NIX & EDITORS ] ---
 
 abbr -a nv nvim
-abbr -a nvi 'nvim ~/note/index.md'
 abbr -a ns nix-shell
 abbr -a nr "nix run"
 abbr -a nd "nix develop ./"
@@ -111,12 +110,4 @@ function open
 
 end
 
-function beeref
-    open beeref $argv
-end
-
-function krita
-    open krita $argv
-end
-
-abbr aria "aria2c -x 16 -s 16 -c -o"
+abbr aria "aria2c -x 16 -s 16 -c"

@@ -8,6 +8,9 @@ local servers = {
   "rust_analyzer",
   "fish_lsp",
   "just",
+  "tinymist",
+
+  "omnisharp",
 }
 
 if vim.lsp.inlay_hint then
@@ -34,9 +37,9 @@ vim.lsp.config("rust_analyzer", {
 
 -- disable semanticTokens
 local function on_init(client, _)
-  if client.supports_method "textDocument/semanticTokens" then
-    client.server_capabilities.semanticTokensProvider = nil
-  end
+  -- if client.supports_method "textDocument/semanticTokens" then
+  --   client.server_capabilities.semanticTokensProvider = nil
+  -- end
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()

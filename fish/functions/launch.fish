@@ -34,7 +34,7 @@ function launch
         case ytr нек
             set url "https://translate.yandex.com/?source_lang=en&target_lang=ru&text="
         case an фт
-            set url "https://annas-archive.li/"
+            set url "https://annas-archive.gl/"
         case img шьп
             set url "https://gelbooru.com/index.php?page=post&s=list&tags=all"
         case re ку
@@ -75,14 +75,6 @@ function launch
             set url "https://alice.yandex.ru/"
         case ar фк
             set url "https://arena.ai/?mode=direct"
-        case krita лкшеф
-            niri_spawn krita
-        case pkrita злкшеф
-            set -l file $(mktemp)
-            wl-paste >$file
-            niri_spawn krita $file
-        case beeref иуукуа
-            niri_spawn beeref
         case sp
             niri_spawn_sh "gesture-drawing -p $path_to_poses -m -t 30 -c 20 -d 5 -s "
         case mp

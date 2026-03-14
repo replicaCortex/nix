@@ -1,10 +1,10 @@
 # nix switch done
 run: ni
-    nh os switch --ask /home/replica/nix/ && dunstify "  NixOS" "Nix switch done 󰄬" || dunstify -u critical -h string:fgcolor:#f38ba8 "  NixOS" "Home switch failed ❌" -t 4000
+    nh os switch --ask /home/replica/sys/nix/ && dunstify "  NixOS" "Nix switch done 󰄬" || dunstify -u critical -h string:fgcolor:#f38ba8 "  NixOS" "Home switch failed ❌" -t 4000
 
 # nix-instantiate
 ni:
-    nix-instantiate --parse /home/replica/nix/**/*.nix > /dev/null 
+    nix-instantiate --parse ./configuration/**/*.nix > /dev/null 
 
 # nix-collect-garbage
 ncg:
@@ -28,21 +28,21 @@ install_config:
     rm ~/.inputrc
     rm ~/.zen/**Default*/chrome/userChrome.css
 
-    ln -s ~/nix/.inputrc ~/
-    ln -s ~/nix/dunst ~/.config/
-    ln -s ~/nix/xdg-desktop-portal-termfilechooser/ ~/.config/
-    ln -s ~/nix/xdg-desktop-portal/ ~/.config/
-    ln -s ~/nix/fish ~/.config/
-    ln -s ~/nix/foot ~/.config/
-    ln -s ~/nix/lsd ~/.config/
-    ln -s ~/nix/mpv ~/.config/
-    ln -s ~/nix/broot/ ~/.config/
-    ln -s ~/nix/niri ~/.config/
-    ln -s ~/nix/nvim ~/.config/
-    ln -s ~/nix/vimiv ~/.config/
-    ln -s ~/nix/waybar ~/.config/
-    ln -s ~/nix/zathura ~/.config/
-    ln -s ~/nix/zen/userChrome.css ~/.zen/**Default*/chrome/
+    ln -s ~/sys/nix/.inputrc ~/
+    ln -s ~/sys/nix/dunst ~/.config/
+    ln -s ~/sys/nix/xdg-desktop-portal-termfilechooser/ ~/.config/
+    ln -s ~/sys/nix/xdg-desktop-portal/ ~/.config/
+    ln -s ~/sys/nix/fish ~/.config/
+    ln -s ~/sys/nix/foot ~/.config/
+    ln -s ~/sys/nix/lsd ~/.config/
+    ln -s ~/sys/nix/mpv ~/.config/
+    ln -s ~/sys/nix/broot/ ~/.config/
+    ln -s ~/sys/nix/niri ~/.config/
+    ln -s ~/sys/nix/nvim ~/.config/
+    ln -s ~/sys/nix/vimiv ~/.config/
+    ln -s ~/sys/nix/waybar ~/.config/
+    ln -s ~/sys/nix/zathura ~/.config/
+    ln -s ~/sys/nix/zen/userChrome.css ~/.zen/**Default*/chrome/
 
 # fast up commit
 fup:

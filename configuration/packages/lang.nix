@@ -2,9 +2,7 @@
 {
   environment = {
     systemPackages = with pkgs; [
-      python312
-      uv
-      rustc
+      dotnetCorePackages.dotnet_8.sdk
     ];
   };
 }

@@ -1,29 +1,29 @@
-vim.api.nvim_create_autocmd("CmdlineEnter", {
-  callback = function()
-    local cmd = [[niri msg -j keyboard-layouts | jq '.current_idx']]
-    local handle = io.popen(cmd)
-    if not handle then
-      return
-    end
-
-    local layout = vim.trim(handle:read "a")
-    handle:close()
-
-    if layout == "1" then
-      io.popen([[niri msg action switch-layout next]]):close()
-    end
-
-    _G.LAYOUT = layout
-  end,
-})
-
-vim.api.nvim_create_autocmd("CmdlineLeave", {
-  callback = function()
-    if _G.LAYOUT == "1" then
-      io.popen([[niri msg action switch-layout next]]):close()
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd("CmdlineEnter", {
+--   callback = function()
+--     local cmd = [[niri msg -j keyboard-layouts | jq '.current_idx']]
+--     local handle = io.popen(cmd)
+--     if not handle then
+--       return
+--     end
+--
+--     local layout = vim.trim(handle:read "a")
+--     handle:close()
+--
+--     if layout == "1" then
+--       io.popen([[niri msg action switch-layout next]]):close()
+--     end
+--
+--     _G.LAYOUT = layout
+--   end,
+-- })
+--
+-- vim.api.nvim_create_autocmd("CmdlineLeave", {
+--   callback = function()
+--     if _G.LAYOUT == "1" then
+--       io.popen([[niri msg action switch-layout next]]):close()
+--     end
+--   end,
+-- })
 
 -- vim.api.nvim_create_autocmd("VimEnter", {
 --   callback = function()
