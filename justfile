@@ -15,6 +15,7 @@ sync:
     @ln -sfn ~/sys/nix/apps/mpv $XDG_CONFIG_HOME/mpv
     @ln -sfn ~/sys/nix/apps/vimiv $XDG_CONFIG_HOME/vimiv
     @ln -sfn ~/sys/nix/apps/zathura $XDG_CONFIG_HOME/zathura
+    @ln -sfn ~/sys/nix/apps/zen/userChrome.css $HOME/.zen/**Default*/chrome/
     @echo "✅ Конфиги успешно синхронизированы!"
 
 dev:

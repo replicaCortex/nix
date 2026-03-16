@@ -34,6 +34,34 @@ vim.lsp.config("rust_analyzer", {
   },
 })
 
+vim.lsp.config("lua_ls", {
+  cmd = { "distrobox", "enter", "dev", "--", "lua-language-server" },
+})
+
+vim.lsp.config("bashls", {
+  cmd = { "distrobox", "enter", "dev", "--", "bash-language-server", "start" },
+})
+
+vim.lsp.config("bashls", {
+  cmd = { "distrobox", "enter", "dev", "--", "bash-language-server", "start" },
+})
+
+vim.lsp.config("lua_ls", {
+  cmd = { "distrobox", "enter", "dev", "--", "lua-language-server" },
+})
+
+vim.lsp.config("ty", {
+  cmd = { "distrobox", "enter", "dev", "--", "ty", "server" },
+})
+
+vim.lsp.config("nil_ls", {
+  cmd = { "distrobox", "enter", "dev", "--", "nil" },
+})
+
+vim.lsp.config("fish_lsp", {
+  cmd = { "distrobox", "enter", "dev", "--", "fish-lsp", "start" },
+})
+
 -- disable semanticTokens
 local function on_init(client, _)
   -- if client.supports_method "textDocument/semanticTokens" then

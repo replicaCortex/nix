@@ -4,19 +4,27 @@
     distrobox
 
     gitMinimal
-    bat
-    broot
     btop
-    fd
-    fzf
-    jq
     lsd
-    ripgrep
     zstd
     unzip
     file
+    nh
+    ddgr
+    broot
+    fzf
+    jq
+    just
+    sqlite
+    neovim
+    bat
+    fd
+    ripgrep
+    rip2
 
-    chafa
-    imagemagick
+    wine
+    xwayland-satellite
+
+    xdg-desktop-portal-termfilechooser
   ];
 }

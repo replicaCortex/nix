@@ -99,7 +99,7 @@ spawn-sh-at-startup "foot --server"
 spawn-sh-at-startup "gammastep -O 3500"
 spawn-sh-at-startup "rm ~/.python_history*"
 spawn-sh-at-startup "rm ~/ly-session.log"
-spawn-sh-at-startup "swww-daemon"
+spawn-sh-at-startup "swaybg -i ~/sys/nix/desktop/wallpapers/wallpaper_girl_morgen.png"
 spawn-sh-at-startup "wl-paste --watch cliphist store"
 spawn-sh-at-startup "batsignal -w 10 -f 80"
 

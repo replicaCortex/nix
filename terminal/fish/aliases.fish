@@ -111,3 +111,8 @@ function open
 end
 
 abbr aria "aria2c -x 16 -s 16 -c"
+
+abbr dev 'distrobox enter dev'
+abbr devs 'distrobox stop dev'
+abbr qu exit
+abbr drun 'distrobox enter dev --'
