@@ -18,9 +18,13 @@ end
 
 vim.lsp.config("clangd", {
   cmd = {
+    "distrobox",
+    "enter",
+    "dev",
+    "--",
+    "clangd",
     "--clang-tidy",
     "--header-insertion=never",
-    "clangd",
   },
 })
 
