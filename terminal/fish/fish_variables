@@ -16,7 +16,6 @@ SETUVAR _hydro_git_217754:\x408314f4c\u2022\x20
 SETUVAR _hydro_git_221564:master\u2022\x20
 SETUVAR _hydro_git_224622:niri\u2022\x20
 SETUVAR _hydro_git_237020:Playerbot\u2022\x20
-SETUVAR _hydro_git_2383:niri\u2022\x20
 SETUVAR _hydro_git_24012:\x1d
 SETUVAR _hydro_git_241321:niri\u2022\x20
 SETUVAR _hydro_git_24648:\x1d
@@ -35,13 +34,18 @@ SETUVAR _hydro_git_42956:master\u2022\x20
 SETUVAR _hydro_git_43615:Playerbot\u2022\x20
 SETUVAR _hydro_git_4566:niri\u2022\x20
 SETUVAR _hydro_git_46910:master\u2022\x20
+SETUVAR _hydro_git_4755:master\x20
 SETUVAR _hydro_git_4773:niri\u2022\x20
 SETUVAR _hydro_git_48153:niri\u2022\x20
 SETUVAR _hydro_git_527350:niri\u2022\x20
 SETUVAR _hydro_git_528665:niri\u2022\x20
 SETUVAR _hydro_git_530898:niri\u2022\x20\u21915\x20
 SETUVAR _hydro_git_57402:niri\u2022\x20
+SETUVAR _hydro_git_6400:master\x20
 SETUVAR _hydro_git_65835:niri\u2022\x20
 SETUVAR _hydro_git_88975:master\u2022\x20
 SETUVAR _hydro_git_90137:master\u2022\x20
+SETUVAR _hydro_git_9304:niri\u2022\x20
+SETUVAR _hydro_git_9492:niri\u2022\x20
+SETUVAR _hydro_git_9777:niri\u2022\x20
 SETUVAR fish_user_paths:/home/replica/sys/nix/bin
