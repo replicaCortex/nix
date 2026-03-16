@@ -12,8 +12,8 @@ INPUT_PATH="$4"
 OUT_FILE="$5"
 
 BROOT_BIN="/run/current-system/sw/bin/broot"
-MAIN_CONF="$HOME/.config/broot/conf.hjson"
-SELECT_CONF="$HOME/.config/broot/select.hjson"
+MAIN_CONF="$XDG_CONFIG_HOME/broot/conf.hjson"
+SELECT_CONF="$XDG_CONFIG_HOME//broot/select.hjson"
 CONF_FILE="$SELECT_CONF;$MAIN_CONF"
 
 START_DIR="$HOME"

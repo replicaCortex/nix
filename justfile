@@ -4,8 +4,8 @@ run:
 sync:
     @echo "🔗 Создаем симлинки в ~/.var/.config..."
     @mkdir -p ~/.var/.config
-    @ln -sfn ~/sys/nix/terminal/fish $XDG_CONFIG_HOME/fish
-    @ln -sfn ~/sys/nix/terminal/fish $XDG_CONFIG_HOME/fish
+    @ln -sfn ~/sys/nix/desktop/xdg-desktop-portal/ $XDG_CONFIG_HOME/xdg-desktop-portal
+    @ln -sfn ~/sys/nix/desktop/xdg-desktop-portal-termfilechooser/ $XDG_CONFIG_HOME/xdg-desktop-portal-termfilechooser
     @ln -sfn ~/sys/nix/terminal/fish $XDG_CONFIG_HOME/fish
     @ln -sfn ~/sys/nix/terminal/foot $XDG_CONFIG_HOME/foot
     @ln -sfn ~/sys/nix/terminal/broot $XDG_CONFIG_HOME/broot

@@ -1,0 +1,7 @@
+[filechooser]
+cmd=/home/replica/sys/nix/terminal/scripts/broot_picker.sh
+default_dir=/home/replica
+env=TERMCMD=foot
+create_help_file=0
+open_mode=suggested
+save_mode=last
