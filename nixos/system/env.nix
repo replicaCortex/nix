@@ -1,7 +1,7 @@
 {
   environment.sessionVariables = {
     # Path
-    PATH = "$HOME/.var/.local/bin:$PATH";
+    PATH = "$HOME/.var/.local/bin:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:/home/replica/.var/.dotnet/tools:$PATH";
 
     # XDG Base Directories
     XDG_CONFIG_HOME = "$HOME/.var/.config";
@@ -14,7 +14,7 @@
     WGETRC = "$HOME/.var/.config/wgetrc";
     INPUTRC = "$HOME/sys/nix/.inputrc";
 
-    BROWSER = "zen";
+    BROWSER = "qutebrowser";
     EDITOR = "nvim";
     TERMINAL = "foot";
     VISUAL = "nvim";
@@ -55,5 +55,10 @@
     # Host-spawn
     XDG_RUNTIME_DIR = "/run/user/1000";
     DBUS_SESSION_BUS_ADDRESS = "unix:path=/run/user/1000/bus";
+
+    ANDROID_HOME = "$HOME/Android/Sdk";
+    DOTNET_ROOT = "/usr/share/dotnet";
+
+    _JAVA_AWT_WM_NONREPARENTING = 1;
   };
 }

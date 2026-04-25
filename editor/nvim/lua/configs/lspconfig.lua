@@ -1,15 +1,17 @@
 local servers = {
   "bashls",
+  "tailwindcss",
   "clangd",
+  "gopls",
   "fish_lsp",
   "just",
+  "cssls",
   "lua_ls",
-  "neocmake",
   "nil_ls",
-  "omnisharp",
   "rust_analyzer",
   "tinymist",
   "ty",
+  "ts_ls",
 }
 
 if vim.lsp.inlay_hint then
@@ -18,10 +20,6 @@ end
 
 vim.lsp.config("clangd", {
   cmd = {
-    "distrobox",
-    "enter",
-    "dev",
-    "--",
     "clangd",
     "--clang-tidy",
     "--header-insertion=never",
@@ -31,46 +29,32 @@ vim.lsp.config("clangd", {
 vim.lsp.config("rust_analyzer", {
   settings = {
     ["rust-analyzer"] = {
-      check = {
-        command = "clippy",
+      check = { command = "clippy" },
+    },
+  },
+})
+
+vim.lsp.config("gopls", {
+  settings = {
+    gopls = {
+      hints = {
+        assignVariableTypes = true,
+        compositeLiteralFields = true,
+        compositeLiteralTypes = true,
+        constantValues = true,
+        functionTypeParameters = true,
+        parameterNames = true,
+        rangeVariableTypes = true,
       },
     },
   },
 })
 
-vim.lsp.config("lua_ls", {
-  cmd = { "distrobox", "enter", "dev", "--", "lua-language-server" },
-})
-
-vim.lsp.config("bashls", {
-  cmd = { "distrobox", "enter", "dev", "--", "bash-language-server", "start" },
-})
-
-vim.lsp.config("bashls", {
-  cmd = { "distrobox", "enter", "dev", "--", "bash-language-server", "start" },
-})
-
-vim.lsp.config("lua_ls", {
-  cmd = { "distrobox", "enter", "dev", "--", "lua-language-server" },
-})
-
-vim.lsp.config("ty", {
-  cmd = { "distrobox", "enter", "dev", "--", "ty", "server" },
-})
-
-vim.lsp.config("nil_ls", {
-  cmd = { "distrobox", "enter", "dev", "--", "nil" },
-})
-
-vim.lsp.config("fish_lsp", {
-  cmd = { "distrobox", "enter", "dev", "--", "fish-lsp", "start" },
-})
-
 -- disable semanticTokens
 local function on_init(client, _)
-  -- if client.supports_method "textDocument/semanticTokens" then
-  --   client.server_capabilities.semanticTokensProvider = nil
-  -- end
+  if client.supports_method "textDocument/semanticTokens" then
+    client.server_capabilities.semanticTokensProvider = nil
+  end
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()

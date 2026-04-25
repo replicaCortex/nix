@@ -1,11 +1,3 @@
-function niri_spawn $argv
-    niri msg action spawn -- $argv
-end
-
-function niri_spawn_sh
-    niri msg action spawn-sh -- $argv
-end
-
 function launch
     set -l input_text $argv
     set -l path_to_poses $HOME/art/krita/assets/real_poses2/
@@ -63,8 +55,10 @@ function launch
             set url "https://docs.google.com/document/u/0/"
         case be иу
             set url "https://rostov-na-donu.beeline.ru/customers/products/elk/"
-        case sdo ывщ
+        case s ы
             set url "https://sdo.npi-tu.ru/"
+        case sdo ывщ
+            sdo
         case vk мл
             set url "https://vk.com/im"
         case manga ьфтпф
@@ -76,11 +70,16 @@ function launch
         case ar фк
             set url "https://arena.ai/?mode=direct"
         case sp
-            niri_spawn_sh "gesture-drawing -p $path_to_poses -m -t 30 -c 20 -d 5 -s " & sleep 2 && niri msg action set-column-width 1870
+            niri_spawn_sh "cd ~/dev/gesture-drawing/ && uv run main.py -p $path_to_poses -m -t 30 -c 20 -d 5 -s " & sleep 2 && niri msg action set-column-width 1870
         case mp
-            niri_spawn_sh "gesture-drawing -p $path_to_poses -t 60 -c 10 -d 5 -s -m" & sleep 2 && niri msg action set-column-width 1870
+            niri_spawn_sh "cd ~/dev/gesture-drawing/ && uv run main.py -p $path_to_poses -t 60 -c 10 -d 5 -s -m" & sleep 2 && niri msg action set-column-width 1870
         case lp
-            niri_spawn_sh "gesture-drawing -p $path_to_poses -t 120 -c 5 -d 5 -s -m" & sleep 2 && niri msg action set-column-width 1870
+            niri_spawn_sh "cd ~/dev/gesture-drawing/ && uv run main.py -p $path_to_poses -t 120 -c 10 -d 5 -s -m" & sleep 3 && niri msg action set-column-width 1870
+        case mc
+            niri_spawn_sh "distrobox enter dev -- java -jar /usr/lib/legacy-launcher/LegacyLauncher.jar"
+        case sr
+            niri_spawn_sh "distrobox enter dev -- java -jar ~/.var/.minecraft/fabric-server-mc.1.20.1-loader.0.19.2-launcher.1.1.1.jar"
+
 
         case '*'
             set -l selected (ddgr -n 25 --noua --json --noprompt $input_text | \
@@ -95,6 +94,6 @@ function launch
     end
 
     if test -n "$url"
-        niri_spawn_sh "zen \"$url\""
+        niri_spawn_sh "$BROWSER \"$url\""
     end
 end

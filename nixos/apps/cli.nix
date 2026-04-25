@@ -3,26 +3,33 @@
   environment.systemPackages = with pkgs; [
     distrobox
 
-    gitMinimal
-    btop
-    lsd
-    zstd
-    unzip
-    file
-    nh
-    ddgr
+    aria2
+    bat
+    batsignal
     broot
+    btop
+    ddgr
+    eza
+    fd
+    file
     fzf
+    gitMinimal
     jq
     just
-    sqlite
+    libnotify
     neovim
-    bat
-    fd
-    ripgrep
+    nh
     rip2
+    ripgrep
+    sqlite
+    # translate-shell
+    unzip
+    zip
+    zstd
+    nil
+    nixfmt
 
-    wine
+    # wine
     xwayland-satellite
 
     xdg-desktop-portal-termfilechooser

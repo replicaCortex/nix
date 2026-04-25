@@ -92,16 +92,8 @@ clipboard {
   disable-primary
 }
 
-// spawn-sh-at-startup "swaybg -i ~/nix/wallpapers/casete_wallpaper.jpg"
-spawn-at-startup "dunst"
-spawn-at-startup "waybar"
-spawn-sh-at-startup "foot --server"
-spawn-sh-at-startup "gammastep -O 3500"
-spawn-sh-at-startup "rm ~/.python_history*"
+spawn-sh-at-startup "~/sys/nix/terminal/scripts/init.sh"
 spawn-sh-at-startup "rm ~/ly-session.log"
-spawn-sh-at-startup "swaybg -i ~/sys/nix/desktop/wallpapers/wallpaper_girl_morgen.png"
-spawn-sh-at-startup "wl-paste --watch cliphist store"
-spawn-sh-at-startup "batsignal -w 10 -f 80"
 
 hotkey-overlay {
   skip-at-startup
@@ -119,9 +111,6 @@ window-rule {
   default-window-height { fixed 450; }
 
   border { off; }
-  focus-ring {
-    active-color "#222222";
-  }
   shadow { on; }
 }
 
@@ -139,15 +128,15 @@ workspace "temp"
 
 binds {
   Mod+Return     { spawn "footclient"; }
-  Mod+Shift+Return     { spawn-sh "footclient --working-directory $(~/sys/nix/terminal/scripts/cwd.sh)"; }
   Mod+Shift+Ctrl+Return     { spawn "foot"; }
   Mod+F          { spawn-sh "footclient --app-id=float -e fish -c 'source ~/sys/nix/terminal/fish/functions/launch.fish; launch'"; }
-  Mod+Shift+F { spawn-sh "footclient --app-id=float -e fish ~/sys/nix/terminal/scripts/broot_picker_fast.fish"; }
+  Mod+Shift+F { spawn-sh "footclient --app-id=float -e bash --noprofile --norc -c ~/sys/nix/terminal/scripts/broot_picker_fast.sh"; }
   Mod+B          { spawn-sh "footclient --app-id=float -e fish -c 'source ~/sys/nix/terminal/fish/functions/browser_history.fish; browser_history'"; }
   Mod+Y { spawn-sh "footclient --app-id=float -e fish -c 'set -x FZF_DEFAULT_OPTS \"--layout=reverse\"; cliphist-fzf-sixel'"; }
-  Mod+V { spawn-sh "footclient -e fish -c 'btop'"; }
-  Mod+N { spawn-sh "zen"; }
-  Mod+T          { spawn-sh "Telegram"; }
+  Mod+V { spawn-sh "footclient -e bash --noprofile --norc -c 'btop'"; }
+  Mod+N { spawn-sh "qutebrowser"; }
+  // Mod+T { spawn-sh "footclient -e bash --noprofile --norc -c ~/sys/nix/terminal/scripts/translate.sh"; }
+  Mod+X          { spawn-sh "Telegram"; }
   Mod+P          { screenshot; }
   Mod+Shift+P          { screenshot-window; }
 

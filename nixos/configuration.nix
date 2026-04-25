@@ -12,6 +12,8 @@
     # Hardware
     ./hardware/bluetooth.nix
     ./hardware/graphics.nix
+    # ./hardware/zapret.nix
+    ./hardware/v2raya.nix
 
     # Desktop Environment
     ./desktop/niri.nix

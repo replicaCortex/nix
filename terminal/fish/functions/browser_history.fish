@@ -1,20 +1,20 @@
 function browser_history
-    set -l ff_dir ~/.zen/*.Default\ Profile
-    set -l db_path "$ff_dir/places.sqlite"
-    set -l tmp_db "/tmp/ff_history_copy.sqlite"
+    set -l ff_dir $HOME/.var/.local/share/qutebrowser
+    set -l db_path $ff_dir/history.sqlite
 
-    cp "$db_path" "$tmp_db"
+    # Используем DISTINCT и группируем по URL, берем последнее время
+    set -l query "SELECT url, title, MAX(atime) as last_time 
+                  FROM History 
+                  GROUP BY url 
+                  ORDER BY last_time DESC 
+                  LIMIT 20000;"
 
-    set -l query "SELECT title || ' ||| ' || url FROM moz_places WHERE title != '' ORDER BY last_visit_date DESC LIMIT 20000;"
-
-    set -l selected (sqlite3 "$tmp_db" "$query" | fzf --reverse --query="$argv")
+    set -l selected (sqlite3 "$db_path" "$query" | rg -v blank | fzf --reverse --query="$argv" --with-nth=2,1)
 
     if test -n "$selected"
-        set -l parts (string split " ||| " $selected)
-        set -l url $parts[-1]
+        set -l parts (string split "|" $selected)
+        set -l url $parts[1]
 
-        niri msg action spawn-sh -- "zen \"$url\""
+        niri msg action spawn-sh -- "$BROWSER \"$url\""
     end
-
-    rm "$tmp_db"
 end

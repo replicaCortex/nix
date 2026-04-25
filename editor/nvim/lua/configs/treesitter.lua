@@ -2,9 +2,6 @@ return {
   ensure_installed = {
     "lua",
 
-    "html",
-    "css",
-
     "python",
     "nix",
 
@@ -18,6 +15,12 @@ return {
 
     "markdown",
     "markdown_inline",
+
+    "html",
+    "javascript",
+    "tsx",
+    "vue",
+    "css",
   },
 
   highlight = {

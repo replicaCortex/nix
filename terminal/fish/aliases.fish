@@ -1,11 +1,11 @@
 ### --- [ ОСНОВНЫЕ УТИЛИТЫ  ] ---
 
-abbr -a ls lsd
-abbr -a sl lsd
-abbr -a l 'lsd -al'
+alias ls 'eza --icons=auto'
+alias sl 'eza --icons=auto'
+alias l 'eza -al --icons=auto --git-repos --git'
 alias cat 'bat --theme-dark gruvbox-dark'
 abbr -a mv 'mv -v'
-abbr -a cp xcp
+abbr -a cp 'cp -v'
 abbr -a rm "echo Use 'rip' instead of rm" # Безопасное удаление
 alias wget "curl -L -O"
 
@@ -77,10 +77,6 @@ function d
     cd ~/note/journal && zk dd "$argv" && popd
 end
 
-function pdf2text
-    nix-shell -p poppler-utils --run "pdftotext \"$argv[1]\" \"$argv[2]\""
-end
-
 function docx2pdfp
     pandoc "$argv[1]" -o "$argv[2]" --pdf-engine=typst --extract-media=./typst_media -V mainfont="DejaVu Sans" && rm -rf ./typst_media
 end
@@ -88,11 +84,6 @@ end
 function docx2pdf
     pandoc "$argv[1]" -o "$argv[2]" --pdf-engine=typst --extract-media=./typst_media -V mainfont="DejaVu Sans" && rm -rf ./typst_media
 end
-
-### --- [ СКРИПТЫ ] ---
-
-alias timr "timer -s '󰀠  Alarm!' -b 'Timeout' -d"
-alias alrm "timer -m alarm -s '󰀠  Alarm!' -b 'Timeout' -d"
 
 function open
     set -l app $argv[1]

@@ -1,12 +1,12 @@
 { pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
-    pkgs.zen-browser.default
     telegram-desktop
+    qutebrowser
     mpv
     zathura
     vimiv-qt
   ];
 
-  programs.steam.enable = true;
+  # programs.steam.enable = true;
 }

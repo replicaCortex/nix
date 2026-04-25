@@ -1,5 +1,5 @@
 run:
-    nh os switch --ask /home/replica/sys/nix/nixos/ && dunstify "  NixOS" "Nix switch done 󰄬" || dunstify -u critical -h string:fgcolor:#f38ba8 "  NixOS" "Home switch failed ❌" -t 4000
+    nh os switch --ask /home/replica/sys/nix/nixos/ && dunstify "  NixOS" "Nix switch done 󰄬" || dunstify -u critical "  NixOS" "Home switch failed ❌" -t 4000
 
 sync:
     @echo "🔗 Создаем симлинки в ~/.var/.config..."
@@ -17,7 +17,7 @@ sync:
     @ln -sfn ~/sys/nix/apps/mpv $XDG_CONFIG_HOME/mpv
     @ln -sfn ~/sys/nix/apps/vimiv $XDG_CONFIG_HOME/vimiv
     @ln -sfn ~/sys/nix/apps/zathura $XDG_CONFIG_HOME/zathura
-    @ln -sfn ~/sys/nix/apps/zen/userChrome.css $HOME/.zen/**Default*/chrome/
+    @ln -sfn ~/sys/nix/apps/qutebrowser $XDG_CONFIG_HOME/qutebrowser
     @echo "✅ Конфиги успешно синхронизированы!"
 
 dev:

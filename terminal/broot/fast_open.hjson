@@ -27,7 +27,7 @@ verbs: [
         key: enter
         extensions: ["pdf", "fb2", "djvu", "cbz"]
         from_shell: true
-        execution: "nohup zathura {file} >/dev/null 2>&1 &" 
+        execution: "niri msg action spawn-sh -- 'zathura \"$(echo \"{file}\" | sed \"s/\\\"/\\\\\\\"/g\")\"'"
         leave_broot: true
     }
 
@@ -99,8 +99,12 @@ verbs: [
 
     {
         invocation: home
-        key: ctrl-home
         execution: ":focus ~"
+    }
+
+    {
+        invocation: figure
+        execution: ":focus ~/.var/.minecraft/figura/avatars/foobar"
     }
 
     {
@@ -109,11 +113,11 @@ verbs: [
     }
 
     {
-        key: ctrl-k
+        key: ctrl-p
         execution: ":line_up"
     }
     {
-        key: ctrl-j
+        key: ctrl-n
         execution: ":line_down"
     }
     {

@@ -19,11 +19,11 @@ verbs: [
         internal: ":input_del_word_left"
     }
     {
-        key: ctrl-k
+        key: ctrl-p
         execution: ":line_up"
     }
     {
-        key: ctrl-j
+        key: ctrl-n
         execution: ":line_down"
     }
     {
@@ -33,10 +33,10 @@ verbs: [
         execution: ":print_path"
         apply_to: "directory"
     }
+
     {
-        invocation: "krita"
-        execution: "niri msg action spawn-sh -- \"krita {file}\""
-        leave_broot: true
-        from_shell: true
+        invocation: figure
+        execution: ":focus ~/.var/.minecraft/figura/avatars/"
     }
+
 ]

@@ -72,12 +72,12 @@ verbs: [
         key: ctrl-w
         internal: ":input_del_word_left"
     }
+
     {
         invocation: terminal
         key: enter
-        execution: "$SHELL"
-        set_working_dir: true
-        leave_broot: true
+        from_shell: true
+        execution: "cd {file}"
     }
 
     {
@@ -101,11 +101,11 @@ verbs: [
     }
 
     {
-        key: ctrl-k
+        key: ctrl-p
         execution: ":line_up"
     }
     {
-        key: ctrl-j
+        key: ctrl-n
         execution: ":line_down"
     }
     {
@@ -131,18 +131,6 @@ verbs: [
         execution: "mv {file} ."
         leave_broot: true
         from_shell: true
-    }
-    {
-        invocation: "copy_to_panel"
-        execution: "xcp -r {file} {other-panel-directory}"
-        from_shell: true
-        # leave_broot: false
-    }
-    {
-        invocation: "move_to_panel"
-        execution: "mv {file} {other-panel-directory}"
-        from_shell: true
-        # leave_broot: false
     }
     {
         invocation: "git_home"

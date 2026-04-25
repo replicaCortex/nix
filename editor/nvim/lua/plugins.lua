@@ -1,10 +1,12 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    event = { "BufReadPost", "BufNewFile" },
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate",
     config = function()
-      require "configs.treesitter"
+      local configs = require "configs.treesitter"
+      require("nvim-treesitter.configs").setup(configs)
     end,
   },
 
@@ -20,25 +22,6 @@ return {
     "neovim/nvim-lspconfig",
 
     dependencies = { "nvim-treesitter/nvim-treesitter", "lewis6991/gitsigns.nvim" },
-    ft = {
-      "python",
-      "markdown",
-      "rust",
-      "lua",
-      "nix",
-      "sh",
-      "fish",
-      "just",
-      "toml",
-      "cs",
-      "typst",
-      "cpp",
-      "hpp",
-      "c",
-      "h",
-      "cc",
-      "hh",
-    },
     config = function()
       require "configs.lspconfig"
     end,
@@ -84,6 +67,14 @@ return {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
     config = true,
+  },
+
+  {
+    "windwp/nvim-ts-autotag",
+    ft = { "html", "javascript", "typescript", "javascriptreact", "typescriptreact", "vue", "xml", "twig" },
+    config = function()
+      require("nvim-ts-autotag").setup()
+    end,
   },
 
   {
