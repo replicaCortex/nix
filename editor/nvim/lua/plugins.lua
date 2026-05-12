@@ -146,4 +146,65 @@ return {
       require "configs.zk"
     end,
   },
+
+  {
+    "TheNoeTrevino/haunt.nvim",
+    dependencies = { "folke/snacks.nvim" },
+    -- event = "VeryLazy",
+    event = { "BufReadPost", "BufNewFile" },
+    opts = {
+      picker = "snacks",
+      sign = "󰃁",
+      annotation_prefix = " 󰆉  ",
+    },
+    keys = {
+      {
+        "<leader>ma",
+        function()
+          require("haunt.api").annotate()
+        end,
+        desc = "Add/Edit Mark Note",
+      },
+      {
+        "<leader>md",
+        function()
+          require("haunt.api").delete()
+        end,
+        desc = "Delete Mark",
+      },
+      {
+        "<leader>mC",
+        function()
+          require("haunt.api").clear_all()
+        end,
+        desc = "Clear All Marks",
+      },
+      {
+        "<leader>mY",
+        function()
+          require("haunt.api").yank_locations()
+        end,
+        desc = "Yank All Marks",
+      },
+      {
+        "<leader>mt",
+        function()
+          require("haunt.api").toggle_annotation()
+        end,
+        desc = "Toggle Mark Visibility",
+      },
+      {
+        "<leader>ml",
+        function()
+          require("haunt.picker").show()
+        end,
+        desc = "List Marks (Snacks)",
+      },
+    },
+  },
+
+  {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+  },
 }
