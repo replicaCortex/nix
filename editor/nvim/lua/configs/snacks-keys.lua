@@ -1,5 +1,11 @@
 return {
   {
+    "<leader>fi",
+    function()
+      require("snacks.picker").icons()
+    end,
+  },
+  {
     "<leader>sH",
     function()
       require("snacks.picker").highlights()
@@ -59,6 +65,20 @@ return {
     function()
       require("snacks.picker").lsp_references()
     end,
+  },
+  {
+    "gd",
+    function()
+      require("snacks.picker").lsp_definitions()
+    end,
+  },
+  {
+    "<leader>fw",
+    function()
+      require("snacks.picker").grep_word()
+    end,
+    desc = "Visual selection or word",
+    mode = { "n", "x" },
   },
   {
     "<leader>fb",
@@ -206,5 +226,22 @@ return {
       require("snacks.terminal").open()
     end,
     desc = "Git Log File",
+  },
+
+  ---
+
+  {
+    "<leader>s",
+    function()
+      Snacks.scratch()
+    end,
+    desc = "Toggle Scratch Buffer",
+  },
+  {
+    "<leader>S",
+    function()
+      Snacks.scratch.select()
+    end,
+    desc = "Select Scratch Buffer",
   },
 }

@@ -78,7 +78,7 @@ function launch
         case mc
             niri_spawn_sh "distrobox enter dev -- java -jar /usr/lib/legacy-launcher/LegacyLauncher.jar"
         case sr
-            niri_spawn_sh "distrobox enter dev -- java -jar ~/.var/.minecraft/fabric-server-mc.1.20.1-loader.0.19.2-launcher.1.1.1.jar"
+            niri_spawn_sh "cd ~/.var/.minecraft/ && distrobox enter dev -- java -jar fabric-server-mc.1.20.1-loader.0.19.2-launcher.1.1.1.jar"
 
 
         case '*'

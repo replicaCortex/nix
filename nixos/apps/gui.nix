@@ -5,7 +5,7 @@
     qutebrowser
     mpv
     zathura
-    vimiv-qt
+    # vimiv-qt
   ];
 
   # programs.steam.enable = true;

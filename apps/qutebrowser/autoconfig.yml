@@ -6,5 +6,5 @@
 
 config_version: 2
 settings:
-  content.javascript.clipboard:
-    https://huggingface.co: access-paste
+  downloads.prevent_mixed_content:
+    global: false

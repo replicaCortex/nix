@@ -17,17 +17,17 @@
     jq
     just
     libnotify
+    lsix
     neovim
     nh
+    nil
+    nixfmt
     rip2
     ripgrep
     sqlite
-    # translate-shell
     unzip
     zip
     zstd
-    nil
-    nixfmt
 
     # wine
     xwayland-satellite

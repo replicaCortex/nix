@@ -17,6 +17,7 @@
 
     # Desktop Environment
     ./desktop/niri.nix
+    # ./desktop/hyprland.nix
     ./desktop/fonts.nix
 
     # Host Applications

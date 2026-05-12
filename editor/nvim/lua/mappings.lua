@@ -39,3 +39,7 @@ map("n", "<Up>", "<Nop>")
 map("n", "<Down>", "<Nop>")
 map("n", "<Left>", "<Nop>")
 map("n", "<Right>", "<Nop>")
+
+map("i", "<C-k>", function()
+  vim.lsp.buf.signature_help()
+end)

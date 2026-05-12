@@ -1,7 +1,7 @@
 {
   environment.sessionVariables = {
     # Path
-    PATH = "$HOME/.var/.local/bin:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:/home/replica/.var/.dotnet/tools:$PATH";
+    PATH = "$HOME/.var/.local/bin:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:/home/replica/.var/.dotnet/tools:$PATH:$HOME/.var/.cargo/bin/";
 
     # XDG Base Directories
     XDG_CONFIG_HOME = "$HOME/.var/.config";
@@ -60,5 +60,6 @@
     DOTNET_ROOT = "/usr/share/dotnet";
 
     _JAVA_AWT_WM_NONREPARENTING = 1;
+    UV_LINK_MODE = "copy";
   };
 }

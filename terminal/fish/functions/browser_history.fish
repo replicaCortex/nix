@@ -2,7 +2,6 @@ function browser_history
     set -l ff_dir $HOME/.var/.local/share/qutebrowser
     set -l db_path $ff_dir/history.sqlite
 
-    # Используем DISTINCT и группируем по URL, берем последнее время
     set -l query "SELECT url, title, MAX(atime) as last_time 
                   FROM History 
                   GROUP BY url 

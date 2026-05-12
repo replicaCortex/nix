@@ -79,6 +79,26 @@ config.bind(
     "jseval --quiet navigator.clipboard.writeText(document.documentElement.innerText)",
 )
 
+# =========================================================
+# 5.1 ИНТЕГРАЦИЯ С WCRAWL (Markdown Crawler)
+# =========================================================
+
+# 'cm' (Copy Markdown) — Скачать текущую страницу и скопировать в буфер
+config.bind(
+    "cm",
+    'spawn bash -c \'cd ~/dev/crawler/ && uv run crawler.py {url} -s && notify-send "wcrawl" "Страница скопирована!"\'',
+)
+
+# 'cM' (Copy Markdown Hint) — Выбрать ссылку хинтом и отправить её в wcrawl
+config.bind("cM", "hint links spawn wcrawl {hint-url} -s")
+
+# Дополнительно: уведомление в статусбаре qutebrowser (опционально)
+# Чтобы видеть, что процесс пошел, можно обернуть в bash и вывести сообщение
+config.bind(
+    "cx",
+    "spawn --userscript bash -c 'qute-messenger info \"Crawling {url}...\" && wcrawl {url} -s'",
+)
+
 # --- Умный прыжок в начало/конец чата (игнорирует фокус) ---
 js_to_bottom = """
 jseval --quiet
@@ -276,3 +296,7 @@ c.fonts.messages.warning = f"11pt {my_font}"
 c.fonts.messages.error = f"11pt {my_font}"
 
 c.fonts.web.family.fixed = my_font
+
+c.zoom.default = "110%"
+
+c.downloads.location.directory = "~/"

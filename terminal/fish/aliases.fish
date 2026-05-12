@@ -1,12 +1,13 @@
 ### --- [ ОСНОВНЫЕ УТИЛИТЫ  ] ---
 
-alias ls 'eza --icons=auto'
-alias sl 'eza --icons=auto'
-alias l 'eza -al --icons=auto --git-repos --git'
+alias ls 'eza --icons=auto --group-directories-first'
+abbr sl ls
+alias l 'eza -al --icons=auto --git-repos --git -h --group-directories-first --smart-group --color-scale=all'
 alias cat 'bat --theme-dark gruvbox-dark'
 abbr -a mv 'mv -v'
 abbr -a cp 'cp -v'
-abbr -a rm "echo Use 'rip' instead of rm" # Безопасное удаление
+abbr -a rm "echo Use 'rip' instead of rm"
+abbr vi lsix
 alias wget "curl -L -O"
 
 ### --- [ НАВИГАЦИЯ И ПОИСК ] ---
@@ -67,10 +68,6 @@ end
 # function mpv
 #     niri msg action spawn-sh -- "mpv $PWD/$argv"
 # end
-
-function vi
-    nohup vimiv * --command 'enter thumbnail' >/dev/null 2>&1 &
-end
 
 function d
     pushd .

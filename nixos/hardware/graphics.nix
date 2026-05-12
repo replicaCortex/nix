@@ -2,7 +2,7 @@
   hardware = {
     graphics = {
       enable = true;
-      enable32Bit = false;
+      # enable32Bit = true;
     };
   };
 

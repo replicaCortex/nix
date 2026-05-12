@@ -25,7 +25,7 @@ input {
 
 cursor {
   hide-when-typing
-  hide-after-inactive-ms 10000
+  hide-after-inactive-ms 5000
 }
 
 output "eDP-1" {
@@ -33,20 +33,21 @@ output "eDP-1" {
 }
 
 layout {
-  gaps 6
-  center-focused-column "never"
-  // center-focused-column "always"
+  gaps 16
+  // center-focused-column "never"
+  center-focused-column "always"
   // always-center-single-column
   background-color "transparent"
   empty-workspace-above-first
 
   preset-column-widths {
     proportion 0.333
-    // proportion 0.5
+    proportion 0.5
     proportion 0.666
   }
 
-  default-column-width { proportion 0.333; }
+  // default-column-width { proportion 0.333; }
+  default-column-width { proportion 0.5; }
   // default-column-width { proportion 1.0; }
 
   focus-ring {

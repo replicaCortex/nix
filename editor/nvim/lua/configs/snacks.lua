@@ -69,6 +69,7 @@ return {
   gitbrowse = {},
   scope = {},
   quickfile = {},
+  bufdelete = {},
   terminal = {
     {
       bo = {
