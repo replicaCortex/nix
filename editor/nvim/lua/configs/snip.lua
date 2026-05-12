@@ -8,11 +8,12 @@ map({ "i", "s" }, "<A-l>", function()
   else
     return "<A-l>"
   end
-end, { expr = true, silent = true })
+end, { expr = true, silent = true, desc = "Jump Next Snippet" })
+
 map({ "i", "s" }, "<A-h>", function()
   if vim.snippet.active { direction = -1 } then
     return "<cmd>lua vim.snippet.jump(-1)<cr>"
   else
     return "<A-h>"
   end
-end, { expr = true, silent = true })
+end, { expr = true, silent = true, desc = "Jump Prev Snippet" })

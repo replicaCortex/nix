@@ -4,6 +4,7 @@ return {
     function()
       require("snacks.picker").icons()
     end,
+    desc = "Icons",
   },
   {
     "<leader>sH",
@@ -17,60 +18,70 @@ return {
     function()
       require("snacks.picker").files()
     end,
+    desc = "Files",
   },
   {
     "<leader>fg",
     function()
       require("snacks.picker").grep()
     end,
+    desc = "Grep Workspace",
   },
   {
     "<leader>fd",
     function()
       require("snacks.picker").diagnostics_buffer()
     end,
+    desc = "Buffer Diagnostics",
   },
   {
     "<leader>fD",
     function()
       require("snacks.picker").diagnostics()
     end,
+    desc = "Workspace Diagnostics",
   },
   {
     "<leader>fu",
     function()
       require("snacks.picker").undo()
     end,
+    desc = "Undo History",
   },
   {
     "<C-n>",
     function()
       require("snacks.picker").explorer()
     end,
+    desc = "Explorer",
   },
   {
     "<leader>fo",
     function()
       require("snacks.picker").recent()
     end,
+    desc = "Recent Files",
   },
   {
     "<leader>h",
     function()
       require("snacks.picker").help()
     end,
+    desc = "Help Pages",
   },
   {
     "grr",
     function()
       require("snacks.picker").lsp_references()
     end,
+    desc = "LSP References",
   },
   {
     "gd",
     function()
       require("snacks.picker").lsp_definitions()
     end,
+    desc = "LSP Definitions",
   },
   {
     "<leader>fw",
@@ -85,75 +96,63 @@ return {
     function()
       require("snacks.picker").buffers()
     end,
+    desc = "Buffers",
   },
   {
     "<leader>fs",
     function()
       require("snacks.picker").lsp_symbols()
     end,
+    desc = "LSP Symbols",
   },
   {
     "<leader>fS",
     function()
       require("snacks.picker").lsp_workspace_symbols()
     end,
+    desc = "LSP Workspace Symbols",
   },
   {
     "<leader>fn",
     function()
       require("snacks.picker").notifications()
     end,
+    desc = "Notifications",
   },
   {
     "<leader>fh",
     function()
       require("snacks.picker").command_history()
     end,
+    desc = "Command History",
   },
-
   {
     "/",
     function()
-      require("snacks.picker").lines {
-        layout = {
-          preview = "preview",
-          preset = "dropdown",
-        },
-      }
+      require("snacks.picker").lines { layout = { preview = "preview", preset = "dropdown" } }
     end,
+    desc = "Search Lines (/)",
   },
   {
     "?",
     function()
-      require("snacks.picker").lines {
-        layout = {
-          preview = "preview",
-          preset = "dropdown",
-        },
-      }
+      require("snacks.picker").lines { layout = { preview = "preview", preset = "dropdown" } }
     end,
+    desc = "Search Lines Reverse (?)",
   },
   {
     ",",
     function()
-      require("snacks.picker").lines {
-        layout = {
-          preview = "preview",
-          preset = "dropdown",
-        },
-      }
+      require("snacks.picker").lines { layout = { preview = "preview", preset = "dropdown" } }
     end,
+    desc = "Search Lines (,)",
   },
   {
     ".",
     function()
-      require("snacks.picker").lines {
-        layout = {
-          preview = "preview",
-          preset = "dropdown",
-        },
-      }
+      require("snacks.picker").lines { layout = { preview = "preview", preset = "dropdown" } }
     end,
+    desc = "Search Lines (.)",
   },
   {
     "<leader>gb",
@@ -204,44 +203,25 @@ return {
     end,
     desc = "Git Log File",
   },
-
-  --- terminal ---
   {
     "<leader>tt",
     function()
       require("snacks.terminal").toggle()
     end,
-    desc = "Git Log File",
+    desc = "Toggle Terminal",
   },
   {
     "<leader>tl",
     function()
       require("snacks.terminal").list()
     end,
-    desc = "Git Log File",
+    desc = "List Terminals",
   },
   {
     "<leader>to",
     function()
       require("snacks.terminal").open()
     end,
-    desc = "Git Log File",
-  },
-
-  ---
-
-  {
-    "<leader>s",
-    function()
-      Snacks.scratch()
-    end,
-    desc = "Toggle Scratch Buffer",
-  },
-  {
-    "<leader>S",
-    function()
-      Snacks.scratch.select()
-    end,
-    desc = "Select Scratch Buffer",
+    desc = "Open Terminal",
   },
 }

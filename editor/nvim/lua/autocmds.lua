@@ -25,28 +25,9 @@ vim.api.nvim_create_autocmd("CmdlineLeave", {
   end,
 })
 
--- vim.api.nvim_create_autocmd("VimEnter", {
---   callback = function()
---     if vim.fn.argc() == 0 then
---       require("snacks.picker").files()
---     end
---   end,
--- })
-
--- vim.api.nvim_create_autocmd("VimEnter", {
---   callback = function()
---     if vim.fn.argc() == 0 then
---       require("snacks.terminal").open()
---       vim.cmd "wincmd k"
---       vim.cmd "stopinsert"
---     end
---   end,
--- })
-
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "*",
   callback = function()
-    -- ???
     vim.cmd [[set fo-=o]]
   end,
 })
@@ -109,8 +90,6 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
---- auto compile ---
-
 vim.api.nvim_create_autocmd("BufWritePost", {
   pattern = "main.typ",
   callback = function()
@@ -118,16 +97,3 @@ vim.api.nvim_create_autocmd("BufWritePost", {
     vim.system { "typst", "compile", file }
   end,
 })
-
--- vim.api.nvim_create_autocmd("BufEnter", {
---   pattern = { "*.md", "*.typ", "*.tex", "*.txt" },
---   callback = function()
---     local opts = { noremap = true, silent = true, buffer = true }
---
---     vim.keymap.set("n", "j", "gj", opts)
---     vim.keymap.set("n", "k", "gk", opts)
---     vim.keymap.set("n", "0", "g0", opts)
---     vim.keymap.set("n", "$", "g$", opts)
---     vim.keymap.set("n", "^", "g^", opts)
---   end,
--- })

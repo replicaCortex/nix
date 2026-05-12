@@ -1,26 +1,14 @@
 local map = vim.keymap.set
--- local mapd = vim.keymap.del
 
--- map("i", "<C-h>", "<Left>")
--- map("i", "<C-l>", "<Right>")
--- map("i", "<C-j>", "<Down>")
--- map("i", "<C-k>", "<Up>")
+map("n", "<C-h>", "<C-w>h", { desc = "Go to Left Window" })
+map("n", "<C-l>", "<C-w>l", { desc = "Go to Right Window" })
+map("n", "<C-j>", "<C-w>j", { desc = "Go to Lower Window" })
+map("n", "<C-k>", "<C-w>k", { desc = "Go to Upper Window" })
 
-map("n", "<C-h>", "<C-w>h")
-map("n", "<C-l>", "<C-w>l")
-map("n", "<C-j>", "<C-w>j")
-map("n", "<C-k>", "<C-w>k")
+map("n", "<Esc>", "<cmd>noh<CR>", { desc = "Clear Highlights" })
 
-map("n", "<Esc>", "<cmd>noh<CR>")
-
-map("n", "<leader>/", "gcc", { remap = true })
-map("v", "<leader>/", "gc", { remap = true })
-
--- map("c", "<TAB>", "")
--- map("n", "q:", "")
-
--- mapd("n", "q")
--- mapd("n", "Q")
+map("n", "<leader>/", "gcc", { remap = true, desc = "Toggle Comment Line" })
+map("v", "<leader>/", "gc", { remap = true, desc = "Toggle Comment Selection" })
 
 vim.api.nvim_create_user_command("W", ":w", {})
 vim.api.nvim_create_user_command("Wa", ":wa", {})
@@ -29,17 +17,20 @@ vim.api.nvim_create_user_command("Wqa", ":wqa", {})
 vim.api.nvim_create_user_command("Q", ":q", {})
 vim.api.nvim_create_user_command("Wall", ":wall", {})
 
--- map("t", "<C-h>", [[<Cmd>wincmd h<CR>]])
-map("t", "<C-j>", [[<Cmd>wincmd j<CR>]])
-map("t", "<C-k>", [[<Cmd>wincmd k<CR>]])
-map("i", "<C-j>", "<Esc><C-w>j")
--- map("t", "<C-l>", [[<Cmd>wincmd l<CR>]])
+map("t", "<C-j>", [[<Cmd>wincmd j<CR>]], { desc = "Go to Lower Window" })
+map("t", "<C-k>", [[<Cmd>wincmd k<CR>]], { desc = "Go to Upper Window" })
+map("i", "<C-j>", "<Esc><C-w>j", { desc = "Go to Lower Window" })
 
-map("n", "<Up>", "<Nop>")
-map("n", "<Down>", "<Nop>")
-map("n", "<Left>", "<Nop>")
-map("n", "<Right>", "<Nop>")
+map("n", "<Up>", "<Nop>", { desc = "Disable Up Arrow" })
+map("n", "<Down>", "<Nop>", { desc = "Disable Down Arrow" })
+map("n", "<Left>", "<Nop>", { desc = "Disable Left Arrow" })
+map("n", "<Right>", "<Nop>", { desc = "Disable Right Arrow" })
 
 map("i", "<C-k>", function()
   vim.lsp.buf.signature_help()
-end)
+end, { desc = "Signature Help" })
+
+map("n", "]q", "<cmd>cnext<CR>zz", { desc = "Next Quickfix Item" })
+map("n", "[q", "<cmd>cprev<CR>zz", { desc = "Prev Quickfix Item" })
+map("n", "<leader>qq", "<cmd>copen<CR>", { desc = "Open Quickfix List" })
+map("n", "<leader>qc", "<cmd>cclose<CR>", { desc = "Close Quickfix List" })

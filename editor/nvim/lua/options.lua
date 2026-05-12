@@ -2,7 +2,6 @@ local opt = vim.opt
 local o = vim.o
 local g = vim.g
 
---- options ---
 g.loaded_node_provider = 0
 g.loaded_perl_provider = 0
 g.loaded_python_provider = 0
@@ -36,7 +35,6 @@ o.tabstop = 2
 o.termguicolors = true
 o.timeoutlen = 400
 o.title = true
--- o.backupcopy = "yes"
 o.undofile = true
 o.undolevels = 10000
 o.updatetime = 250
@@ -48,11 +46,8 @@ opt.whichwrap:append "<>[]hl"
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.opt.shortmess:append "cI"
--- o.conceallevel = 2
--- o.confirm = true
--- o.scrolloff = 4
 
 local keys = { ",", ".", "!", "?", ";", ":" }
 for _, key in ipairs(keys) do
-  vim.keymap.set("i", key, key .. "<C-g>u")
+  vim.keymap.set("i", key, key .. "<C-g>u", { desc = "Undo Breakpoint" })
 end
