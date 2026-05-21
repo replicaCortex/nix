@@ -2,6 +2,8 @@ local opt = vim.opt
 local o = vim.o
 local g = vim.g
 
+require("vim._core.ui2").enable()
+
 g.loaded_node_provider = 0
 g.loaded_perl_provider = 0
 g.loaded_python_provider = 0

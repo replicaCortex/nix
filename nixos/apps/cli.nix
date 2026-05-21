@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-neovim, ... }:
 {
   environment.systemPackages = with pkgs; [
     distrobox
@@ -19,7 +19,7 @@
     just
     libnotify
     lsix
-    neovim
+    pkgs-neovim.neovim
     nh
     nil
     nixfmt

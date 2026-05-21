@@ -300,3 +300,12 @@ c.fonts.web.family.fixed = my_font
 c.zoom.default = "110%"
 
 c.downloads.location.directory = "~/"
+c.downloads.prevent_mixed_content = True
+c.content.blocking.method = "both"
+
+# ---
+
+c.content.javascript.enabled = True
+#
+# config.set("content.javascript.enabled", True, "*://github.com/*")
+# config.set("content.javascript.enabled", True, "*://arena.ai/*")

@@ -16,21 +16,35 @@ function launch
         set rest ""
     end
 
+    set -l url_encoded_rest (echo "$rest" | jq -sRr @uri)
+
     switch $cmd
         case go пщ
             set url "https://aistudio.google.com/prompts/new_chat"
         case nix тшч
-            set url "https://search.nixos.org/packages?channel=unstable"
+            if test -n "$rest"
+                set url "https://search.nixos.org/packages?channel=unstable&query=$url_encoded_rest"
+            else
+                set url "https://search.nixos.org/packages?channel=unstable"
+            end
         case tr ек
-            set url "https://translate.google.com/?hl=en"
+            set url "https://translate.google.com/?hl=en&text=$url_encoded_rest"
         case ytr нек
-            set url "https://translate.yandex.com/?source_lang=en&target_lang=ru&text="
+            set url "https://translate.yandex.com/?source_lang=en&target_lang=ru&text=$url_encoded_rest"
         case an фт
-            set url "https://annas-archive.gl/"
+            if test -n "$rest"
+                set url "https://annas-archive.gl/search?q=$url_encoded_rest"
+            else
+                set url "https://annas-archive.gl/"
+            end
         case img шьп
             set url "https://gelbooru.com/index.php?page=post&s=list&tags=all"
         case re ку
-            set url "https://old.reddit.com/"
+            if test -n "$rest"
+                set url "https://old.reddit.com/search?q=$url_encoded_rest"
+            else
+                set url "https://old.reddit.com/"
+            end
         case de ву
             set url "https://chat.deepseek.com/"
         case qw йц
@@ -40,7 +54,11 @@ function launch
         case du вг
             set url "https://duckduckgo.com/?q=DuckDuckGo+AI+Chat&ia=chat&duckai=1"
         case git пше
-            set url "https://github.com/"
+            if test -n "$rest"
+                set url "https://github.com/search?q=$url_encoded_rest"
+            else
+                set url "https://github.com/"
+            end
         case ng тп
             set url "https://www.newgrounds.com/"
         case 2ch 2ср
@@ -48,7 +66,11 @@ function launch
         case w ц
             set url "https://web.whatsapp.com/"
         case rev кум
-            set url "https://context.reverso.net/translation/english-russian/"
+            if test -n "$rest"
+                set url "https://context.reverso.net/translation/english-russian/$url_encoded_rest"
+            else
+                set url "https://context.reverso.net/translation/english-russian/"
+            end
         case sh ыр
             set url "https://npi-tu.ru/schedule/schedule.html?for=student&faculty=2&year=3&group=%D0%9F%D0%9E%D0%92%D0%B0"
         case wo цщ
@@ -59,6 +81,8 @@ function launch
             set url "https://sdo.npi-tu.ru/"
         case sdo ывщ
             sdo
+        case npi ывщ
+            set url "https://dec.srspu.ru/Ved/"
         case vk мл
             set url "https://vk.com/im"
         case manga ьфтпф
@@ -69,6 +93,8 @@ function launch
             set url "https://alice.yandex.ru/"
         case ar фк
             set url "https://arena.ai/?mode=direct"
+        case arf фка
+            set url "https://arena.ai/direct?m=flash"
         case sp
             niri_spawn_sh "cd ~/dev/gesture-drawing/ && uv run main.py -p $path_to_poses -m -t 30 -c 20 -d 5 -s " & sleep 2 && niri msg action set-column-width 1870
         case mp
@@ -83,12 +109,16 @@ function launch
             niri_spawn_sh "$BROWSER https://www.youtube.com/playlist?list=PLzxkyQKtgmo9A0Gq-YS1vvxqlLNgB8vhU"
 
         case '*'
-            set -l selected (ddgr -n 25 --noua --json --noprompt $input_text | \
-                             jq -r '.[] | "\(.title) \t \(.url)"' | \
-                             fzf --delimiter \t --with-nth 1 --reverse --layout=reverse --header "Searching for: $input_text")
+            set -l selected (ddgr -n 25 --noua --json --noprompt "$input_text" | \
+                             jq -r '.[] | "\(.title)\t\(.url)\t\(.abstract)"' | \
+                             fzf --delimiter '\t' \
+                                 --with-nth 1 \
+                                 --header "DuckDuckGo: $input_text" \
+                                 --preview 'printf "\033[1;32mURL:\033[0m %s\n\n\033[1;33mDescription:\033[0m %s\n" "{2}" "{3}"' \
+                                 --preview-window=top:50%:wrap)
 
             if test $status -eq 0; and test -n "$selected"
-                set url (echo $selected | cut -f2 | string trim)
+                set url (echo "$selected" | cut -f2 | string trim)
             else
                 exit
             end

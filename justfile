@@ -1,6 +1,12 @@
 run:
     nh os switch --ask /home/replica/sys/nix/nixos/ && dunstify "  NixOS" "Nix switch done 󰄬" || dunstify -u critical "  NixOS" "Home switch failed ❌" -t 4000
 
+update-nvim:
+    cd ./nixos && nix flake lock --update-input nixpkgs-neovim
+
+update:
+    cd ./nixos && nix flake update
+
 sync:
     @echo "🔗 Создаем симлинки в ~/.var/.config..."
     @mkdir -p ~/.var/.config

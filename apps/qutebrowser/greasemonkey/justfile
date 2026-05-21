@@ -1,0 +1,15 @@
+update-arena-scripts:
+    curl -sL "https://update.greasyfork.org/scripts/526702/Arenaai%20%7C%20DOM%20Performance%20Optimizer.user.js" -o ./arena_dom_opt.js
+
+    curl -sL "https://update.greasyfork.org/scripts/559376/ChatGPTClaudeGrokArena%20%7C%20ConversationChat%20Markdown%20ExportDownload.user.js" -o ./arena_to_markdown.js
+
+    curl -sL "https://update.greasyfork.org/scripts/471477/Reddit%20Old%20Redirect%20%F0%9F%94%99.user.js" -o ./redirect_to_old_reddit.js
+
+    curl -sL "https://update.greasyfork.org/scripts/491898/Old%20Reddit%20show%20image%20in%20comments.user.js" -o ./old_reddit_images.js
+
+    curl -sL "https://update.greasyfork.org/scripts/469760/Reddit%20Old%20Mobile%20%F0%9F%93%B1.user.js" -o ./old_reddit_mobile.js
+
+    just reload 
+
+reload:
+    qutebrowser ":greasemonkey-reload"

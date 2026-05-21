@@ -7,4 +7,4 @@
 config_version: 2
 settings:
   downloads.prevent_mixed_content:
-    global: false
+    global: true

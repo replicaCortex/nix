@@ -68,6 +68,6 @@
       + "--smart-case "
       + "--cycle "
       + "--multi "
-      + "--bind=\"space:toggle-preview,ctrl-f:preview-down,ctrl-b:preview-up\"";
+      + "--bind=\"ctrl-f:preview-down,ctrl-b:preview-up\"";
   };
 }

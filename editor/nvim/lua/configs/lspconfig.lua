@@ -12,6 +12,7 @@ local servers = {
   "tinymist",
   "ty",
   "ts_ls",
+  "vscode-html-language-server",
 }
 
 if vim.lsp.inlay_hint then
@@ -46,13 +47,21 @@ vim.lsp.config("gopls", {
         parameterNames = true,
         rangeVariableTypes = true,
       },
+      codelenses = {
+        generate = true,
+        test = true,
+        benchmark = true,
+        tidy = true,
+        upgrade_dependency = true,
+        vendor = true,
+      },
     },
   },
 })
 
 -- disable semanticTokens
 local function on_init(client, _)
-  if client.supports_method "textDocument/semanticTokens" then
+  if client:supports_method "textDocument/semanticTokens" then
     client.server_capabilities.semanticTokensProvider = nil
   end
 end
@@ -97,5 +106,7 @@ vim.lsp.config("lua_ls", {
 })
 
 vim.lsp.enable(servers)
+vim.lsp.enable("html", true)
+-- vim.lsp.codelens.enable(true)
 
 require "configs.diagnostic"

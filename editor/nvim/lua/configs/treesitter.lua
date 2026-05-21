@@ -1,6 +1,9 @@
 return {
   ensure_installed = {
     "lua",
+    "luadoc",
+    "vim",
+    "vimdoc",
 
     "python",
     "nix",
@@ -17,6 +20,7 @@ return {
     "markdown_inline",
 
     "html",
+    "html_tags",
     "javascript",
     "tsx",
     "vue",
@@ -36,16 +40,9 @@ return {
     "gomod",
     "gotmpl",
 
-    "gdscript",
-    "gdshader",
-    "godot_resource",
+    "printf",
+    "regex",
+    "sql",
+    "jsonc",
   },
-
-  highlight = {
-    enable = true,
-    use_languagetree = true,
-    additional_vim_regex_highlighting = false,
-  },
-
-  indent = { enable = true },
 }

@@ -16,36 +16,11 @@ verbs: [
     }
 
     {
-        invocation: drag
-        leave_broot: true
-        from_shell: true
-        execution: "dragon-drop {file}"
-    }
-
-    {
         invocation: open_doc
         key: enter
         extensions: ["pdf", "fb2", "djvu", "cbz"]
         from_shell: true
         execution: "niri msg action spawn-sh -- 'zathura \"$(echo \"{file}\" | sed \"s/\\\"/\\\\\\\"/g\")\"'"
-        leave_broot: true
-    }
-
-    {
-        invocation: open_video
-        key: enter
-        extensions: ["mkv", "mp4", "avi", "webm", "mp3"]
-        from_shell: true
-        execution: "niri msg action spawn-sh -- 'mpv {file}'"
-        leave_broot: true
-    }
-
-    {
-        invocation: open_bee
-        key: enter
-        extensions: ["bee"]
-        from_shell: true
-        execution: "niri msg action spawn-sh -- 'beeref {file}'" 
         leave_broot: true
     }
 
