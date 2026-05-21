@@ -204,24 +204,11 @@ return {
     desc = "Git Log File",
   },
   {
-    "<leader>tt",
+    "<C-t>",
     function()
       require("snacks.terminal").toggle()
     end,
     desc = "Toggle Terminal",
-  },
-  {
-    "<leader>tl",
-    function()
-      require("snacks.terminal").list()
-    end,
-    desc = "List Terminals",
-  },
-  {
-    "<leader>to",
-    function()
-      require("snacks.terminal").open()
-    end,
-    desc = "Open Terminal",
+    mode = { "n", "t" },
   },
 }

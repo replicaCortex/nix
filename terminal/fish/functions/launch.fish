@@ -79,7 +79,8 @@ function launch
             niri_spawn_sh "distrobox enter dev -- java -jar /usr/lib/legacy-launcher/LegacyLauncher.jar"
         case sr
             niri_spawn_sh "cd ~/.var/.minecraft/ && distrobox enter dev -- java -jar fabric-server-mc.1.20.1-loader.0.19.2-launcher.1.1.1.jar"
-
+        case helltaker
+            niri_spawn_sh "$BROWSER https://www.youtube.com/playlist?list=PLzxkyQKtgmo9A0Gq-YS1vvxqlLNgB8vhU"
 
         case '*'
             set -l selected (ddgr -n 25 --noua --json --noprompt $input_text | \

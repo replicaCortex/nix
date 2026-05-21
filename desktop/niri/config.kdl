@@ -41,13 +41,13 @@ layout {
   empty-workspace-above-first
 
   preset-column-widths {
-    proportion 0.333
-    proportion 0.5
-    proportion 0.666
+    proportion 0.45
+    // proportion 0.5
+    proportion 0.8
   }
 
-  // default-column-width { proportion 0.333; }
-  default-column-width { proportion 0.5; }
+  default-column-width { proportion 0.45; }
+  // default-column-width { proportion 0.5; }
   // default-column-width { proportion 1.0; }
 
   focus-ring {
@@ -133,10 +133,9 @@ binds {
   Mod+F          { spawn-sh "footclient --app-id=float -e fish -c 'source ~/sys/nix/terminal/fish/functions/launch.fish; launch'"; }
   Mod+Shift+F { spawn-sh "footclient --app-id=float -e bash --noprofile --norc -c ~/sys/nix/terminal/scripts/broot_picker_fast.sh"; }
   Mod+B          { spawn-sh "footclient --app-id=float -e fish -c 'source ~/sys/nix/terminal/fish/functions/browser_history.fish; browser_history'"; }
-  Mod+Y { spawn-sh "footclient --app-id=float -e fish -c 'set -x FZF_DEFAULT_OPTS \"--layout=reverse\"; cliphist-fzf-sixel'"; }
+  Mod+Y { spawn-sh "footclient --app-id=float -e bash -c 'cliphist-fzf-sixel'"; }
   Mod+V { spawn-sh "footclient -e bash --noprofile --norc -c 'btop'"; }
   Mod+N { spawn-sh "qutebrowser"; }
-  // Mod+T { spawn-sh "footclient -e bash --noprofile --norc -c ~/sys/nix/terminal/scripts/translate.sh"; }
   Mod+X          { spawn-sh "Telegram"; }
   Mod+P          { screenshot; }
   Mod+Shift+P          { screenshot-window; }

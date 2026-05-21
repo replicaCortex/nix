@@ -52,8 +52,8 @@
       "settings": {
         "vnext": [
           {
-            "address": "62.152.56.149",
-            "port": 5443,
+            "address": "178.250.242.248",
+            "port": 666,
             "users": [
               {
                 "id": "c6e349d6-11f5-43c2-97b9-edc819cffea0",
@@ -70,7 +70,8 @@
         "security": "reality",
         "realitySettings": {
           "serverName": "max.ru",
-          "publicKey": "LGcG8Sqv5vPDypbaEgHV0ZGqQOBkgDepPWXyDohbVXQ",
+          "publicKey": "3e-FjUV-nyaKq8pAvJ5jGa5gZMIK6_bN-xwijYlRbwM",
+          "shortId": "e5fa9569c4d0cb5e",
           "fingerprint": "chrome"
         }
       }
@@ -84,5 +85,5 @@
       "protocol": "blackhole"
     }
   ],
-  "remarks": "🇪🇺 BOOST Авто-Балансер (Белые списки)"
+  "remarks": "🇵🇱 🦢 Все операторы & AllServices"
 }

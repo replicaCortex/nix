@@ -61,5 +61,13 @@
 
     _JAVA_AWT_WM_NONREPARENTING = 1;
     UV_LINK_MODE = "copy";
+
+    FZF_DEFAULT_OPTS =
+      "--layout=reverse "
+      + "--info=inline "
+      + "--smart-case "
+      + "--cycle "
+      + "--multi "
+      + "--bind=\"space:toggle-preview,ctrl-f:preview-down,ctrl-b:preview-up\"";
   };
 }

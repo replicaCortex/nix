@@ -21,6 +21,24 @@ return {
     "tsx",
     "vue",
     "css",
+
+    "bash",
+    "go",
+    "fish",
+    "just",
+    "typst",
+    "json",
+    "jsonc",
+    "toml",
+    "yaml",
+
+    "gosum",
+    "gomod",
+    "gotmpl",
+
+    "gdscript",
+    "gdshader",
+    "godot_resource",
   },
 
   highlight = {

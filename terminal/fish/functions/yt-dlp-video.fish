@@ -1,9 +1,6 @@
 function yt-dlp-video
     set -l my_args
 
-    set -a my_args --cookies-from-browser
-    set -a my_args "chromium:$HOME/.var/.local/share/qutebrowser/webengine"
-
     set -a my_args -f
     set -a my_args "bestvideo[vcodec*=av01][height<=1080]+bestaudio[acodec=opus] / bestvideo[vcodec*=vp09][height<=1080]+bestaudio[acodec=opus] / bestvideo[height<=1080]+bestaudio / best"
 

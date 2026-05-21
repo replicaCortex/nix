@@ -15,6 +15,7 @@
     fzf
     gitMinimal
     jq
+    jujutsu
     just
     libnotify
     lsix

@@ -1,8 +1,9 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    event = { "BufReadPost", "BufNewFile" },
-    cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
+    event = "VeryLazy",
+    -- event = { "BufReadPost", "BufNewFile" },
+    -- cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate",
     config = function()
       local configs = require "configs.treesitter"
@@ -127,60 +128,6 @@ return {
     end,
   },
   {
-    "TheNoeTrevino/haunt.nvim",
-    dependencies = { "folke/snacks.nvim" },
-    event = { "BufReadPost", "BufNewFile" },
-    opts = {
-      picker = "snacks",
-      -- sign = "󰃁",
-      annotation_prefix = "󰆉  ",
-    },
-    keys = {
-      {
-        "<leader>ma",
-        function()
-          require("haunt.api").annotate()
-        end,
-        desc = "Add/Edit Mark Note",
-      },
-      {
-        "<leader>md",
-        function()
-          require("haunt.api").delete()
-        end,
-        desc = "Delete Mark",
-      },
-      {
-        "<leader>mC",
-        function()
-          require("haunt.api").clear_all()
-        end,
-        desc = "Clear All Marks",
-      },
-      {
-        "<leader>mY",
-        function()
-          require("haunt.api").yank_locations()
-        end,
-        desc = "Yank All Marks",
-      },
-      {
-        "<leader>mt",
-        function()
-          require("haunt.api").toggle_annotation()
-        end,
-        desc = "Toggle Mark Visibility",
-      },
-      {
-        "<leader>ml",
-        function()
-          require("haunt.picker").show()
-        end,
-        desc = "List Marks",
-      },
-    },
-  },
-  {
     "folke/which-key.nvim",
     event = "VeryLazy",
     opts = {
@@ -190,6 +137,48 @@ return {
         { "<leader>m", group = "Marks", icon = "󱙝 " },
         { "<leader>q", group = "Quickfix", icon = " " },
         { "<leader>t", group = "Terminal", icon = " " },
+      },
+    },
+  },
+
+  {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    event = { "BufReadPost", "BufNewFile" },
+    opts = {
+      signs = true,
+      sign_priority = 8,
+      keywords = {
+        FIX = { icon = " ", color = "error", alt = { "FIXME", "BUG", "FIXIT", "ISSUE" } },
+        TODO = { icon = " ", color = "info" },
+        HACK = { icon = " ", color = "warning" },
+        WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
+        PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+        NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
+        TEST = { icon = "⏲ ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
+      },
+    },
+    keys = {
+      {
+        "]t",
+        function()
+          require("todo-comments").jump_next()
+        end,
+        desc = "Next Todo Comment",
+      },
+      {
+        "[t",
+        function()
+          require("todo-comments").jump_prev()
+        end,
+        desc = "Previous Todo Comment",
+      },
+      {
+        "<leader>ft",
+        function()
+          require("snacks.picker").todo_comments()
+        end,
+        desc = "Find Todo Comments",
       },
     },
   },
