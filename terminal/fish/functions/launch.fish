@@ -108,6 +108,50 @@ function launch
         case helltaker
             niri_spawn_sh "$BROWSER https://www.youtube.com/playlist?list=PLzxkyQKtgmo9A0Gq-YS1vvxqlLNgB8vhU"
 
+        case ah фр
+            set -l db_path "$XDG_DATA_HOME/qutebrowser/webengine/Cookies"
+            set -l temp_db (mktemp)
+
+            cp "$db_path" "$temp_db"
+
+            set -l query "SELECT name || '=' || value FROM cookies WHERE host_key LIKE '%arena.ai%' AND value != '';"
+
+            set -l raw_cookies (sqlite3 "$temp_db" "$query")
+
+            rm "$temp_db"
+
+            set -l ARENA_COOKIE (string join "; " $raw_cookies)
+
+            if test -z "$ARENA_COOKIE"
+                echo "Ошибка: Куки для arena.ai не найдены."
+                sleep 3
+                exit
+            end
+
+            set -l ARENA_API "https://arena.ai/api/history/unified?limit=40&includeArchived=false"
+            set -l raw_json (curl -s "$ARENA_API" -H "cookie: $ARENA_COOKIE")
+
+            if echo "$raw_json" | grep -q Unauthorized
+                echo "Ошибка: Сервер отклонил куки. Залогинься в браузере!"
+                sleep 3
+                exit
+            end
+
+            set -l selected (echo "$raw_json" | \
+                             jq -r '.entries[] | "\(.title | gsub("\n"; " "))\t\(.id)"' | \
+                             fzf --delimiter '\t' \
+                                 --with-nth 1 \
+                                 --header "Arena History" \
+                                 --preview 'printf "\033[1;32mID:\033[0m %s\n\n\033[1;33mЗаголовок:\033[0m %s\n" "{2}" "{1}"' \
+                                 --preview-window=top:40%:wrap)
+
+            if test $status -eq 0; and test -n "$selected"
+                set chat_id (echo "$selected" | cut -f2 | string trim)
+                set url "https://arena.ai/c/$chat_id"
+            else
+                exit
+            end
+
         case '*'
             set -l selected (ddgr -n 25 --noua --json --noprompt "$input_text" | \
                              jq -r '.[] | "\(.title)\t\(.url)\t\(.abstract)"' | \

@@ -16,7 +16,7 @@ sync:
     @ln -sfn ~/sys/nix/terminal/foot $XDG_CONFIG_HOME/foot
     @ln -sfn ~/sys/nix/terminal/broot $XDG_CONFIG_HOME/broot
     @ln -sfn ~/sys/nix/terminal/yt-dlp/ $XDG_CONFIG_HOME/yt-dlp
-    @ln -sfn ~/sys/nix/desktop/niri $XDG_CONFIG_HOME/niri
+    @ln -sfn /etc/niri/ $XDG_CONFIG_HOME/niri
     @ln -sfn ~/sys/nix/desktop/waybar $XDG_CONFIG_HOME/waybar
     @ln -sfn ~/sys/nix/desktop/dunst $XDG_CONFIG_HOME/dunst
     @ln -sfn ~/sys/nix/editor/nvim $XDG_CONFIG_HOME/nvim

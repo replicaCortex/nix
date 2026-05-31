@@ -2,6 +2,8 @@
 # QUTEBROWSER CONFIG (Tabless / Minimalist / Vim-way)
 # =========================================================
 
+import os
+
 # Обязательная строчка, чтобы конфиг не перезаписывался из GUI
 config.load_autoconfig(False)
 
@@ -30,9 +32,7 @@ c.tabs.tabs_are_windows = True
 
 # Вызов редактора по Ctrl+E (в поле ввода) или gE (в Normal mode)
 c.editor.command = [
-    "footclient",
-    "--app-id=float",
-    "-e",
+    os.path.expanduser("~/sys/nix/terminal/scripts/smart_float.sh"),
     "nvim",
     "{file}",
     "-c",
