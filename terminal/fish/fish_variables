@@ -2,9 +2,11 @@
 # VERSION: 3.0
 SETUVAR __fish_initialized:4300
 SETUVAR _hydro_git_1107180:\x40af52a08\u2022\x20
-SETUVAR _hydro_git_1116753:\x4007e1379\u2022\x20
+SETUVAR _hydro_git_1116753:\x406ac4ff0\u2022\x20
 SETUVAR _hydro_git_1316867:niri\u2022\x20
 SETUVAR _hydro_git_1593:niri\u2022\x20
+SETUVAR _hydro_git_1605:\x406ac4ff0\u2022\x20
+SETUVAR _hydro_git_23725:\x406ac4ff0\u2022\x20
 SETUVAR _hydro_git_30331:\x407c246c7\u2022\x20
 SETUVAR _hydro_git_46483:\x407c246c7\u2022\x20
 SETUVAR _hydro_git_4705:niri\u2022\x20

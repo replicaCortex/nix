@@ -19,4 +19,8 @@ if ! pgrep -f "batsignal" >/dev/null; then
   niri msg action spawn-sh -- "batsignal -w 10 -f 80"
 fi
 
+if ! pgrep -f "niri-float-sticky" >/dev/null; then
+  niri msg action spawn-sh -- "niri-float-sticky"
+fi
+
 notify-send "Niri" "Init system done"

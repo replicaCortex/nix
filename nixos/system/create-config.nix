@@ -30,6 +30,7 @@ let
   browser = "qutebrowser";
   editor = "nvim";
   smartFloatCmd = "$HOME/sys/nix/terminal/scripts/smart_float.sh";
+  nvimCallBack = "$HOME/sys/nix/terminal/scripts/nvim_focus_callback.sh";
   terminal = "foot";
   terminal-client = "footclient";
 in
@@ -38,6 +39,7 @@ in
     PATH = "$HOME/.var/.local/bin:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:/home/replica/.var/.dotnet/tools:$PATH:$HOME/.var/.cargo/bin/";
 
     SMART_FLOAT = smartFloatCmd;
+    NVIM_CALL_BACK = nvimCallBack;
 
     XDG_CONFIG_HOME = "$HOME/.var/.config";
     XDG_DATA_HOME = "$HOME/.var/.local/share";

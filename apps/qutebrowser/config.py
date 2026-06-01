@@ -1,7 +1,6 @@
 # =========================================================
 # QUTEBROWSER CONFIG (Tabless / Minimalist / Vim-way)
 # =========================================================
-
 import os
 
 # Обязательная строчка, чтобы конфиг не перезаписывался из GUI
@@ -30,10 +29,18 @@ c.tabs.tabs_are_windows = True
 # 3. ВНЕШНИЙ РЕДАКТОР (NeoVim через Foot)
 # =========================================================
 
-# Вызов редактора по Ctrl+E (в поле ввода) или gE (в Normal mode)
-c.editor.command = [
+smart_float = os.environ.get(
+    "SMART_FLOAT",
     os.path.expanduser("~/sys/nix/terminal/scripts/smart_float.sh"),
-    "nvim",
+)
+
+nvim_call_back = os.environ.get(
+    "NVIM_CALL_BACK",
+    os.path.expanduser("~/sys/nix/terminal/scripts/nvim_focus_callback.sh"),
+)
+
+c.editor.command = [
+    nvim_call_back,
     "{file}",
     "-c",
     "normal {line}G{column0}l",
