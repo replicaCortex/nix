@@ -8,23 +8,19 @@ update:
     cd ./nixos && nix flake update
 
 sync:
-    @echo "🔗 Создаем симлинки в ~/.var/.config..."
     @mkdir -p ~/.var/.config
-    @ln -sfn ~/sys/nix/desktop/xdg-desktop-portal/ $XDG_CONFIG_HOME/xdg-desktop-portal
+    @ln -sfn /etc/dunst $XDG_CONFIG_HOME/dunst
+    @ln -sfn /etc/niri/ $XDG_CONFIG_HOME/niri
+    @ln -sfn ~/sys/nix/apps/mpv $XDG_CONFIG_HOME/mpv
+    @ln -sfn ~/sys/nix/apps/qutebrowser $XDG_CONFIG_HOME/qutebrowser
+    @ln -sfn ~/sys/nix/apps/zathura $XDG_CONFIG_HOME/zathura
+    @ln -sfn ~/sys/nix/desktop/waybar $XDG_CONFIG_HOME/waybar
     @ln -sfn ~/sys/nix/desktop/xdg-desktop-portal-termfilechooser/ $XDG_CONFIG_HOME/xdg-desktop-portal-termfilechooser
+    @ln -sfn ~/sys/nix/desktop/xdg-desktop-portal/ $XDG_CONFIG_HOME/xdg-desktop-portal
+    @ln -sfn ~/sys/nix/editor/nvim $XDG_CONFIG_HOME/nvim
     @ln -sfn ~/sys/nix/terminal/fish $XDG_CONFIG_HOME/fish
     @ln -sfn ~/sys/nix/terminal/foot $XDG_CONFIG_HOME/foot
-    @ln -sfn ~/sys/nix/terminal/broot $XDG_CONFIG_HOME/broot
     @ln -sfn ~/sys/nix/terminal/yt-dlp/ $XDG_CONFIG_HOME/yt-dlp
-    @ln -sfn /etc/niri/ $XDG_CONFIG_HOME/niri
-    @ln -sfn ~/sys/nix/desktop/waybar $XDG_CONFIG_HOME/waybar
-    @ln -sfn ~/sys/nix/desktop/dunst $XDG_CONFIG_HOME/dunst
-    @ln -sfn ~/sys/nix/editor/nvim $XDG_CONFIG_HOME/nvim
-    @ln -sfn ~/sys/nix/apps/mpv $XDG_CONFIG_HOME/mpv
-    @ln -sfn ~/sys/nix/apps/zathura $XDG_CONFIG_HOME/zathura
-    @ln -sfn ~/sys/nix/apps/qutebrowser $XDG_CONFIG_HOME/qutebrowser
-    @echo "✅ Конфиги успешно синхронизированы!"
 
 dev:
-    @echo "🐳 Собираем Dev-контейнер..."
     distrobox-assemble create --file ~/sys/nix/containers/distrobox.ini

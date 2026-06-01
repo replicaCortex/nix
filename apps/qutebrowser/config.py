@@ -29,15 +29,7 @@ c.tabs.tabs_are_windows = True
 # 3. ВНЕШНИЙ РЕДАКТОР (NeoVim через Foot)
 # =========================================================
 
-smart_float = os.environ.get(
-    "SMART_FLOAT",
-    os.path.expanduser("~/sys/nix/terminal/scripts/smart_float.sh"),
-)
-
-nvim_call_back = os.environ.get(
-    "NVIM_CALL_BACK",
-    os.path.expanduser("~/sys/nix/terminal/scripts/nvim_focus_callback.sh"),
-)
+nvim_call_back = os.environ.get("NVIM_CALL_BACK", "ERROR")
 
 c.editor.command = [
     nvim_call_back,

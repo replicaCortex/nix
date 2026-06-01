@@ -95,16 +95,6 @@ function launch
             set url "https://arena.ai/?mode=direct"
         case arf фка
             set url "https://arena.ai/direct?m=flash"
-        case sp
-            niri_spawn_sh "cd ~/dev/gesture-drawing/ && uv run main.py -p $path_to_poses -m -t 30 -c 20 -d 5 -s " & sleep 2 && niri msg action set-column-width 1870
-        case mp
-            niri_spawn_sh "cd ~/dev/gesture-drawing/ && uv run main.py -p $path_to_poses -t 60 -c 10 -d 5 -s -m" & sleep 2 && niri msg action set-column-width 1870
-        case lp
-            niri_spawn_sh "cd ~/dev/gesture-drawing/ && uv run main.py -p $path_to_poses -t 120 -c 10 -d 5 -s -m" & sleep 3 && niri msg action set-column-width 1870
-        case mc
-            niri_spawn_sh "distrobox enter dev -- java -jar /usr/lib/legacy-launcher/LegacyLauncher.jar"
-        case sr
-            niri_spawn_sh "cd ~/.var/.minecraft/ && distrobox enter dev -- java -jar fabric-server-mc.1.20.1-loader.0.19.2-launcher.1.1.1.jar"
         case helltaker
             niri_spawn_sh "$BROWSER https://www.youtube.com/playlist?list=PLzxkyQKtgmo9A0Gq-YS1vvxqlLNgB8vhU"
 
@@ -132,7 +122,7 @@ function launch
             set -l raw_json (curl -s "$ARENA_API" -H "cookie: $ARENA_COOKIE")
 
             if echo "$raw_json" | grep -q Unauthorized
-                echo "Ошибка: Сервер отклонил куки. Залогинься в браузере!"
+                echo "Error cookie"
                 sleep 3
                 exit
             end
@@ -157,7 +147,7 @@ function launch
                              jq -r '.[] | "\(.title)\t\(.url)\t\(.abstract)"' | \
                              fzf --delimiter '\t' \
                                  --with-nth 1 \
-                                 --header "DuckDuckGo: $input_text" \
+                                 --header "$input_text" \
                                  --preview 'printf "\033[1;32mURL:\033[0m %s\n\n\033[1;33mDescription:\033[0m %s\n" "{2}" "{3}"' \
                                  --preview-window=top:50%:wrap)
 

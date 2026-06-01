@@ -6,8 +6,8 @@
     aria2
     bat
     batsignal
-    broot
     btop
+    # chafa
     ddgr
     eza
     fd
@@ -19,10 +19,10 @@
     just
     libnotify
     lsix
-    pkgs-neovim.neovim
     nh
     nil
     nixfmt
+    pkgs-neovim.neovim
     rip2
     ripgrep
     sqlite

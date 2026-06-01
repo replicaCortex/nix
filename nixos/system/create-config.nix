@@ -29,10 +29,39 @@ let
 
   browser = "qutebrowser";
   editor = "nvim";
-  smartFloatCmd = "$HOME/sys/nix/terminal/scripts/smart_float.sh";
-  nvimCallBack = "$HOME/sys/nix/terminal/scripts/nvim_focus_callback.sh";
+  dotfiles = "$HOME/sys/nix";
+  smartFloatCmd = "${dotfiles}/terminal/scripts/smart-float.sh";
+  withFocus = "${dotfiles}/terminal/scripts/with-focus.sh";
+  nvimCallBack = "${dotfiles}/terminal/scripts/nvim-focus-callback.sh";
   terminal = "foot";
-  terminal-client = "footclient";
+  terminalClient = "footclient";
+
+  wmSpawn = "niri msg action spawn-sh --";
+  documentViewer = "zathura";
+  videoViewer = "mpv";
+  imageViewer = "chafa";
+
+  gb-bg0 = "#282828";
+  gb-bg1 = "#3c3836";
+  gb-bg2 = "#504945";
+  gb-bg4 = "#7c6f64";
+  gb-fg0 = "#fbf1c7";
+  gb-fg1 = "#ebdbb2";
+  gb-gray = "#928374";
+  gb-gray-l = "#a89984";
+
+  gb-red = "#cc241d";
+  gb-green = "#98971a";
+  gb-yellow = "#d79921";
+  gb-blue = "#458588";
+  gb-purple = "#b16286";
+  gb-aqua = "#689d6a";
+  gb-orange = "#d65d0e";
+
+  gb-red-l = "#fb4934";
+  gb-green-l = "#b8bb26";
+  gb-yellow-l = "#fabd2f";
+  gb-blue-l = "#83a598";
 in
 {
   environment.sessionVariables = {
@@ -40,6 +69,13 @@ in
 
     SMART_FLOAT = smartFloatCmd;
     NVIM_CALL_BACK = nvimCallBack;
+    WITH_FOCUS = withFocus;
+    WM_SPAWN = wmSpawn;
+    DOTFILES = dotfiles;
+
+    DOCUMENT_VIEWER = documentViewer;
+    VIDEO_VIEWER = videoViewer;
+    IMAGE_VIEWER = imageViewer;
 
     XDG_CONFIG_HOME = "$HOME/.var/.config";
     XDG_DATA_HOME = "$HOME/.var/.local/share";
@@ -48,11 +84,11 @@ in
 
     HISTFILE = "$HOME/.var/.local/state/bash/history";
     WGETRC = "$HOME/.var/.config/wgetrc";
-    INPUTRC = "$HOME/sys/nix/.inputrc";
+    INPUTRC = "${dotfiles}/.inputrc";
 
     BROWSER = browser;
     EDITOR = editor;
-    TERMINAL = terminal-client;
+    TERMINAL = terminalClient;
     VISUAL = editor;
 
     NIXPKGS_ALLOW_UNFREE = "1";
@@ -93,8 +129,11 @@ in
       + "--info=inline "
       + "--smart-case "
       + "--cycle "
+      + "--no-scrollbar "
       + "--multi "
-      + "--bind=\"ctrl-f:preview-down,ctrl-b:preview-up\"";
+      + "--bind=\"ctrl-f:preview-down,ctrl-b:preview-up\" "
+      + "--color=\"fg:${gb-fg1},bg:${gb-bg0},hl:${gb-blue-l},fg+:${gb-fg0},bg+:${gb-bg1},hl+:${gb-blue}\" "
+      + "--color=\"info:${gb-gray},prompt:${gb-blue-l},pointer:${gb-blue-l},marker:${gb-blue-l},spinner:${gb-blue-l},header:${gb-gray},border:#504945\"";
   };
 
   environment.etc."niri/config.kdl".text = ''
@@ -125,7 +164,7 @@ in
     }
 
     output "eDP-1" {
-      mode "1920x1080@120.030"
+      mode "${toString screenWidth}x${toString screenHeight}@120.030"
     }
 
     layout {
@@ -143,28 +182,28 @@ in
 
       focus-ring {
         width 2
-        active-color "#d79921"
+        active-color "${gb-blue}"
       }
 
       border {
         width 2
-        active-color "#222222"
-        inactive-color "#222222"
-        urgent-color "#cc241d"
+        active-color "${gb-blue}"
+        inactive-color "${gb-bg0}"
+        urgent-color "${gb-red}"
       }
 
       tab-indicator {
         width 2
         gap 4
         gaps-between-tabs 2
-        inactive-color "#585b70"
+        inactive-color "${gb-gray}"
       }
     }
 
     prefer-no-csd
 
     overview {
-      backdrop-color "#282828"
+      backdrop-color "${gb-bg0}"
       workspace-shadow {
         color "#0007"
         offset x=0 y=10
@@ -177,7 +216,7 @@ in
       disable-primary
     }
 
-    spawn-sh-at-startup "~/sys/nix/terminal/scripts/init.sh"
+    spawn-sh-at-startup "${dotfiles}/terminal/scripts/init.sh"
     spawn-sh-at-startup "rm ~/ly-session.log"
 
     hotkey-overlay {
@@ -213,15 +252,15 @@ in
     workspace "temp"
 
     binds {
-      Mod+Return            { spawn "${terminal-client}"; }
+      Mod+Return            { spawn "${terminalClient}"; }
       Mod+Shift+Ctrl+Return { spawn "${terminal}"; }
       
-      Mod+F       { spawn-sh "${smartFloatCmd} fish -c 'source ~/sys/nix/terminal/fish/functions/launch.fish; launch'"; }
-      Mod+Shift+F { spawn-sh "${smartFloatCmd} bash --noprofile --norc -c ~/sys/nix/terminal/scripts/broot_picker_fast.sh"; }
-      Mod+B       { spawn-sh "${smartFloatCmd} fish -c 'source ~/sys/nix/terminal/fish/functions/browser_history.fish; browser_history'"; }
+      Mod+F       { spawn-sh "${smartFloatCmd} fish -c 'source ${dotfiles}/terminal/fish/functions/launch.fish; launch'"; }
+      Mod+Shift+F { spawn-sh "${smartFloatCmd} bash --noprofile --norc -c ${dotfiles}/terminal/scripts/pick.sh"; }
+      Mod+B       { spawn-sh "${smartFloatCmd} fish -c 'source ${dotfiles}/terminal/fish/functions/browser_history.fish; browser_history'"; }
       Mod+Y       { spawn-sh "${smartFloatCmd} bash -c 'cliphist-fzf-sixel'"; }
       
-      Mod+V       { spawn-sh "${terminal-client} -e bash --noprofile --norc -c 'btop'"; }
+      Mod+V       { spawn-sh "${terminalClient} -e bash --noprofile --norc -c 'btop'"; }
       
       Mod+N       { spawn-sh "${browser}"; }
       Mod+X       { spawn-sh "Telegram"; }
@@ -298,5 +337,55 @@ in
       Mod+F4   allow-when-locked=true repeat=false { spawn-sh "brightnessctl  --class=backlight set 10%+"; }
       Mod+F5   allow-when-locked=true repeat=false { spawn-sh "brightnessctl  --class=backlight set 10%-"; }
     }
+  '';
+
+  environment.etc."dunst/dunstrc".text = ''
+    [global]
+        font = "Ubuntu Mono"
+        allow_markup = yes
+        format = "<b>%s</b>\n%b"
+        sort = yes
+        indicate_hidden = yes
+        alignment = center
+        bounce_freq = 0
+        show_age_threshold = 60
+        word_wrap = yes
+        ignore_newline = no
+        geometry = "${toString ((winWidth * 1) / 4)}x5"
+        transparency = 0
+        idle_threshold = 120
+        monitor = 0
+        follow = mouse
+        sticky_history = yes
+        line_height = 0
+        origin = top-center
+        offset = 0x${toString gaps}
+        
+        separator_height = 2
+        padding = 12
+        horizontal_padding = 12
+        frame_width = 2
+
+        separator_color = "${gb-bg2}" 
+
+        startup_notification = false
+
+    [urgency_low]
+        background = "${gb-bg0}"
+        foreground = "${gb-gray-l}"
+        frame_color = "${gb-gray-l}"
+        timeout = 5
+
+    [urgency_normal]
+        background = "${gb-bg0}"
+        foreground = "${gb-fg1}"
+        frame_color = "${gb-blue}"
+        timeout = 10
+
+    [urgency_critical]
+        background = "${gb-bg0}"
+        foreground = "${gb-fg1}"
+        frame_color = "${gb-red-l}"
+        timeout = 0
   '';
 }

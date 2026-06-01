@@ -1,8 +1,6 @@
-### --- [ ОСНОВНЫЕ УТИЛИТЫ  ] ---
-
 alias ls 'eza --icons=auto --group-directories-first'
 abbr sl ls
-alias l 'eza -al --icons=auto --git-repos --git -h --group-directories-first --smart-group --color-scale=all'
+alias l 'eza -al --icons=auto --git-repos --git -h --group-directories-first --smart-group'
 alias cat 'bat --theme-dark gruvbox-dark'
 abbr -a mv 'mv -v'
 abbr -a cp 'cp -v'
@@ -10,16 +8,21 @@ abbr -a rm "echo Use 'rip' instead of rm"
 abbr vi lsix
 alias wget "curl -L -O"
 
-### --- [ НАВИГАЦИЯ И ПОИСК ] ---
+function f
+    set -l target (fd | fzf)
 
-abbr -a f br
-abbr -a fh br ~/
-abbr -a ft br /tmp
-abbr -a tree "br -c :pt ."
-
-function size
-    br -c :pt $argv -w
+    if test -n "$target"
+        if test -d "$target"
+            cd "$target"
+        else
+            nvim "$target"
+        end
+    end
 end
+
+alias tree "eza --tree --level=3 --icons=always --git-ignore"
+
+abbr -a size "du -h | rg -v -e .git -v -e .jj | sort -hr | head -30"
 
 abbr -a j just
 abbr -a jd "just --dry-run"
@@ -43,33 +46,10 @@ function zathura
     command niri msg action spawn -- zathura "$PWD/$argv"
 end
 
-function docx2pdfp
-    pandoc "$argv[1]" -o "$argv[2]" --pdf-engine=typst --extract-media=./typst_media -V mainfont="DejaVu Sans" && rm -rf ./typst_media
-end
-
-function docx2pdf
-    pandoc "$argv[1]" -o "$argv[2]" --pdf-engine=typst --extract-media=./typst_media -V mainfont="DejaVu Sans" && rm -rf ./typst_media
-end
-
-function open
-    set -l app $argv[1]
-    set -l file_path $argv[2]
-
-    function niri_open
-        niri msg action spawn-sh -- $argv
-    end
-
-    if not count $file_path
-        niri_open $app
-    else
-        niri_open "$app $PWD/$file_path"
-    end
-
-end
-
 abbr aria "aria2c -x 16 -s 16 -c"
 
 abbr dev 'distrobox enter dev'
 abbr devs 'distrobox stop dev'
-abbr qu exit
 abbr drun 'distrobox enter dev --'
+
+abbr qu exit

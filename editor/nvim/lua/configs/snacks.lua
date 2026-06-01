@@ -1,4 +1,8 @@
 return {
+  explorer = {
+    replace_netrw = true,
+  },
+
   picker = {
     sources = {
       explorer = {
@@ -59,13 +63,14 @@ return {
         filetype = "snacks_terminal",
       },
       wo = {},
-      stack = true, -- when enabled, multiple split windows with the same position will be stacked together (useful for terminals)
+      stack = true,
       keys = {
         q = "hide",
         gf = function(self)
           local f = vim.fn.findfile(vim.fn.expand "<cfile>", "**")
           if f == "" then
-            require("snacks.notifer").warn "No file under cursor"
+            -- ИСПРАВЛЕНО: была опечатка в "snacks.notifer" (пропущена "i")
+            require("snacks.notifier").warn "No file under cursor"
           else
             self:hide()
             vim.schedule(function()
@@ -109,7 +114,7 @@ return {
       local function greeting()
         local hour = tonumber(vim.fn.strftime "%H")
         local part_id = math.floor((hour + 6) / 8) + 1
-        local day_part = ({ "evening", "morning", "afternoon", "evening" })[part_id]
+        local day_part = ({ "night", "morning", "afternoon", "evening" })[part_id] or "day"
         local username = os.getenv "USER" or os.getenv "USERNAME" or "user"
         return ("Good %s, %s"):format(day_part, username)
       end
