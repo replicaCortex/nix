@@ -57,37 +57,39 @@ return {
   scope = {},
   quickfile = {},
   bufdelete = {},
-  terminal = {
-    {
-      bo = {
-        filetype = "snacks_terminal",
-      },
-      wo = {},
-      stack = true,
-      keys = {
-        q = "hide",
-        gf = function(self)
-          local f = vim.fn.findfile(vim.fn.expand "<cfile>", "**")
-          if f == "" then
-            -- ИСПРАВЛЕНО: была опечатка в "snacks.notifer" (пропущена "i")
-            require("snacks.notifier").warn "No file under cursor"
-          else
-            self:hide()
-            vim.schedule(function()
-              vim.cmd("e " .. f)
-            end)
-          end
-        end,
-      },
-    },
-    win = {
-      position = "float",
-      relative = "editor",
-      border = "single",
-      width = 0.8,
-      height = 0.8,
-    },
-  },
+  -- INFO: use pick.sh :)
+
+  -- terminal = {
+  --   {
+  --     bo = {
+  --       filetype = "snacks_terminal",
+  --     },
+  --     wo = {},
+  --     stack = true,
+  --     keys = {
+  --       q = "hide",
+  --       gf = function(self)
+  --         local f = vim.fn.findfile(vim.fn.expand "<cfile>", "**")
+  --         if f == "" then
+  --           -- ИСПРАВЛЕНО: была опечатка в "snacks.notifer" (пропущена "i")
+  --           require("snacks.notifier").warn "No file under cursor"
+  --         else
+  --           self:hide()
+  --           vim.schedule(function()
+  --             vim.cmd("e " .. f)
+  --           end)
+  --         end
+  --       end,
+  --     },
+  --   },
+  --   win = {
+  --     position = "float",
+  --     relative = "editor",
+  --     border = "single",
+  --     width = 0.8,
+  --     height = 0.8,
+  --   },
+  -- },
   dashboard = {
     formats = {
       header = { "%s", align = "center" },

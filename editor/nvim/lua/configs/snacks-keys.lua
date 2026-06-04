@@ -205,17 +205,16 @@ return {
     end,
     desc = "Git Log File",
   },
-  -- FIXME: auto close picker or explorer
-  {
-    "<C-t>",
-    function()
-      -- local active_pickers = Snacks.picker.main()
-      --
-      -- active_pickers:close()
-
-      Snacks.terminal.toggle()
-    end,
-    desc = "Toggle Terminal",
-    mode = { "n", "t" },
-  },
+  -- {
+  --   "<C-t>",
+  --   function()
+  --     -- local active_pickers = Snacks.picker.main()
+  --     --
+  --     -- active_pickers:close()
+  --
+  --     Snacks.terminal.toggle()
+  --   end,
+  --   desc = "Toggle Terminal",
+  --   mode = { "n", "t" },
+  -- },
 }

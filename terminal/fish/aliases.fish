@@ -6,17 +6,20 @@ abbr -a mv 'mv -v'
 abbr -a cp 'cp -v'
 abbr -a rm "echo Use 'rip' instead of rm"
 abbr vi lsix
+abbr wl-paste 'wl-paste -n '
 alias wget "curl -L -O"
 
 function f
-    set -l target (fd | fzf)
+    set -l tmp_file "/tmp/fzf_cd_$fish_pid"
 
-    if test -n "$target"
-        if test -d "$target"
-            cd "$target"
-        else
-            nvim "$target"
-        end
+    rm -f $tmp_file
+
+    $DOTFILES/terminal/scripts/pick.sh $argv
+
+    if test -f $tmp_file
+        set -l target_dir (cat $tmp_file)
+        rm -f $tmp_file
+        cd "$target_dir"
     end
 end
 

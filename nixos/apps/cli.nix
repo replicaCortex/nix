@@ -7,7 +7,6 @@
     bat
     batsignal
     btop
-    # chafa
     ddgr
     eza
     fd
@@ -19,6 +18,7 @@
     just
     libnotify
     lsix
+    mupdf
     nh
     nil
     nixfmt
@@ -26,6 +26,7 @@
     rip2
     ripgrep
     sqlite
+    timg
     unzip
     zip
     zstd

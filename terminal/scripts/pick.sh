@@ -10,6 +10,12 @@ results=("${output[@]:1}")
 
 [[ ${#results[@]} -eq 0 || -z "${results[0]}" ]] && exit 0
 
+PARENT_PROC=$(ps -o comm= -p $PPID 2>/dev/null | tr -d ' ')
+case "$PARENT_PROC" in
+bash | zsh | sh | fish) SPAWNED_MODE=false ;;
+*) SPAWNED_MODE=true ;;
+esac
+
 for result in "${results[@]}"; do
 
   if [ "$key" = "ctrl-d" ]; then
@@ -22,7 +28,12 @@ for result in "${results[@]}"; do
   path_file="${raw_path//\'/\'\\\'\'}"
 
   if [ -d "$result" ]; then
-    ${WM_SPAWN} "${TERMINAL} -D '${path_file}'"
+    if [ "${SPAWNED_MODE}" = true ]; then
+      ${WM_SPAWN} "${TERMINAL} -D '${path_file}'"
+    else
+      echo "$raw_path" >"/tmp/fzf_cd_${PPID}"
+      exit 0
+    fi
     continue
   fi
 
@@ -31,19 +42,40 @@ for result in "${results[@]}"; do
 
   case "${extension}" in
   mkv | mp4 | avi | webm)
-    ${WM_SPAWN} "${VIDEO_VIEWER} '${path_file}'"
+    if [ "${SPAWNED_MODE}" = true ]; then
+      ${WM_SPAWN} "${VIDEO_VIEWER} '${path_file}'"
+    else
+      ${VIDEO_VIEWER} "${path_file}"
+    fi
     ;;
   mp3 | m4a | opus)
-    ${WM_SPAWN} "${TERMINAL} -e ${VIDEO_VIEWER} '${path_file}'"
+    if [ "${SPAWNED_MODE}" = true ]; then
+      ${WM_SPAWN} "${TERMINAL} -e ${VIDEO_VIEWER} '${path_file}'"
+    else
+      ${VIDEO_VIEWER} "${path_file}"
+    fi
     ;;
   pdf | djvu | fb2 | cbz)
-    ${WM_SPAWN} "${DOCUMENT_VIEWER} '${path_file}'"
+    if [ "${SPAWNED_MODE}" = true ]; then
+      ${WM_SPAWN} "${DOCUMENT_VIEWER} '${path_file}'"
+    else
+      ${DOCUMENT_VIEWER} "${path_file}"
+    fi
     ;;
   png | jpg | jpeg | webp | tiff | gif)
-    ${WM_SPAWN} "${VIDEO_VIEWER} '${path_file}'"
+    if [ "${SPAWNED_MODE}" = true ]; then
+      ${WM_SPAWN} "${VIDEO_VIEWER} '${path_file}'"
+    else
+      # ${VIDEO_VIEWER} "${path_file}"
+      timg "${path_file}"
+    fi
     ;;
   *)
-    ${WM_SPAWN} "${TERMINAL} -e ${EDITOR} '$path_file'"
+    if [ "${SPAWNED_MODE}" = true ]; then
+      ${WM_SPAWN} "${TERMINAL} -e ${EDITOR} '$path_file'"
+    else
+      ${EDITOR} "${path_file}"
+    fi
     ;;
   esac
 done

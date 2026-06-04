@@ -1,7 +1,15 @@
 #!/usr/bin/env bash
 
 if [ ! -t 0 ]; then
-  exec $WITH_FOCUS $SMART_FLOAT "$0" "$@"
+  TAKEN=$(niri msg -j windows | jq -r '.[].app_id' | grep -Eo "^float-[1-5]$" || true)
+
+  if [[ ! "$TAKEN" =~ "float-3" ]] && [[ ! "$TAKEN" =~ "float-4" ]]; then
+    PAIR_SLOT="float-3"
+  else
+    PAIR_SLOT="float-1"
+  fi
+
+  exec $WITH_FOCUS footclient --app-id="$PAIR_SLOT" -e "$0" "$@"
 fi
 
 MULTIPLE="$1"
@@ -18,13 +26,23 @@ else
   cd "$HOME" || exit 1
 fi
 
-EZA="eza --tree --level=1 --color=always {} 2>/dev/null {}"
+PIPE_PATH=$(${DOTFILES}/terminal/scripts/fzf-preview.sh)
+
+cleanup() {
+  if [ -p "$PIPE_PATH" ]; then
+    echo "CLOSE_PREVIEW_WINDOW" >"$PIPE_PATH" 2>/dev/null
+    rm -f "$PIPE_PATH"
+  fi
+}
+trap cleanup EXIT
+
+IPC_BIND="focus:execute-silent(realpath {} > $PIPE_PATH)"
 
 if [ "$SAVE" = "1" ]; then
-  FILENAME=$(basename "${START_PATH:-saved_file}")
+  FILENAME=$(basename "${START_PATH}")
 
   SELECTED_DIR=$(fd --type d | fzf \
-    --preview="$EZA" \
+    --bind="$IPC_BIND" \
     --prompt="Save in directory: ")
 
   if [ -z "$SELECTED_DIR" ]; then
@@ -37,7 +55,7 @@ fi
 
 if [ "$DIRECTORY" = "1" ]; then
   SELECTED_DIR=$(fd --type d | fzf \
-    --preview="$EZA" \
+    --bind="$IPC_BIND" \
     --prompt="Selected directory: ")
 
   if [ -z "$SELECTED_DIR" ]; then
@@ -53,19 +71,8 @@ if [ "$MULTIPLE" = "0" ]; then
   FZF_OPTS="+m"
 fi
 
-# INFO: fish :)
-PREVIEW_CMD="
-if test -d {}
-    eza --tree --level=1 --color=always {} 2>/dev/null; or ls -p {}
-else if string match -qr '\.(jpg|jpeg|png|gif|bmp|webp|svg|tiff|ico)$' {}
-    chafa '{}' 2>/dev/null;
-else
-    bat --style=plain --color=always --line-range :10 {} 2>/dev/null; or head -n 10 {}
-end
-echo ""
-file -b {}
-"
-
-fd --type f | fzf $FZF_OPTS --preview="$PREVIEW_CMD" --preview-window=right:50%:wrap --prompt="Open files: " | while read -r line; do
+fd --type f | fzf $FZF_OPTS \
+  --bind="$IPC_BIND" \
+  --prompt="Open files: " | while read -r line; do
   realpath "$line"
 done >"$OUT_FILE"

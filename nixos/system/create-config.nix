@@ -39,7 +39,7 @@ let
   wmSpawn = "niri msg action spawn-sh --";
   documentViewer = "zathura";
   videoViewer = "mpv";
-  imageViewer = "chafa";
+  imageViewer = "timg";
 
   gb-bg0 = "#282828";
   gb-bg1 = "#3c3836";
@@ -57,6 +57,7 @@ let
   gb-purple = "#b16286";
   gb-aqua = "#689d6a";
   gb-orange = "#d65d0e";
+  gb-orange-l = "#fe88019";
 
   gb-red-l = "#fb4934";
   gb-green-l = "#b8bb26";
@@ -131,9 +132,10 @@ in
       + "--cycle "
       + "--no-scrollbar "
       + "--multi "
+      + "--with-shell='sh -c' "
       + "--bind=\"ctrl-f:preview-down,ctrl-b:preview-up\" "
-      + "--color=\"fg:${gb-fg1},bg:${gb-bg0},hl:${gb-blue-l},fg+:${gb-fg0},bg+:${gb-bg1},hl+:${gb-blue}\" "
-      + "--color=\"info:${gb-gray},prompt:${gb-blue-l},pointer:${gb-blue-l},marker:${gb-blue-l},spinner:${gb-blue-l},header:${gb-gray},border:#504945\"";
+      + "--color=\"fg:${gb-fg1},bg:${gb-bg0},hl:${gb-yellow-l},fg+:${gb-fg0},bg+:${gb-bg1},hl+:${gb-yellow}\" "
+      + "--color=\"info:${gb-gray},prompt:${gb-yellow-l},pointer:${gb-yellow-l},marker:${gb-yellow-l},spinner:${gb-yellow-l},header:${gb-gray},border:#504945\"";
   };
 
   environment.etc."niri/config.kdl".text = ''
@@ -182,13 +184,13 @@ in
 
       focus-ring {
         width 2
-        active-color "${gb-blue}"
+        active-color "${gb-yellow}"
       }
 
       border {
         width 2
-        active-color "${gb-blue}"
-        inactive-color "${gb-bg0}"
+        active-color "${gb-yellow}"
+        inactive-color "${gb-bg1}"
         urgent-color "${gb-red}"
       }
 
@@ -230,7 +232,12 @@ in
       open-floating true
       default-column-width { fixed ${toString winWidth}; }
       default-window-height { fixed ${toString winHeight}; }
-      border { off; }
+
+      border {
+        width 2
+        inactive-color "${gb-bg1}"
+      }
+
       shadow { on; }
     }
 
@@ -239,6 +246,16 @@ in
     window-rule { match app-id="float-3"; default-floating-position x=${toString x3} y=${toString y3}; }
     window-rule { match app-id="float-4"; default-floating-position x=${toString x4} y=${toString y4}; }
     window-rule { match app-id="float-5"; default-floating-position x=${toString x5} y=${toString y5}; }
+
+    window-rule {
+        match app-id=r#"^org\.telegram\.desktop$"# title="^Media viewer$"
+        open-fullscreen false
+    }
+
+    window-rule {
+      match title="^fzf-preview$"
+      open-focused false
+    }
 
     layer-rule {
       match namespace="^wallpaper$"
@@ -258,12 +275,11 @@ in
       Mod+F       { spawn-sh "${smartFloatCmd} fish -c 'source ${dotfiles}/terminal/fish/functions/launch.fish; launch'"; }
       Mod+Shift+F { spawn-sh "${smartFloatCmd} bash --noprofile --norc -c ${dotfiles}/terminal/scripts/pick.sh"; }
       Mod+B       { spawn-sh "${smartFloatCmd} fish -c 'source ${dotfiles}/terminal/fish/functions/browser_history.fish; browser_history'"; }
-      Mod+Y       { spawn-sh "${smartFloatCmd} bash -c 'cliphist-fzf-sixel'"; }
-      
+      Mod+Y { spawn-sh "bash --noprofile --norc -c ${dotfiles}/terminal/scripts/cliphist-pick.sh"; }
       Mod+V       { spawn-sh "${terminalClient} -e bash --noprofile --norc -c 'btop'"; }
       
-      Mod+N       { spawn-sh "${browser}"; }
-      Mod+X       { spawn-sh "Telegram"; }
+      Mod+G       { spawn-sh "${browser}"; }
+      Mod+T       { spawn-sh "Telegram"; }
       Mod+P       { screenshot; }
       Mod+Shift+P { screenshot-window; }
 
@@ -379,7 +395,7 @@ in
     [urgency_normal]
         background = "${gb-bg0}"
         foreground = "${gb-fg1}"
-        frame_color = "${gb-blue}"
+        frame_color = "${gb-yellow}"
         timeout = 10
 
     [urgency_critical]
