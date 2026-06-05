@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# TODO: add rg
 mapfile -t output < <(fd | fzf --expect=ctrl-d)
 
 [[ ${#output[@]} -eq 0 ]] && exit 0

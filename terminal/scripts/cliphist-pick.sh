@@ -27,11 +27,12 @@ TMP_PREVIEW="/tmp/cliphist_preview_$$"
 IPC_BIND="focus:execute-silent(echo {} | cliphist decode > $TMP_PREVIEW && echo \"$TMP_PREVIEW\" > $PIPE_PATH)"
 
 SELECTED=$(cliphist list | fzf \
-  --delimiter='\t' \
-  --with-nth=2 \
   --bind="$IPC_BIND" \
   --prompt="Clipboard: ")
 
 if [ -n "$SELECTED" ]; then
-  echo "$SELECTED" | cliphist decode | wl-copy
+  echo "$SELECTED" | while IFS= read -r line; do
+    echo "$line" | cliphist decode
+    echo ""
+  done | wl-copy
 fi
