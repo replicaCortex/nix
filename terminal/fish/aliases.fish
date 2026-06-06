@@ -2,11 +2,10 @@ alias ls 'eza --icons=auto --group-directories-first'
 abbr sl ls
 alias l 'eza -al --icons=auto --git-repos --git -h --group-directories-first --smart-group'
 alias cat 'bat --theme-dark gruvbox-dark'
-abbr -a mv 'mv -v'
+abbr -a mv 'mv -vn'
 abbr -a cp 'cp -v'
 abbr -a rm "echo Use 'rip' instead of rm"
-abbr vi lsix
-abbr wl-paste 'wl-paste -n '
+abbr -a wl-paste 'wl-paste -n '
 alias wget "curl -L -O"
 
 function f
@@ -23,7 +22,11 @@ function f
     end
 end
 
+alias vi "ls | sort | $DOTFILES/terminal/scripts/vidir.sh"
+alias vid "fd -t d | sort | $DOTFILES/terminal/scripts/vidir.sh"
+alias vif "fd -t f | sort | $DOTFILES/terminal/scripts/vidir.sh"
 alias tree "eza --tree --level=3 --icons=always --git-ignore"
+alias norm $DOTFILES/terminal/scripts/normalize.sh
 
 abbr -a size "du -h | rg -v -e .git -v -e .jj | sort -hr | head -30"
 
@@ -42,8 +45,6 @@ abbr -a nd "nix develop ./"
 
 abbr -a bstop "sudo systemctl stop bluetooth.service"
 abbr -a na "bluetoothctl connect E4:61:F4:31:88:26"
-abbr -a weather "curl v2d.wttr.in/47.42,40.09"
-abbr -a tt taskwarrior-tui
 
 function zathura
     command niri msg action spawn -- zathura "$PWD/$argv"

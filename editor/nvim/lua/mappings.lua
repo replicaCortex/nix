@@ -29,8 +29,3 @@ map("n", "<Right>", "<Nop>", { desc = "Disable Right Arrow" })
 map("i", "<C-k>", function()
   vim.lsp.buf.signature_help()
 end, { desc = "Signature Help" })
-
-map("n", "]q", "<cmd>cnext<CR>zz", { desc = "Next Quickfix Item" })
-map("n", "[q", "<cmd>cprev<CR>zz", { desc = "Prev Quickfix Item" })
-map("n", "<leader>qq", "<cmd>copen<CR>", { desc = "Open Quickfix List" })
-map("n", "<leader>qc", "<cmd>cclose<CR>", { desc = "Close Quickfix List" })

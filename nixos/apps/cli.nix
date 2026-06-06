@@ -17,16 +17,18 @@
     jujutsu
     just
     libnotify
-    lsix
     mupdf
     nh
     nil
+    moreutils
     nixfmt
+    pandoc
     pkgs-neovim.neovim
     rip2
     ripgrep
     sqlite
     timg
+    # tree-sitter-cli
     unzip
     zip
     zstd

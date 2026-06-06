@@ -16,7 +16,7 @@ function mkproj --description "Create a universal project template with ready-to
         return 1
     end
 
-    mkdir -p $target_dir/{src,assets,dist}
+    mkdir -p $target_dir/{src}
     cd $target_dir
 
     echo "\
@@ -33,12 +33,7 @@ build:
     echo "\
 # $name
 
-Создано: "(date "+%Y-%m-%d %H:%M")"
-
-## 📂 Структура
-- \`src/\` — Исходный код или тексты
-- \`assets/\` — Внешние ресурсы
-- \`dist/\` — Результаты компиляции / сборки
+Create: "(date "+%Y-%m-%d %H:%M")"
 " >README.md
 
     git init -q

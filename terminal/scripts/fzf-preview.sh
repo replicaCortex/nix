@@ -14,7 +14,6 @@ PIPE_PATH="/tmp/fzf-pipe-$RANDOM-$$"
 rm -f "$PIPE_PATH"
 mkfifo "$PIPE_PATH"
 
-# TODO: switch timg to swiv
 ${TERMINAL} --app-id="$TARGET_APP_ID" -T "fzf-preview" -e bash -c '
 PIPE=$1
 printf "\e[?1049h\e[?25l"
@@ -36,7 +35,7 @@ while read -r line; do
   mime_type=$(file -b --mime-type "$line" 2>/dev/null)
   case "$mime_type" in
     image/*)
-      timg -C --frames=1 "$line" 
+      timg -C --frames 1 "$line" 
       ;;
     */zip)
       unzip -l "$line"

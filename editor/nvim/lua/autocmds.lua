@@ -123,3 +123,15 @@ vim.api.nvim_create_autocmd("InsertLeave", {
     end
   end,
 })
+
+vim.schedule(function()
+  local input = require "snacks.picker.core.input"
+  local statuscolumn = input.statuscolumn
+  input.statuscolumn = function(self)
+    if self.picker.opts.no_status == true then
+      return " "
+    else
+      return statuscolumn(self)
+    end
+  end
+end)

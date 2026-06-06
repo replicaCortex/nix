@@ -29,7 +29,7 @@ let
 
   browser = "qutebrowser";
   editor = "nvim";
-  dotfiles = "$HOME/sys/nix";
+  dotfiles = "$HOME/dev/nix";
   smartFloatCmd = "${dotfiles}/terminal/scripts/smart-float.sh";
   withFocus = "${dotfiles}/terminal/scripts/with-focus.sh";
   nvimCallBack = "${dotfiles}/terminal/scripts/nvim-focus-callback.sh";
@@ -276,7 +276,8 @@ in
       Mod+Shift+F { spawn-sh "${smartFloatCmd} bash --noprofile --norc -c ${dotfiles}/terminal/scripts/pick.sh"; }
       Mod+B       { spawn-sh "${smartFloatCmd} fish -c 'source ${dotfiles}/terminal/fish/functions/browser_history.fish; browser_history'"; }
       Mod+Y { spawn-sh "bash --noprofile --norc -c ${dotfiles}/terminal/scripts/cliphist-pick.sh"; }
-      Mod+V       { spawn-sh "${terminalClient} -e bash --noprofile --norc -c 'btop'"; }
+      Mod+E       { spawn-sh "${terminalClient} -e bash --noprofile --norc -c 'btop'"; }
+      Mod+V { spawn-sh "${smartFloatCmd} -e bash --noprofile --norc -c ${dotfiles}/terminal/scripts/vidir-wrapped.sh"; }
       
       Mod+G       { spawn-sh "${browser}"; }
       Mod+T       { spawn-sh "Telegram"; }

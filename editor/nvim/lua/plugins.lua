@@ -173,7 +173,7 @@ return {
       {
         "<leader>ft",
         function()
-          require("snacks.picker").todo_comments()
+          require("snacks.picker").todo_comments { no_status = true }
         end,
         desc = "Find Todo Comments",
       },

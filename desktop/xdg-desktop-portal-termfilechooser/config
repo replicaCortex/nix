@@ -1,5 +1,5 @@
 [filechooser]
-cmd=/home/replica/sys/nix/terminal/scripts/browser-pick.sh
+cmd=/home/replica/dev/nix/terminal/scripts/browser-pick.sh
 default_dir=/home/replica
 env=TERMCMD=foot
 create_help_file=0

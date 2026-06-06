@@ -9,7 +9,7 @@ run_once "waybar"
 
 run_once "foot" "foot --server"
 run_once "gammastep" "gammastep -O 3500"
-run_once "swaybg" "swaybg -i ~/sys/nix/desktop/wallpapers/untitled.png"
+run_once "swaybg" "swaybg -i ${DOTFILES}/desktop/wallpapers/untitled.png"
 
 if ! pgrep -f "wl-paste --watch cliphist -max-items 2000 -min-store-length 5 store" >/dev/null; then
   niri msg action spawn-sh -- "wl-paste --watch cliphist -max-items 2000 -min-store-length 5 store"
