@@ -4,6 +4,8 @@ local g = vim.g
 
 require("vim._core.ui2").enable()
 
+local is_minimal = os.getenv "NVIM_MINIMAL" == "1"
+
 g.loaded_node_provider = 0
 g.loaded_perl_provider = 0
 g.loaded_python_provider = 0
@@ -52,4 +54,15 @@ vim.opt.shortmess:append "cI"
 local keys = { ",", ".", "!", "?", ";", ":" }
 for _, key in ipairs(keys) do
   vim.keymap.set("i", key, key .. "<C-g>u", { desc = "Undo Breakpoint" })
+end
+
+if is_minimal then
+  o.number = false
+  o.relativenumber = false
+  o.signcolumn = "no"
+  o.laststatus = 0
+  o.ruler = false
+  o.list = false
+  o.foldcolumn = "0"
+  o.cursorline = true
 end

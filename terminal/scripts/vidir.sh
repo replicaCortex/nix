@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if ! command -v rip &>/dev/null; then
-  echo "Error: 'rip' utility is not installed. Run: cargo install rm-improved" >&2
+  echo "Error: 'rip' utility is not installed." >&2
   exit 1
 fi
 
@@ -19,16 +19,8 @@ STAGE_DIR=$(mktemp -d "/tmp/vidir_stage_XXXXXX")
 UNDO_FILE="/tmp/vidir_undo_${TIMESTAMP}.sh"
 LOG_FILE="/tmp/vidir_log_${TIMESTAMP}.log"
 
-orig_file=$(mktemp)
-edit_file=$(mktemp)
-
-counter=0
-declare -A orig_paths
-orig_order=()
-
-undo_stages=()
-undo_restores=()
-undo_new_items=()
+orig_file=$(mktemp "/tmp/vidir_orig_XXXXXX")
+edit_file=$(mktemp "/tmp/vidir_edit_XXXXXX")
 
 emergency_rollback() {
   echo -e "\n[ABORT] Emergency rollback initiated. Returning files..." >&2
@@ -46,49 +38,46 @@ emergency_rollback() {
 }
 trap emergency_rollback INT TERM
 
-{
-  if [ ! -t 0 ] && [ ! -c /dev/stdin ]; then
-    while IFS= read -r file; do
-      file="${file#./}"
-      [[ -z "$file" || "$file" == "." ]] && continue
-      if [[ "$file" == *$'\n'* ]]; then
-        echo "CRITICAL ERROR: File contains a newline character (\n):" >&2
-        echo "$file" >&2
+if [ ! -t 0 ] && [ ! -c /dev/stdin ]; then
+  awk '
+    BEGIN { count=0 }
+    {
+      file = $0
+      sub(/^\.\//, "", file)
+      if (file == "" || file == ".") next
+      sub(/\/$/, "", file)
+      count++
+      printf "%d\t%s\n", count, file
+    }
+  ' >"$orig_file" || exit 1
+else
+  [[ ${#args[@]} -eq 0 ]] && args=(".")
+  find "${args[@]}" -maxdepth 1 -print0 | awk '
+    BEGIN { RS="\0"; count=0 }
+    {
+      file = $0
+      if (index(file, "\n") != 0) {
+        print "CRITICAL ERROR: File contains a newline character (\\n): " file > "/dev/stderr"
         exit 1
-      fi
-      file="${file%/}"
-      ((counter++))
-      orig_paths[$counter]="$file"
-      orig_order+=("$counter")
-      printf "%d\t%s\n" "$counter" "$file"
-    done
-  else
-    [[ ${#args[@]} -eq 0 ]] && args=(".")
-    while IFS= read -r -d '' file; do
-      file="${file#./}"
-      [[ -z "$file" || "$file" == "." ]] && continue
-      if [[ "$file" == *$'\n'* ]]; then
-        echo "CRITICAL ERROR: File contains a newline character (\n):" >&2
-        echo "$file" >&2
-        exit 1
-      fi
-      file="${file%/}"
-      ((counter++))
-      orig_paths[$counter]="$file"
-      orig_order+=("$counter")
-      printf "%d\t%s\n" "$counter" "$file"
-    done < <(find "${args[@]}" -maxdepth 1 -print0)
-  fi
-} >"$orig_file"
+      }
+      sub(/^\.\//, "", file)
+      if (file == "" || file == ".") next
+      sub(/\/$/, "", file)
+      count++
+      printf "%d\t%s\n", count, file
+    }
+  ' >"$orig_file" || exit 1
+fi
 
-if [[ $counter -eq 0 ]]; then
+if [ ! -s "$orig_file" ]; then
   command rmdir -- "$STAGE_DIR" 2>/dev/null
   command rm -f -- "$orig_file" "$edit_file"
   exit 0
 fi
 
 cp -- "$orig_file" "$edit_file"
-${EDITOR:-nvim} "$edit_file"
+
+NVIM_MINIMAL=1 ${EDITOR} "$edit_file"
 
 if cmp -s -- "$orig_file" "$edit_file"; then
   command rmdir -- "$STAGE_DIR" 2>/dev/null
@@ -96,9 +85,21 @@ if cmp -s -- "$orig_file" "$edit_file"; then
   exit 0
 fi
 
-declare -A edit_first_seen
+undo_stages=()
+undo_restores=()
+undo_new_items=()
+
+declare -a orig_paths
+orig_order=()
+
+while IFS=$'\t' read -r id path; do
+  orig_paths[$id]="$path"
+  orig_order+=("$id")
+done <"$orig_file"
+
+declare -a edit_first_seen
 declare -a copies
-declare -A copies_src
+declare -a copies_src
 declare -a new_items
 
 while IFS= read -r line; do
@@ -135,8 +136,8 @@ done <"$edit_file"
 
 deletes=()
 moves=()
-declare -A move_targets
-declare -A refs
+declare -a move_targets
+declare -a refs
 declare -A deleted_paths_map
 
 for id in "${orig_order[@]}"; do

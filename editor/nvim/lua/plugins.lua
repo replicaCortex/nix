@@ -1,3 +1,5 @@
+local is_minimal = os.getenv "NVIM_MINIMAL" == "1"
+
 return {
   {
     "nvim-treesitter/nvim-treesitter",
@@ -9,6 +11,7 @@ return {
   },
   {
     "stevearc/conform.nvim",
+    cond = not is_minimal,
     event = "BufWritePre",
     config = function()
       require "configs.conform"
@@ -16,6 +19,7 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
+    cond = not is_minimal,
     event = { "BufReadPre", "BufNewFile" },
     dependencies = { "nvim-treesitter/nvim-treesitter", "lewis6991/gitsigns.nvim" },
     config = function()
@@ -25,6 +29,7 @@ return {
   {
     "folke/snacks.nvim",
     priority = 1000,
+    cond = not is_minimal,
     lazy = false,
     keys = function()
       return require "configs.snacks-keys"
@@ -40,6 +45,7 @@ return {
     dependencies = {
       {
         "L3MON4D3/LuaSnip",
+        cond = not is_minimal,
         opts = { history = true, updateevents = "TextChanged" },
         config = function(_, opts)
           require("luasnip").config.set_config(opts)
@@ -59,6 +65,7 @@ return {
   },
   {
     "windwp/nvim-ts-autotag",
+    cond = not is_minimal,
     ft = { "html", "javascript", "typescript", "javascriptreact", "typescriptreact", "vue", "xml", "twig" },
     config = function()
       require("nvim-ts-autotag").setup()
@@ -66,6 +73,7 @@ return {
   },
   {
     "lewis6991/gitsigns.nvim",
+    cond = not is_minimal,
     lazy = true,
     config = function()
       require("gitsigns").setup {
@@ -119,6 +127,7 @@ return {
   },
   {
     "zk-org/zk-nvim",
+    cond = not is_minimal,
     ft = { "markdown" },
     config = function()
       require "configs.zk"
@@ -126,6 +135,7 @@ return {
   },
   {
     "folke/which-key.nvim",
+    cond = not is_minimal,
     event = "VeryLazy",
     opts = {
       spec = {
@@ -141,6 +151,7 @@ return {
   {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
+    cond = not is_minimal,
     event = { "BufReadPost", "BufNewFile" },
     opts = {
       signs = true,

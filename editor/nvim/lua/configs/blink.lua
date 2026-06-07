@@ -49,6 +49,9 @@ local opts = {
   snippets = { preset = "luasnip" },
   cmdline = {
     enabled = true,
+    -- TODO: add buffer source
+
+    -- sources = ,
 
     completion = {
       menu = {
@@ -71,6 +74,7 @@ local opts = {
   },
   appearance = { nerd_font_variant = "normal" },
   fuzzy = { implementation = "prefer_rust" },
+
   sources = {
     default = { "lsp", "snippets", "buffer", "path" },
     providers = {

@@ -124,14 +124,37 @@ vim.api.nvim_create_autocmd("InsertLeave", {
   end,
 })
 
-vim.schedule(function()
-  local input = require "snacks.picker.core.input"
-  local statuscolumn = input.statuscolumn
-  input.statuscolumn = function(self)
-    if self.picker.opts.no_status == true then
-      return " "
-    else
-      return statuscolumn(self)
+local is_minimal = os.getenv "NVIM_MINIMAL" == "1"
+
+if not is_minimal then
+  vim.schedule(function()
+    local input = require "snacks.picker.core.input"
+    local statuscolumn = input.statuscolumn
+    input.statuscolumn = function(self)
+      if self.picker.opts.no_status == true then
+        return " "
+      else
+        return statuscolumn(self)
+      end
     end
-  end
-end)
+  end)
+end
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile", "BufEnter" }, {
+  pattern = { "*/vidir_edit*", "/tmp/vidir_edit*" },
+  callback = function()
+    vim.cmd [[
+      syntax clear
+
+      syntax match VidirID "^\s*\d\+"
+      
+      syntax match VidirDir "\t.*\/"
+      
+      syntax match VidirFile "[^/]\+$"
+
+      hi def link VidirID Number
+      hi def link VidirDir Directory
+      hi def link VidirFile String
+    ]]
+  end,
+})
