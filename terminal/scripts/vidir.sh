@@ -77,7 +77,7 @@ fi
 
 cp -- "$orig_file" "$edit_file"
 
-NVIM_MINIMAL=1 ${EDITOR} "$edit_file"
+NVIM_MINIMAL=1 ${EDITOR:-nvim} "$edit_file"
 
 if cmp -s -- "$orig_file" "$edit_file"; then
   command rmdir -- "$STAGE_DIR" 2>/dev/null
@@ -88,6 +88,8 @@ fi
 undo_stages=()
 undo_restores=()
 undo_new_items=()
+undo_deletes=()
+undo_mkdir_cleanups=()
 
 declare -a orig_paths
 orig_order=()
@@ -179,8 +181,17 @@ if [[ ${#deletes[@]} -gt 0 ]]; then
     del_args+=("$target")
     echo "[$(date +'%Y-%m-%d %H:%M:%S')] Deleted: $target (sent to rip)" >>"$LOG_FILE"
   done
+
   [[ $VERBOSE -eq 1 ]] && echo "Executing batch rip for ${#del_args[@]} items..."
-  printf "%s\0" "${del_args[@]}" | xargs -0 command rip -- >/dev/null 2>&1
+
+  for ((i = 0; i < ${#del_args[@]}; i += 1000)); do
+    chunk=("${del_args[@]:i:1000}")
+    if command rip -- "${chunk[@]}" >/dev/null 2>&1; then
+      for ((j = 0; j < ${#chunk[@]}; j++)); do
+        undo_deletes=("command rip -u >/dev/null 2>&1" "${undo_deletes[@]}")
+      done
+    fi
+  done
 fi
 
 tmp_stage_sort=$(mktemp)
@@ -303,7 +314,9 @@ done
 
 for dir in "${!rmdirs_to_do[@]}"; do
   [[ $VERBOSE -eq 1 ]] && printf "rmdir -p -- %q 2>/dev/null\n" "$dir"
-  command rmdir -p -- "$dir" 2>/dev/null
+  if command rmdir -p -- "$dir" 2>/dev/null; then
+    undo_mkdir_cleanups+=("command mkdir -p -- $(printf %q "$dir")")
+  fi
 done
 
 declare -A undo_rmdirs_to_do
@@ -317,10 +330,13 @@ for dir in "${!undo_rmdirs_to_do[@]}"; do
 done
 
 {
+  for cmd in "${undo_mkdir_cleanups[@]}"; do echo "$cmd"; done
+  for cmd in "${undo_deletes[@]}"; do echo "$cmd"; done
   for cmd in "${undo_new_items[@]}"; do echo "$cmd"; done
   for ((i = ${#undo_restores[@]} - 1; i >= 0; i--)); do echo "${undo_restores[$i]}"; done
   for cmd in "${undo_stages[@]}"; do echo "$cmd"; done
   for cmd in "${undo_cleanups[@]}"; do echo "$cmd"; done
+
   echo "command rmdir -- \"\$STAGE_DIR\" 2>/dev/null"
 } >>"$UNDO_FILE"
 
@@ -333,4 +349,7 @@ fi
 
 if [[ $VERBOSE -eq 0 ]]; then
   echo "Done. Undo: $UNDO_FILE | Log: $LOG_FILE"
+  if command -v wl-copy &>/dev/null; then
+    echo -n "$UNDO_FILE" | wl-copy
+  fi
 fi
