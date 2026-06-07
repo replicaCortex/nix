@@ -46,32 +46,38 @@ emergency_rollback() {
 }
 trap emergency_rollback INT TERM
 
-add_file() {
-  local file="$1"
-  file="${file#./}"
-
-  [[ -z "$file" || "$file" == "." ]] && return
-
-  if [[ "$file" == *$'\n'* ]]; then
-    echo "CRITICAL ERROR: File contains a newline character (\n):" >&2
-    echo "$file" >&2
-    exit 1
-  fi
-
-  file="${file%/}"
-
-  ((counter++))
-  orig_paths[$counter]="$file"
-  orig_order+=("$counter")
-  printf "%d\t%s\n" "$counter" "$file"
-}
-
 {
   if [ ! -t 0 ] && [ ! -c /dev/stdin ]; then
-    while IFS= read -r line; do add_file "$line"; done
+    while IFS= read -r file; do
+      file="${file#./}"
+      [[ -z "$file" || "$file" == "." ]] && continue
+      if [[ "$file" == *$'\n'* ]]; then
+        echo "CRITICAL ERROR: File contains a newline character (\n):" >&2
+        echo "$file" >&2
+        exit 1
+      fi
+      file="${file%/}"
+      ((counter++))
+      orig_paths[$counter]="$file"
+      orig_order+=("$counter")
+      printf "%d\t%s\n" "$counter" "$file"
+    done
   else
     [[ ${#args[@]} -eq 0 ]] && args=(".")
-    while IFS= read -r -d '' line; do add_file "$line"; done < <(find "${args[@]}" -maxdepth 1 -print0)
+    while IFS= read -r -d '' file; do
+      file="${file#./}"
+      [[ -z "$file" || "$file" == "." ]] && continue
+      if [[ "$file" == *$'\n'* ]]; then
+        echo "CRITICAL ERROR: File contains a newline character (\n):" >&2
+        echo "$file" >&2
+        exit 1
+      fi
+      file="${file%/}"
+      ((counter++))
+      orig_paths[$counter]="$file"
+      orig_order+=("$counter")
+      printf "%d\t%s\n" "$counter" "$file"
+    done < <(find "${args[@]}" -maxdepth 1 -print0)
   fi
 } >"$orig_file"
 
@@ -165,16 +171,22 @@ STAGE_DIR="\$(mktemp -d "/tmp/vidir_stage_XXXXXX")"
 EOF
 chmod +x -- "$UNDO_FILE"
 
-for id in "${deletes[@]}"; do
-  target="${orig_paths[$id]}"
-  [[ $VERBOSE -eq 1 ]] && printf "rip -- %q\n" "$target"
-  command rip -- "$target" >/dev/null 2>&1
-  echo "[$(date +'%Y-%m-%d %H:%M:%S')] Deleted: $target (sent to rip)" >>"$LOG_FILE"
-done
+if [[ ${#deletes[@]} -gt 0 ]]; then
+  del_args=()
+  for id in "${deletes[@]}"; do
+    target="${orig_paths[$id]}"
+    del_args+=("$target")
+    echo "[$(date +'%Y-%m-%d %H:%M:%S')] Deleted: $target (sent to rip)" >>"$LOG_FILE"
+  done
+  [[ $VERBOSE -eq 1 ]] && echo "Executing batch rip for ${#del_args[@]} items..."
+  printf "%s\0" "${del_args[@]}" | xargs -0 command rip -- >/dev/null 2>&1
+fi
 
 tmp_stage_sort=$(mktemp)
 for id in "${!move_targets[@]}"; do
-  depth=$(tr -dc '/' <<<"${orig_paths[$id]}" | wc -c)
+  path="${orig_paths[$id]}"
+  slashes="${path//[^\/]/}"
+  depth="${#slashes}"
   echo "$depth $id" >>"$tmp_stage_sort"
 done
 stage_indices=($(command sort -n -r "$tmp_stage_sort" | awk '{print $2}'))
@@ -204,7 +216,8 @@ tmp_sort=$(mktemp)
 for idx in "${!restore_actions[@]}"; do
   action="${restore_actions[$idx]}"
   target="${action#*:*:}"
-  depth=$(tr -dc '/' <<<"$target" | wc -c)
+  slashes="${target//[^\/]/}"
+  depth="${#slashes}"
   echo "$depth ${#target} $idx" >>"$tmp_sort"
 done
 sorted_indices=($(command sort -n -k1,1 -k2,2 "$tmp_sort" | awk '{print $3}'))
@@ -212,14 +225,20 @@ command rm -f -- "$tmp_sort"
 
 trap '' INT TERM
 
+declare -A dirs_made
 for idx in "${sorted_indices[@]}"; do
   action="${restore_actions[$idx]}"
   id="${action%%:*}"
   rest="${action#*:}"
   target="${rest#*:}"
 
-  [[ $VERBOSE -eq 1 ]] && printf "mkdir -p -- %q\n" "$(dirname "$target")"
-  command mkdir -p -- "$(dirname "$target")"
+  target_dir="$(dirname "$target")"
+  if [[ -z "${dirs_made[$target_dir]}" ]]; then
+    [[ $VERBOSE -eq 1 ]] && printf "mkdir -p -- %q\n" "$target_dir"
+    command mkdir -p -- "$target_dir"
+    dirs_made[$target_dir]=1
+  fi
+
   refs[$id]=$((refs[$id] - 1))
 
   if [[ -e "$target" || -L "$target" ]]; then
@@ -251,14 +270,23 @@ done
 
 for item in "${new_items[@]}"; do
   if [[ "$item" == */ ]]; then
-    [[ $VERBOSE -eq 1 ]] && printf "mkdir -p -- %q\n" "$item"
-    if command mkdir -p -- "$item"; then
-      echo "[$(date +'%Y-%m-%d %H:%M:%S')] Created dir: $item" >>"$LOG_FILE"
-      undo_new_items+=("command rm -rf -- $(printf %q "${item%/}")")
+    if [[ -z "${dirs_made[$item]}" ]]; then
+      [[ $VERBOSE -eq 1 ]] && printf "mkdir -p -- %q\n" "$item"
+      if command mkdir -p -- "$item"; then
+        echo "[$(date +'%Y-%m-%d %H:%M:%S')] Created dir: $item" >>"$LOG_FILE"
+        undo_new_items+=("command rm -rf -- $(printf %q "${item%/}")")
+        dirs_made[$item]=1
+      fi
     fi
   else
-    [[ $VERBOSE -eq 1 ]] && printf "mkdir -p -- %q\ntouch -- %q\n" "$(dirname "$item")" "$item"
-    if command mkdir -p -- "$(dirname "$item")" && command touch -- "$item"; then
+    item_dir="$(dirname "$item")"
+    if [[ -z "${dirs_made[$item_dir]}" ]]; then
+      [[ $VERBOSE -eq 1 ]] && printf "mkdir -p -- %q\n" "$item_dir"
+      command mkdir -p -- "$item_dir"
+      dirs_made[$item_dir]=1
+    fi
+    [[ $VERBOSE -eq 1 ]] && printf "touch -- %q\n" "$item"
+    if command touch -- "$item"; then
       echo "[$(date +'%Y-%m-%d %H:%M:%S')] Created file: $item" >>"$LOG_FILE"
       undo_new_items+=("command rm -f -- $(printf %q "$item")")
     fi
@@ -266,17 +294,25 @@ for item in "${new_items[@]}"; do
 done
 
 undo_cleanups=()
+declare -A rmdirs_to_do
 for id in "${deletes[@]}" "${moves[@]}"; do
   dir="$(dirname "${orig_paths[$id]}")"
-  if [[ "$dir" != "." && "$dir" != "/" ]]; then
-    [[ $VERBOSE -eq 1 ]] && printf "rmdir -p -- %q 2>/dev/null\n" "$dir"
-    command rmdir -p -- "$dir" 2>/dev/null
-  fi
+  [[ "$dir" != "." && "$dir" != "/" ]] && rmdirs_to_do["$dir"]=1
 done
 
+for dir in "${!rmdirs_to_do[@]}"; do
+  [[ $VERBOSE -eq 1 ]] && printf "rmdir -p -- %q 2>/dev/null\n" "$dir"
+  command rmdir -p -- "$dir" 2>/dev/null
+done
+
+declare -A undo_rmdirs_to_do
 for id in "${moves[@]}"; do
   dir="$(dirname "${move_targets[$id]}")"
-  [[ "$dir" != "." && "$dir" != "/" ]] && undo_cleanups+=("command rmdir -p -- $(printf %q "$dir") 2>/dev/null")
+  [[ "$dir" != "." && "$dir" != "/" ]] && undo_rmdirs_to_do["$dir"]=1
+done
+
+for dir in "${!undo_rmdirs_to_do[@]}"; do
+  undo_cleanups+=("command rmdir -p -- $(printf %q "$dir") 2>/dev/null")
 done
 
 {
