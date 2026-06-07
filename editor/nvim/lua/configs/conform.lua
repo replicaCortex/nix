@@ -17,8 +17,17 @@ require("conform").setup {
     javascript = { "prettier" },
     go = { "gofmt" },
   },
-  format_on_save = {
-    lsp_format = "fallback",
-    timeout_ms = 2000,
-  },
+
+  format_on_save = function(bufnr)
+    local bufname = vim.api.nvim_buf_get_name(bufnr)
+
+    if bufname:match "qutebrowser%-editor" then
+      return nil
+    end
+
+    return {
+      lsp_format = "fallback",
+      timeout_ms = 2000,
+    }
+  end,
 }

@@ -24,3 +24,9 @@ sync:
 
 dev:
     distrobox-assemble create --file $DOTFILES/containers/distrobox.ini
+
+# TODO: just to nix
+install-mpv-scripts:
+    #!/usr/bin/env bash
+    curl -fsSL https://raw.githubusercontent.com/tomasklaen/uosc/HEAD/installers/unix.sh | bash -s -- $XDG_CONFIG_HOME/mpv
+    curl -Lo $XDG_CONFIG_HOME/mpv/scripts/thumbfast.lua https://raw.githubusercontent.com/po5/thumbfast/master/thumbfast.lua
