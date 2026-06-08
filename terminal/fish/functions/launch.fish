@@ -118,7 +118,7 @@ function launch
                 exit
             end
 
-            set -l ARENA_API "https://arena.ai/api/history/unified?limit=40&includeArchived=false"
+            set -l ARENA_API "https://arena.ai/api/history/unified?limit=50&includeArchived=false"
             set -l raw_json (curl -s "$ARENA_API" -H "cookie: $ARENA_COOKIE")
 
             if echo "$raw_json" | grep -q Unauthorized

@@ -20,7 +20,6 @@
     mupdf
     nh
     nil
-    moreutils
     nixfmt
     pandoc
     pkgs-neovim.neovim
@@ -28,7 +27,7 @@
     ripgrep
     sqlite
     timg
-    # tree-sitter-cli
+    tmsu
     unzip
     zip
     zstd

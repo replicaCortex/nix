@@ -162,7 +162,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile", "BufEnter" }, {
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile", "BufEnter" }, {
   pattern = "*qutebrowser-editor-*",
   callback = function()
-    vim.bo.filetype = "markdown"
+    -- vim.bo.filetype = "markdown"
     vim.opt_local.linebreak = true
     vim.opt_local.spell = true
     vim.opt_local.spelllang = { "ru", "en" }

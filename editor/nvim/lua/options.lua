@@ -57,8 +57,8 @@ for _, key in ipairs(keys) do
 end
 
 if is_minimal then
-  o.number = false
-  o.relativenumber = false
+  -- o.number = false
+  -- o.relativenumber = false
   o.signcolumn = "no"
   o.laststatus = 0
   o.ruler = false

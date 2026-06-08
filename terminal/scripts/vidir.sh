@@ -348,7 +348,7 @@ else
 fi
 
 if [[ $VERBOSE -eq 0 ]]; then
-  echo "Done. Undo: $UNDO_FILE | Log: $LOG_FILE"
+  echo "Undo: $UNDO_FILE | Log: $LOG_FILE"
   if command -v wl-copy &>/dev/null; then
     echo -n "$UNDO_FILE" | wl-copy
   fi

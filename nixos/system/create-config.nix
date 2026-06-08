@@ -280,7 +280,7 @@ in
       Mod+V { spawn-sh "${smartFloatCmd} -e bash --noprofile --norc -c ${dotfiles}/terminal/scripts/vidir-wrapped.sh"; }
       
       Mod+G       { spawn-sh "${browser}"; }
-      Mod+T       { spawn-sh "Telegram"; }
+      Mod+X       { spawn-sh "Telegram"; }
       Mod+P       { screenshot; }
       Mod+Shift+P { screenshot-window; }
 
