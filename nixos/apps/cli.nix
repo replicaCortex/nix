@@ -10,6 +10,7 @@
     ddgr
     eza
     fd
+    ffmpegthumbnailer
     file
     fzf
     gitMinimal
@@ -21,6 +22,7 @@
     nh
     nil
     nixfmt
+    nsxiv
     pandoc
     pkgs-neovim.neovim
     rip2

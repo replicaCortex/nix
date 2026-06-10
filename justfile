@@ -21,6 +21,7 @@ sync:
     @ln -sfn $DOTFILES/terminal/fish $XDG_CONFIG_HOME/fish
     @ln -sfn $DOTFILES/terminal/foot $XDG_CONFIG_HOME/foot
     @ln -sfn $DOTFILES/terminal/yt-dlp/ $XDG_CONFIG_HOME/yt-dlp
+    ollama pull qwen2.5:0.5b
 
 dev:
     distrobox-assemble create --file $DOTFILES/containers/distrobox.ini

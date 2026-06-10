@@ -9,6 +9,8 @@ update-arena-scripts:
 
     curl -sL "https://update.greasyfork.org/scripts/469760/Reddit%20Old%20Mobile%20%F0%9F%93%B1.user.js" -o ./old_reddit_mobile.js
 
+    curl -sL "https://update.greasyfork.org/scripts/576713/Pure%20Twitter%20%28X%29%20Age%20Bypass.user.js" -o ./x-age.js
+
     just reload 
 
 reload:

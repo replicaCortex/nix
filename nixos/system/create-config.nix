@@ -30,9 +30,11 @@ let
   browser = "qutebrowser";
   editor = "nvim";
   dotfiles = "$HOME/dev/nix";
-  smartFloatCmd = "${dotfiles}/terminal/scripts/smart-float.sh";
-  withFocus = "${dotfiles}/terminal/scripts/with-focus.sh";
-  nvimCallBack = "${dotfiles}/terminal/scripts/nvim-focus-callback.sh";
+  scripts = "${dotfiles}/terminal/scripts";
+  smartFloatCmd = "${scripts}/smart-float.sh";
+  withFocus = "${scripts}/with-focus.sh";
+  nvimCallBack = "${scripts}/nvim-focus-callback.sh";
+  tmsuDB = "$HOME/.tmsu/db";
   terminal = "foot";
   terminalClient = "footclient";
 
@@ -73,6 +75,8 @@ in
     WITH_FOCUS = withFocus;
     WM_SPAWN = wmSpawn;
     DOTFILES = dotfiles;
+    SCRIPTS = scripts;
+    TMSU_DB = tmsuDB;
 
     DOCUMENT_VIEWER = documentViewer;
     VIDEO_VIEWER = videoViewer;
@@ -130,6 +134,7 @@ in
       + "--info=inline "
       + "--smart-case "
       + "--cycle "
+      + "--ansi "
       + "--no-scrollbar "
       + "--multi "
       + "--with-shell='sh -c' "

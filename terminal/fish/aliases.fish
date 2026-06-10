@@ -6,6 +6,8 @@ abbr -a mv 'mv -vn'
 abbr -a cp 'cp -v'
 abbr -a rm "echo Use 'rip' instead of rm"
 abbr -a wl-paste 'wl-paste -n '
+alias tmsu "tmsu --database=$TMSU_DB"
+alias tmsu-add "$DOTFILES/terminal/scripts/tmsu.sh"
 alias wget "curl -L -O"
 
 function f
