@@ -2,12 +2,14 @@
 
 shopt -s nullglob
 
+[ -f "$ENV_SECRETS" ] && set -a && source "$ENV_SECRETS" && set +a
+
 VAULT_DIR="$HOME/vault"
 INBOX_PATH="/tmp/inbox_$$.txt"
 PROCESSED_LIST="/tmp/processed_files_$$.txt"
 NORMALIZER_DIR="${DOTFILES}/terminal/scripts/normalizers"
 
-for cmd in jq tmsu fd curl; do
+for cmd in jq tmsu fd curl sqlite3; do
   command -v "$cmd" >/dev/null 2>&1 || {
     echo >&2 "Error: '$cmd' is required"
     exit 1
@@ -46,8 +48,8 @@ for file in *; do
       file_type="video"
       ;;
     png | jpg | jpeg | webp | tiff | gif)
-      is_video=1
-      file_type="video"
+      is_video=0
+      file_type="image"
       ;;
     esac
 
@@ -112,7 +114,18 @@ done
 
 echo "" >>$INBOX_PATH
 printf "# " >>$INBOX_PATH
-tmsu --database="${TMSU_DB}" tags | grep -Ev '^(title|author|year)=' | sed 's/,//' | tr '\n' ' ' >>$INBOX_PATH
+
+sqlite3 "${TMSU_DB}" "
+  SELECT tag.name 
+  FROM tag 
+  JOIN file_tag ON tag.id = file_tag.tag_id 
+  WHERE tag.name NOT LIKE 'title=%' 
+    AND tag.name NOT LIKE 'author=%' 
+    AND tag.name NOT LIKE 'year=%'
+  GROUP BY tag.id 
+  HAVING COUNT(file_tag.file_id) >= 5
+  ORDER BY tag.name ASC;
+" 2>/dev/null | tr '\n' ' ' >>"$INBOX_PATH"
 
 ${EDITOR} "$INBOX_PATH"
 
@@ -256,5 +269,5 @@ fi
 
 rm -f "$INBOX_PATH" "$PROCESSED_LIST"
 
-tmsu --database="${TMSU_DB}" repair ~/vault-test/** --remove
-sqlite3 ${TMSU_DB} "DELETE FROM tag WHERE id NOT IN (SELECT DISTINCT tag_id FROM file_tag);"
+tmsu --database="${TMSU_DB}" repair ~/vault/** --remove
+sqlite3 "${TMSU_DB}" "DELETE FROM tag WHERE id NOT IN (SELECT DISTINCT tag_id FROM file_tag);"

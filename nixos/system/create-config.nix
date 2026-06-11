@@ -41,7 +41,7 @@ let
   wmSpawn = "niri msg action spawn-sh --";
   documentViewer = "zathura";
   videoViewer = "mpv";
-  imageViewer = "timg";
+  imageViewer = "nsxiv";
 
   gb-bg0 = "#282828";
   gb-bg1 = "#3c3836";
@@ -119,6 +119,7 @@ in
     DISPLAY = ":0";
 
     PROXY = "https://openproxy:2ad5c3cece9f19f6@nl-hub.freeruproxy.ink:443";
+    ENV_SECRETS = "${dotfiles}/.env";
 
     XDG_RUNTIME_DIR = "/run/user/1000";
     DBUS_SESSION_BUS_ADDRESS = "unix:path=/run/user/1000/bus";

@@ -141,6 +141,37 @@ if not is_minimal then
 end
 
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile", "BufEnter" }, {
+  pattern = { "*/inbox_*.txt", "/tmp/inbox*.txt" },
+  callback = function()
+    vim.cmd [[
+      syntax clear
+
+      syntax match InboxComment "^#.*"
+
+      syntax match InboxPipe "|"
+
+      syntax match InboxTags "^[^|#]\+\ze|"
+
+      syntax match InboxType "|\s*\zs[a-zA-Z0-9_-]\+$"
+
+      syntax match InboxFile "|\s*\zs[^|]\+\ze\s*|" contains=InboxHash,InboxExt
+
+      syntax match InboxHash "_[a-f0-9]\{6,8}\ze\." contained
+
+      syntax match InboxExt "\.[a-zA-Z0-9]\+" contained
+
+      hi def link InboxComment Comment
+      hi def link InboxPipe    Delimiter
+      hi def link InboxTags    Identifier
+      hi def link InboxFile    String
+      hi def link InboxHash    Number
+      hi def link InboxExt     Type
+      hi def link InboxType    Statement
+    ]]
+  end,
+})
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile", "BufEnter" }, {
   pattern = { "*/vidir_edit*", "/tmp/vidir_edit*" },
   callback = function()
     vim.cmd [[
@@ -148,13 +179,10 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile", "BufEnter" }, {
 
       syntax match VidirID "^\s*\d\+"
       
-      syntax match VidirDir "\t.*\/"
+      syntax match VidirDir "\t\zs.*/"
       
-      syntax match VidirFile "[^/]\+$"
-
       hi def link VidirID Number
       hi def link VidirDir Directory
-      hi def link VidirFile String
     ]]
   end,
 })

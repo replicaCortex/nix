@@ -54,7 +54,10 @@ return {
   },
   notifier = {},
   indent = {},
-  bigfile = {},
+  bigfile = {
+    -- size = 2 * 1024 * 1024,
+    line_length = 2000,
+  },
   input = {},
   gitbrowse = {},
   scope = {},

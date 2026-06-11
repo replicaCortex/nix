@@ -308,3 +308,5 @@ c.content.javascript.enabled = True
 #
 # config.set("content.javascript.enabled", True, "*://github.com/*")
 # config.set("content.javascript.enabled", True, "*://arena.ai/*")
+
+config.bind("d", "nop", mode="normal")

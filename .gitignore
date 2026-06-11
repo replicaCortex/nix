@@ -2,3 +2,4 @@ terminal/fish/fish_variables*
 apps/mpv/scripts/
 apps/mpv/fonts/
 apps/mpv/uosc/
+.env

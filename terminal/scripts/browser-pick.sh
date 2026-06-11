@@ -71,8 +71,18 @@ if [ "$MULTIPLE" = "0" ]; then
   FZF_OPTS="+m"
 fi
 
-fd --type f | fzf $FZF_OPTS \
+{
+  sqlite3 "$TMSU_DB" "
+      SELECT file.directory || '/' || file.name || ' : ' || group_concat(tag.name, ' ') 
+      FROM file 
+      JOIN file_tag ON file.id = file_tag.file_id 
+      JOIN tag ON file_tag.tag_id = tag.id 
+      GROUP BY file.id;
+    " 2>/dev/null
+
+  fd -t f | rg -v vault
+} | sort -u | awk -F ' : ' '{ if(NF==2) print $1 "\033[38;2;146;131;116m : \033[38;2;131;165;152m" $2 "\033[0m"; else print $0 }' | fzf $FZF_OPTS \
   --bind="$IPC_BIND" \
-  --prompt="Open files: " | while read -r line; do
+  --prompt="Open files: " | sed 's/:.*$//' | while read -r line; do
   realpath "$line"
 done >"$OUT_FILE"

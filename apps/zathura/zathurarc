@@ -62,3 +62,25 @@ set database sqlite
 # map r zoom 100
 # map q zoom out
 # map e zoom in
+
+set index-bg                     "rgba(40,40,40,1)"     # bg
+set index-fg                     "rgba(235,219,178,1)"  # fg
+set index-active-bg              "rgba(131,165,152,1)"  # bright:blue
+set index-active-fg              "rgba(40,40,40,1)"     # bg
+
+set recolor-linkcolor            "rgba(131,165,152,1)"  # bright:blue
+
+set render-loading-bg            "rgba(40,40,40,1)"     # bg
+set render-loading-fg            "rgba(235,219,178,1)"  # fg
+
+set highlight-search             "rgba(131,165,152,0.7)" # bright:blue 
+
+set ui-bg                        "rgba(40,40,40,1)"     # bg
+set ui-fg                        "rgba(235,219,178,1)"  # fg
+
+set page-border                  "rgba(80,73,69,1)"     # bg2
+
+set adaptive-bg                  "rgba(40,40,40,1)"     # bg
+
+set scrollbar-fg                 "rgba(131,165,152,0.5)" # bright:blue 
+set scrollbar-bg                 "rgba(40,40,40,0.8)"   # bg 
