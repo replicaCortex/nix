@@ -6,9 +6,15 @@ abbr -a mv 'mv -vn'
 abbr -a cp 'cp -v'
 abbr -a rm "echo Use 'rip' instead of rm"
 abbr -a wl-paste 'wl-paste -n '
+alias vi "$WM_SPAWN 'nsxiv $PWD'"
 alias tmsu "tmsu --database=$TMSU_DB"
 alias tmsu-add "$DOTFILES/terminal/scripts/tmsu.sh"
 alias wget "curl -L -O"
+
+function iv
+    nsxiv $argv >/dev/null 2>&1 &
+    disown
+end
 
 function f
     set -l tmp_file "/tmp/fzf_cd_$fish_pid"
@@ -24,9 +30,9 @@ function f
     end
 end
 
-alias vi "ls | sort | $DOTFILES/terminal/scripts/vidir.sh"
-alias vid "fd -t d | sort | $DOTFILES/terminal/scripts/vidir.sh"
-alias vif "fd -t f | sort | $DOTFILES/terminal/scripts/vidir.sh"
+alias vid "ls | sort | $DOTFILES/terminal/scripts/vidir.sh"
+alias vidd "fd -t d | sort | $DOTFILES/terminal/scripts/vidir.sh"
+alias vidf "fd -t f | sort | $DOTFILES/terminal/scripts/vidir.sh"
 alias vipe "$DOTFILES/terminal/scripts/vipe.sh"
 alias tree "eza --tree --level=3 --icons=always --git-ignore"
 alias norm $DOTFILES/terminal/scripts/normalize.sh

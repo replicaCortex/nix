@@ -70,34 +70,10 @@ config.bind("<Ctrl-i>", "forward")  # Вперед по истории
 # --- Быстрая прокрутка (на пол-экрана) ---
 config.bind("<Ctrl-d>", "scroll-page 0 0.5")  # Вниз
 config.bind("<Ctrl-u>", "scroll-page 0 -0.5")  # Вверх
-config.bind(
-    "yi", "hint images spawn bash -c 'curl -sL {hint-url} | wl-copy -t image/png'"
-)
-config.bind(
-    "ya",
-    "jseval --quiet navigator.clipboard.writeText(document.documentElement.innerText)",
-)
+
+config.bind("ya", "spawn --userscript copy.sh")
 
 # =========================================================
-# 5.1 ИНТЕГРАЦИЯ С WCRAWL (Markdown Crawler)
-# =========================================================
-
-# 'cm' (Copy Markdown) — Скачать текущую страницу и скопировать в буфер
-config.bind(
-    "cm",
-    'spawn bash -c \'cd ~/dev/crawler/ && uv run crawler.py {url} -s && notify-send "wcrawl" "Страница скопирована!"\'',
-)
-
-# 'cM' (Copy Markdown Hint) — Выбрать ссылку хинтом и отправить её в wcrawl
-config.bind("cM", "hint links spawn wcrawl {hint-url} -s")
-
-# Дополнительно: уведомление в статусбаре qutebrowser (опционально)
-# Чтобы видеть, что процесс пошел, можно обернуть в bash и вывести сообщение
-config.bind(
-    "cx",
-    "spawn --userscript bash -c 'qute-messenger info \"Crawling {url}...\" && wcrawl {url} -s'",
-)
-
 # --- Умный прыжок в начало/конец чата (игнорирует фокус) ---
 js_to_bottom = """
 jseval --quiet
@@ -310,3 +286,29 @@ c.content.javascript.enabled = True
 # config.set("content.javascript.enabled", True, "*://arena.ai/*")
 
 config.bind("d", "nop", mode="normal")
+
+float_terminal = os.environ.get("SMART_FLOAT", "ERROR")
+
+# --- commands ---
+c.aliases["d-image"] = (
+    "spawn "
+    + float_terminal
+    + " -T no-focused -e bash --noprofile --norc -c 'gallery-dl {url} && sleep 4'"
+)
+
+c.aliases["d-video"] = (
+    "spawn "
+    + float_terminal
+    + " -D '$HOME/inbox/' -T no-focused -e fish -c 'yt-dlp-video {url} && sleep 4'"
+)
+
+
+c.aliases["d-music"] = (
+    "spawn "
+    + float_terminal
+    + " -D '$HOME/inbox/' -T no-focused -e fish -c 'yt-dlp-music {url} && sleep 4'"
+)
+
+c.aliases["d-content"] = (
+    "spawn " + float_terminal + " -T no-focused -e fish -c 'yt-dlp {url} && sleep 4'"
+)

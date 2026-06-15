@@ -1,47 +1,47 @@
 let
-  screenWidth = 1920;
-  screenHeight = 1080;
+  screen-width = 1920;
+  screen-height = 1080;
 
-  waybarWidth = 44;
-  waybarHeight = 0;
+  waybar-width = 44;
+  waybar-height = 0;
 
-  usableWidth = screenWidth - waybarWidth;
-  usableHeight = screenHeight - waybarHeight;
+  usable-width = screen-width - waybar-width;
+  usable-height = screen-height - waybar-height;
 
   gaps = 16;
-  winWidth = 500;
-  winHeight = 450;
+  win-width = 500;
+  win-height = 450;
 
   x1 = gaps;
   y1 = gaps;
 
   x2 = gaps;
-  y2 = usableHeight - winHeight - gaps;
+  y2 = usable-height - win-height - gaps;
 
-  x3 = usableWidth - winWidth - gaps;
+  x3 = usable-width - win-width - gaps;
   y3 = gaps;
 
-  x4 = usableWidth - winWidth - gaps;
-  y4 = usableHeight - winHeight - gaps;
+  x4 = usable-width - win-width - gaps;
+  y4 = usable-height - win-height - gaps;
 
-  x5 = (usableWidth / 2) - (winWidth / 2);
-  y5 = (usableHeight / 2) - (winHeight / 2);
+  x5 = (usable-width / 2) - (win-width / 2);
+  y5 = (usable-height / 2) - (win-height / 2);
 
   browser = "qutebrowser";
   editor = "nvim";
   dotfiles = "$HOME/dev/nix";
   scripts = "${dotfiles}/terminal/scripts";
-  smartFloatCmd = "${scripts}/smart-float.sh";
-  withFocus = "${scripts}/with-focus.sh";
-  nvimCallBack = "${scripts}/nvim-focus-callback.sh";
+  smart-float-cmd = "${scripts}/smart-float.sh";
+  with-focus = "${scripts}/with-focus.sh";
+  nvim-call-back = "${scripts}/nvim-focus-callback.sh";
   tmsuDB = "$HOME/.tmsu/db";
   terminal = "foot";
   terminalClient = "footclient";
 
-  wmSpawn = "niri msg action spawn-sh --";
-  documentViewer = "zathura";
-  videoViewer = "mpv";
-  imageViewer = "nsxiv";
+  wm-spawn = "niri msg action spawn-sh --";
+  document-viewer = "zathura";
+  video-viewer = "mpv";
+  image-viewer = "nsxiv";
 
   gb-bg0 = "#282828";
   gb-bg1 = "#3c3836";
@@ -70,17 +70,17 @@ in
   environment.sessionVariables = {
     PATH = "$HOME/.var/.local/bin:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:/home/replica/.var/.dotnet/tools:$PATH:$HOME/.var/.cargo/bin/";
 
-    SMART_FLOAT = smartFloatCmd;
-    NVIM_CALL_BACK = nvimCallBack;
-    WITH_FOCUS = withFocus;
-    WM_SPAWN = wmSpawn;
+    SMART_FLOAT = smart-float-cmd;
+    NVIM_CALL_BACK = nvim-call-back;
+    WITH_FOCUS = with-focus;
+    WM_SPAWN = wm-spawn;
     DOTFILES = dotfiles;
     SCRIPTS = scripts;
     TMSU_DB = tmsuDB;
 
-    DOCUMENT_VIEWER = documentViewer;
-    VIDEO_VIEWER = videoViewer;
-    IMAGE_VIEWER = imageViewer;
+    DOCUMENT_VIEWER = document-viewer;
+    VIDEO_VIEWER = video-viewer;
+    IMAGE_VIEWER = image-viewer;
 
     XDG_CONFIG_HOME = "$HOME/.var/.config";
     XDG_DATA_HOME = "$HOME/.var/.local/share";
@@ -172,7 +172,7 @@ in
     }
 
     output "eDP-1" {
-      mode "${toString screenWidth}x${toString screenHeight}@120.030"
+      mode "${toString screen-width}x${toString screen-height}@120.030"
     }
 
     layout {
@@ -236,8 +236,8 @@ in
     window-rule {
       match app-id="^float-[1-5]$"
       open-floating true
-      default-column-width { fixed ${toString winWidth}; }
-      default-window-height { fixed ${toString winHeight}; }
+      default-column-width { fixed ${toString win-width}; }
+      default-window-height { fixed ${toString win-height}; }
 
       border {
         width 2
@@ -260,6 +260,8 @@ in
 
     window-rule {
       match title="^fzf-preview$"
+      match title="^no-focused$"
+
       open-focused false
     }
 
@@ -278,12 +280,12 @@ in
       Mod+Return            { spawn "${terminalClient}"; }
       Mod+Shift+Ctrl+Return { spawn "${terminal}"; }
       
-      Mod+F       { spawn-sh "${smartFloatCmd} fish -c 'source ${dotfiles}/terminal/fish/functions/launch.fish; launch'"; }
-      Mod+Shift+F { spawn-sh "${smartFloatCmd} bash --noprofile --norc -c ${dotfiles}/terminal/scripts/pick.sh"; }
-      Mod+B       { spawn-sh "${smartFloatCmd} fish -c 'source ${dotfiles}/terminal/fish/functions/browser_history.fish; browser_history'"; }
+      Mod+F       { spawn-sh "${smart-float-cmd} fish -c 'source ${dotfiles}/terminal/fish/functions/launch.fish; launch'"; }
+      Mod+Shift+F { spawn-sh "${smart-float-cmd} bash --noprofile --norc -c ${dotfiles}/terminal/scripts/pick.sh"; }
+      Mod+B       { spawn-sh "${smart-float-cmd} fish -c 'source ${dotfiles}/terminal/fish/functions/browser_history.fish; browser_history'"; }
       Mod+Y { spawn-sh "bash --noprofile --norc -c ${dotfiles}/terminal/scripts/cliphist-pick.sh"; }
       Mod+E       { spawn-sh "${terminalClient} -e bash --noprofile --norc -c 'btop'"; }
-      Mod+V { spawn-sh "${smartFloatCmd} -e bash --noprofile --norc -c ${dotfiles}/terminal/scripts/vidir-wrapped.sh"; }
+      Mod+V { spawn-sh "${smart-float-cmd} -e bash --noprofile --norc -c ${dotfiles}/terminal/scripts/vidir-wrapped.sh"; }
       
       Mod+G       { spawn-sh "${browser}"; }
       Mod+X       { spawn-sh "Telegram"; }
@@ -374,16 +376,16 @@ in
         show_age_threshold = 60
         word_wrap = yes
         ignore_newline = no
-        geometry = "${toString ((winWidth * 1) / 4)}x5"
+        geometry = "${toString ((win-width * 1) / 4)}x5"
         transparency = 0
         idle_threshold = 120
         monitor = 0
         follow = mouse
         sticky_history = yes
         line_height = 0
-        origin = top-center
-        offset = 0x${toString gaps}
-        
+        origin = right-center
+        offset = ${toString gaps}x0
+
         separator_height = 2
         padding = 12
         horizontal_padding = 12

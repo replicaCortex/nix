@@ -6,5 +6,6 @@
 
 config_version: 2
 settings:
-  downloads.prevent_mixed_content:
-    global: true
+  content.javascript.clipboard:
+    global: ask
+    https://arena.ai: access-paste

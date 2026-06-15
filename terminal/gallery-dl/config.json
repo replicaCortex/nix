@@ -1,0 +1,10 @@
+{
+  "extractor": {
+    "base-directory": "/home/$USER/inbox/",
+    "cookies-from-browser": "chromium:$XDG_DATA_HOMEqutebrowser/webengine",
+    "newgrounds": {
+      "directory": [],
+      "filename": "newgrounds_{id}_{user}_{title}.{extension}"
+    }
+  }
+}
