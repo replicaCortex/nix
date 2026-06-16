@@ -196,3 +196,13 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile", "BufEnter" }, {
     vim.opt_local.spelllang = { "ru", "en" }
   end,
 })
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "/tmp/qutebrowser-editor-*",
+  callback = function()
+    local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+    local content = table.concat(lines, "\n")
+
+    vim.fn.system("wl-copy", content)
+  end,
+})

@@ -1,13 +1,9 @@
 #!/usr/bin/env bash
 
-# Проверяем, передан ли файл
-if [ -z "$1" ]; then
-  echo "❌ Ошибка: Укажите путь к JSON файлу."
-  echo "Использование: ./vless-converter.sh config.json"
-  exit 1
-fi
+TMP_FILE=$(mktemp /tmp/XXXX.json)
+wl-paste >"$TMP_FILE"
 
-FILE="$1"
+FILE="$TMP_FILE"
 
 # Проверяем, существует ли файл
 if [ ! -f "$FILE" ]; then
@@ -57,7 +53,6 @@ elif [ "$PROTOCOL" == "trojan" ]; then
   NETWORK=$(jq -r '.outbounds[0].streamSettings.network // "tcp"' "$FILE")
   SECURITY=$(jq -r '.outbounds[0].streamSettings.security // "none"' "$FILE")
 
-  # Для Trojan настройки TLS лежат в tlsSettings, а не в realitySettings
   SNI=$(jq -r '.outbounds[0].streamSettings.tlsSettings.serverName // empty' "$FILE")
   FP=$(jq -r '.outbounds[0].streamSettings.tlsSettings.fingerprint // empty' "$FILE")
 
@@ -66,8 +61,37 @@ elif [ "$PROTOCOL" == "trojan" ]; then
   [ -n "$SNI" ] && LINK="${LINK}&sni=${SNI}"
   [ -n "$FP" ] && LINK="${LINK}&fp=${FP}"
 
+elif [ "$PROTOCOL" == "hysteria" ]; then
+  # Проверяем версию (в вашем файле это версия 2)
+  VERSION=$(jq -r '.outbounds[0].settings.version // .outbounds[0].streamSettings.hysteriaSettings.version // "1"' "$FILE")
+
+  ADDRESS=$(jq -r '.outbounds[0].settings.address' "$FILE")
+  PORT=$(jq -r '.outbounds[0].settings.port' "$FILE")
+  AUTH=$(jq -r '.outbounds[0].streamSettings.hysteriaSettings.auth // empty' "$FILE")
+
+  SNI=$(jq -r '.outbounds[0].streamSettings.tlsSettings.serverName // empty' "$FILE")
+  FP=$(jq -r '.outbounds[0].streamSettings.tlsSettings.fingerprint // empty' "$FILE")
+  ALPN=$(jq -r '.outbounds[0].streamSettings.tlsSettings.alpn | join(",") // empty' "$FILE")
+
+  if [ "$VERSION" == "2" ]; then
+    echo "🔍 Обнаружен протокол: Hysteria 2"
+    # Формат Hysteria 2: hysteria2://auth@address:port?sni=...&fp=...&alpn=...
+    LINK="hysteria2://${AUTH}@${ADDRESS}:${PORT}?"
+    [ -n "$SNI" ] && LINK="${LINK}sni=${SNI}&"
+    [ -n "$FP" ] && LINK="${LINK}fp=${FP}&"
+    [ -n "$ALPN" ] && LINK="${LINK}alpn=${ALPN}&"
+    LINK="${LINK%&}" # Удаляем лишний '&' на конце
+    LINK="${LINK%?}" # Удаляем лишний '?', если параметров нет
+  else
+    echo "🔍 Обнаружен протокол: Hysteria 1"
+    # Формат Hysteria 1: hysteria://address:port?auth=...&sni=...&alpn=...
+    LINK="hysteria://${ADDRESS}:${PORT}?auth=${AUTH}"
+    [ -n "$SNI" ] && LINK="${LINK}&peer=${SNI}"
+    [ -n "$ALPN" ] && LINK="${LINK}&alpn=${ALPN}"
+  fi
+
 else
-  echo "❌ Ошибка: Этот скрипт пока поддерживает только протоколы VLESS и Trojan."
+  echo "❌ Ошибка: Этот скрипт пока поддерживает только VLESS, Trojan и Hysteria."
   echo "Текущий протокол в файле: $PROTOCOL"
   exit 1
 fi
@@ -79,6 +103,13 @@ LINK="${LINK}#${REMARKS_ENCODED}"
 echo -e "\n✅ Готово! Ваша ссылка:\n"
 echo -e "\033[1;32m$LINK\033[0m\n"
 
-# Копируем в буфер (оставил ваш wl-copy, если вы на Wayland. Если на X11, замените на xclip -selection clipboard)
-echo -n "$LINK" | wl-copy
-echo "Ссылка скопирована! Теперь просто нажмите Ctrl+V в NekoRay."
+# Копируем в буфер обмена (wl-copy для Wayland)
+if command -v wl-copy &>/dev/null; then
+  echo -n "$LINK" | wl-copy
+  echo "Ссылка скопирована в буфер обмена! Теперь просто нажмите Ctrl+V в NekoRay."
+elif command -v xclip &>/dev/null; then
+  echo -n "$LINK" | xclip -selection clipboard
+  echo "Ссылка скопирована в буфер обмена (через xclip)!"
+else
+  echo "⚠️ Утилита wl-copy или xclip не найдена. Скопируйте ссылку вручную из терминала."
+fi

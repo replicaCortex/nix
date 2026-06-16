@@ -2,10 +2,7 @@
   "layer": "top",
   "position": "left",
   "spacing": 0,
-  "modules-left": [
-    "niri/workspaces",
-    "niri/language"
-  ],
+  "modules-left": ["niri/workspaces", "niri/language"],
   "modules-center": [
     "clock#time",
     "custom/separator",
@@ -13,16 +10,17 @@
     "custom/separator_dot",
     "clock#month",
     "custom/separator",
-    "clock#calendar"
+    "clock#calendar",
   ],
   "modules-right": [
     "tray",
     "network",
+    "bluetooth",
     "pulseaudio",
     "cpu",
     "memory",
     "temperature",
-    "battery"
+    "battery",
   ],
   "niri/workspaces": {
     "format": "{icon}",
@@ -31,38 +29,38 @@
       "main": "",
       "dev": "",
       "temp": "󰨑",
-      "default": "󰜋"
-    }
+      "default": "󰜋",
+    },
   },
   "niri/language": {
-    "format": "{shortDescription}"
+    "format": "{shortDescription}",
   },
   "clock#time": {
-    "format": "{:%Hh\n\n%Mm}"
+    "format": "{:%Hh\n\n%Mm}",
   },
   "custom/separator": {
     "format": "---",
-    "tooltip": false
+    "tooltip": false,
   },
   "custom/separator_space": {
     "format": " ",
-    "tooltip": false
+    "tooltip": false,
   },
   "custom/separator_dot": {
     "format": "•",
-    "tooltip": false
+    "tooltip": false,
   },
   "clock#week": {
-    "format": "{:%a}"
+    "format": "{:%a}",
   },
   "clock#month": {
-    "format": "{:%h}"
+    "format": "{:%h}",
   },
   "clock#calendar": {
     "format": "{:%yy\n\n%dd}",
     "tooltip-format": "<tt><small>{calendar}</small></tt>",
     "actions": {
-      "on-click-right": "mode"
+      "on-click-right": "mode",
     },
     "calendar": {
       "mode": "month",
@@ -75,9 +73,9 @@
         "days": "<span color='#cad3f5'><b>{}</b></span>",
         "weeks": "<span color='#c6a0f6'><b>W{}</b></span>",
         "weekdays": "<span color='#a6da95'><b>{}</b></span>",
-        "today": "<span color='#f38ba8'><b>{}</b></span>"
-      }
-    }
+        "today": "<span color='#f38ba8'><b>{}</b></span>",
+      },
+    },
   },
   "bluetooth": {
     "states": {
@@ -85,30 +83,29 @@
       "upper-medium": 70,
       "medium": 50,
       "lower-medium": 30,
-      "low": 10
+      "low": 10,
     },
     "format": "",
-    "format-disabled": "X",
-    "format-connected-battery": "󰂅 {device_battery_percentage}%",
-    "max-length": 35
+    "format-connected-battery": "{device_battery_percentage}",
+    "max-length": 35,
   },
   "keyboard-state": {
     "capslock": true,
     "format": "{icon}",
     "format-icons": {
       "locked": "!",
-      "unlocked": " "
-    }
+      "unlocked": " ",
+    },
   },
   "cpu": {
     "format": "{usage}",
-    "tooltip": false
+    "tooltip": false,
   },
   "memory": {
-    "format": "{}"
+    "format": "{}",
   },
   "pulseaudio": {
-    "format": "{volume}"
+    "format": "{volume}",
   },
   "disk": {
     "format": " {percentage_used}%",
@@ -117,31 +114,31 @@
       "upper-medium": 70,
       "medium": 50,
       "lower-medium": 30,
-      "low": 10
-    }
+      "low": 10,
+    },
   },
   "temperature": {
     "hwmon-path": "/sys/class/drm/card1/device/hwmon/hwmon6/temp1_input",
     "critical-threshold": 70,
-    "format": "{temperatureC}"
+    "format": "{temperatureC}",
   },
   "battery": {
     "states": {
       "normal": 80,
-      "critical": 10
+      "critical": 10,
     },
     "format": "{capacity}",
     "format-charging": "{capacity}",
-    "format-plugged": "{capacity}"
+    "format-plugged": "{capacity}",
   },
   "network": {
     "format-wifi": "",
     "format-ethernet": "",
     "tooltip-format": "{ifname} via {gwaddr} ",
     "format-linked": "",
-    "format-disconnected": "⚠"
+    "format-disconnected": "⚠",
   },
   "tray": {
-    "spacing": 10
-  }
+    "spacing": 10,
+  },
 }

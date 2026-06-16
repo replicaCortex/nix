@@ -4,9 +4,9 @@
     telegram-desktop
     qutebrowser
     mpv
+    pureref
     zathura
     # vimiv-qt
   ];
 
-  # programs.steam.enable = true;
 }

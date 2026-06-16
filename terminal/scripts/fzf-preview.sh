@@ -19,6 +19,9 @@ PIPE=$1
 printf "\e[?1049h\e[?25l"
 trap "printf \"\e[?1049l\e[?25h\"" EXIT
 
+CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/fzf_video_thumbs"
+mkdir -p "$CACHE_DIR"
+
 while read -r line; do
   [ "$line" = "CLOSE_PREVIEW_WINDOW" ] && exit 0
   
@@ -35,7 +38,26 @@ while read -r line; do
   mime_type=$(file -b --mime-type "$line" 2>/dev/null)
   case "$mime_type" in
     image/*)
-      timg -C --frames 1 "$line" 
+      timg -C --frames 1 "$line" 2>/dev/null
+      ;;
+    video/*)
+      HASH=$(echo -n "$line" | md5sum | awk "{print \$1}")
+      THUMB_PATH="$CACHE_DIR/${HASH}.jpg"
+
+      if [ ! -f "$THUMB_PATH" ]; then
+        if command -v ffmpegthumbnailer >/dev/null 2>&1; then
+          ffmpegthumbnailer -i "$line" -o "$THUMB_PATH" -s 512 -c jpeg -q 5 -t 10% 2>/dev/null
+        elif command -v ffmpeg >/dev/null 2>&1; then
+          ffmpeg -y -loglevel error -ss 00:00:05 -i "$line" -vframes 1 -q:v 5 "$THUMB_PATH" 2>/dev/null
+        fi
+      fi
+
+      if [ -f "$THUMB_PATH" ]; then
+        timg -C --frames 1 "$THUMB_PATH" 2>/dev/null
+      else
+         echo "Failed to generate video preview."
+         echo "Make sure ffmpegthumbnailer or ffmpeg is installed."
+      fi
       ;;
     */zip)
       unzip -l "$line"
@@ -47,7 +69,7 @@ while read -r line; do
       zstd -l "$line"
       ;;
     */pdf)
-      mutool draw -o - "$line" 1 | timg -
+      mutool draw -o - "$line" 1 2>/dev/null | timg -C - 2>/dev/null
       ;;
     *)
       bat --paging=never --style=plain --color=always --line-range :$MAX_LINES "$line" 2>/dev/null 

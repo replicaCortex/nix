@@ -1,3 +1,4 @@
+# @fish-lsp-disable 4004
 alias ls 'eza --icons=auto --group-directories-first'
 abbr sl ls
 alias l 'eza -al --icons=auto --git-repos --git -h --group-directories-first --smart-group'
@@ -6,13 +7,24 @@ abbr -a mv 'mv -vn'
 abbr -a cp 'cp -v'
 abbr -a rm "echo Use 'rip' instead of rm"
 abbr -a wl-paste 'wl-paste -n '
-alias vi "$WM_SPAWN 'nsxiv $PWD'"
 alias tmsu "tmsu --database=$TMSU_DB"
 alias tmsu-add "$DOTFILES/terminal/scripts/tmsu.sh"
 alias wget "curl -L -O"
 
+function ns
+    set -l tmp_home (mktemp -d)
+    set -l pkg $argv[1]
+
+    HOME="$tmp_home" XDG_CONFIG_HOME="$tmp_home/.config" XDG_CACHE_HOME="$tmp_home/.cache" XDG_DATA_HOME="$tmp_home/.local/share" nix-shell -p "$pkg" 
+end
+
+function vi
+    nsxiv -ta . >/dev/null 2>&1 &
+    disown
+end
+
 function iv
-    nsxiv $argv >/dev/null 2>&1 &
+    nsxiv -ta $argv >/dev/null 2>&1 &
     disown
 end
 
@@ -30,9 +42,10 @@ function f
     end
 end
 
-alias vid "ls | sort | $DOTFILES/terminal/scripts/vidir.sh"
-alias vidd "fd -t d | sort | $DOTFILES/terminal/scripts/vidir.sh"
-alias vidf "fd -t f | sort | $DOTFILES/terminal/scripts/vidir.sh"
+alias vid "ls | sort | $SCRIPTS/vidir.sh"
+alias vidd "fd -t d | sort | $SCRIPTS/vidir.sh"
+alias vidf "fd -t f | sort | $SCRIPTS/vidir.sh"
+alias vipe "$SCRIPTS/vipe.sh"
 alias tree "eza --tree --level=3 --icons=always --git-ignore"
 alias norm $DOTFILES/terminal/scripts/normalize.sh
 
@@ -47,7 +60,7 @@ abbr -a jb "just build"
 abbr -a jg "just debug"
 
 abbr -a nv nvim
-abbr -a ns nix-shell
+# abbr -a ns nix-shell
 abbr -a nr "nix run"
 abbr -a nd "nix develop ./"
 

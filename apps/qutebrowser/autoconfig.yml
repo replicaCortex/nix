@@ -6,6 +6,5 @@
 
 config_version: 2
 settings:
-  content.javascript.clipboard:
-    global: ask
-    https://arena.ai: access-paste
+  colors.webpage.darkmode.enabled:
+    global: true

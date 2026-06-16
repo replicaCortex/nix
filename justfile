@@ -24,8 +24,6 @@ sync:
     @ln -sfn /etc/dunst $XDG_CONFIG_HOME/dunst
     @ln -sfn /etc/niri/ $XDG_CONFIG_HOME/niri
 
-    go build -o $HOME/.var/.local/bin/ $DOTFILES/terminal/scripts/src/vipe.go
-
 dev:
     distrobox-assemble create --file $DOTFILES/containers/distrobox.ini
 

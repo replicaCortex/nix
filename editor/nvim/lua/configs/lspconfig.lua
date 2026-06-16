@@ -13,11 +13,19 @@ local servers = {
   "ty",
   "ts_ls",
   "vscode-html-language-server",
+  "gleam",
+  "vls",
 }
 
 if vim.lsp.inlay_hint then
   vim.lsp.inlay_hint.enable(true, { 0 })
 end
+
+vim.lsp.config("vls", {
+  cmd = {
+    "v-analyzer",
+  },
+})
 
 vim.lsp.config("clangd", {
   cmd = {

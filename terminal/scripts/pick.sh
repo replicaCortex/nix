@@ -3,6 +3,8 @@
 PREVIEW_SCRIPT="${DOTFILES}/terminal/scripts/fzf-preview.sh"
 PIPE_PATH=$("$PREVIEW_SCRIPT")
 
+IMAGE_VIEWER="nsxiv -ta"
+
 cleanup() {
   if [ -p "$PIPE_PATH" ]; then
     echo "CLOSE_PREVIEW_WINDOW" >"$PIPE_PATH" 2>/dev/null
@@ -33,8 +35,12 @@ mapfile -t output < <(
     " 2>/dev/null
 
     fd -t f -E vault
-  } | LC_ALL=C sort -u | awk -F ' : ' '{ if(NF==2) print $1 "\033[38;2;146;131;116m : \033[38;2;131;165;152m" $2 "\033[0m"; else print $0 }' | fzf --print-query --expect=ctrl-x --expect=ctrl-r --expect=ctrl-g --expect=ctrl-v --expect=ctrl-a --expect=ctrl-t --expect=ctrl-y --expect=ctrl-d --expect=ctrl-o --bind="$IPC_BIND" \
-    --header="c-d: dir | c-y: cVal | c-a: cPath | c-x: rip | c-v: move | c-t: eTags | c-g: aTags | c-r: rName | c-o: oTags"
+  } | LC_ALL=C sort -u | awk -F ' : ' '{ if(NF==2) print $1 "\033[38;2;146;131;116m : \033[38;2;131;165;152m" $2 "\033[0m"; else print $0 }' | fzf --print-query \
+    --expect=ctrl-f,alt-f,ctrl-x,alt-x,ctrl-r,alt-r,ctrl-g,alt-g,ctrl-v,alt-v,ctrl-a,alt-a,ctrl-t,alt-t,ctrl-e,alt-e,ctrl-y,alt-y,ctrl-d,alt-d,ctrl-o,alt-o \
+    --bind="$IPC_BIND" \
+    --header="Ctrl: action on selected | Alt: action on ALL matched by tag query
+c/a-o: openImg | c/a-f: PureRef | c/a-r: vidir | c/a-t: editTags | c/a-g: aiTags 
+c/a-v: move | c/a-x: rip | c/a-e: collage | c/a-y: copy | c/a-a: copyPath | c-d: dir"
 )
 
 [[ ${#output[@]} -eq 0 ]] && exit 0
@@ -55,8 +61,35 @@ esac
 
 get_abs_path() {
   local p="${1% : *}"
-  [[ "$p" != /* ]] && echo "${PWD}/${p}" || echo "$p"
+  if [[ "$p" == /* ]]; then
+    echo "$p"
+  elif [ -e "$PWD/$p" ]; then
+    echo "$PWD/$p"
+  elif [ -e "$HOME/$p" ]; then
+    echo "$HOME/$p"
+  else
+    echo "$p"
+  fi
 }
+
+if [[ "$key" == alt-* ]]; then
+  if [ -z "$query" ]; then
+    notify-send "TMSU" "Type a tag query to apply action to ALL files!"
+    exit 1
+  fi
+
+  clean_query="${query//!/ not }"
+  [[ "$clean_query" == !* ]] && clean_query="not ${clean_query:1}"
+
+  mapfile -t results < <(tmsu --database="${TMSU_DB}" files "$clean_query" 2>/dev/null)
+
+  if [ ${#results[@]} -eq 0 ]; then
+    notify-send "TMSU" "No files found for query: $query"
+    exit 0
+  fi
+
+  key="ctrl-${key#alt-}"
+fi
 
 if [ "$key" = "ctrl-r" ]; then
   declare -a selected_files
@@ -74,31 +107,16 @@ fi
 
 if [ "$key" = "ctrl-o" ]; then
   declare -a images
-
-  if [ -n "$query" ]; then
-    # FIX: dont work
-    clean_query="${query// !/ not }"
-    [[ "$clean_query" == !* ]] && clean_query="not ${clean_query:1}"
-
-    mapfile -t images < <(
-      tmsu --database="${TMSU_DB}" files "$clean_query" 2>/dev/null |
-        rg -i '\.(png|jpg|jpeg|webp|tiff|gif)$' |
-        awk -v pwd="$PWD" '{ if ($0 !~ /^\//) print pwd "/" $0; else print $0 }'
-    )
-  fi
-
-  if [ ${#images[@]} -eq 0 ] && [ ${#results[@]} -gt 0 ]; then
-    for res in "${results[@]}"; do
-      res=$(get_abs_path "$res")
-      if [ -f "$res" ]; then
-        case "${res##*/}" in
-        *.[Pp][Nn][Gg] | *.[Jj][Pp][Gg] | *.[Jj][Pp][Ee][Gg] | *.[Ww][Ee][Bb][Pp] | *.[Tt][Ii][Ff][Ff] | *.[Gg][Ii][Ff])
-          images+=("$res")
-          ;;
-        esac
-      fi
-    done
-  fi
+  for res in "${results[@]}"; do
+    res=$(get_abs_path "$res")
+    if [ -f "$res" ]; then
+      case "${res##*/}" in
+      *.[Pp][Nn][Gg] | *.[Jj][Pp][Gg] | *.[Jj][Pp][Ee][Gg] | *.[Ww][Ee][Bb][Pp] | *.[Tt][Ii][Ff][Ff] | *.[Gg][Ii][Ff])
+        images+=("$res")
+        ;;
+      esac
+    fi
+  done
 
   if [ ${#images[@]} -gt 0 ]; then
     if [ "${SPAWNED_MODE}" = true ]; then
@@ -107,7 +125,7 @@ if [ "$key" = "ctrl-o" ]; then
       ${IMAGE_VIEWER} "${images[@]}" &
     fi
   else
-    notify-send "fzf-open" "No images found for query: $query"
+    notify-send "fzf-open" "No images found/selected."
   fi
   exit 0
 fi
@@ -115,7 +133,6 @@ fi
 if [ "$key" = "ctrl-g" ]; then
   for result in "${results[@]}"; do
     result=$(get_abs_path "$result")
-
     ext="${result##*.}"
     ext_lower="${ext,,}"
 
@@ -171,7 +188,6 @@ if [ "$key" = "ctrl-t" ]; then
 
     notify-send "TMSU" "Tags updated"
   fi
-
   rm -f "$EDIT_TAGS_FILE"
   exit 0
 fi
@@ -270,13 +286,22 @@ done
 if [ ${#batch_files[@]} -gt 0 ]; then
   case "$key" in
   "ctrl-y")
-    first_file="${batch_files[0]}"
-    file_size=$(stat -c%s "$first_file" 2>/dev/null || stat -f%z "$first_file")
-    if [ "$file_size" -lt 10485760 ]; then
-      wl-copy <"$first_file"
-      notify-send "Copied value" "$(basename "$first_file")"
+    if [ ${#batch_files[@]} -eq 1 ]; then
+      first_file="${batch_files[0]}"
+      file_size=$(stat -c%s "$first_file" 2>/dev/null || stat -f%z "$first_file")
+      if [ "$file_size" -lt 10485760 ]; then
+        wl-copy <"$first_file"
+        notify-send "Copied value" "$(basename "$first_file")"
+      else
+        notify-send "Error" "File too large (>10MB)"
+      fi
     else
-      notify-send "Error" "File too large"
+      uri_list=""
+      for file in "${batch_files[@]}"; do
+        uri_list+="file://${file}\r\n"
+      done
+      echo -e -n "$uri_list" | wl-copy -t text/uri-list
+      notify-send "Copied multiple" "${#batch_files[@]} files ready to paste"
     fi
     ;;
   "ctrl-a")
@@ -290,6 +315,48 @@ if [ ${#batch_files[@]} -gt 0 ]; then
   "ctrl-x")
     rip "${batch_files[@]}"
     notify-send "Ripped" "${#batch_files[@]} file(s)"
+    ;;
+  "ctrl-f")
+    printf -v joined_files "%q " "${batch_files[@]}"
+    if [ "${SPAWNED_MODE}" = true ]; then
+      $WM_SPAWN "PureRef -S AutoArrange=true $joined_files"
+    else
+      PureRef -S AutoArrange=true "${batch_files[@]}" &
+    fi
+    notify-send "PureRef" "Opened ${#batch_files[@]} files"
+    ;;
+  "ctrl-e")
+    declare -a images_to_stitch
+    for f in "${batch_files[@]}"; do
+      case "${f##*.}" in
+      [Pp][Nn][Gg] | [Jj][Pp][Gg] | [Jj][Pp][Ee][Gg] | [Ww][Ee][Bb][Pp])
+        images_to_stitch+=("$f")
+        ;;
+      esac
+    done
+
+    COUNT=${#images_to_stitch[@]}
+
+    if [ "$COUNT" -eq 2 ]; then
+      OUT=$(mktemp /tmp/fzf_side_by_side_XXXX.png)
+      magick "${images_to_stitch[@]}" \
+        -gravity center \
+        -background "#282828" \
+        +smush 20 \
+        -bordercolor "#282828" -border 20 \
+        "$OUT"
+      wl-copy -t image/png <"$OUT"
+      notify-send "Side-by-Side" "Stitched horizontally and copied!"
+
+    elif [ "$COUNT" -gt 2 ]; then
+      OUT=$(mktemp /tmp/fzf_moodboard_XXXX.png)
+      montage "${images_to_stitch[@]}" -auto-orient -geometry 800x800\>+10+10 -background gray -tile 3x "$OUT"
+      wl-copy -t image/png <"$OUT"
+      notify-send "Moodboard" "Grid of $COUNT images copied!"
+
+    else
+      notify-send "Error" "Select 2 or more images"
+    fi
     ;;
   esac
 fi

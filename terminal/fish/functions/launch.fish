@@ -53,6 +53,7 @@ function launch
             set urls "https://www.tldraw.com/"
         case du вг
             set urls "https://duckduckgo.com/?q=DuckDuckGo+AI+Chat&ia=chat&duckai=1"
+
         case git пше
             if test -n "$rest"
                 set urls "https://github.com/search?q=$url_encoded_rest"
@@ -91,12 +92,16 @@ function launch
             set urls "https://posemy.art/quick-poses/"
         case al фд
             set urls "https://alice.yandex.ru/"
+        case yt фд
+            set urls "https://www.youtube.com/feed/downloads"
         case ar фк
             set urls "https://arena.ai/?mode=direct"
         case arf фка
             set urls "https://arena.ai/direct?m=flash"
         case helltaker
-            niri_spawn_sh "$BROWSER https://www.youtube.com/playlist?list=PLzxkyQKtgmo9A0Gq-YS1vvxqlLNgB8vhU"
+            set urls "https://www.youtube.com/playlist?list=PLzxkyQKtgmo9A0Gq-YS1vvxqlLNgB8vhU"
+        case van
+            set urls "https://www.youtube.com/playlist?list=PL5pycTgSAvaB4EE1h_bZOQl2DHiHFy6_g"
 
         case ah фр
             set -l db_path "$XDG_DATA_HOME/qutebrowser/webengine/Cookies"

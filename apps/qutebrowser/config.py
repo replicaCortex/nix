@@ -55,8 +55,15 @@ c.hints.selectors["text"] = ["p", "pre", "code", "li"]
 # =========================================================
 
 # --- Окна и история ---
-config.bind("F", "hint all window")  # 'F' открывает ссылку в новом тайле
-# Нажимаем gE (или пУ на русской):
+scripts_path = os.environ.get("SCRIPTS", "ERROR")
+
+config.bind("F", "hint all window")
+config.bind(
+    ";f",
+    f"hint links spawn --userscript {scripts_path}/buffer-browser.sh push {{hint-url}}",
+)
+config.bind(";b", f"spawn --userscript {scripts_path}/buffer-browser.sh pop")
+
 config.bind("E", "hint inputs --first ;; cmd-later 50 edit-text")
 # При нажатии Enter в режиме ввода: отправить Enter на сайт и выйти в Normal mode
 config.bind("<Return>", "fake-key <Return> ;; mode-leave", mode="insert")
@@ -292,17 +299,21 @@ home = os.environ.get("HOME", "ERROR")
 
 
 c.aliases["d-image"] = (
-    f"spawn {float_terminal} -T no-focused -e bash --noprofile --norc -c 'gallery-dl {{url}} && sleep 4'"
+    f"spawn {float_terminal} -T no-focused -e bash --noprofile --norc -c 'gallery-dl {{url}} || sleep 4'"
 )
 
 c.aliases["d-video"] = (
-    f"spawn {float_terminal} -D '{home}/inbox/' -T no-focused -e fish -c 'yt-dlp-video {{url}} && sleep 4'"
+    f"spawn {float_terminal} -D '{home}/inbox/' -T no-focused -e fish -c 'yt-dlp-video {{url}} || sleep 4'"
 )
 
 c.aliases["d-music"] = (
-    f"spawn {float_terminal} -D '{home}/inbox/' -T no-focused -e fish -c 'yt-dlp-music {{url}} && sleep 4'"
+    f"spawn {float_terminal} -D '{home}/inbox/' -T no-focused -e fish -c 'yt-dlp-music {{url}} || sleep 4'"
+)
+
+c.aliases["d-playlist"] = (
+    f"spawn {float_terminal} -D '{home}/inbox/' -T no-focused -e fish -c 'yt-dlp-music-playlist {{url}} || sleep 4'"
 )
 
 c.aliases["d-content"] = (
-    f"spawn {float_terminal} -T no-focused -e fish -c 'yt-dlp {{url}} && sleep 4'"
+    f"spawn {float_terminal} -T no-focused -e fish -c 'yt-dlp {{url}} || sleep 4'"
 )

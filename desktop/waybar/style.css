@@ -61,6 +61,7 @@ button:hover {
 #language,
 #memory,
 #network,
+#bluetooth,
 #pulseaudio,
 #temperature,
 #tray,
@@ -79,6 +80,7 @@ button:hover {
 
 #battery.normal,
 #temperature,
+#bluetooth,
 #memory,
 #cpu,
 #pulseaudio {
@@ -89,6 +91,10 @@ button:hover {
 #network,
 #temperature.critical {
   color: #1d2021;
+}
+
+#bluetooth {
+  border-right: 2px solid #ff75a0;
 }
 
 #pulseaudio {
@@ -107,6 +113,7 @@ button:hover {
   border-right: 2px solid #fe8019;
 }
 
+#bluetooth.low,
 #temperature.critical {
   background-color: #fb4934;
   border-right: 2px solid #fe8019;

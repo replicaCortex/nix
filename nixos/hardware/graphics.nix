@@ -6,4 +6,5 @@
     };
   };
 
+  # programs.steam.enable = true;
 }

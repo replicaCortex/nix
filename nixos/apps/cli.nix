@@ -13,6 +13,8 @@
     ffmpegthumbnailer
     file
     fzf
+    imagemagick
+    tree-sitter
     gitMinimal
     jq
     jujutsu
@@ -25,6 +27,7 @@
     nsxiv
     pandoc
     pkgs-neovim.neovim
+    rar
     rip2
     ripgrep
     sqlite

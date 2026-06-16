@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
 
+shopt -s extglob
+
 [ -z "$GROQ_API_KEY" ] && exit 0
-command -v mutool >/dev/null 2>&1 || exit 0
-command -v curl >/dev/null 2>&1 || exit 0
-command -v jq >/dev/null 2>&1 || exit 0
+for cmd in mutool curl jq; do
+  command -v "$cmd" >/dev/null 2>&1 || exit 0
+done
 
 raw_filename="$1"
 [ -z "$raw_filename" ] && exit 1
 
-if [[ "$raw_filename" == *.* ]]; then
-  ext_lower=$(echo "${raw_filename##*.}" | tr '[:upper:]' '[:lower:]')
-else
-  ext_lower=""
-fi
+# Нативное получение расширения и приведение к нижнему регистру
+ext="${raw_filename##*.}"
+[[ "$raw_filename" == *.* ]] && ext_lower="${ext,,}" || ext_lower=""
 
 case "$ext_lower" in
 pdf | epub | fb2 | mobi | djvu | azw | azw3) ;;
@@ -21,8 +21,16 @@ pdf | epub | fb2 | mobi | djvu | azw | azw3) ;;
   ;;
 esac
 
-book_text=$(mutool draw -o - "$raw_filename" 5-15 2>/dev/null | head -c 8000 | tr -d '\000-\011\013\014\016-\037')
-readable_filename=$(echo "$raw_filename" | tr '_' ' ' | sed -E 's/\[[^]]*\]//g' | sed 's/  */ /g' | sed 's/^ //; s/ $//')
+# Изменено: страницы 1-12 (чтобы точно захватить титульник и copyright-страницу)
+# Изменено: tr -cd оставляет только печатные символы, пробелы и переносы строк
+book_text=$(mutool draw -o - "$raw_filename" 1-12 2>/dev/null | head -c 8000 | tr -cd '\11\12\40-\176\200-\377')
+
+# Нативная очистка имени (без множественных седов)
+readable_filename="${raw_filename//_/ }"
+readable_filename=$(sed -E 's/\[[^]]*\]//g' <<<"$readable_filename")
+readable_filename="${readable_filename//+([[:space:]])/ }"
+readable_filename="${readable_filename##+([[:space:]])}"
+readable_filename="${readable_filename%%+([[:space:]])}"
 
 PROMPT="You are a strict book indexing tool. Analyze the filename and the text snippet.
 Extract the metadata (author, title, year) and generate 5-10 descriptive kebab-case tags (genres, themes, subjects).
@@ -53,11 +61,20 @@ body="${response:0:${#response}-3}"
 
 [ "$http_code" -ne 200 ] && exit 0
 
-author=$(echo "$body" | jq -r '.choices[0].message.content' 2>/dev/null | jq -r '.author // empty' 2>/dev/null)
-title=$(echo "$body" | jq -r '.choices[0].message.content' 2>/dev/null | jq -r '.title // empty' 2>/dev/null)
-year=$(echo "$body" | jq -r '.choices[0].message.content' 2>/dev/null | jq -r '.year // empty' 2>/dev/null)
-content_tags=$(echo "$body" | jq -r '.choices[0].message.content' 2>/dev/null | jq -r '.tags[] // empty' 2>/dev/null | sed -E 's/[[:space:]]+/-/g' | tr '[:upper:]' '[:lower:]' | xargs)
+# --- ОПТИМИЗАЦИЯ ---
+# Извлекаем внутренний JSON (ответ LLM) всего один раз
+llm_json=$(jq -r '.choices[0].message.content // empty' <<<"$body" 2>/dev/null)
+[ -z "$llm_json" ] && exit 0
 
+# Теперь парсим поля напрямую из извлеченного текста (работает в 4 раза быстрее)
+author=$(jq -r '.author // empty' <<<"$llm_json" 2>/dev/null)
+title=$(jq -r '.title // empty' <<<"$llm_json" 2>/dev/null)
+year=$(jq -r '.year // empty' <<<"$llm_json" 2>/dev/null)
+
+# xargs собирает теги в одну строчку через пробел
+content_tags=$(jq -r '.tags[]? // empty' <<<"$llm_json" 2>/dev/null | sed -E 's/[[:space:]]+/-/g' | tr '[:upper:]' '[:lower:]' | xargs)
+
+# Нативная проверка на мусор (,, приводит к lower case)
 [[ "${author,,}" =~ ^(unknown|null|none|n/a|не\ указан.*|неизвест.*)$ ]] && author=""
 [[ "${title,,}" =~ ^(unknown|null|none|n/a|не\ указан.*|неизвест.*)$ ]] && title=""
 [[ "${year,,}" =~ ^(unknown|null|none|n/a|не\ указан.*|неизвест.*)$ ]] && year=""
@@ -68,4 +85,6 @@ tags=""
 [ -n "$title" ] && tags="$tags title=\"$title\""
 [ -n "$content_tags" ] && tags="$tags $content_tags"
 
+# Вывод с отсечением лишнего пробела спереди (если author и year пусты)
+tags="${tags##+([[:space:]])}"
 echo "$tags"
