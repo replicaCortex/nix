@@ -7,6 +7,7 @@ update-nvim:
 update:
     cd ./nixos && nix flake update
 
+# TODO: rewrite to nixos
 sync:
     @mkdir -p ~/.var/.config
     @ln -sfn $DOTFILES/apps/mpv $XDG_CONFIG_HOME/mpv
@@ -22,6 +23,8 @@ sync:
     @ln -sfn $DOTFILES/terminal/yt-dlp/ $XDG_CONFIG_HOME/yt-dlp
     @ln -sfn /etc/dunst $XDG_CONFIG_HOME/dunst
     @ln -sfn /etc/niri/ $XDG_CONFIG_HOME/niri
+
+    go build -o $HOME/.var/.local/bin/ $DOTFILES/terminal/scripts/src/vipe.go
 
 dev:
     distrobox-assemble create --file $DOTFILES/containers/distrobox.ini

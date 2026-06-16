@@ -33,7 +33,6 @@ end
 alias vid "ls | sort | $DOTFILES/terminal/scripts/vidir.sh"
 alias vidd "fd -t d | sort | $DOTFILES/terminal/scripts/vidir.sh"
 alias vidf "fd -t f | sort | $DOTFILES/terminal/scripts/vidir.sh"
-alias vipe "$DOTFILES/terminal/scripts/vipe.sh"
 alias tree "eza --tree --level=3 --icons=always --git-ignore"
 alias norm $DOTFILES/terminal/scripts/normalize.sh
 

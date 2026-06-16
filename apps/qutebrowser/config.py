@@ -288,27 +288,21 @@ c.content.javascript.enabled = True
 config.bind("d", "nop", mode="normal")
 
 float_terminal = os.environ.get("SMART_FLOAT", "ERROR")
+home = os.environ.get("HOME", "ERROR")
 
-# --- commands ---
+
 c.aliases["d-image"] = (
-    "spawn "
-    + float_terminal
-    + " -T no-focused -e bash --noprofile --norc -c 'gallery-dl {url} && sleep 4'"
+    f"spawn {float_terminal} -T no-focused -e bash --noprofile --norc -c 'gallery-dl {{url}} && sleep 4'"
 )
 
 c.aliases["d-video"] = (
-    "spawn "
-    + float_terminal
-    + " -D '$HOME/inbox/' -T no-focused -e fish -c 'yt-dlp-video {url} && sleep 4'"
+    f"spawn {float_terminal} -D '{home}/inbox/' -T no-focused -e fish -c 'yt-dlp-video {{url}} && sleep 4'"
 )
 
-
 c.aliases["d-music"] = (
-    "spawn "
-    + float_terminal
-    + " -D '$HOME/inbox/' -T no-focused -e fish -c 'yt-dlp-music {url} && sleep 4'"
+    f"spawn {float_terminal} -D '{home}/inbox/' -T no-focused -e fish -c 'yt-dlp-music {{url}} && sleep 4'"
 )
 
 c.aliases["d-content"] = (
-    "spawn " + float_terminal + " -T no-focused -e fish -c 'yt-dlp {url} && sleep 4'"
+    f"spawn {float_terminal} -T no-focused -e fish -c 'yt-dlp {{url}} && sleep 4'"
 )
