@@ -1,7 +1,7 @@
 update-arena-scripts:
     curl -sL "https://update.greasyfork.org/scripts/526702/Arenaai%20%7C%20DOM%20Performance%20Optimizer.user.js" -o ./arena_dom_opt.js
 
-    curl -sL "https://update.greasyfork.org/scripts/492216/Arenaai%20%20LMSYS%20Arena%20Chat%20Exporter.user.js" -o ./arena_to_markdown.js.bk
+    curl -sL "https://update.greasyfork.org/scripts/492216/Arenaai%20%20LMSYS%20Arena%20Chat%20Exporter.user.js" -o ./arena_to_markdown.js
 
     curl -sL "https://update.greasyfork.org/scripts/471477/Reddit%20Old%20Redirect%20%F0%9F%94%99.user.js" -o ./redirect_to_old_reddit.js
 
@@ -10,6 +10,8 @@ update-arena-scripts:
     curl -sL "https://update.greasyfork.org/scripts/469760/Reddit%20Old%20Mobile%20%F0%9F%93%B1.user.js" -o ./old_reddit_mobile.js
 
     curl -sL "https://update.greasyfork.org/scripts/576713/Pure%20Twitter%20%28X%29%20Age%20Bypass.user.js" -o ./x-age.js
+
+    curl -sL "https://update.greasyfork.org/scripts/460680/Youtube%20Tools%20All%20in%20one%20local%20download%20mp3%20mp4%20HIGT%20QUALITY%20return%20dislikes%20and%20more.user.js" -o ./yt-sponsorblock.js
 
     just reload 
 

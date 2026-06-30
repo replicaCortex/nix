@@ -24,9 +24,6 @@ sync:
     @ln -sfn /etc/dunst $XDG_CONFIG_HOME/dunst
     @ln -sfn /etc/niri/ $XDG_CONFIG_HOME/niri
 
-dev:
-    distrobox-assemble create --file $DOTFILES/containers/distrobox.ini
-
 # TODO: just to nix
 install-mpv-scripts:
     #!/usr/bin/env bash

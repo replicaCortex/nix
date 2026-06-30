@@ -68,7 +68,7 @@ vim.api.nvim_create_autocmd("LspProgress", {
       title = client.name,
       opts = function(notif)
         notif.icon = #progress[client.id] == 0 and " "
-          or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
+            or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
       end,
     })
   end,
@@ -116,8 +116,8 @@ end, {})
 vim.api.nvim_create_autocmd("InsertLeave", {
   callback = function()
     if
-      require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
-      and not require("luasnip").session.jump_active
+        require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
+        and not require("luasnip").session.jump_active
     then
       require("luasnip").unlink_current()
     end
@@ -178,9 +178,9 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile", "BufEnter" }, {
       syntax clear
 
       syntax match VidirID "^\s*\d\+"
-      
+
       syntax match VidirDir "\t\zs.*/"
-      
+
       hi def link VidirID Number
       hi def link VidirDir Directory
     ]]
@@ -194,15 +194,5 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile", "BufEnter" }, {
     vim.opt_local.linebreak = true
     vim.opt_local.spell = true
     vim.opt_local.spelllang = { "ru", "en" }
-  end,
-})
-
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "/tmp/qutebrowser-editor-*",
-  callback = function()
-    local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
-    local content = table.concat(lines, "\n")
-
-    vim.fn.system("wl-copy", content)
   end,
 })

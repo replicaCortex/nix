@@ -6,6 +6,7 @@
     mpv
     pureref
     zathura
+    godot
     # vimiv-qt
   ];
 

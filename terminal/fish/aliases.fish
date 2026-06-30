@@ -7,16 +7,10 @@ abbr -a mv 'mv -vn'
 abbr -a cp 'cp -v'
 abbr -a rm "echo Use 'rip' instead of rm"
 abbr -a wl-paste 'wl-paste -n '
+abbr -a ns 'nix-shell -p'
 alias tmsu "tmsu --database=$TMSU_DB"
 alias tmsu-add "$DOTFILES/terminal/scripts/tmsu.sh"
 alias wget "curl -L -O"
-
-function ns
-    set -l tmp_home (mktemp -d)
-    set -l pkg $argv[1]
-
-    HOME="$tmp_home" XDG_CONFIG_HOME="$tmp_home/.config" XDG_CACHE_HOME="$tmp_home/.cache" XDG_DATA_HOME="$tmp_home/.local/share" nix-shell -p "$pkg" 
-end
 
 function vi
     nsxiv -ta . >/dev/null 2>&1 &
@@ -73,8 +67,7 @@ end
 
 abbr aria "aria2c -x 16 -s 16 -c"
 
-abbr dev 'distrobox enter dev'
-abbr devs 'distrobox stop dev'
-abbr drun 'distrobox enter dev --'
-
 abbr qu exit
+
+abbr wfa 'wf-recorder -a="bluez_output.E4:61:F4:31:88:26.monitor" -r 30 -f $(date +"%Y%m%d_%H%M%S").mkv -c hevc_vaapi -d /dev/dri/renderD128 -p qp=28'
+abbr wf 'wf-recorder -r 30 -f $(date +"%Y%m%d_%H%M%S").mkv -c hevc_vaapi -d /dev/dri/renderD128 -p qp=28'

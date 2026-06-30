@@ -15,7 +15,7 @@ fi
 MULTIPLE="$1"
 DIRECTORY="$2"
 SAVE="$3"
-# START_PATH="$4"
+START_PATH="$4"
 OUT_FILE="$5"
 
 if [ -d "$START_PATH" ]; then

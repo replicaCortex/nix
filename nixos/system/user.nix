@@ -2,13 +2,13 @@
 {
   users.users.replica = {
     isNormalUser = true;
-    shell = pkgs.fish;
+    shell = pkgs.bash;
     extraGroups = [
       "networkmanager"
       "wheel"
+      "input"
       "kvm"
     ];
   };
-  programs.fish.enable = true;
   services.getty.autologinUser = "replica";
 }

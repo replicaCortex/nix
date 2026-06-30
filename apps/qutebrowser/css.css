@@ -1,0 +1,16 @@
+*:not(i):not([class*="icon"]):not([class*="fa"]):not([class*="fas"]):not(
+    [class*="far"]
+  ) {
+  font-family: "Ubuntu Mono", monospace !important;
+}
+
+pre,
+code,
+kbd,
+samp {
+  font-family: "Ubuntu Mono", monospace !important;
+}
+
+html {
+  font-size: 110% !important;
+}

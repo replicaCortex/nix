@@ -4,7 +4,11 @@
     "cookies-from-browser": "chromium:$XDG_DATA_HOME/qutebrowser/webengine",
     "newgrounds": {
       "directory": [],
-      "filename": "newgrounds_{id}_{user}_{title}.{extension}"
+      "filename": "newgrounds_{id}_{user}_{title}_{num}.{extension}"
+    },
+    "artstation": {
+      "directory": [],
+      "filename": "artstation_{id}_{username}_{title}_{num}.{extension}"
     }
   }
 }

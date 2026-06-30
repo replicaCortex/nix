@@ -27,6 +27,12 @@ let
   x5 = (usable-width / 2) - (win-width / 2);
   y5 = (usable-height / 2) - (win-height / 2);
 
+  dmenu-width = 700;
+  dmenu-height = 200;
+
+  dmenu-x = (usable-width / 2) - (dmenu-width / 2);
+  dmenu-y = gaps;
+
   browser = "qutebrowser";
   editor = "nvim";
   dotfiles = "$HOME/dev/nix";
@@ -114,7 +120,7 @@ in
     QT_QPA_PLATFORMTHEME = "xdgdesktopportal";
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
 
-    SDL_VIDEODRIVER = "wayland";
+    SDL_VIDEODRIVER = "wayland,x11";
     WLR_NO_HARDWARE_CURSORS = "1";
     DISPLAY = ":0";
 
@@ -247,6 +253,30 @@ in
       shadow { on; }
     }
 
+    window-rule {
+      match app-id="^dmenu$"
+
+      open-floating true
+      open-focused true
+
+      default-column-width { fixed ${toString dmenu-width}; }
+      default-window-height { fixed ${toString dmenu-height}; }
+      default-floating-position x=${toString dmenu-x} y=${toString dmenu-y}
+
+      border {
+        width 2
+        active-color "${gb-yellow}"
+        inactive-color "${gb-yellow-l}" 
+      }
+
+      shadow { on; }
+    }
+
+    window-rule {
+      match app-id="^fullscreen$"
+      open-fullscreen true
+    }
+
     window-rule { match app-id="float-1"; default-floating-position x=${toString x1} y=${toString y1}; }
     window-rule { match app-id="float-2"; default-floating-position x=${toString x2} y=${toString y2}; }
     window-rule { match app-id="float-3"; default-floating-position x=${toString x3} y=${toString y3}; }
@@ -279,17 +309,17 @@ in
     binds {
       Mod+Return            { spawn "${terminalClient}"; }
       Mod+Shift+Ctrl+Return { spawn "${terminal}"; }
-      
-      Mod+F       { spawn-sh "${smart-float-cmd} fish -c 'source ${dotfiles}/terminal/fish/functions/launch.fish; launch'"; }
-      Mod+Shift+F { spawn-sh "${smart-float-cmd} bash --noprofile --norc -c ${dotfiles}/terminal/scripts/pick.sh"; }
-      Mod+B       { spawn-sh "${smart-float-cmd} fish -c 'source ${dotfiles}/terminal/fish/functions/browser_history.fish; browser_history'"; }
-      Mod+Y { spawn-sh "bash --noprofile --norc -c ${dotfiles}/terminal/scripts/cliphist-pick.sh"; }
-      Mod+E       { spawn-sh "${terminalClient} -e bash --noprofile --norc -c 'btop'"; }
-      Mod+V { spawn-sh "${smart-float-cmd} -e bash --noprofile --norc -c ${dotfiles}/terminal/scripts/vidir-wrapped.sh"; }
-      
+
+      Mod+F       { spawn-sh "${smart-float-cmd} bash -c '${dotfiles}/terminal/scripts/launch.py'"; }
+      Mod+Shift+F { spawn-sh "${smart-float-cmd} bash -c ${dotfiles}/terminal/scripts/pick.sh"; }
+      Mod+B       { spawn-sh "${smart-float-cmd} bash -c '${dotfiles}/terminal/scripts/browser_history.py'"; }
+      Mod+Y { spawn-sh "bash -c ${dotfiles}/terminal/scripts/cliphist-pick.sh"; }
+      Mod+E       { spawn-sh "${terminalClient} -e bash -c 'btop'"; }
+      Mod+V { spawn-sh "${smart-float-cmd} -e bash -c ${dotfiles}/terminal/scripts/vidir-wrapped.sh"; }
+
       Mod+G       { spawn-sh "${browser}"; }
       Mod+X       { spawn-sh "Telegram"; }
-      Mod+P       { screenshot; }
+      Mod+P       { spawn-sh "${terminalClient} --app-id='dmenu' -e bash --noprofile --norc -c ${dotfiles}/terminal/scripts/screenshot.sh"; }
       Mod+Shift+P { screenshot-window; }
 
       Mod+O repeat=false { toggle-overview; }

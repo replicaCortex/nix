@@ -34,8 +34,8 @@ nvim_call_back = os.environ.get("NVIM_CALL_BACK", "ERROR")
 c.editor.command = [
     nvim_call_back,
     "{file}",
-    "-c",
-    "normal {line}G{column0}l",
+    # "-c",
+    # "normal {line}G{column0}l",
     # "-c",
     # "startinsert",
 ]
@@ -263,19 +263,23 @@ c.colors.prompts.selected.bg = bg2
 # 8. ШРИФТЫ
 # =========================================================
 
-my_font = '"Ubuntu Mono Nerd Font"'
+my_font = "Ubuntu Mono"
+font_size = 14
 
+
+dotfiles = os.environ.get("DOTFILES", "ERROR")
+c.content.user_stylesheets = [dotfiles + "/apps/qutebrowser/css.css"]
 c.fonts.default_family = my_font
-c.fonts.default_size = "11pt"
+c.fonts.default_size = f"{font_size}pt"
 
-c.fonts.hints = f"bold 13pt {my_font}"
-c.fonts.statusbar = f"11pt {my_font}"
-c.fonts.completion.entry = f"11pt {my_font}"
-c.fonts.completion.category = f"bold 11pt {my_font}"
-c.fonts.prompts = f"11pt {my_font}"
-c.fonts.messages.info = f"11pt {my_font}"
-c.fonts.messages.warning = f"11pt {my_font}"
-c.fonts.messages.error = f"11pt {my_font}"
+c.fonts.hints = f"bold {font_size + 2}pt {my_font}"
+c.fonts.statusbar = f"{font_size}pt {my_font}"
+c.fonts.completion.entry = f"{font_size}pt {my_font}"
+c.fonts.completion.category = f"bold {font_size}pt {my_font}"
+c.fonts.prompts = f"{font_size}pt {my_font}"
+c.fonts.messages.info = f"{font_size}pt {my_font}"
+c.fonts.messages.warning = f"{font_size}pt {my_font}"
+c.fonts.messages.error = f"{font_size}pt {my_font}"
 
 c.fonts.web.family.fixed = my_font
 
@@ -299,21 +303,21 @@ home = os.environ.get("HOME", "ERROR")
 
 
 c.aliases["d-image"] = (
-    f"spawn {float_terminal} -T no-focused -e bash --noprofile --norc -c 'gallery-dl {{url}} || sleep 4'"
+    f"spawn {float_terminal} -T no-focused -e bash -c 'gallery-dl {{url}} || sleep 4'"
 )
 
 c.aliases["d-video"] = (
-    f"spawn {float_terminal} -D '{home}/inbox/' -T no-focused -e fish -c 'yt-dlp-video {{url}} || sleep 4'"
+    f"spawn {float_terminal} -D '{home}/inbox/' -T no-focused -e bash -c 'yt-dlp-video {{url}} || sleep 4'"
 )
 
 c.aliases["d-music"] = (
-    f"spawn {float_terminal} -D '{home}/inbox/' -T no-focused -e fish -c 'yt-dlp-music {{url}} || sleep 4'"
+    f"spawn {float_terminal} -D '{home}/inbox/' -T no-focused -e bash -c 'yt-dlp-music {{url}} || sleep 4'"
 )
 
 c.aliases["d-playlist"] = (
-    f"spawn {float_terminal} -D '{home}/inbox/' -T no-focused -e fish -c 'yt-dlp-music-playlist {{url}} || sleep 4'"
+    f"spawn {float_terminal} -D '{home}/inbox/' -T no-focused -e bash -c 'yt-dlp-music-playlist {{url}} || sleep 4'"
 )
 
 c.aliases["d-content"] = (
-    f"spawn {float_terminal} -T no-focused -e fish -c 'yt-dlp {{url}} || sleep 4'"
+    f"spawn {float_terminal} -T no-focused -e bash -c 'yt-dlp {{url}} || sleep 4'"
 )
