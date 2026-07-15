@@ -4,7 +4,7 @@
 
     # System core
     ./system/boot.nix
-    # ./system/create-config.nix
+    ./system/create-config.nix
     ./system/locale.nix
     ./system/network.nix
     ./system/user.nix

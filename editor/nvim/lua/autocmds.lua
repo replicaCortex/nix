@@ -68,7 +68,7 @@ vim.api.nvim_create_autocmd("LspProgress", {
       title = client.name,
       opts = function(notif)
         notif.icon = #progress[client.id] == 0 and " "
-            or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
+          or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
       end,
     })
   end,
@@ -116,8 +116,8 @@ end, {})
 vim.api.nvim_create_autocmd("InsertLeave", {
   callback = function()
     if
-        require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
-        and not require("luasnip").session.jump_active
+      require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
+      and not require("luasnip").session.jump_active
     then
       require("luasnip").unlink_current()
     end
@@ -184,6 +184,14 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile", "BufEnter" }, {
       hi def link VidirID Number
       hi def link VidirDir Directory
     ]]
+  end,
+})
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile", "BufEnter" }, {
+  pattern = { "*.md" },
+  callback = function()
+    vim.api.nvim_set_hl(0, "@markup.quote", { link = "Keyword" })
+    vim.api.nvim_set_hl(0, "@markup.quote.markdown", { link = "Keyword" })
   end,
 })
 

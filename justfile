@@ -10,19 +10,19 @@ update:
 # TODO: rewrite to nixos
 sync:
     @mkdir -p ~/.var/.config
-    @ln -sfn $DOTFILES/apps/mpv $XDG_CONFIG_HOME/mpv
-    @ln -sfn $DOTFILES/apps/qutebrowser $XDG_CONFIG_HOME/qutebrowser
-    @ln -sfn $DOTFILES/apps/zathura $XDG_CONFIG_HOME/zathura
-    @ln -sfn $DOTFILES/desktop/waybar $XDG_CONFIG_HOME/waybar
-    @ln -sfn $DOTFILES/desktop/xdg-desktop-portal-termfilechooser/ $XDG_CONFIG_HOME/xdg-desktop-portal-termfilechooser
-    @ln -sfn $DOTFILES/desktop/xdg-desktop-portal/ $XDG_CONFIG_HOME/xdg-desktop-portal
-    @ln -sfn $DOTFILES/editor/nvim $XDG_CONFIG_HOME/nvim
-    @ln -sfn $DOTFILES/terminal/fish $XDG_CONFIG_HOME/fish
-    @ln -sfn $DOTFILES/terminal/foot $XDG_CONFIG_HOME/foot
-    @ln -sfn $DOTFILES/terminal/gallery-dl/ $XDG_CONFIG_HOME/gallery-dl
-    @ln -sfn $DOTFILES/terminal/yt-dlp/ $XDG_CONFIG_HOME/yt-dlp
-    @ln -sfn /etc/dunst $XDG_CONFIG_HOME/dunst
-    @ln -sfn /etc/niri/ $XDG_CONFIG_HOME/niri
+    @ln -sfn $DOTFILES/apps/mpv $XDG_CONFIG_HOME/
+    @ln -sfn $DOTFILES/apps/qutebrowser $XDG_CONFIG_HOME/
+    @ln -sfn $DOTFILES/apps/zathura $XDG_CONFIG_HOME/
+    @ln -sfn $DOTFILES/desktop/waybar $XDG_CONFIG_HOME/
+    @ln -sfn $DOTFILES/desktop/xdg-desktop-portal-termfilechooser/ $XDG_CONFIG_HOME/
+    @ln -sfn $DOTFILES/desktop/xdg-desktop-portal/ $XDG_CONFIG_HOME/
+    @ln -sfn $DOTFILES/editor/nvim $XDG_CONFIG_HOME/
+    @ln -sfn $DOTFILES/terminal/fish $XDG_CONFIG_HOME/
+    @ln -sfn $DOTFILES/terminal/foot $XDG_CONFIG_HOME/
+    @ln -sfn $DOTFILES/terminal/gallery-dl/ $XDG_CONFIG_HOME/
+    @ln -sfn $DOTFILES/terminal/yt-dlp/ $XDG_CONFIG_HOME/
+    @ln -sfn /etc/dunst $XDG_CONFIG_HOME/
+    @ln -sfn /etc/niri/ $XDG_CONFIG_HOME/
 
 # TODO: just to nix
 install-mpv-scripts:

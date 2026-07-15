@@ -22,7 +22,7 @@ def get_query_arg(_) -> str:
 
 
 def fetch_history(_):
-    db_path = os.path.expanduser("~/.var/.local/share/qutebrowser/history.sqlite")
+    db_path = os.path.expanduser("~/.local/share/qutebrowser/history.sqlite")
 
     if not os.path.exists(db_path):
         print(f"Error: DB not found at {db_path}")

@@ -74,7 +74,7 @@ let
 in
 {
   environment.sessionVariables = {
-    PATH = "$HOME/.var/.local/bin:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:/home/replica/.var/.dotnet/tools:$PATH:$HOME/.var/.cargo/bin/";
+    PATH = "$HOME/.local/bin:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:/home/replica/.dotnet/tools:$PATH:$HOME/.cargo/bin/";
 
     SMART_FLOAT = smart-float-cmd;
     NVIM_CALL_BACK = nvim-call-back;
@@ -88,13 +88,13 @@ in
     VIDEO_VIEWER = video-viewer;
     IMAGE_VIEWER = image-viewer;
 
-    XDG_CONFIG_HOME = "$HOME/.var/.config";
-    XDG_DATA_HOME = "$HOME/.var/.local/share";
-    XDG_STATE_HOME = "$HOME/.var/.local/state";
-    XDG_CACHE_HOME = "$HOME/.var/.cache";
+    XDG_CONFIG_HOME = "$HOME/.config";
+    XDG_DATA_HOME = "$HOME/.local/share";
+    XDG_STATE_HOME = "$HOME/.local/state";
+    XDG_CACHE_HOME = "$HOME/.cache";
 
-    HISTFILE = "$HOME/.var/.local/state/bash/history";
-    WGETRC = "$HOME/.var/.config/wgetrc";
+    HISTFILE = "$HOME/.local/state/bash/history";
+    WGETRC = "$HOME/.config/wgetrc";
     INPUTRC = "${dotfiles}/.inputrc";
 
     BROWSER = browser;
@@ -298,6 +298,7 @@ in
     layer-rule {
       match namespace="^wallpaper$"
       match namespace="swww-daemon"
+      match namespace="^quckshell$"
       place-within-backdrop true
     }
 

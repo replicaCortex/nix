@@ -28,6 +28,7 @@ except AttributeError:
     pass
 
 ALIASES = {
+    "лву": "kde",
     "пщ": "go",
     "тшч": "nix",
     "ек": "tr",
@@ -265,6 +266,7 @@ ROUTES = {
     "be": static_url("https://rostov-na-donu.beeline.ru/customers/products/elk/"),
     "s": static_url("https://sdo.npi-tu.ru/"),
     "sdo": run_local_cmd(["sdo"]),
+    "kde": run_local_cmd("kdeconnect-app"),
     "npi": static_url("https://dec.srspu.ru/Ved/"),
     "vk": static_url("https://vk.com/im"),
     "manga": static_url("https://mangadex.org/titles/follows"),

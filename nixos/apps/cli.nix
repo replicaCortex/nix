@@ -4,13 +4,30 @@
   programs.kdeconnect.enable = true;
   programs.weylus = {
     enable = true;
-    users = [ "replica" ];
     openFirewall = true;
+    users = [ "replica" ];
   };
-  hardware.uinput.enable = true;
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gnome
+      pkgs.xdg-desktop-portal-gtk
+    ];
+    config = {
+      common = {
+        default = [ "gtk" ];
+      };
+      niri = {
+        "org.freedesktop.portal.ScreenCast" = [ "gnome" ];
+        "org.freedesktop.portal.Screenshot" = [ "gnome" ];
+      };
+    };
+  };
+  security.rtkit.enable = true;
 
   environment.systemPackages = with pkgs; [
-    xdg-desktop-portal-gtk
+    android-tools
     aria2
     bat
     batsignal
@@ -47,10 +64,11 @@
     repomix
     rip2
     ripgrep
+    scrcpy
     shfmt
-    stylua
     slurp
     sqlite
+    stylua
     timg
     tmsu
     tree-sitter

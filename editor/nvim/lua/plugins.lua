@@ -110,6 +110,16 @@ return {
     end,
   },
   {
+    "yousefhadder/markdown-plus.nvim",
+    ft = "markdown",
+    opts = {},
+  },
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    opts = {},
+  },
+  {
     "rachartier/tiny-glimmer.nvim",
     keys = {
       "yy",
